@@ -1,0 +1,72 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "scenario": "normal",
+      "days": 2,
+      "detail_turns": 2,
+      "detail_events": 12
+    },
+    {
+      "scenario": "unknown",
+      "days": 2,
+      "detail_turns": 2,
+      "detail_events": 12
+    },
+    {
+      "scenario": "zero",
+      "days": 2,
+      "detail_turns": 0,
+      "detail_events": 0
+    },
+    {
+      "scenario": "unpriced",
+      "days": 2,
+      "detail_turns": 2,
+      "detail_events": 12
+    },
+    {
+      "scenario": "small_cost",
+      "days": 2,
+      "detail_turns": 2,
+      "detail_events": 12
+    },
+    {
+      "scenario": "collision",
+      "days": 2,
+      "detail_turns": 2,
+      "detail_events": 12
+    },
+    {
+      "scenario": "long_names",
+      "days": 2,
+      "detail_turns": 2,
+      "detail_events": 12
+    },
+    {
+      "scenario": "large",
+      "days": 120,
+      "detail_turns": 960,
+      "detail_events": 3840
+    },
+    {
+      "scenario": "empty",
+      "empty": true
+    },
+    {
+      "scenario": "missing_store",
+      "empty": true
+    },
+    {
+      "scenario": "missing_fields",
+      "null_preserved": true
+    }
+  ],
+  "source_manifest": {
+    "fixtures.mjs": "b4546a3255001ed51d39d4ccf033064cd5745d5ceb4e1196275751cd977c10d8",
+    "contract-fixtures.mjs": "5fe100df4f6b25d8586f368c68f68e0c879428783fe45199e59bbab550f36a26",
+    "check-fixtures.mjs": "6bf1c63e60340ca3bb14022e65f87472afb53711087d63ee2a3df01df34247d2"
+  },
+  "scope": "Fixture arithmetic and identity only; not browser or task qualification",
+  "model_calls": 0
+}

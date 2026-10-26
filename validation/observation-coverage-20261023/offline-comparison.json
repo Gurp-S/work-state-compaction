@@ -1,0 +1,16 @@
+{
+  "status": "offline_same_source_coverage_verified",
+  "original_package_sha256": "77026baaa5c323535154430cc1e044eb510faabbedb82e7cf0e8b7cb82919b8c",
+  "observations": 16,
+  "folded_observations": 12,
+  "retained_inline_observations": 4,
+  "original_checkpoint_utf8_bytes": 117913,
+  "candidate_checkpoint_utf8_bytes": 101287,
+  "reduction": 0.14100226438136587,
+  "facts_reconstruct_exactly": true,
+  "all_excerpt_archives_preserved": true,
+  "controls_and_tail_unchanged": true,
+  "current_reference_results_unchanged": true,
+  "model_calls": 0,
+  "token_or_semantic_benefit_proof": false
+}

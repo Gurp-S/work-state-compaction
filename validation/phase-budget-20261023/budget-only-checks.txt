@@ -1,0 +1,71 @@
+test_invalid_contract_and_exhausted_entry_reject_before_inference (test_native_phase_budget.BudgetContractTests.test_invalid_contract_and_exhausted_entry_reject_before_inference) ... ok
+test_legacy_response_and_compaction_caps_remain (test_native_phase_budget.BudgetContractTests.test_legacy_response_and_compaction_caps_remain) ... ok
+test_registered_limits_override_constants_but_not_earlier_deadline (test_native_phase_budget.BudgetContractTests.test_registered_limits_override_constants_but_not_earlier_deadline) ... ok
+test_completed_final_at_exact_caps_is_accepted (test_native_phase_budget.PhaseBudgetIntegrationTests.test_completed_final_at_exact_caps_is_accepted) ... {"phase": "C:\\Users\\48522\\AppData\\Local\\Temp\\tmpsd3ql8ra\\exact", "completed": true, "failure": null, "responses": 11, "seconds": 0.0}
+ok
+test_final_receipts_over_limit_detected_without_token_update (test_native_phase_budget.PhaseBudgetIntegrationTests.test_final_receipts_over_limit_detected_without_token_update) ... {"phase": "C:\\Users\\48522\\AppData\\Local\\Temp\\tmp1uewhg_6\\terminal", "completed": true, "failure": "registered_token_cap", "responses": 11, "seconds": 0.0}
+ok
+test_same_trace_old_cap_stops_new_registered_cap_completes (test_native_phase_budget.PhaseBudgetIntegrationTests.test_same_trace_old_cap_stops_new_registered_cap_completes) ... {"phase": "C:\\Users\\48522\\AppData\\Local\\Temp\\tmp68_iypo4\\old", "completed": false, "failure": "registered_response_cap", "responses": 11, "seconds": 0.0}
+{"phase": "C:\\Users\\48522\\AppData\\Local\\Temp\\tmp68_iypo4\\new", "completed": true, "failure": null, "responses": 11, "seconds": 0.0}
+ok
+test_token_overshoot_stops_and_preserves_full_observed_cost (test_native_phase_budget.PhaseBudgetIntegrationTests.test_token_overshoot_stops_and_preserves_full_observed_cost) ... {"phase": "C:\\Users\\48522\\AppData\\Local\\Temp\\tmpmmnbkajb\\token-stop", "completed": false, "failure": "registered_token_cap", "responses": 11, "seconds": 0.0}
+ok
+test_call_timeout_has_the_declared_exception_type (test_native_accounting_boundary.NativeAccountingBoundaryTests.test_call_timeout_has_the_declared_exception_type) ... ok
+test_complete_compaction_uses_its_embedded_receipt_not_reset_token_count (test_native_accounting_boundary.NativeAccountingBoundaryTests.test_complete_compaction_uses_its_embedded_receipt_not_reset_token_count) ... ok
+test_complete_json_at_eof_is_not_silently_lost (test_native_accounting_boundary.NativeAccountingBoundaryTests.test_complete_json_at_eof_is_not_silently_lost) ... ok
+test_complete_phase_preserves_and_accounts_for_the_same_bytes (test_native_accounting_boundary.NativeAccountingBoundaryTests.test_complete_phase_preserves_and_accounts_for_the_same_bytes) ... {"phase": "C:\\Users\\48522\\AppData\\Local\\Temp\\wsc-accounting-4ised8ue\\phase", "completed": true, "failure": null, "responses": 2, "seconds": 0.0}
+ok
+test_completed_rpc_with_partial_durable_tail_is_not_complete_usage (test_native_accounting_boundary.NativeAccountingBoundaryTests.test_completed_rpc_with_partial_durable_tail_is_not_complete_usage) ... {"phase": "C:\\Users\\48522\\AppData\\Local\\Temp\\wsc-accounting-nkpe99zn\\phase", "completed": true, "failure": null, "responses": 2, "seconds": 0.0}
+ok
+test_malformed_interior_is_not_hidden_as_an_active_tail (test_native_accounting_boundary.NativeAccountingBoundaryTests.test_malformed_interior_is_not_hidden_as_an_active_tail) ... ok
+test_missing_durable_completion_is_not_complete_usage (test_native_accounting_boundary.NativeAccountingBoundaryTests.test_missing_durable_completion_is_not_complete_usage) ... {"phase": "C:\\Users\\48522\\AppData\\Local\\Temp\\wsc-accounting-a5ms46pt\\phase", "completed": true, "failure": null, "responses": 2, "seconds": 0.0}
+ok
+test_missing_final_receipt_is_detected_by_native_cumulative_usage (test_native_accounting_boundary.NativeAccountingBoundaryTests.test_missing_final_receipt_is_detected_by_native_cumulative_usage) ... {"phase": "C:\\Users\\48522\\AppData\\Local\\Temp\\wsc-accounting-cjgvyweb\\phase", "completed": true, "failure": null, "responses": 1, "seconds": 0.0}
+ok
+test_missing_middle_receipt_cannot_pass_cumulative_chain (test_native_accounting_boundary.NativeAccountingBoundaryTests.test_missing_middle_receipt_cannot_pass_cumulative_chain) ... {"phase": "C:\\Users\\48522\\AppData\\Local\\Temp\\wsc-accounting-9ymuza1p\\phase", "completed": true, "failure": null, "responses": 1, "seconds": 0.0}
+ok
+test_strict_physical_lines_keep_valid_unicode_and_exact_archive (test_native_accounting_boundary.NativeAccountingBoundaryTests.test_strict_physical_lines_keep_valid_unicode_and_exact_archive) ... ok
+test_unrelated_turn_receipt_does_not_prove_current_turn_usage (test_native_accounting_boundary.NativeAccountingBoundaryTests.test_unrelated_turn_receipt_does_not_prove_current_turn_usage) ... {"phase": "C:\\Users\\48522\\AppData\\Local\\Temp\\wsc-accounting-bacdjmu8\\phase", "completed": true, "failure": null, "responses": 2, "seconds": 0.0}
+ok
+test_changed_historical_bytes_cannot_redefine_new_phase (test_native_turn_accounting.NativeTurnAccountingTests.test_changed_historical_bytes_cannot_redefine_new_phase) ... ok
+test_compaction_receipt_substitution_and_reuse_rejected (test_native_turn_accounting.NativeTurnAccountingTests.test_compaction_receipt_substitution_and_reuse_rejected) ... ok
+test_equal_duplicate_is_counted_once_and_conflicting_duplicate_rejected (test_native_turn_accounting.NativeTurnAccountingTests.test_equal_duplicate_is_counted_once_and_conflicting_duplicate_rejected) ... ok
+test_first_available_window_with_inherited_unseen_cost_is_not_fresh (test_native_turn_accounting.NativeTurnAccountingTests.test_first_available_window_with_inherited_unseen_cost_is_not_fresh) ... ok
+test_fresh_thread_and_explicit_compaction_are_supported (test_native_turn_accounting.NativeTurnAccountingTests.test_fresh_thread_and_explicit_compaction_are_supported) ... ok
+test_historical_response_identity_cannot_be_rebilled (test_native_turn_accounting.NativeTurnAccountingTests.test_historical_response_identity_cannot_be_rebilled) ... ok
+test_interruption_retains_known_cost_without_inventing_complete_total (test_native_turn_accounting.NativeTurnAccountingTests.test_interruption_retains_known_cost_without_inventing_complete_total) ... ok
+test_invalid_receipt_is_unknown_not_zero_or_a_crash (test_native_turn_accounting.NativeTurnAccountingTests.test_invalid_receipt_is_unknown_not_zero_or_a_crash) ... ok
+test_live_resumed_admission_needs_prior_counter_and_matching_thread (test_native_turn_accounting.NativeTurnAccountingTests.test_live_resumed_admission_needs_prior_counter_and_matching_thread) ... ok
+test_missing_middle_or_final_receipt_never_becomes_complete (test_native_turn_accounting.NativeTurnAccountingTests.test_missing_middle_or_final_receipt_never_becomes_complete) ... ok
+test_next_turn_and_already_started_turn_are_not_the_registered_interval (test_native_turn_accounting.NativeTurnAccountingTests.test_next_turn_and_already_started_turn_are_not_the_registered_interval) ... ok
+test_resumed_turn_counts_compaction_and_excludes_inherited_counter (test_native_turn_accounting.NativeTurnAccountingTests.test_resumed_turn_counts_compaction_and_excludes_inherited_counter) ... ok
+test_unfinished_physical_tail_invalidates_completeness (test_native_turn_accounting.NativeTurnAccountingTests.test_unfinished_physical_tail_invalidates_completeness) ... ok
+test_shared_phase_does_not_charge_or_cap_using_old_responses (test_native_turn_accounting.NativeTurnEntryTests.test_shared_phase_does_not_charge_or_cap_using_old_responses) ... {"phase": "C:\\Users\\48522\\AppData\\Local\\Temp\\tmp8rsyppb2\\phase", "completed": true, "failure": null, "responses": 1, "seconds": 0.031000000002677552}
+ok
+test_actual_private_import_and_explicit_scope (test_control_continuation.AcceptanceTests.test_actual_private_import_and_explicit_scope) ... ok
+test_checkpoint_preserves_source_scope_and_failed_generation (test_control_continuation.AcceptanceTests.test_checkpoint_preserves_source_scope_and_failed_generation) ... ok
+test_duplicate_or_unknown_names_cannot_produce_passing_scope (test_control_continuation.AcceptanceTests.test_duplicate_or_unknown_names_cannot_produce_passing_scope) ... ok
+test_failed_source_acceptance_prevents_generation_and_C (test_control_continuation.DriverTests.test_failed_source_acceptance_prevents_generation_and_C) ... {"error":"ValueError:control_acceptance_failed","status":"stopped","usage":{"cash":null,"complete":true,"complete_usage":{"cache_write_input_tokens":0,"cached_input_tokens":0,"input_tokens":2,"output_tokens":0,"reasoning_output_tokens":0,"total_tokens":2},"known_usage":{"cache_write_input_tokens":0,"cached_input_tokens":0,"input_tokens":2,"output_tokens":0,"reasoning_output_tokens":0,"total_tokens":2},"price_status":"unknown","response_count":1,"response_ids":["a"]}}
+ok
+test_interrupted_generation_preserves_known_usage_and_stops_C (test_control_continuation.DriverTests.test_interrupted_generation_preserves_known_usage_and_stops_C) ... {"error":"ValueError:control_phase_incomplete","status":"stopped","usage":{"cash":null,"complete":false,"complete_usage":null,"known_usage":{"cache_write_input_tokens":0,"cached_input_tokens":0,"input_tokens":4,"output_tokens":0,"reasoning_output_tokens":0,"total_tokens":4},"price_status":"unknown","response_count":2,"response_ids":["a","b"]}}
+ok
+test_legitimate_existing_test_edit_reaches_independent_acceptance (test_control_continuation.DriverTests.test_legitimate_existing_test_edit_reaches_independent_acceptance) ... {"error":"ValueError:control_acceptance_failed","status":"stopped","usage":{"cash":null,"complete":true,"complete_usage":{"cache_write_input_tokens":0,"cached_input_tokens":0,"input_tokens":2,"output_tokens":0,"reasoning_output_tokens":0,"total_tokens":2},"known_usage":{"cache_write_input_tokens":0,"cached_input_tokens":0,"input_tokens":2,"output_tokens":0,"reasoning_output_tokens":0,"total_tokens":2},"price_status":"unknown","response_count":1,"response_ids":["a"]}}
+ok
+test_new_delivery_contract_stops_completed_turn_without_final (test_control_continuation.DriverTests.test_new_delivery_contract_stops_completed_turn_without_final) ... {"error":"ValueError:task_final_delivery_missing","status":"stopped","usage":{"cash":null,"complete":true,"complete_usage":{"cache_write_input_tokens":0,"cached_input_tokens":0,"input_tokens":2,"output_tokens":0,"reasoning_output_tokens":0,"total_tokens":2},"known_usage":{"cache_write_input_tokens":0,"cached_input_tokens":0,"input_tokens":2,"output_tokens":0,"reasoning_output_tokens":0,"total_tokens":2},"price_status":"unknown","response_count":1,"response_ids":["a"]}}
+ok
+test_new_protocol_passes_registered_stage_budgets_to_paid_boundary (test_control_continuation.DriverTests.test_new_protocol_passes_registered_stage_budgets_to_paid_boundary) ... {"error":null,"status":"C_task_executed_semantic_review_pending","usage":{"cash":null,"complete":true,"complete_usage":{"cache_write_input_tokens":0,"cached_input_tokens":0,"input_tokens":8,"output_tokens":0,"reasoning_output_tokens":0,"total_tokens":8},"known_usage":{"cache_write_input_tokens":0,"cached_input_tokens":0,"input_tokens":8,"output_tokens":0,"reasoning_output_tokens":0,"total_tokens":8},"price_status":"unknown","response_count":4,"response_ids":["a","b","c","d"]}}
+ok
+test_one_source_one_generation_two_C_turns_and_no_double_billing (test_control_continuation.DriverTests.test_one_source_one_generation_two_C_turns_and_no_double_billing) ... {"error":null,"status":"C_task_executed_semantic_review_pending","usage":{"cash":null,"complete":true,"complete_usage":{"cache_write_input_tokens":0,"cached_input_tokens":0,"input_tokens":8,"output_tokens":0,"reasoning_output_tokens":0,"total_tokens":8},"known_usage":{"cache_write_input_tokens":0,"cached_input_tokens":0,"input_tokens":8,"output_tokens":0,"reasoning_output_tokens":0,"total_tokens":8},"price_status":"unknown","response_count":4,"response_ids":["a","b","c","d"]}}
+ok
+test_recovery_skips_source_phase_and_preserves_unknown_historical_usage (test_control_continuation.DriverTests.test_recovery_skips_source_phase_and_preserves_unknown_historical_usage) ... {"error":null,"status":"C_task_executed_semantic_review_pending","usage":{"cash":null,"complete":true,"complete_usage":{"cache_write_input_tokens":0,"cached_input_tokens":0,"input_tokens":6,"output_tokens":0,"reasoning_output_tokens":0,"total_tokens":6},"known_usage":{"cache_write_input_tokens":0,"cached_input_tokens":0,"input_tokens":6,"output_tokens":0,"reasoning_output_tokens":0,"total_tokens":6},"price_status":"unknown","response_count":3,"response_ids":["a","b","c"]}}
+ok
+test_started_attempt_cannot_reenter (test_control_continuation.DriverTests.test_started_attempt_cannot_reenter) ... ok
+test_unavailable_native_runtime_stops_before_any_model_phase (test_control_continuation.DriverTests.test_unavailable_native_runtime_stops_before_any_model_phase) ... {"error":"ValueError:native_task_runtime_unavailable","status":"stopped","usage":{"cash":null,"complete":true,"complete_usage":{"cache_write_input_tokens":0,"cached_input_tokens":0,"input_tokens":0,"output_tokens":0,"reasoning_output_tokens":0,"total_tokens":0},"known_usage":{"cache_write_input_tokens":0,"cached_input_tokens":0,"input_tokens":0,"output_tokens":0,"reasoning_output_tokens":0,"total_tokens":0},"price_status":"unknown","response_count":0,"response_ids":[]}}
+ok
+test_sandbox_failure_is_preserved_without_turn_start (test_control_continuation.RuntimeProbeTests.test_sandbox_failure_is_preserved_without_turn_start) ... ok
+test_success_requires_actual_python_capabilities (test_control_continuation.RuntimeProbeTests.test_success_requires_actual_python_capabilities) ... ok
+
+----------------------------------------------------------------------
+Ran 46 tests in 2.008s
+
+OK

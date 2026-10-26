@@ -1,0 +1,23 @@
+{
+  "scope": "offline_exact_serialized_body_size_with_same_length_record_ids_no_publication",
+  "actual_failed_probe_limit_bytes": 32768,
+  "mandatory_empty_view_bytes": 83223,
+  "generated_candidate_body_bytes": 309360,
+  "source_rows_bytes": 302725,
+  "understanding_rows_bytes": 3548,
+  "clue_rows_bytes": 821,
+  "quote_rows_bytes": 2215,
+  "forced_sources": 5,
+  "model_selected_complete_sources": 7,
+  "union_complete_sources": 10,
+  "duplicate_model_selections_of_forced_sources": 2,
+  "native_model_tokens_estimated": false,
+  "selector_input_review": {
+    "automatic_control_retention_described": false,
+    "complete_cold_export_described": false,
+    "view_byte_budget_provided": false,
+    "per_source_serialized_view_cost_provided": false
+  },
+  "causality": "Missing presentation facts are a new hypothesis; this does not prove why the model selected whole sources.",
+  "paid_retry": false
+}

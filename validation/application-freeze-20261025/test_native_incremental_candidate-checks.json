@@ -1,0 +1,7 @@
+{
+  "test_file": "test_native_incremental_candidate.py",
+  "expected_methods": 5,
+  "returncode": 0,
+  "stdout": "",
+  "stderr": "test_cross_lane_previous_state_is_rejected_before_generation (test_native_incremental_candidate.IncrementalCandidateChecks.test_cross_lane_previous_state_is_rejected_before_generation) ... ok\ntest_failed_selection_keeps_known_generation_usage_and_no_retry (test_native_incremental_candidate.IncrementalCandidateChecks.test_failed_selection_keeps_known_generation_usage_and_no_retry) ... ok\ntest_old_record_can_be_revised_without_relabeling_old_observation (test_native_incremental_candidate.IncrementalCandidateChecks.test_old_record_can_be_revised_without_relabeling_old_observation) ... ok\ntest_previous_excerpt_hash_change_is_rejected (test_native_incremental_candidate.IncrementalCandidateChecks.test_previous_excerpt_hash_change_is_rejected) ... ok\ntest_three_exports_reuse_exact_evidence_without_nested_messages (test_native_incremental_candidate.IncrementalCandidateChecks.test_three_exports_reuse_exact_evidence_without_nested_messages) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.961s\n\nOK\n"
+}

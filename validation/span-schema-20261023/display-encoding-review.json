@@ -1,0 +1,7 @@
+{
+  "source_sha256": "b02a0ca0d8b6131330d66ce8a94afaa2702462d1dd12c4214bc77f017ae5278f",
+  "assistant_text_parts": 3,
+  "replacement_character_count": 0,
+  "local_python_stdout_encoding": "gbk",
+  "correction": "Raw assistant text has no replacement characters; prior damaged-text claim inferred from terminal display was unsupported."
+}

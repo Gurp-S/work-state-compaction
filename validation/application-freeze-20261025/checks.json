@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "methods": 13,
+  "source_pins": {
+    "D:\\lea\\XenYon code\\wsc\\experiments\\native_incremental_candidate.py": "13f893455223c500c49ccf7b12239ef67c1d52dcb85fd000cbcec74b938385ed",
+    "D:\\lea\\XenYon code\\wsc\\experiments\\native_application_budget.py": "b2177e95b75bb31ccd0e2ed1bf17e6916c404acd6744d9f9155c652452f2aa3d",
+    "D:\\lea\\XenYon code\\wsc\\experiments\\native_application_quality.py": "9a2d5e57e37e22663c066c9bb99defe8dd6427116ce05acc19e25c5dd2e7c8dc",
+    "D:\\lea\\XenYon code\\wsc\\tests\\test_native_incremental_candidate.py": "b5748f025e0f20f28b5b2ed4ff077a09f349ea19d9b64ff806764a79d5bd71c7",
+    "D:\\lea\\XenYon code\\wsc\\tests\\test_native_application_limits_quality.py": "f38e6c0d0291a9c6b01afc1a94af5b3acd50c12972e6ee19ea52932156eec9eb"
+  },
+  "model_calls": 0,
+  "initial_check_correction": "The first parallel-reservation fixture reserved all 10 study response slots; corrected study response budget to 20. This was not a budget implementation failure.",
+  "scope": "Synthetic semantic-selection callbacks, budget and quality settlement; not actual model compression or native installation"
+}

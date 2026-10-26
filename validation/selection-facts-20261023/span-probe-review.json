@@ -1,0 +1,123 @@
+{
+  "status": "generated_compiled_exported_not_continuation_qualified",
+  "generation_usage": {
+    "input_tokens": 84523,
+    "cached_input_tokens": 0,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 9511,
+    "reasoning_output_tokens": 8162,
+    "total_tokens": 94034
+  },
+  "generation_responses": 1,
+  "usage_complete": true,
+  "source_version": "20261023-span-selection-v1.zip",
+  "draft_sha256": "8d9203ab692c1074670e64c7a3cfc4201971a409e15e41bace1f98bf3d3474a0",
+  "prepared_view_bytes": 161738,
+  "view_limit_bytes": 262144,
+  "exact_exported_spans": 16,
+  "coverage": [
+    {
+      "key": "s4:0:1024:857472c63abc7e50253049570e11374915c21e95d925bba6871e15ad1f6002f6",
+      "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:3:5bf59d1221d6a379f8b3276db3fbbd20f2d8fb6e5d13c2c5a54d74d7ff4a590a",
+      "characters": 1024,
+      "covered_by_retained_same_source_text": false
+    },
+    {
+      "key": "s4:1024:2048:595e88f3fba69a9d9ce1379476dffa0befa7b9e147766d1149bdb39c5ce85f3d",
+      "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:3:5bf59d1221d6a379f8b3276db3fbbd20f2d8fb6e5d13c2c5a54d74d7ff4a590a",
+      "characters": 1024,
+      "covered_by_retained_same_source_text": false
+    },
+    {
+      "key": "s4:2048:3072:bd777c329c977629fcb57a1135053967e32be823fb72b2e7f501fe4f7707b885",
+      "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:3:5bf59d1221d6a379f8b3276db3fbbd20f2d8fb6e5d13c2c5a54d74d7ff4a590a",
+      "characters": 1024,
+      "covered_by_retained_same_source_text": false
+    },
+    {
+      "key": "s4:3072:3504:9c7c95cd944cc2d4e98c6606006f1df1a6cfcfbddcf700ba7b2d463aa606aa74",
+      "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:3:5bf59d1221d6a379f8b3276db3fbbd20f2d8fb6e5d13c2c5a54d74d7ff4a590a",
+      "characters": 432,
+      "covered_by_retained_same_source_text": false
+    },
+    {
+      "key": "s5:0:626:aea6d35eb81524346015de5e6c37743e1d108545337ce723dd6569d8e049498d",
+      "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:4:ac088684836ee23ad773c01733813e557c38c2584da79fc0052e51a22ae4bbce",
+      "characters": 626,
+      "covered_by_retained_same_source_text": true
+    },
+    {
+      "key": "s16:0:135:d6ad032c49dae23af3da8fea1c2c7773c1b10333299dcd05cfe95c03cc6d30b8",
+      "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:15:f4ba0c103d97f343de4a58a85b90b42daa8d1f027a582ccbdd3a83742d50551c",
+      "characters": 135,
+      "covered_by_retained_same_source_text": true
+    },
+    {
+      "key": "s18:0:1024:1ba39602400523b4f647ce5ab31e11924297ea2dd31ed7f07426a0c08cce075c",
+      "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:17:7ce8df66b6bdf1bc1e192f2b4190e6659cf51c2db4e449b1f95d1b8a28195d53",
+      "characters": 1024,
+      "covered_by_retained_same_source_text": true
+    },
+    {
+      "key": "s18:1024:2048:5817a284003a416e6209619a3948ba86dfcc2587f881948420437aa39b5be96d",
+      "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:17:7ce8df66b6bdf1bc1e192f2b4190e6659cf51c2db4e449b1f95d1b8a28195d53",
+      "characters": 1024,
+      "covered_by_retained_same_source_text": true
+    },
+    {
+      "key": "s18:6144:7168:aab71a5ca08c7ceec69e29f686057cb87b5631eb93ad5506776990eb1882174a",
+      "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:17:7ce8df66b6bdf1bc1e192f2b4190e6659cf51c2db4e449b1f95d1b8a28195d53",
+      "characters": 1024,
+      "covered_by_retained_same_source_text": true
+    },
+    {
+      "key": "s18:7168:8192:7b6e4baaa515eb4ef5c64ba771d7e9d09671b42bdc071ae2fed9604db4ec3c1c",
+      "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:17:7ce8df66b6bdf1bc1e192f2b4190e6659cf51c2db4e449b1f95d1b8a28195d53",
+      "characters": 1024,
+      "covered_by_retained_same_source_text": true
+    },
+    {
+      "key": "s18:8192:9216:9a459d256c4793d17e029dfd4574ce6cec2713ada29ff7993a8ca8f951a261b8",
+      "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:17:7ce8df66b6bdf1bc1e192f2b4190e6659cf51c2db4e449b1f95d1b8a28195d53",
+      "characters": 1024,
+      "covered_by_retained_same_source_text": true
+    },
+    {
+      "key": "s18:9216:10240:b7bff586365e56fe30c8b15732a663e609e785deb63e145dfde2cee504ad69d2",
+      "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:17:7ce8df66b6bdf1bc1e192f2b4190e6659cf51c2db4e449b1f95d1b8a28195d53",
+      "characters": 1024,
+      "covered_by_retained_same_source_text": true
+    },
+    {
+      "key": "s18:11264:12288:49a99a76d3059f091de736080c8f4abc85e0824d56d9771e5108e2049cd280ae",
+      "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:17:7ce8df66b6bdf1bc1e192f2b4190e6659cf51c2db4e449b1f95d1b8a28195d53",
+      "characters": 1024,
+      "covered_by_retained_same_source_text": true
+    },
+    {
+      "key": "s18:17408:18432:d8883c1750970cd5793497ab6aac6a91ff3d0a087453a656cf31a230ac96ed24",
+      "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:17:7ce8df66b6bdf1bc1e192f2b4190e6659cf51c2db4e449b1f95d1b8a28195d53",
+      "characters": 1024,
+      "covered_by_retained_same_source_text": true
+    },
+    {
+      "key": "s20:0:1024:9238f3313983b4f20bd135961ee8133de9f2a961beaf2c045d5db0a0b957453a",
+      "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:19:040ac472fc182f5c1b70bbd0658c76742cbb087e6cc2fdadf23da44b60223b84",
+      "characters": 1024,
+      "covered_by_retained_same_source_text": true
+    },
+    {
+      "key": "s20:1024:1177:2cf221e8f16ab7382611b953ebe5cf407e83cd5fd7abe245ae7dac770a6c3e12",
+      "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:19:040ac472fc182f5c1b70bbd0658c76742cbb087e6cc2fdadf23da44b60223b84",
+      "characters": 153,
+      "covered_by_retained_same_source_text": true
+    }
+  ],
+  "duplicate_text_characters": 10130,
+  "source_times_preserved": true,
+  "source_files_available": 20,
+  "host_installation": false,
+  "cursor": 0,
+  "semantic_review": "Historical diagnosis and old/current receipt distinction present; no downstream task completion or net-benefit proof.",
+  "next_action": "Prove and remove duplicate inline presentation while preserving source identity, occurrence ranges and independently readable evidence; no new model call before offline review."
+}

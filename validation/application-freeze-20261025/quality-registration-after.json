@@ -1,0 +1,9 @@
+{
+  "result": {
+    "status": "unknown",
+    "reason": "quality_recorded_registration_source_changed",
+    "evidence_sha256": "1a8e10b01141f3c7454266eef18eb1d82a72da24a223996b4ecd942f255eff66"
+  },
+  "source_sha256": "8f69564f8e34de2e23d4fdf85e98c0f1d4c5ab75bb6fef6a3e6e26ee52c6d93e",
+  "model_calls": 0
+}

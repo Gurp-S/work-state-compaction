@@ -1,0 +1,10 @@
+Processing d:\lea\xenyon code\wsc\validation\wheel-20261023\build-cx9r3ij2\package
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: xeyo-wsc
+  Building wheel for xeyo-wsc (pyproject.toml): started
+  Building wheel for xeyo-wsc (pyproject.toml): finished with status 'done'
+  Created wheel for xeyo-wsc: filename=xeyo_wsc-0.1.0-py3-none-any.whl size=38941 sha256=10decb5961a49487b94e523a4bde5e1d4927a0121277c9b8b23263d9a28a46d7
+  Stored in directory: C:\Users\48522\AppData\Local\Temp\pip-ephem-wheel-cache-33052c4a\wheels\d6\bd\f8\9fbeb87bbf47b262d2613f75ba8c0d789d7c63f3417d1638c8
+Successfully built xeyo-wsc
+

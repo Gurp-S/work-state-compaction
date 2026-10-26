@@ -1,0 +1,54 @@
+{
+  "scope": "Old one-argument worker API; synthetic receipts, zero model calls",
+  "generated_receipts": 10,
+  "failed_worker": {
+    "job": {
+      "pair_id": "p0",
+      "arm": "C",
+      "wave": 0,
+      "conditions_sha256": "93345348b66e3192f921fe578d62b5c6c747ee69050d9bd36ec34af5101f9ae8",
+      "conditions": {
+        "source_manifest_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "task_contract_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "tools_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "model": "offline-fixture",
+        "effort": "max",
+        "budget": {
+          "responses": 2
+        }
+      },
+      "resources": {
+        "strategy": "registered_wsc",
+        "workspace": "C:\\Users\\48522\\AppData\\Local\\Temp\\tmp53obxbb6\\0-C\\workspace",
+        "output": "C:\\Users\\48522\\AppData\\Local\\Temp\\tmp53obxbb6\\0-C\\output",
+        "browser_profile": "C:\\Users\\48522\\AppData\\Local\\Temp\\tmp53obxbb6\\0-C\\browser",
+        "ports": [
+          18001
+        ]
+      }
+    },
+    "result": null,
+    "worker_error": "RuntimeError:after paid phase",
+    "started_after_wave_seconds": 0.0,
+    "wall_seconds": 0.0
+  },
+  "missing_receipt": {
+    "seconds": 2,
+    "usage_complete": true,
+    "receipts": {
+      "response_receipts": [
+        {
+          "response_id": "p0/C",
+          "usage": {
+            "input_tokens": 100,
+            "cached_input_tokens": 50,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 15,
+            "reasoning_output_tokens": 5,
+            "total_tokens": 115
+          }
+        }
+      ]
+    }
+  }
+}

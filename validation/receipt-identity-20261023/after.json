@@ -1,0 +1,60 @@
+{
+  "scope": "Same original B receipts as before.json, zero model calls and no task edits",
+  "rows": [
+    {
+      "path": "D:\\agent-task-runs\\wsc-strict-jsonl-pair-20261023-v1\\B\\finite_task\\acceptance\\receipt.json",
+      "legacy_unchanged": true,
+      "new_reference": {
+        "source_manifest_sha256": "84c113217d5056eaff8e553c2000b50f7cc921705ed4584ae90ebfd2597150af",
+        "names": [
+          "StrictJSONLTests.test_unicode_physical_lines_and_raw_identity",
+          "StrictJSONLTests.test_duplicate_keys_at_all_object_depths_are_rejected",
+          "StrictJSONLTests.test_strings_are_not_recursively_decoded",
+          "StrictJSONLTests.test_partial_tail_and_missing_file_observations_remain_distinct",
+          "StrictJSONLTests.test_invalid_interior_and_record_shapes_are_rejected",
+          "StrictJSONLTests.test_nonfinite_values_and_overflow_numbers_are_rejected",
+          "StrictJSONLTests.test_complete_unterminated_nonfinite_tail_is_not_silently_dropped",
+          "StrictJSONLTests.test_finite_numbers_keep_integer_precision_and_float_values"
+        ],
+        "tests": 8,
+        "passed": true,
+        "grader_sha256": "6fd1d7c555c29c47f9a085b24a6c7207c5c373fb28313d06efc7a115cad0874a",
+        "receipt_path": "D:\\agent-task-runs\\wsc-strict-jsonl-pair-20261023-v1\\B\\finite_task\\acceptance\\receipt.json",
+        "receipt_sha256": "fd49d49ff0d167497cf06b1de635732404dacb1bb2c97c5d0c9b0fa8b1d3aa12",
+        "receipt_sha256_basis": "canonical_json_utf8_v1",
+        "receipt_file_sha256": "aaed76cda1f930e37f7cd8e3de3229a29979074883945c578ee28b0e78ad9281",
+        "receipt_file_sha256_basis": "raw_file_bytes"
+      },
+      "raw_and_value_hashes_verified": true
+    },
+    {
+      "path": "D:\\agent-task-runs\\wsc-strict-jsonl-pair-20261023-v1\\B\\line_budget_task\\acceptance\\receipt.json",
+      "legacy_unchanged": true,
+      "new_reference": {
+        "source_manifest_sha256": "6af043e3610b614838623148cc3574c15176cc98f46d0697af2cdaa72b1d8032",
+        "names": [
+          "StrictJSONLTests.test_unicode_physical_lines_and_raw_identity",
+          "StrictJSONLTests.test_duplicate_keys_at_all_object_depths_are_rejected",
+          "StrictJSONLTests.test_strings_are_not_recursively_decoded",
+          "StrictJSONLTests.test_partial_tail_and_missing_file_observations_remain_distinct",
+          "StrictJSONLTests.test_invalid_interior_and_record_shapes_are_rejected",
+          "StrictJSONLTests.test_nonfinite_values_and_overflow_numbers_are_rejected",
+          "StrictJSONLTests.test_complete_unterminated_nonfinite_tail_is_not_silently_dropped",
+          "StrictJSONLTests.test_finite_numbers_keep_integer_precision_and_float_values",
+          "StrictJSONLTests.test_line_budget_is_bytes_and_includes_cr_but_excludes_lf",
+          "StrictJSONLTests.test_oversized_invalid_line_is_rejected_before_decoding",
+          "StrictJSONLTests.test_default_unlimited_and_invalid_budget_values"
+        ],
+        "tests": 11,
+        "passed": true,
+        "grader_sha256": "6fd1d7c555c29c47f9a085b24a6c7207c5c373fb28313d06efc7a115cad0874a",
+        "receipt_path": "D:\\agent-task-runs\\wsc-strict-jsonl-pair-20261023-v1\\B\\line_budget_task\\acceptance\\receipt.json",
+        "receipt_sha256": "6f112bc7491e85d5e8339889cae1af09cae44ca1eddc135bb7a8ed00c10dbcc0",
+        "receipt_sha256_basis": "canonical_json_utf8_v1",
+        "receipt_file_sha256": "62891af0192da206a13dd4564aa864147f68dae05d72aec1fa917b2cdd92717e",
+        "receipt_file_sha256_basis": "raw_file_bytes"
+      },
+      "raw_and_value_hashes_verified": true
+    }
+  ]
+}

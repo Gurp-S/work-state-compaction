@@ -1,0 +1,28 @@
+{
+  "source_items_sha256": "b831da6a5abc8f2cdd272379033ae505c95be7ea36a13bb08d27fd8627d411fa",
+  "selection_sha256": "541574c7f16af1255fe64e4e74f30e2de2f0474486aceb9a21c969f2f46278b6",
+  "observations": 7,
+  "exact_observation_texts_preserved": true,
+  "understanding_texts_preserved": true,
+  "control_items_unchanged": true,
+  "full_evidence_checked": true,
+  "legacy_chars": 18494,
+  "candidate_chars": 14398,
+  "reduction": 0.221477235860279,
+  "current_reference_bindings": [
+    {
+      "bytes_read": 127806,
+      "checked_at": "2026-10-22T18:18:24.464164+00:00",
+      "end_line": 264,
+      "expected_resource_sha256": "0d748cd94aed1937ba8d56307f714b54604244bc8579cfa4971c90b96d4081ea",
+      "historical_observation_retimed": false,
+      "matched_normalized_text_sha256": "8d8bdc557dcc156841c2998f7a3de7f618f5133313f4f63d823542ac17699788",
+      "matching": "exact_text_after_line_ending_normalization",
+      "resource": "C:\\Users\\48522\\.codex\\memories\\MEMORY.md",
+      "resource_sha256": "0d748cd94aed1937ba8d56307f714b54604244bc8579cfa4971c90b96d4081ea",
+      "start_line": 254,
+      "status": "unique_content_match"
+    }
+  ],
+  "scope": "Offline presentation only; no model inference, no native qualification"
+}

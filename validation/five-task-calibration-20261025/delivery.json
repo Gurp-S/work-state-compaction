@@ -1,0 +1,9 @@
+{
+  "version": "D:\\lea\\XenYon code\\wsc\\versions\\20261025-four-protocol-calibration-v1-delta.zip",
+  "bytes": 53040,
+  "sha256": "948e4afaabad8f899fc3f9b879b2f687af7dfd16fa298d8c45d0fef28962741c",
+  "positive_protocol_checks": 27,
+  "selected_faults_detected": 11,
+  "model_calls": 0,
+  "paid_BC_started": false
+}

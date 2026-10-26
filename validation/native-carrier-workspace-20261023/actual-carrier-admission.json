@@ -1,0 +1,23 @@
+{
+  "carrier_sha256": "d0989623ed7d4a92735bb4fdf5e2475b771bdb51424fbac0f01c90fa0877e0b3",
+  "results": [
+    {
+      "case": "original_carrier_workspace",
+      "workspace": "D:\\agent-task-runs\\independent-wsc-factual-pair-20261023\\workspace",
+      "status": "accepted"
+    },
+    {
+      "case": "failed_formal_workspace",
+      "workspace": "D:\\agent-task-runs\\independent-wsc-native-carrier-pair-20261023\\workspace",
+      "status": "native_carrier_workspace_mismatch"
+    },
+    {
+      "case": "prior_successful_but_migrated_qualification",
+      "workspace": "D:\\agent-task-runs\\independent-wsc-native-carrier-C-20261023\\workspace",
+      "status": "native_carrier_workspace_mismatch"
+    }
+  ],
+  "model_calls": 0,
+  "opaque_decoded": false,
+  "scope": "Binding rejection only; no claim that future same-workspace model execution succeeds."
+}

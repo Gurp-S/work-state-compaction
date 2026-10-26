@@ -1,0 +1,35 @@
+{
+  "baseline": {
+    "owned": false,
+    "parent_pid": 12796,
+    "child_pid": 26440,
+    "child_alive_after_parent_exit": true,
+    "membership": null,
+    "cleanup": null,
+    "fixture_child_cleanup_confirmed": true
+  },
+  "candidate": {
+    "owned": true,
+    "parent_pid": 9516,
+    "child_pid": 6204,
+    "child_alive_after_parent_exit": true,
+    "membership": [
+      9516,
+      6204
+    ],
+    "cleanup": {
+      "root_pids": [
+        9516
+      ],
+      "members_before_close": [
+        6204
+      ],
+      "members_after_termination": [],
+      "empty_confirmed": true
+    },
+    "fixture_child_cleanup_confirmed": true
+  },
+  "model_calls": 0,
+  "source_sha256": "8f0060620107d47679e1171e3462ea1e4f379ad92df5f77d73f8ed5d8da7eb9b",
+  "scope": "Real synthetic child: baseline is parent-only supervision pattern, not a replay of a past model tool leak"
+}

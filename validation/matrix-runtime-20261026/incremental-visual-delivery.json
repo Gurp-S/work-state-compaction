@@ -1,0 +1,8 @@
+{
+  "version": "D:\\lea\\XenYon code\\wsc\\versions\\20261026-incremental-visual-selection-v1-delta.zip",
+  "sha256": "218059a9e69764dbe510b4e6629f8db053f89709da931865ba2d7eca3fc837ee",
+  "bytes": 333227,
+  "delta_files": 33,
+  "semantic_selection_gate_passed": true,
+  "scope": "One incremental selection; evidence and semantic review, no development or BC benefit proof"
+}

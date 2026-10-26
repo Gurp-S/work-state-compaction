@@ -1,0 +1,7 @@
+{
+  "actual_transport": "D:\\agent-task-runs\\wsc-host-publication-20261023-v1",
+  "current_adapter_matches_actual_published_items_and_binding": true,
+  "added_guard": "reject task_started before any usage receipt",
+  "model_calls": 0,
+  "scope": "Final-source replay of archived real host; live transport occurred before this guard; not another live run."
+}

@@ -1,0 +1,36 @@
+{
+  "status": "candidate_policy_inputs_limits_quality_components_frozen_not_launch_qualified",
+  "conditions": {
+    "path": "D:\\lea\\XenYon code\\wsc\\validation\\application-freeze-20261025\\study-conditions-v1.json",
+    "sha256": "bfa6b0e727c6f56a9c63180054fddd6578c34ad58bab59d6e28e18b92e9d1651"
+  },
+  "candidate": "incremental_recorded_spans_v1",
+  "source_core_unchanged": true,
+  "offline_methods": 14,
+  "A3": {
+    "binding": "D:\\agent-task-runs\\wsc-a3-frozen-inputs-20261025-v1\\input-binding.json",
+    "binding_sha256": "bf2e284e655d84b446b153c0bf7a4aef01b7b5e4b494b57ec2a8357f11b140f4",
+    "source_files": 824,
+    "dependency_files": 41935,
+    "dependency_bytes": 656671688,
+    "baseline_source_package_lock_match": true,
+    "original_baseline_registration_sha256": "6f703d0bc4d9cfb891f1841ba8a093d78ea6cc995cec422c61ddc2188d970812",
+    "browser_screenshots_repeated": false,
+    "dependency_copy_failures_retained": true
+  },
+  "quality_old_registration_rebinding_reproduced_and_rejected": true,
+  "model_calls": 0,
+  "paid_BC_started": false,
+  "remaining": [
+    "Actual native fork/import qualification for the declared three-boundary protocol",
+    "Read-only generation client and its actual selection cost/response binding",
+    "Connect cumulative grants, stage journals and task grader/quality adapters to matrix workers",
+    "Per-arm A3 dependency materialization and external author-read audit"
+  ],
+  "limits": [
+    "Selection tests use synthetic draft callbacks, not demonstrated model retention or benefit",
+    "Three exports were discarded after inspection, not reported as host installations",
+    "Dependency verification is per-file sealed copying, not cross-file atomic filesystem proof",
+    "Causal transport admission and model wire equivalence remain unproven"
+  ]
+}

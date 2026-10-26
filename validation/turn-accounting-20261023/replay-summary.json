@@ -1,0 +1,101 @@
+{
+  "source_sha256": "e95a5e0794342ada0bc89f47c8a3d5e6a754373be7cdc82b0828d94c4e3c824c",
+  "stages": [
+    {
+      "turn_id": "01a164a4-c50f-71b3-b3b6-f97de0c29515",
+      "complete": false,
+      "reasons": [
+        "turn_thread_counter_gap",
+        "turn_terminal_counter_mismatch"
+      ],
+      "responses": 221,
+      "known_total": 30565282,
+      "known_compaction": 979592
+    },
+    {
+      "turn_id": "01a16641-0d3d-76f3-bdcc-011be8b64869",
+      "complete": true,
+      "reasons": [],
+      "responses": 31,
+      "known_total": 3766440,
+      "known_compaction": 0
+    },
+    {
+      "turn_id": "01a16657-66a3-7511-bf12-da22330d4c1b",
+      "complete": true,
+      "reasons": [],
+      "responses": 21,
+      "known_total": 4039951,
+      "known_compaction": 0
+    },
+    {
+      "turn_id": "01a16665-4b85-7ef3-8de3-15527797217a",
+      "complete": true,
+      "reasons": [],
+      "responses": 48,
+      "known_total": 8587169,
+      "known_compaction": 249394
+    },
+    {
+      "turn_id": "01a1667e-7bfa-7493-8cb0-ef5ae90484f0",
+      "complete": true,
+      "reasons": [],
+      "responses": 29,
+      "known_total": 3184831,
+      "known_compaction": 245258
+    },
+    {
+      "turn_id": "01a1668d-df0e-7982-a67a-6d72618a86d3",
+      "complete": true,
+      "reasons": [],
+      "responses": 32,
+      "known_total": 5562068,
+      "known_compaction": 0
+    },
+    {
+      "turn_id": "01a166af-b2b5-74a1-a5e9-49cc01c41700",
+      "complete": true,
+      "reasons": [],
+      "responses": 6,
+      "known_total": 1332806,
+      "known_compaction": 0
+    },
+    {
+      "turn_id": "01a166b4-6b37-7a20-a581-86cc948e3e1c",
+      "complete": true,
+      "reasons": [],
+      "responses": 14,
+      "known_total": 1065811,
+      "known_compaction": 231778
+    },
+    {
+      "turn_id": "01a166bb-95d6-7092-819c-a935d80751ec",
+      "complete": true,
+      "reasons": [],
+      "responses": 31,
+      "known_total": 3148306,
+      "known_compaction": 0
+    },
+    {
+      "turn_id": "01a166ca-a931-7be0-b75e-44d10555af38",
+      "complete": true,
+      "reasons": [],
+      "responses": 30,
+      "known_total": 4793901,
+      "known_compaction": 0
+    },
+    {
+      "turn_id": "01a166dd-aa1a-7912-94e3-e82a10bbf6cc",
+      "complete": false,
+      "reasons": [
+        "turn_completion_missing_or_ambiguous",
+        "turn_terminal_counter_mismatch"
+      ],
+      "responses": 3,
+      "known_total": 547959,
+      "known_compaction": 0
+    }
+  ],
+  "new_model_calls": 0,
+  "source_scope": "one captured window; first turn has an inherited unseen counter, last turn is incomplete"
+}

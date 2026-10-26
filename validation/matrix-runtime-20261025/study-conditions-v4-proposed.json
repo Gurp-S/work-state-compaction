@@ -1,0 +1,49 @@
+{
+  "kind": "proposal_not_launched",
+  "ready_to_launch": false,
+  "original_registration": "D:\\agent-task-runs\\wsc-application-matrix-20261025-v3\\registration.json",
+  "original_registration_sha256": "225a5899b971e559a6a4b0205cbe808d6532fbbb02b4c224c9d412d387169948",
+  "budgets": {
+    "ordinary_phase": {
+      "max_responses": 32,
+      "max_seconds": 600,
+      "max_total_tokens": 6000000
+    },
+    "boundary_phase": {
+      "max_responses": 12,
+      "max_seconds": 180,
+      "max_total_tokens": 400000
+    },
+    "per_arm": {
+      "max_responses": 120,
+      "max_seconds": 2700,
+      "max_total_tokens": 6000000
+    },
+    "study": {
+      "max_responses": 3600,
+      "max_seconds": 28800,
+      "max_total_tokens": 180000000
+    },
+    "coverage": "All business, native compaction and WSC selection responses count against the same arm and study ledger",
+    "token_scope": "Includes cached input; admission/receipt-boundary caps, not provider-side hard token limits",
+    "overshoot": "Entire observed response counts; no subsequent call after the arm is stopped",
+    "uncertainty": "Known receipts retained; unknown total freezes new study admission",
+    "infrastructure_replacement_pairs": 0,
+    "automatic_retries": 0,
+    "cash": null,
+    "wall_scope": "Study model scheduler starts after prepared inputs; record preparation and external quality time separately",
+    "review_time_policy": "Full UI review evidence is retained; absent review remains unknown and never auto-passed",
+    "peer_wait_scope": "Explicit paired lazy-host admission wait is recorded separately and excluded from the arm execution deadline; study wall clock includes it."
+  },
+  "original_known_usage": {
+    "input_tokens": 3058231,
+    "cached_input_tokens": 2563840,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 98658,
+    "reasoning_output_tokens": 32873,
+    "total_tokens": 3156889
+  },
+  "original_complete_usage": null,
+  "original_ledger_frozen": true,
+  "qualification_required": "Uninterrupted task and actual B/C boundaries; preserve prior known spend and uncertainty"
+}

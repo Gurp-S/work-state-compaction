@@ -1,0 +1,11 @@
+{
+  "observed_utc": "2026-10-22T20:15:04.481444+00:00",
+  "primary": {
+    "usedPercent": 15,
+    "windowDurationMins": 10080,
+    "resetsAt": 1793294716
+  },
+  "secondary": null,
+  "inference_calls": 0,
+  "source": "native account/rateLimits/read"
+}

@@ -1,0 +1,10 @@
+{
+  "path": "D:\\agent-task-runs\\wsc-boundary-transport-20261025-v1\\result.json",
+  "sha256": "5236fc896feed3831b4a3ad2d22f0dbe956017da9a9f107d2819d25c577a50a8",
+  "native_forks_and_import_verified": true,
+  "matched_observed_controls": true,
+  "readonly_start_accepted": true,
+  "native_compaction_or_generation_executed": false,
+  "provider_wire_equivalence_proven": false,
+  "model_calls": 0
+}

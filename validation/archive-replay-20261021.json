@@ -1,0 +1,43 @@
+{
+  "kind": "offline_source_and_checkpoint_contract_replay",
+  "source": "D:\\agent-task-runs\\native-wsc-compaction-pair-c7e1d8ba3f\\checkpoint-reuse-51846b68\\checkpoint\\canonical-state.json",
+  "source_sha256": "86abcfc0211666386a8c536f8cb2e1c766251281176b74e16c247b4fc890b32c",
+  "source_items": 46,
+  "source_kinds": {
+    "message": 12,
+    "call": 9,
+    "result": 9,
+    "opaque": 16
+  },
+  "exported_source_values_equal": true,
+  "original_control_messages_equal_and_ordered": true,
+  "native_input_file_unchanged": true,
+  "source_canonical_json_bytes": 280761,
+  "checkpoint_items_canonical_json_bytes": 59361,
+  "checkpoint_item_count": 8,
+  "reused_public_reply_ordinal": 45,
+  "reused_public_reply_characters": 1095,
+  "new_model_calls": 0,
+  "historical_generation_cost": null,
+  "task_quality": "not_evaluated",
+  "total_token_cost": null,
+  "publication_state": "ready",
+  "fold_cursor": 0,
+  "installation": "not_attempted",
+  "checkpoint": "D:\\lea\\XenYon code\\_wsc_out\\pluggable-v1\\archive-replay-20261021\\exports\\35e9c42803324da397bcef346cf669a6\\checkpoint.json",
+  "elapsed_ms": 179.167,
+  "limits": [
+    "Explicit replay selection; automatic semantic selection not evaluated",
+    "Offline presentation receipt is not a historical native-model receipt",
+    "Bytes are not tokens, billed cost, latency savings or correctness",
+    "All source control roles are retained; old restoration may use different host setup",
+    "Original task tools were not rerun; native continuation not evaluated"
+  ],
+  "old_reference": {
+    "path": "D:\\agent-task-runs\\native-wsc-compaction-pair-c7e1d8ba3f\\checkpoint-reuse-51846b68\\checkpoint\\native-restoration.json",
+    "sha256": "d10c67e5c533fd01a6d4ef796a910efb88498c7d02f24538299f613cce73054e",
+    "items": 2,
+    "canonical_json_bytes": 11127,
+    "comparison": "different_material_scope_not_an_A_B_cost_result"
+  }
+}

@@ -1,0 +1,70 @@
+test_call_timeout_has_the_declared_exception_type (test_native_accounting_boundary.NativeAccountingBoundaryTests.test_call_timeout_has_the_declared_exception_type) ... ERROR
+test_complete_json_at_eof_is_not_silently_lost (test_native_accounting_boundary.NativeAccountingBoundaryTests.test_complete_json_at_eof_is_not_silently_lost) ... FAIL
+test_completed_rpc_with_partial_durable_tail_is_not_complete_usage (test_native_accounting_boundary.NativeAccountingBoundaryTests.test_completed_rpc_with_partial_durable_tail_is_not_complete_usage) ... FAIL
+test_missing_durable_completion_is_not_complete_usage (test_native_accounting_boundary.NativeAccountingBoundaryTests.test_missing_durable_completion_is_not_complete_usage) ... FAIL
+test_missing_final_receipt_is_detected_by_native_cumulative_usage (test_native_accounting_boundary.NativeAccountingBoundaryTests.test_missing_final_receipt_is_detected_by_native_cumulative_usage) ... FAIL
+test_unrelated_turn_receipt_does_not_prove_current_turn_usage (test_native_accounting_boundary.NativeAccountingBoundaryTests.test_unrelated_turn_receipt_does_not_prove_current_turn_usage) ... FAIL
+
+======================================================================
+ERROR: test_call_timeout_has_the_declared_exception_type (test_native_accounting_boundary.NativeAccountingBoundaryTests.test_call_timeout_has_the_declared_exception_type)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_native_accounting_boundary.py", line 87, in test_call_timeout_has_the_declared_exception_type
+    rpc.call("offline/request", {}, timeout=.005)
+  File "D:\lea\XenYon code\wsc\experiments\native_rpc.py", line 41, in call
+    item = self.queue.get(timeout=max(.05, deadline - time.monotonic()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\queue.py", line 179, in get
+    raise Empty
+_queue.Empty
+
+======================================================================
+FAIL: test_complete_json_at_eof_is_not_silently_lost (test_native_accounting_boundary.NativeAccountingBoundaryTests.test_complete_json_at_eof_is_not_silently_lost)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_native_accounting_boundary.py", line 59, in test_complete_json_at_eof_is_not_silently_lost
+    self.assertEqual([row], records(self.path))
+AssertionError: Lists differ: [{'type': 'token_usage_record', 'payload':[385 chars]2}}}] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+{'type': 'token_usage_record', 'payload': {'thread_id': 't1', 'turn_id': 'turn1', 'response_id': 'r1', 'usage': {'input_tokens': 10, 'cached_input_tokens': 0, 'cache_write_input_tokens': 0, 'output_tokens': 2, 'reasoning_output_tokens': 0, 'total_tokens': 12}, 'turn_token_usage': {'input_tokens': 10, 'cached_input_tokens': 0, 'cache_write_input_tokens': 0, 'output_tokens': 2, 'reasoning_output_tokens': 0, 'total_tokens': 12}}}
+
+Diff is 823 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_completed_rpc_with_partial_durable_tail_is_not_complete_usage (test_native_accounting_boundary.NativeAccountingBoundaryTests.test_completed_rpc_with_partial_durable_tail_is_not_complete_usage)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_native_accounting_boundary.py", line 63, in test_completed_rpc_with_partial_durable_tail_is_not_complete_usage
+    self.assertFalse(result["usage_complete"])
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_missing_durable_completion_is_not_complete_usage (test_native_accounting_boundary.NativeAccountingBoundaryTests.test_missing_durable_completion_is_not_complete_usage)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_native_accounting_boundary.py", line 73, in test_missing_durable_completion_is_not_complete_usage
+    self.assertFalse(result["usage_complete"])
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_missing_final_receipt_is_detected_by_native_cumulative_usage (test_native_accounting_boundary.NativeAccountingBoundaryTests.test_missing_final_receipt_is_detected_by_native_cumulative_usage)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_native_accounting_boundary.py", line 69, in test_missing_final_receipt_is_detected_by_native_cumulative_usage
+    self.assertFalse(result["usage_complete"])
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_unrelated_turn_receipt_does_not_prove_current_turn_usage (test_native_accounting_boundary.NativeAccountingBoundaryTests.test_unrelated_turn_receipt_does_not_prove_current_turn_usage)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_native_accounting_boundary.py", line 80, in test_unrelated_turn_receipt_does_not_prove_current_turn_usage
+    self.assertFalse(result["usage_complete"])
+AssertionError: True is not false
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.252s
+
+FAILED (failures=5, errors=1)

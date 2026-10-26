@@ -1,0 +1,31 @@
+test_call_timeout_has_the_declared_exception_type (test_native_accounting_boundary.NativeAccountingBoundaryTests.test_call_timeout_has_the_declared_exception_type) ... ok
+test_complete_compaction_uses_its_embedded_receipt_not_reset_token_count (test_native_accounting_boundary.NativeAccountingBoundaryTests.test_complete_compaction_uses_its_embedded_receipt_not_reset_token_count) ... ok
+test_complete_json_at_eof_is_not_silently_lost (test_native_accounting_boundary.NativeAccountingBoundaryTests.test_complete_json_at_eof_is_not_silently_lost) ... ok
+test_complete_phase_preserves_and_accounts_for_the_same_bytes (test_native_accounting_boundary.NativeAccountingBoundaryTests.test_complete_phase_preserves_and_accounts_for_the_same_bytes) ... {"phase": "C:\\Users\\48522\\AppData\\Local\\Temp\\wsc-accounting-0g_6e4_6\\phase", "completed": true, "failure": null, "responses": 2, "seconds": 0.0}
+ok
+test_completed_rpc_with_partial_durable_tail_is_not_complete_usage (test_native_accounting_boundary.NativeAccountingBoundaryTests.test_completed_rpc_with_partial_durable_tail_is_not_complete_usage) ... {"phase": "C:\\Users\\48522\\AppData\\Local\\Temp\\wsc-accounting-q471jxe7\\phase", "completed": true, "failure": null, "responses": 2, "seconds": 0.0}
+ok
+test_malformed_interior_is_not_hidden_as_an_active_tail (test_native_accounting_boundary.NativeAccountingBoundaryTests.test_malformed_interior_is_not_hidden_as_an_active_tail) ... ok
+test_missing_durable_completion_is_not_complete_usage (test_native_accounting_boundary.NativeAccountingBoundaryTests.test_missing_durable_completion_is_not_complete_usage) ... {"phase": "C:\\Users\\48522\\AppData\\Local\\Temp\\wsc-accounting-38ewvyte\\phase", "completed": true, "failure": null, "responses": 2, "seconds": 0.0}
+ok
+test_missing_final_receipt_is_detected_by_native_cumulative_usage (test_native_accounting_boundary.NativeAccountingBoundaryTests.test_missing_final_receipt_is_detected_by_native_cumulative_usage) ... {"phase": "C:\\Users\\48522\\AppData\\Local\\Temp\\wsc-accounting-api1821y\\phase", "completed": true, "failure": null, "responses": 1, "seconds": 0.0}
+ok
+test_missing_middle_receipt_cannot_pass_cumulative_chain (test_native_accounting_boundary.NativeAccountingBoundaryTests.test_missing_middle_receipt_cannot_pass_cumulative_chain) ... {"phase": "C:\\Users\\48522\\AppData\\Local\\Temp\\wsc-accounting-pd_fnxpb\\phase", "completed": true, "failure": null, "responses": 1, "seconds": 0.0}
+ok
+test_strict_physical_lines_keep_valid_unicode_and_exact_archive (test_native_accounting_boundary.NativeAccountingBoundaryTests.test_strict_physical_lines_keep_valid_unicode_and_exact_archive) ... ok
+test_unrelated_turn_receipt_does_not_prove_current_turn_usage (test_native_accounting_boundary.NativeAccountingBoundaryTests.test_unrelated_turn_receipt_does_not_prove_current_turn_usage) ... {"phase": "C:\\Users\\48522\\AppData\\Local\\Temp\\wsc-accounting-mmqtvobi\\phase", "completed": true, "failure": null, "responses": 2, "seconds": 0.0}
+ok
+test_conflicting_receipt_rejected (test_native_experiment_evidence.NativeEvidenceTests.test_conflicting_receipt_rejected) ... ok
+test_duplicate_receipts_count_once_and_compaction_is_charged (test_native_experiment_evidence.NativeEvidenceTests.test_duplicate_receipts_count_once_and_compaction_is_charged) ... ok
+test_import_must_preserve_role_content_envelope_and_order (test_native_experiment_evidence.NativeEvidenceTests.test_import_must_preserve_role_content_envelope_and_order) ... ok
+test_normalization_cannot_change_existing_identity_or_content (test_native_experiment_evidence.NativeEvidenceTests.test_normalization_cannot_change_existing_identity_or_content) ... ok
+test_observed_native_additions_keep_all_supplied_fields (test_native_experiment_evidence.NativeEvidenceTests.test_observed_native_additions_keep_all_supplied_fields) ... ok
+test_other_thread_receipt_rejected (test_native_experiment_evidence.NativeEvidenceTests.test_other_thread_receipt_rejected) ... ok
+test_partial_last_receipt_not_used (test_native_experiment_evidence.NativeEvidenceTests.test_partial_last_receipt_not_used) ... ok
+test_unbound_compaction_rejected (test_native_experiment_evidence.NativeEvidenceTests.test_unbound_compaction_rejected) ... ok
+test_unknown_usage_does_not_become_zero (test_native_experiment_evidence.NativeEvidenceTests.test_unknown_usage_does_not_become_zero) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 0.125s
+
+OK

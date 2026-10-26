@@ -1,0 +1,12 @@
+{
+  "source_events": 16,
+  "offered_spans": 142,
+  "original_material_bytes": 171378,
+  "span_material_bytes": 182984,
+  "cap_bytes": 262144,
+  "exact_roundtrips": 142,
+  "no_characters_removed": true,
+  "actual_model_calls": 0,
+  "semantic_selection_validated": false,
+  "source_sha256": "66d6af09e81a8ed10fed02fcadb0e1bbf61647cbeaf34ddc7cc4d7c898090e7d"
+}

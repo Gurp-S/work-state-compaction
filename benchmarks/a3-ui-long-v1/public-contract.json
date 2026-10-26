@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "status": "automated_checks_implemented_baseline_and_selected_faults_calibrated",
+  "target": "A3 UI in the existing project",
+  "visibility": "All stages, fixtures and checks available to both arms before the first model call.",
+  "design_freedom": "布局、组件拆分、图表形式和样式可重做。以下定位属性挂在实际可见内容上，不要求保留旧DOM或CSS类，不得用隐藏的镜像内容替代用户看到的结果。",
+  "visible_regions": {
+    "cost": "[data-a3-kpi=成本]",
+    "requests": "[data-a3-kpi=请求]",
+    "input": "[data-a3-kpi=\"输入 token\"]",
+    "output": "[data-a3-kpi=\"输出 token\"]",
+    "hit_rate": "[data-a3-kpi=命中率]",
+    "models": "[data-a3-models]",
+    "detail": "[data-a3-drill]",
+    "live_status": "[data-a3-live-status]",
+    "snapshot_status": "[data-a3-snapshot-status]"
+  },
+  "accessible_controls": {
+    "refresh": "刷新用量数据",
+    "open_detail": "查看会话明细",
+    "close_detail": "收起会话明细",
+    "search": "搜索用户消息",
+    "snapshot": "生成网页报告",
+    "all_export": "导出全部数据",
+    "filtered_export": "导出筛选数据",
+    "density_compact": "紧凑布局",
+    "density_comfortable": "舒适布局",
+    "density_reset": "重置显示偏好",
+    "date": "可见的日期按钮名称包含ISO日期，或名称为选择查看的日期的下拉框。",
+    "model_filter": "按钮或复选框的可访问名称包含完整模型名；S5起同时包含供应商，缺失供应商显示未记供应商。选中状态通过aria-pressed或checked表达。"
+  },
+  "data_semantics": {
+    "model_identity": "有序二元组[provider|null, model|null]，不得只用model作为筛选或系列身份；不得使用可碰撞的无转义字符串拼接。",
+    "filter_scope": "当前日期的模型图表与分模型列表受筛选影响；总体KPI和跨日期活动热力图保持全口径。日期变化清空选择。",
+    "unknown_cost": "null不是0；有已知金额又有未知请求时显示已知部分和部分未知；全部无价目不表现为免费。",
+    "date_detail_race": "旧日期明细晚返回不能覆盖新日期；当前日期加载失败不能显示上一日期明细。",
+    "refresh_failure": "保留最后成功读数时必须同时显示读取失败/旧数据事实；不能把失败当空账本。",
+    "detail_provider": "请求事件有provider；轮次可能包含多个供应商，按事件身份筛选时不能把整轮全部请求误归到某个供应商。原API中轮次未给provider不可自行猜成唯一值。"
+  },
+  "export_contract": {
+    "from_stage": "S6",
+    "all": {
+      "source": "live_ledger",
+      "schema_version": 1,
+      "generated_at": "report.generated_at",
+      "scope": {"kind": "all", "day": null, "models": []},
+      "report": "完整当前报告；保留每个日期与所有模型行的服务端数值和未知状态。",
+      "day_detail": "当前已成功加载且日期仍匹配的明细，或null。不得为导出额外遍历所有日期。"
+    },
+    "filtered": {
+      "source": "live_ledger",
+      "schema_version": 1,
+      "generated_at": "report.generated_at",
+      "scope": {"kind": "filtered", "day": "selected ISO date", "models": "实际选中的[provider|null, model|null]二元组列表；未限制时包含当前日期所有模型身份。"},
+      "rows": "当前日期筛选后的LiveUsageModelRow列表，字段值与服务端一致；不夹带其他日期或未选中模型，不把总体KPI误称筛选合计。"
+    }
+  },
+  "display_preferences": {
+    "from_stage": "S7",
+    "storage_key": "xeyo.a3.display.v1",
+    "value": {"version": 1, "density": "comfortable|compact"},
+    "default": "comfortable",
+    "behavior": "选择紧凑/舒适仅改变呈现密度；刷新恢复。无效JSON、旧版version:0、非法density回退默认而不阻断页面。重置恢复默认。根可见区域data-a3-density反映当前值；实际密度变化还须截图人工确认，属性本身不证明视觉效果。"
+  },
+  "coverage": [
+    {"id": "C01", "stage": "S1", "method": "browser", "requirement": "正常报告KPI取自当前日期，模型列表有两个正确身份。"},
+    {"id": "C02", "stage": "S2", "method": "browser", "requirement": "零、无价目、部分未知、字段缺失、空账本、HTTP失败分别表达，不伪造0。"},
+    {"id": "C03", "stage": "S3", "method": "browser", "requirement": "模型筛选改变模型列表，保持总体KPI；切日清空筛选。"},
+    {"id": "C04", "stage": "S3", "method": "browser", "requirement": "刷新失败保留读数时同时显示失败状态；恢复后能够刷新。"},
+    {"id": "C05", "stage": "S4", "method": "browser", "requirement": "明细按需加载，搜索只显示匹配轮次，清空后恢复。"},
+    {"id": "C06", "stage": "S4", "method": "browser", "requirement": "受控旧日响应晚于新日返回，当前明细仍为新日。"},
+    {"id": "C07", "stage": "S5", "method": "browser", "requirement": "两个供应商的同名模型可分别筛选，排序/刷新后身份仍正确。"},
+    {"id": "C08", "stage": "S6", "method": "browser_and_payload", "requirement": "实际下载全范围及筛选JSON，字段/范围/未知金额/模型身份符合导出合同。"},
+    {"id": "C09", "stage": "S6", "method": "browser", "requirement": "快照成功、明确失败、HTTP回执未确认、快照状态读取失败分别可见，不改实时主读数。"},
+    {"id": "C10", "stage": "S7", "method": "browser", "requirement": "偏好正常保存、刷新恢复、重置及损坏/旧版本回退。"},
+    {"id": "C11", "stage": "S7", "method": "browser_and_manual", "requirement": "大数据夹具可切换日期、筛选、展开和搜索；记录加载与交互耗时，固定机器上10秒内完成单次操作，不将测试进程排队时间计入。"},
+    {"id": "C12", "stage": "S8", "method": "manual_browser", "requirement": "键盘完成日期/模型筛选/明细/搜索/导出操作，焦点可见；颜色不是状态的唯一线索；窗口和主题变化后仍可用。"},
+    {"id": "C13", "stage": "S8", "method": "manual_screenshots", "requirement": "按六项视觉量表评分，检查三宽度两主题、长名称/小额费用/部分未知/加载/空/失败状态；实际偏好改变可见。"},
+    {"id": "C14", "stage": "S8", "method": "manual_source_and_report", "requirement": "交付声明对应当前源码与验收范围；未改受保护验收器和数据，未使用隐藏镜像伪造功能；历史回执不冒充当前验证。"}
+  ],
+  "qualification": "每阶段检查累计到当前阶段的要求。自动通过不能代替C12-C14人工审核；任何缺失人工证据保持未确认。美观评分不抵消功能失败。基础设施异常和任务失败分开记录。",
+  "calibration": "已执行原版21个自动场景：18通过，C07/C08/C10为新增功能缺口。故障注入检测到未知金额变0、旧明细覆盖新日期；导出校验器通过4个有效数据样本并拒绝10个损坏样本。新增导出/偏好的完整浏览器正向路径尚未在具备该功能的应用上校准；人工审核仍需真实交付后执行。各次源码绑定和范围见validation/a3-acceptance-20261023/review.json，不把不同版本结果合称最终源码全验收通过。"
+}

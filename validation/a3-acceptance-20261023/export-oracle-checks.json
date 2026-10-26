@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "accepted_examples": 4,
+  "rejected_mutations": [
+    "unknown_to_zero",
+    "lost_provider",
+    "missing_day",
+    "wrong_scope",
+    "duplicate_model",
+    "invented_detail",
+    "unselected_row_leaked",
+    "filtered_zero_unknown",
+    "stale_filter_day",
+    "full_report_in_filtered"
+  ],
+  "source_manifest": {
+    "check-export-oracle.mjs": "26e9a1c6e9baf5eed0028b6f29e63122f9e8a98b90690dd317116ad51de0185f",
+    "../../benchmarks/a3-ui-long-v1/harness/export-checks.mjs": "15613c0c94992217f7dc606b24abe00f61dc6526985eedcae5a0f5ca84d525f5",
+    "../../benchmarks/a3-ui-long-v1/harness/contract-fixtures.mjs": "5fe100df4f6b25d8586f368c68f68e0c879428783fe45199e59bbab550f36a26",
+    "../../benchmarks/a3-ui-long-v1/harness/fixtures.mjs": "b4546a3255001ed51d39d4ccf033064cd5745d5ceb4e1196275751cd977c10d8"
+  },
+  "model_calls": 0,
+  "scope": "JSON download oracle calibration; not browser UI acceptance"
+}

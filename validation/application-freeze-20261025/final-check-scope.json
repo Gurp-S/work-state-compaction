@@ -1,0 +1,17 @@
+{
+  "candidate_methods": 5,
+  "current_budget_quality_methods": 9,
+  "total_distinct_methods": 14,
+  "candidate_receipt": "D:\\lea\\XenYon code\\wsc\\validation\\application-freeze-20261025\\test_native_incremental_candidate-checks.json",
+  "current_budget_quality_execution": {
+    "command": "py -3.11 -B -X utf8 -m unittest discover -s wsc/tests -p test_native_application_limits_quality.py -v",
+    "observed_tool_chunk": "20fad9",
+    "tests": 9,
+    "passed": true,
+    "evidence_capture": "Execution directly observed by current agent; original initial 13-method receipts retained"
+  },
+  "current_quality_source_sha256": "8f69564f8e34de2e23d4fdf85e98c0f1d4c5ab75bb6fef6a3e6e26ee52c6d93e",
+  "current_quality_test_sha256": "d2ef72e51aab0d6ec9d1d23cc66d4b6cee72ca649916ad3024b17f8b1a639f30",
+  "model_calls": 0,
+  "native_boundary_or_model_selection_qualified": false
+}

@@ -1,0 +1,39 @@
+test_before_after_preserves_later_controls_and_real_publication_contract (test_host_checkpoint.HostCheckpointTests.test_before_after_preserves_later_controls_and_real_publication_contract) ... ok
+test_changed_source_prefix_and_ambiguous_execution_fact_rejected (test_host_checkpoint.HostCheckpointTests.test_changed_source_prefix_and_ambiguous_execution_fact_rejected) ... ok
+test_corrupt_cold_source_fails_publication (test_host_checkpoint.HostCheckpointTests.test_corrupt_cold_source_fails_publication) ... ok
+test_current_user_control_requires_actual_coverage_before_publication (test_host_checkpoint.HostCheckpointTests.test_current_user_control_requires_actual_coverage_before_publication) ... ok
+test_deferred_publication_then_import (test_host_checkpoint.HostCheckpointTests.test_deferred_publication_then_import) ... ok
+test_driver_host_mode_defers_generator_and_publication (test_host_checkpoint.HostCheckpointTests.test_driver_host_mode_defers_generator_and_publication) ... ok
+test_missing_user_coverage_stops_before_build_and_candidate_injection (test_host_checkpoint.HostCheckpointTests.test_missing_user_coverage_stops_before_build_and_candidate_injection) ... ok
+test_source_archive_identity_and_scope_are_not_inferred (test_host_checkpoint.HostCheckpointTests.test_source_archive_identity_and_scope_are_not_inferred) ... ok
+test_target_changes_between_publication_and_import_stop_injection (test_host_checkpoint.HostCheckpointTests.test_target_changes_between_publication_and_import_stop_injection) ... ok
+test_target_with_later_activity_or_actual_receipt_is_not_fresh (test_host_checkpoint.HostCheckpointTests.test_target_with_later_activity_or_actual_receipt_is_not_fresh) ... ok
+test_user_coverage_cannot_reverse_order_or_collapse_repeated_controls (test_host_checkpoint.HostCheckpointTests.test_user_coverage_cannot_reverse_order_or_collapse_repeated_controls) ... ok
+test_changed_source_archive_is_rejected (test_message_checkpoint.MessageCheckpointTests.test_changed_source_archive_is_rejected) ... ok
+test_current_cap_rejects_oversized_messages_without_truncation_or_usage (test_message_checkpoint.MessageCheckpointTests.test_current_cap_rejects_oversized_messages_without_truncation_or_usage) ... ok
+test_driver_does_not_open_generator_or_add_paid_phase (test_message_checkpoint.MessageCheckpointTests.test_driver_does_not_open_generator_or_add_paid_phase) ... ok
+test_message_route_keeps_source_identity_checks_without_scope_generation (test_message_checkpoint.MessageCheckpointTests.test_message_route_keeps_source_identity_checks_without_scope_generation) ... ok
+test_messages_exact_order_tool_cold_observations_exact_no_generation (test_message_checkpoint.MessageCheckpointTests.test_messages_exact_order_tool_cold_observations_exact_no_generation) ... ok
+test_actual_private_import_and_explicit_scope (test_control_continuation.AcceptanceTests.test_actual_private_import_and_explicit_scope) ... ok
+test_checkpoint_preserves_source_scope_and_failed_generation (test_control_continuation.AcceptanceTests.test_checkpoint_preserves_source_scope_and_failed_generation) ... ok
+test_duplicate_or_unknown_names_cannot_produce_passing_scope (test_control_continuation.AcceptanceTests.test_duplicate_or_unknown_names_cannot_produce_passing_scope) ... ok
+test_failed_source_acceptance_prevents_generation_and_C (test_control_continuation.DriverTests.test_failed_source_acceptance_prevents_generation_and_C) ... {"error":"ValueError:control_acceptance_failed","status":"stopped","usage":{"cash":null,"complete":true,"complete_usage":{"cache_write_input_tokens":0,"cached_input_tokens":0,"input_tokens":2,"output_tokens":0,"reasoning_output_tokens":0,"total_tokens":2},"known_usage":{"cache_write_input_tokens":0,"cached_input_tokens":0,"input_tokens":2,"output_tokens":0,"reasoning_output_tokens":0,"total_tokens":2},"price_status":"unknown","response_count":1,"response_ids":["a"]}}
+ok
+test_interrupted_generation_preserves_known_usage_and_stops_C (test_control_continuation.DriverTests.test_interrupted_generation_preserves_known_usage_and_stops_C) ... {"error":"ValueError:control_phase_incomplete","status":"stopped","usage":{"cash":null,"complete":false,"complete_usage":null,"known_usage":{"cache_write_input_tokens":0,"cached_input_tokens":0,"input_tokens":4,"output_tokens":0,"reasoning_output_tokens":0,"total_tokens":4},"price_status":"unknown","response_count":2,"response_ids":["a","b"]}}
+ok
+test_legitimate_existing_test_edit_reaches_independent_acceptance (test_control_continuation.DriverTests.test_legitimate_existing_test_edit_reaches_independent_acceptance) ... {"error":"ValueError:control_acceptance_failed","status":"stopped","usage":{"cash":null,"complete":true,"complete_usage":{"cache_write_input_tokens":0,"cached_input_tokens":0,"input_tokens":2,"output_tokens":0,"reasoning_output_tokens":0,"total_tokens":2},"known_usage":{"cache_write_input_tokens":0,"cached_input_tokens":0,"input_tokens":2,"output_tokens":0,"reasoning_output_tokens":0,"total_tokens":2},"price_status":"unknown","response_count":1,"response_ids":["a"]}}
+ok
+test_one_source_one_generation_two_C_turns_and_no_double_billing (test_control_continuation.DriverTests.test_one_source_one_generation_two_C_turns_and_no_double_billing) ... {"error":null,"status":"C_task_executed_semantic_review_pending","usage":{"cash":null,"complete":true,"complete_usage":{"cache_write_input_tokens":0,"cached_input_tokens":0,"input_tokens":8,"output_tokens":0,"reasoning_output_tokens":0,"total_tokens":8},"known_usage":{"cache_write_input_tokens":0,"cached_input_tokens":0,"input_tokens":8,"output_tokens":0,"reasoning_output_tokens":0,"total_tokens":8},"price_status":"unknown","response_count":4,"response_ids":["a","b","c","d"]}}
+ok
+test_recovery_skips_source_phase_and_preserves_unknown_historical_usage (test_control_continuation.DriverTests.test_recovery_skips_source_phase_and_preserves_unknown_historical_usage) ... {"error":null,"status":"C_task_executed_semantic_review_pending","usage":{"cash":null,"complete":true,"complete_usage":{"cache_write_input_tokens":0,"cached_input_tokens":0,"input_tokens":6,"output_tokens":0,"reasoning_output_tokens":0,"total_tokens":6},"known_usage":{"cache_write_input_tokens":0,"cached_input_tokens":0,"input_tokens":6,"output_tokens":0,"reasoning_output_tokens":0,"total_tokens":6},"price_status":"unknown","response_count":3,"response_ids":["a","b","c"]}}
+ok
+test_started_attempt_cannot_reenter (test_control_continuation.DriverTests.test_started_attempt_cannot_reenter) ... ok
+test_unavailable_native_runtime_stops_before_any_model_phase (test_control_continuation.DriverTests.test_unavailable_native_runtime_stops_before_any_model_phase) ... {"error":"ValueError:native_task_runtime_unavailable","status":"stopped","usage":{"cash":null,"complete":true,"complete_usage":{"cache_write_input_tokens":0,"cached_input_tokens":0,"input_tokens":0,"output_tokens":0,"reasoning_output_tokens":0,"total_tokens":0},"known_usage":{"cache_write_input_tokens":0,"cached_input_tokens":0,"input_tokens":0,"output_tokens":0,"reasoning_output_tokens":0,"total_tokens":0},"price_status":"unknown","response_count":0,"response_ids":[]}}
+ok
+test_sandbox_failure_is_preserved_without_turn_start (test_control_continuation.RuntimeProbeTests.test_sandbox_failure_is_preserved_without_turn_start) ... ok
+test_success_requires_actual_python_capabilities (test_control_continuation.RuntimeProbeTests.test_success_requires_actual_python_capabilities) ... ok
+
+----------------------------------------------------------------------
+Ran 28 tests in 3.807s
+
+OK

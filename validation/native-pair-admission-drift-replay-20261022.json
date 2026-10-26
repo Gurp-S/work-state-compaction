@@ -1,0 +1,7 @@
+{
+  "input_evidence": "D:\\agent-task-runs\\independent-wsc-luna-pair-20261021-local-v2",
+  "historical_actual_spent_responses": 9,
+  "new_replay_model_calls": 0,
+  "rejected": "native_pair_host_drift_before_inference",
+  "paid_callback_invocations": 0
+}

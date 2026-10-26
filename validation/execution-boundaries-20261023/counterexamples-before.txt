@@ -1,0 +1,105 @@
+test_corrupt_database_uses_neutral_cli_error_exit (test_execution_boundaries.ExecutionBoundaryTests.test_corrupt_database_uses_neutral_cli_error_exit) ... ERROR
+test_corrupt_database_uses_neutral_cli_error_exit (test_execution_boundaries.ExecutionBoundaryTests.test_corrupt_database_uses_neutral_cli_error_exit) ... ERROR
+test_each_phase_rechecks_pins_before_sending_a_model_request (test_execution_boundaries.ExecutionBoundaryTests.test_each_phase_rechecks_pins_before_sending_a_model_request) ... {"phase": "C:\\Users\\48522\\AppData\\Local\\Temp\\wsc-execution-boundary-ndno655u", "completed": false, "failure": "AttributeError:'NoneType' object has no attribute 'call'", "responses": 0, "seconds": 0.0}
+FAIL
+test_retained_entry_rejects_pin_drift_before_qualification_or_setup (test_execution_boundaries.ExecutionBoundaryTests.test_retained_entry_rejects_pin_drift_before_qualification_or_setup) ... ERROR
+test_sqlite_lock_error_does_not_leak_detail_or_traceback (test_execution_boundaries.ExecutionBoundaryTests.test_sqlite_lock_error_does_not_leak_detail_or_traceback) ... ERROR
+
+======================================================================
+ERROR: test_corrupt_database_uses_neutral_cli_error_exit (test_execution_boundaries.ExecutionBoundaryTests.test_corrupt_database_uses_neutral_cli_error_exit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_execution_boundaries.py", line 49, in test_corrupt_database_uses_neutral_cli_error_exit
+    status = main(["--db", str(database), "--session", "s", "--workspace", str(self.area), "status"])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\lea\XenYon code\wsc\src\wsc\cli.py", line 60, in main
+    core = WSC(Store(args.db, session_id=args.session, workspace=args.workspace),
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\lea\XenYon code\wsc\src\wsc\store.py", line 50, in __init__
+    with self.transaction() as db:
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "D:\lea\XenYon code\wsc\src\wsc\store.py", line 81, in transaction
+    with self.connect() as db:
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "D:\lea\XenYon code\wsc\src\wsc\store.py", line 72, in connect
+    db.execute("PRAGMA synchronous=FULL")
+sqlite3.DatabaseError: file is not a database
+
+======================================================================
+ERROR: test_corrupt_database_uses_neutral_cli_error_exit (test_execution_boundaries.ExecutionBoundaryTests.test_corrupt_database_uses_neutral_cli_error_exit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\shutil.py", line 632, in _rmtree_unsafe
+    os.unlink(fullname)
+PermissionError: [WinError 32] 另一个程序正在使用此文件，进程无法访问。: 'C:\\Users\\48522\\AppData\\Local\\Temp\\wsc-execution-boundary-ms80ptz2\\corrupt.db'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\tempfile.py", line 947, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\tempfile.py", line 929, in _rmtree
+    _shutil.rmtree(name, onerror=onerror)
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\shutil.py", line 787, in rmtree
+    return _rmtree_unsafe(path, onerror)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\shutil.py", line 634, in _rmtree_unsafe
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\tempfile.py", line 893, in onerror
+    _os.unlink(path)
+PermissionError: [WinError 32] 另一个程序正在使用此文件，进程无法访问。: 'C:\\Users\\48522\\AppData\\Local\\Temp\\wsc-execution-boundary-ms80ptz2\\corrupt.db'
+
+======================================================================
+ERROR: test_retained_entry_rejects_pin_drift_before_qualification_or_setup (test_execution_boundaries.ExecutionBoundaryTests.test_retained_entry_rejects_pin_drift_before_qualification_or_setup)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_execution_boundaries.py", line 35, in test_retained_entry_rejects_pin_drift_before_qualification_or_setup
+    run_admitted_pair.run(self.area)
+  File "D:\lea\XenYon code\wsc\experiments\run_admitted_pair.py", line 36, in run
+    require_qualification(reg)
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\unittest\mock.py", line 1124, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\unittest\mock.py", line 1128, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\unittest\mock.py", line 1183, in _execute_mock_call
+    raise effect
+RuntimeError: past_pin_gate
+
+======================================================================
+ERROR: test_sqlite_lock_error_does_not_leak_detail_or_traceback (test_execution_boundaries.ExecutionBoundaryTests.test_sqlite_lock_error_does_not_leak_detail_or_traceback)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_execution_boundaries.py", line 57, in test_sqlite_lock_error_does_not_leak_detail_or_traceback
+    status = main(["--db", str(self.area / "db"), "--session", "s", "--workspace", str(self.area), "status"])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\lea\XenYon code\wsc\src\wsc\cli.py", line 60, in main
+    core = WSC(Store(args.db, session_id=args.session, workspace=args.workspace),
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\unittest\mock.py", line 1124, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\unittest\mock.py", line 1128, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\unittest\mock.py", line 1183, in _execute_mock_call
+    raise effect
+sqlite3.OperationalError: private internal detail
+
+======================================================================
+FAIL: test_each_phase_rechecks_pins_before_sending_a_model_request (test_execution_boundaries.ExecutionBoundaryTests.test_each_phase_rechecks_pins_before_sending_a_model_request)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_execution_boundaries.py", line 40, in test_each_phase_rechecks_pins_before_sending_a_model_request
+    with self.assertRaisesRegex(ValueError, "registered_input_changed"):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.162s
+
+FAILED (failures=1, errors=4)

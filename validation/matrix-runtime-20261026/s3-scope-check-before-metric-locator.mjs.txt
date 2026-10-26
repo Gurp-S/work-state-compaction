@@ -1,0 +1,63 @@
+// Independent public-UI check: selected chart totals and date reset, no fixed legend role.
+import assert from 'node:assert/strict';
+import {mkdir, writeFile} from 'node:fs/promises';
+import path from 'node:path';
+import {pathToFileURL} from 'node:url';
+
+const [gui, fixture, output] = process.argv.slice(2);
+const load = name => import(pathToFileURL(path.join(fixture, 'harness', name)).href);
+const {openHost, manifest} = await load('browser-host.mjs');
+const {contractReport, contractDetail} = await load('contract-fixtures.mjs');
+const {selectDate} = await load('acceptance-cases.mjs');
+await mkdir(output, {recursive: false});
+const before = await manifest(path.join(gui, 'src'));
+await writeFile(path.join(output, 'registration.json'), JSON.stringify({source_manifest: before,
+  checks: ['selected_chart_totals', 'date_reset_scope', 'keyboard_model_selection']}, null, 2), {flag: 'wx'});
+const host = await openHost(gui, output, 'none');
+const checks = [], errors = [];
+try {
+  const context = await host.browser.newContext({viewport: {width: 1440, height: 1000}, locale: 'zh-CN', timezoneId: 'Asia/Shanghai'});
+  const page = await context.newPage();
+  page.on('pageerror', error => errors.push(String(error)));
+  await context.route('**/v1/**', route => {
+    const u = new URL(route.request().url());
+    const json = u.pathname === '/v1/usage/report' ? (u.searchParams.has('day') ? contractDetail(u.searchParams.get('day')) : contractReport()) : {ok: true, exists: false};
+    return route.fulfill({json});
+  });
+  const expect = host.expect.configure({timeout: 5000});
+  const cost = page.locator('[data-a3-kpi="成本"]');
+  const modelControl = () => page.getByRole('button', {name: /atlas-pro/}).or(page.getByRole('checkbox', {name: /atlas-pro/}));
+  const chart = name => page.locator(`[data-donut="${name}"]`);
+  await page.goto(host.origin);
+  await expect(cost).toContainText(/[¥￥]\s*1\.50(?!\d)/);
+  await modelControl().click();
+  await expect(page.locator('[data-a3-models]')).not.toContainText('provider-b');
+  await expect(cost).toContainText(/[¥￥]\s*1\.50(?!\d)/);
+  await expect(chart('成本 · 模型')).toContainText(/[¥￥]\s*1\.20(?:0{0,2})(?!\d)/);
+  await expect(chart('请求 · 模型')).toContainText(/\b8\b/);
+  await expect(chart('整体命中率')).toContainText(/75(?:\.0)?%/);
+  await expect(chart('输入 token · 构成')).toContainText(/80(?:\.00)?k|80,000/);
+  checks.push({id: 'selected_chart_totals', passed: true});
+  await page.screenshot({path: path.join(output, 'selected.png'), fullPage: true});
+  await selectDate(page, '2026-10-21');
+  await expect(page.locator('[data-a3-models]')).toContainText('provider-a');
+  await expect(page.locator('[data-a3-models]')).toContainText('provider-b');
+  await expect(cost).toContainText(/[¥￥]\s*3\.00(?!\d)/);
+  await expect(chart('成本 · 模型')).toContainText(/[¥￥]\s*3\.00(?:0{0,2})(?!\d)/);
+  checks.push({id: 'date_reset_scope', passed: true});
+  await modelControl().focus(); await page.keyboard.press('Space');
+  await expect(page.locator('[data-a3-models]')).not.toContainText('provider-b');
+  await expect(cost).toContainText(/[¥￥]\s*3\.00(?!\d)/);
+  await expect(chart('成本 · 模型')).toContainText(/[¥￥]\s*2\.40(?:0{0,2})(?!\d)/);
+  checks.push({id: 'keyboard_model_selection', passed: true});
+  assert.deepEqual(errors, []);
+  await page.screenshot({path: path.join(output, 'keyboard.png'), fullPage: true});
+  await context.close();
+} catch (error) {
+  checks.push({id: 'scope_check_unfinished', passed: false, error: String(error), errors});
+} finally {await host.close();}
+const after = await manifest(path.join(gui, 'src'));
+const result = {checks, source_unchanged: JSON.stringify(before) === JSON.stringify(after), model_calls: 0};
+result.passed = result.source_unchanged && checks.length === 3 && checks.every(row => row.passed);
+await writeFile(path.join(output, 'result.json'), JSON.stringify(result, null, 2), {flag: 'wx'});
+console.log(JSON.stringify(result));

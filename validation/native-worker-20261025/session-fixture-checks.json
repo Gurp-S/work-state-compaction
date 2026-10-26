@@ -1,0 +1,8 @@
+{
+  "tests": 2,
+  "passed": true,
+  "failures": [],
+  "model_calls": 0,
+  "source_sha256": "e690e7b4e737d2892ce5cd0cf8f4ebfc2afb97ff8655a22ee4be79b6d0b8cee6",
+  "scope": "Synthetic event matching and disconnect journaling; no paid native stage executed"
+}

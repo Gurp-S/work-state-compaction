@@ -1,0 +1,9 @@
+{
+  "result": {
+    "status": "passed",
+    "reason": "registered_automatic_and_manual_requirements_passed",
+    "evidence_sha256": "bfb548fe0ed228f0d1d2e42c2d585479d9b2f5a5afd8e8e9eeb6419246099b9f"
+  },
+  "source_sha256": "9a2d5e57e37e22663c066c9bb99defe8dd6427116ce05acc19e25c5dd2e7c8dc",
+  "model_calls": 0
+}

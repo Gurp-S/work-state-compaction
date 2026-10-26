@@ -1,0 +1,13 @@
+{
+  "tests": 7,
+  "failures": 0,
+  "errors": 0,
+  "seconds": 0.171,
+  "command": "py -3.11 -X utf8 -m unittest discover -s wsc/tests -p test_native_scope_observation.py -v",
+  "scope": "affected observation tests after full cold context preservation",
+  "evidence": "observed successful tool command result; prior 15-check log retained separately",
+  "tested_files": {
+    "experiments/native_scope_observation.py": "4ce0cc8701c6aca1564d963b832254f516ac5adf4ec6016b9b54e37729dfb812",
+    "tests/test_native_scope_observation.py": "1474fda45c822bf736fb6946b2472a43c978f5b22c03c7bd9f7a839cc49dd9dc"
+  }
+}

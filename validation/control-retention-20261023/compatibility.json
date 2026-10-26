@@ -1,0 +1,16 @@
+{
+  "baseline": {
+    "previous_view": "6b8804159afc42d1844caca40dec0415",
+    "cursor": 0
+  },
+  "candidate": {
+    "old_view_refusal": "frontier_previous_control_missing",
+    "reprepared_view": "bdf84e57f3f74529a682f7c5b45b30d1",
+    "source_digest_unchanged": true,
+    "offered": [
+      "s1"
+    ],
+    "model_calls": 0,
+    "cursor": 0
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "path": "C:\\Users\\48522\\.codex\\sessions\\2026\\10\\23\\rollout-2026-10-23T01-24-38-01a15edf-1654-7ee3-a6ae-96e2a2949025_01a164a4-b578-7080-91a7-ba49fc46c92a.jsonl",
+  "archive": "wsc\\validation\\turn-accounting-20261023\\native-multiturn-source.zip",
+  "archive_sha256": "d97824aa1527e65824693dac553a3e899a3360634a51ac8f713c8e82287a8a81",
+  "snapshot": {
+    "sha256": "e95a5e0794342ada0bc89f47c8a3d5e6a754373be7cdc82b0828d94c4e3c824c",
+    "byte_length": 17904066,
+    "exists": true,
+    "tail_status": "terminated",
+    "parse_complete": true,
+    "records": 4128,
+    "snapshot_scope": "single_read_bytes_not_cross_file_atomic"
+  }
+}

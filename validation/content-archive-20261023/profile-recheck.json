@@ -1,0 +1,17 @@
+{
+  "scope": "Follow-up on 23-second outlier; adds actual pre-install evidence validation between stages; not same benchmark",
+  "stages": [
+    {
+      "stage_seconds": 1.5119129000013345,
+      "check_evidence_seconds": 22.93339610000112
+    },
+    {
+      "stage_seconds": 0.32361390000005485,
+      "check_evidence_seconds": 0.0961306000026525
+    },
+    {
+      "stage_seconds": 0.3252740999960224,
+      "check_evidence_seconds": 0.07088159999693744
+    }
+  ]
+}

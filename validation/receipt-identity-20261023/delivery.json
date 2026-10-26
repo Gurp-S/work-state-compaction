@@ -1,0 +1,28 @@
+{
+  "version": "wsc\\versions\\20261023-receipt-identity-v1-delta.zip",
+  "sha256": "14c092581cd474d3dce3fcb116458b786e6b4cf599634c93d6d4614711d4a37d",
+  "bytes": 58790,
+  "source_manifest_sha256": "abf014e287c7b4f00edfdff55736601f023f0d62c4970bcc3922b32620973bdc",
+  "source_files": 135,
+  "checks_receipt_sha256": "70452c94e095e4b04eb8abb6d3deac97ae06e07d8e239958870ec752d18816bb",
+  "before_sha256": "46f1aa325671c026911c0a85137e29669e5834cb10c78b33cb2a2d1e2a20ce6c",
+  "after_sha256": "817dc1ae1b62c42c0a7e16fac58bdb20d8abf8a55438340c2e86c0bc4bbc7d4a",
+  "reports": {
+    "reviews/2026-10-23-strict-jsonl-pair-results.md": "413f93af9d077f68d41da54343e6d3fd07fcf685b17575adea4fb94714e219e2",
+    "reviews/2026-10-23-receipt-identity-fix.md": "80fb0ce2d99729f2e9d5aa384294374c73ccbf7fd2e21e84f9cf91c5db5470f8",
+    "reviews/2026-10-23-strict-jsonl-acceptance-audit.md": "e15fdb190d4faf98a8b0a325741271c1a9f3add404af3644f34362fcd418109f",
+    "experiments/NATIVE-LOCAL-HANDOFF.md": "b7b40bcd2b8051cb5ba521f8500ba831c0a544f9de02a6308becaa4831fa8c36"
+  },
+  "experiment_evidence": {
+    "D:\\agent-task-runs\\wsc-strict-jsonl-pair-20261023-v1\\reviewed-result.json": "3fe0d6fd33010f6b9a7f4f851a7baf4533deca59bfa7babb65514d199f3eef64",
+    "D:\\agent-task-runs\\wsc-strict-jsonl-pair-20261023-v1\\C\\post-review-correction.json": "ccb8ca536049f7e8ed26a8ea390b128c2980bf4f0f8234777ea8c6d6e5b67cbc",
+    "D:\\agent-task-runs\\wsc-strict-jsonl-pair-20261023-v1\\postrun-contract-audit\\large-integer.json": "496e4f8770b2a2b43f4668d741b59ea10c3b75a57c073ceb1b54c481ced4fd57",
+    "D:\\agent-task-runs\\wsc-strict-jsonl-pair-20261023-v1\\postrun-contract-audit\\trajectory-and-receipts.json": "9fec68df63cadc439eb154ad46cb5db58e02416c0fb6e1944cd8f92c34c9a765"
+  },
+  "unchanged_task_modules_verified": [
+    "B",
+    "C"
+  ],
+  "new_model_calls": 0,
+  "goal_complete": false
+}

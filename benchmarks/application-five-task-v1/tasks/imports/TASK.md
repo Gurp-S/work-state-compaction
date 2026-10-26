@@ -1,0 +1,35 @@
+# 数据导入与报表应用
+
+遵循 ../../COMMON.md。交付导入向导、原文预览与逐行错误、字段映射、批次列表、数据表、聚合图表及可下载导出的完整应用。金额使用十进制定点字符串，未知为 null；业务聚合不能依赖浮点近似。无价目不是0。
+
+## S1 导入预览与映射
+
+`POST /api/imports/preview {format,data_b64,mapping}`；format为csv或jsonl，mapping形如 {customer:"客户",amount:"金额"}；返回 rows 和 errors（含1起始物理行line、code），valid表示是否全合法。canonical行 customer非空字符串、amount十进制字符串或null。CSV有标题，空金额表示null；JSONL逐物理行独立JSON对象，JSON金额允许字符串或null。预览不写正式记录。页面可看原行、修正映射并再次预览。
+
+## S2 严格输入
+
+UTF8严格解码，可接受首部BOM；非法字节明确报错，不能替换字符后成功。非法JSON、重复JSON对象键、缺失customer、非有限/非十进制金额报错；errors精确指向原物理行。CSV引号内换行合法，错误行号仍指实际源文本。错误批次不可部分提交。合法Unicode保留原值。
+
+## S3 批次与幂等
+
+`POST /api/batches {idempotency_key,format,data_b64,mapping,duplicate_policy}` 创建queued批次返回201；重复同key同请求200同id，改变请求409。duplicate_policy为append或reject；reject以customer为业务重复键，任一已存在或批内重复则整个批次失败。`POST /api/batches/{id}/run {}` 执行该批次，返回200且state为committed或failed；失败带errors，正式数据不变。多次run已提交批次返回相同结果、不重复写。`GET /api/batches/{id}` 查看状态，`GET /api/records` 查看数据。
+
+## S4 模式演进
+
+新增schema_version=2，外部列 client_name/amount_cny 对应原 customer/amount 含义；版本1仍可导入。批次冻结创建时的版本、原文和mapping，后来的UI默认映射不能改写已排队批次。`GET /api/records/export?schema_version=1或2` 返回items，分别输出 customer/amount 或 client_name/amount_cny，值不变；未知为null。
+
+## S5 取消和恢复
+
+`POST /api/batches/{id}/cancel {}` 将queued改cancelled；之后run409且无写入。已committed取消409，不假装撤销已提交数据。排队状态和原始输入持久化，重启可继续。run事务提交边界内不能留下半个批次；同一批次并发run至多提交一次。此公开run动作也是可控工作队列入口，可由UI驱动或后台调度，但取消/提交须原子互斥。
+
+## S6 聚合与未知
+
+`GET /api/report?q=...` 返回 {known_sum:十进制字符串,known_count,unknown_count,total_count}。q为customer包含，所有计数来自相同过滤集合。未知不参与数值和但保留数量；全未知的known_sum为null，已知0则为"0"。例如0.10+0.20的已知和精确0.30；不能显示0.30000000000000004。界面同时展示已知总额和未知条数。
+
+## S7 筛选、导出与血缘
+
+`GET /api/records?q=...&limit=...&cursor=...` 稳定id分页；export支持同q且不分页。每行含id、batch_id、source_line；source_line为原输入物理行。批次原文可由 `GET /api/batches/{id}/source` 返回data_b64，逐字节保持。重命名外部列不改变血缘。跨租户不可读原文，viewer不可导入。筛选数据导出不能混入未选范围。
+
+## S8 旧数据与交付
+
+起点 imports.sqlite3 user_version=1、records(id,payload) 含welcome：customer=Legacy、amount=null、batch_id=legacy、source_line=null。旧记录保持id和未知含义，不伪造原文行。迁移幂等；重启保留幂等键、取消、队列与血缘。提供完整可操作界面和数据准确性证据。

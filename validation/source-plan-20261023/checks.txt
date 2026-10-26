@@ -1,0 +1,36 @@
+test_changed_content_cannot_reuse_old_plan_reference (test_source_plan.SourcePlanTests.test_changed_content_cannot_reuse_old_plan_reference) ... ok
+test_conflicting_choices_and_wrong_parent_reject_with_usage (test_source_plan.SourcePlanTests.test_conflicting_choices_and_wrong_parent_reject_with_usage) ... ok
+test_offer_cap_prevents_generation (test_source_plan.SourcePlanTests.test_offer_cap_prevents_generation) ... ok
+test_provenance_alone_does_not_select_full_source (test_source_plan.SourcePlanTests.test_provenance_alone_does_not_select_full_source) ... ok
+test_real_generation_export_keeps_only_chosen_span_and_independent_provenance (test_source_plan.SourcePlanTests.test_real_generation_export_keeps_only_chosen_span_and_independent_provenance) ... ok
+test_schema_isolated_and_empty_source_list_has_no_empty_enum (test_source_plan.SourcePlanTests.test_schema_isolated_and_empty_source_list_has_no_empty_enum) ... ok
+test_changed_source_or_partition_does_not_reinterpret_an_old_handle (test_span_selection.SpanSelectionTests.test_changed_source_or_partition_does_not_reinterpret_an_old_handle) ... ok
+test_duplicate_text_has_distinct_selectable_occurrences (test_span_selection.SpanSelectionTests.test_duplicate_text_has_distinct_selectable_occurrences) ... ok
+test_every_public_character_is_offered_once_without_opaque_content (test_span_selection.SpanSelectionTests.test_every_public_character_is_offered_once_without_opaque_content) ... ok
+test_expanded_offer_budget_stops_before_call_with_known_zero_model_usage (test_span_selection.SpanSelectionTests.test_expanded_offer_budget_stops_before_call_with_known_zero_model_usage) ... ok
+test_paraphrase_cannot_enter_the_span_selection_contract (test_span_selection.SpanSelectionTests.test_paraphrase_cannot_enter_the_span_selection_contract) ... ok
+test_real_generate_export_preserves_selected_unicode_and_observation_time (test_span_selection.SpanSelectionTests.test_real_generate_export_preserves_selected_unicode_and_observation_time) ... ok
+test_span_facts_match_output_fields_without_mutating_quote_facts (test_span_selection.SpanSelectionTests.test_span_facts_match_output_fields_without_mutating_quote_facts) ... ok
+test_actual_private_import_and_explicit_scope (test_control_continuation.AcceptanceTests.test_actual_private_import_and_explicit_scope) ... ok
+test_checkpoint_preserves_source_scope_and_failed_generation (test_control_continuation.AcceptanceTests.test_checkpoint_preserves_source_scope_and_failed_generation) ... ok
+test_duplicate_or_unknown_names_cannot_produce_passing_scope (test_control_continuation.AcceptanceTests.test_duplicate_or_unknown_names_cannot_produce_passing_scope) ... ok
+test_failed_source_acceptance_prevents_generation_and_C (test_control_continuation.DriverTests.test_failed_source_acceptance_prevents_generation_and_C) ... {"error":"ValueError:control_acceptance_failed","status":"stopped","usage":{"cash":null,"complete":true,"complete_usage":{"cache_write_input_tokens":0,"cached_input_tokens":0,"input_tokens":2,"output_tokens":0,"reasoning_output_tokens":0,"total_tokens":2},"known_usage":{"cache_write_input_tokens":0,"cached_input_tokens":0,"input_tokens":2,"output_tokens":0,"reasoning_output_tokens":0,"total_tokens":2},"price_status":"unknown","response_count":1,"response_ids":["a"]}}
+ok
+test_interrupted_generation_preserves_known_usage_and_stops_C (test_control_continuation.DriverTests.test_interrupted_generation_preserves_known_usage_and_stops_C) ... {"error":"ValueError:control_phase_incomplete","status":"stopped","usage":{"cash":null,"complete":false,"complete_usage":null,"known_usage":{"cache_write_input_tokens":0,"cached_input_tokens":0,"input_tokens":4,"output_tokens":0,"reasoning_output_tokens":0,"total_tokens":4},"price_status":"unknown","response_count":2,"response_ids":["a","b"]}}
+ok
+test_legitimate_existing_test_edit_reaches_independent_acceptance (test_control_continuation.DriverTests.test_legitimate_existing_test_edit_reaches_independent_acceptance) ... {"error":"ValueError:control_acceptance_failed","status":"stopped","usage":{"cash":null,"complete":true,"complete_usage":{"cache_write_input_tokens":0,"cached_input_tokens":0,"input_tokens":2,"output_tokens":0,"reasoning_output_tokens":0,"total_tokens":2},"known_usage":{"cache_write_input_tokens":0,"cached_input_tokens":0,"input_tokens":2,"output_tokens":0,"reasoning_output_tokens":0,"total_tokens":2},"price_status":"unknown","response_count":1,"response_ids":["a"]}}
+ok
+test_one_source_one_generation_two_C_turns_and_no_double_billing (test_control_continuation.DriverTests.test_one_source_one_generation_two_C_turns_and_no_double_billing) ... {"error":null,"status":"C_task_executed_semantic_review_pending","usage":{"cash":null,"complete":true,"complete_usage":{"cache_write_input_tokens":0,"cached_input_tokens":0,"input_tokens":8,"output_tokens":0,"reasoning_output_tokens":0,"total_tokens":8},"known_usage":{"cache_write_input_tokens":0,"cached_input_tokens":0,"input_tokens":8,"output_tokens":0,"reasoning_output_tokens":0,"total_tokens":8},"price_status":"unknown","response_count":4,"response_ids":["a","b","c","d"]}}
+ok
+test_recovery_skips_source_phase_and_preserves_unknown_historical_usage (test_control_continuation.DriverTests.test_recovery_skips_source_phase_and_preserves_unknown_historical_usage) ... {"error":null,"status":"C_task_executed_semantic_review_pending","usage":{"cash":null,"complete":true,"complete_usage":{"cache_write_input_tokens":0,"cached_input_tokens":0,"input_tokens":6,"output_tokens":0,"reasoning_output_tokens":0,"total_tokens":6},"known_usage":{"cache_write_input_tokens":0,"cached_input_tokens":0,"input_tokens":6,"output_tokens":0,"reasoning_output_tokens":0,"total_tokens":6},"price_status":"unknown","response_count":3,"response_ids":["a","b","c"]}}
+ok
+test_started_attempt_cannot_reenter (test_control_continuation.DriverTests.test_started_attempt_cannot_reenter) ... ok
+test_unavailable_native_runtime_stops_before_any_model_phase (test_control_continuation.DriverTests.test_unavailable_native_runtime_stops_before_any_model_phase) ... {"error":"ValueError:native_task_runtime_unavailable","status":"stopped","usage":{"cash":null,"complete":true,"complete_usage":{"cache_write_input_tokens":0,"cached_input_tokens":0,"input_tokens":0,"output_tokens":0,"reasoning_output_tokens":0,"total_tokens":0},"known_usage":{"cache_write_input_tokens":0,"cached_input_tokens":0,"input_tokens":0,"output_tokens":0,"reasoning_output_tokens":0,"total_tokens":0},"price_status":"unknown","response_count":0,"response_ids":[]}}
+ok
+test_sandbox_failure_is_preserved_without_turn_start (test_control_continuation.RuntimeProbeTests.test_sandbox_failure_is_preserved_without_turn_start) ... ok
+test_success_requires_actual_python_capabilities (test_control_continuation.RuntimeProbeTests.test_success_requires_actual_python_capabilities) ... ok
+
+----------------------------------------------------------------------
+Ran 25 tests in 1.859s
+
+OK

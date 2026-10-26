@@ -1,0 +1,219 @@
+{
+  "kind": "wsc_application_task_suite_draft_v1",
+  "status": "scope_registered_preparation_incomplete",
+  "ready_to_launch": false,
+  "authority": "用户：A3算一个任务，其他再来4个任务，进行实验验收比较，每个任务执行3次。",
+  "tasks": [
+    {
+      "id": "a3",
+      "name": "A3 用量分析工作台",
+      "target": "重做现有项目A3界面，精致、美观且保持真实用量语义。",
+      "task_draft": "../a3-ui-long-v1/task-draft.json",
+      "stages": [
+        "信息架构与首版界面",
+        "主题、响应式和异常状态",
+        "筛选与异步刷新",
+        "会话与请求明细",
+        "同名模型与多供应商",
+        "导出和快照状态",
+        "大数据与显示偏好",
+        "整体交付复核"
+      ],
+      "history_sensitive_cases": [
+        "旧日期响应不能覆盖新日期",
+        "模型筛选不能改变全口径KPI",
+        "未知成本不能在后期美化中变成0",
+        "当前代码不能沿用旧版验收结论"
+      ],
+      "state": "source_and_dependencies_frozen_browser_baseline_source_match_pipeline_pending",
+      "input_binding": "D:\\agent-task-runs\\wsc-a3-frozen-inputs-20261025-v1\\input-binding.json",
+      "input_binding_sha256": "bf2e284e655d84b446b153c0bf7a4aef01b7b5e4b494b57ec2a8357f11b140f4"
+    },
+    {
+      "id": "collaboration",
+      "name": "项目与工单协作应用",
+      "target": "交付团队可实际使用的项目、工单、评论和权限管理应用，包含前后端与持久化。",
+      "reuse": "检查并择用teamflow-long-v1/starter已存在原型；不复制作者calibration参考答案给实验模型，不把未验证草稿当合格基线。",
+      "stages": [
+        "项目和工单基础流程与界面",
+        "组织隔离及成员角色",
+        "可配置状态流转与评论",
+        "并发编辑和乐观版本冲突",
+        "批量操作、撤销与审计",
+        "既有数据迁移及权限变更",
+        "搜索、筛选、导出和可访问性",
+        "重启续接及整体交付"
+      ],
+      "history_sensitive_cases": [
+        "权限变更使旧操作授权失效",
+        "工单状态规则变更后旧迁移仍正确",
+        "冲突处理不能覆盖其他人的新版本",
+        "批量失败不能残留半套状态"
+      ],
+      "state": "representative_http_positive_and_selected_fault_calibrated_manual_pending",
+      "task_draft": "tasks/collaboration/task.json"
+    },
+    {
+      "id": "files",
+      "name": "文件与资源管理应用",
+      "target": "交付可上传、检索、预览、管理版本和恢复删除的资源中心。",
+      "stages": [
+        "资源列表和上传下载界面",
+        "分块上传和中断续传",
+        "目录、标签与搜索",
+        "内容版本和并发重命名",
+        "回收站、恢复和过期清理",
+        "角色权限和分享撤销",
+        "大目录性能、进度与错误反馈",
+        "服务重启和跨版本恢复验收"
+      ],
+      "history_sensitive_cases": [
+        "恢复上传必须绑定原文件身份",
+        "删除后迟到写入不能使文件复活",
+        "旧分享引用在撤销后失效",
+        "清理不能移除仍被有效版本引用的内容"
+      ],
+      "state": "representative_http_positive_and_selected_fault_calibrated_manual_pending",
+      "task_draft": "tasks/files/task.json"
+    },
+    {
+      "id": "imports",
+      "name": "数据导入与报表应用",
+      "target": "交付支持CSV/JSON导入、预览纠错、批次跟踪、查询统计和导出的数据工作台。",
+      "stages": [
+        "导入预览、字段映射与基础表格",
+        "严格解析、编码与错误定位",
+        "批次幂等和重复记录策略",
+        "模式演进与旧批次兼容",
+        "后台处理、取消及失败恢复",
+        "聚合报表和未知值表达",
+        "筛选导出与数据血缘",
+        "跨阶段数据一致性及交付审核"
+      ],
+      "history_sensitive_cases": [
+        "字段改名不等于旧字段含义改变",
+        "非法字节不能被替换解码伪装为成功",
+        "缺失数字不能在聚合中变成已知零",
+        "取消或恢复后不能重复计入已提交批次"
+      ],
+      "state": "representative_http_positive_and_selected_fault_calibrated_manual_pending",
+      "task_draft": "tasks/imports/task.json"
+    },
+    {
+      "id": "booking",
+      "name": "预约与通知管理应用",
+      "target": "交付资源预约、日历、可用时段、取消改期及通知管理的完整应用。",
+      "stages": [
+        "资源、预约和日历界面",
+        "时区、跨日和冲突规则",
+        "并发预约与幂等提交",
+        "重复预约和规则变更",
+        "通知队列、重试与去重",
+        "取消改期与权限变更",
+        "导入历史记录、可访问性与性能",
+        "进程重启后恢复及整体交付"
+      ],
+      "history_sensitive_cases": [
+        "时区变更不能漂移已承诺的绝对时间",
+        "取消后的旧通知不得重新发送",
+        "重复请求不能创建重复预约",
+        "并发冲突不能超卖同一资源时段"
+      ],
+      "state": "representative_http_positive_and_selected_fault_calibrated_manual_pending",
+      "task_draft": "tasks/booking/task.json"
+    }
+  ],
+  "execution": {
+    "task_count": 5,
+    "paired_repetitions_per_task": 3,
+    "total_pairs": 15,
+    "total_trajectories": 30,
+    "parallel_pairs": 2,
+    "max_model_trajectories_at_once": 4,
+    "waves": 8,
+    "order": "按重复编号交错任务类别；每组成对启动顺序交替。",
+    "within_task_repeat_conditions": "同一冻结起点、数据、阶段请求、公开验收、模型、工具和预算；各次独立工作区与历史。",
+    "model": "gpt-6-luna",
+    "candidate_WSC_version": {
+      "id": "incremental_recorded_spans_v1",
+      "implementation_sha256": "13f893455223c500c49ccf7b12239ef67c1d52dcb85fd000cbcec74b938385ed",
+      "registration": "D:\\lea\\XenYon code\\wsc\\validation\\application-freeze-20261025\\study-conditions-v1.json",
+      "registration_sha256": "bfa6b0e727c6f56a9c63180054fddd6578c34ad58bab59d6e28e18b92e9d1651"
+    },
+    "budgets": {
+      "ordinary_phase": {
+        "max_responses": 32,
+        "max_seconds": 600,
+        "max_total_tokens": 750000
+      },
+      "boundary_phase": {
+        "max_responses": 12,
+        "max_seconds": 180,
+        "max_total_tokens": 400000
+      },
+      "per_arm": {
+        "max_responses": 120,
+        "max_seconds": 2700,
+        "max_total_tokens": 6000000
+      },
+      "study": {
+        "max_responses": 3600,
+        "max_seconds": 28800,
+        "max_total_tokens": 180000000
+      },
+      "coverage": "All business, native compaction and WSC selection responses count against the same arm and study ledger",
+      "token_scope": "Includes cached input; admission/receipt-boundary caps, not provider-side hard token limits",
+      "overshoot": "Entire observed response counts; no subsequent call after the arm is stopped",
+      "uncertainty": "Known receipts retained; unknown total freezes new study admission",
+      "infrastructure_replacement_pairs": 0,
+      "automatic_retries": 0,
+      "cash": null,
+      "wall_scope": "Study model scheduler starts after prepared inputs; record preparation and external quality time separately",
+      "review_time_policy": "Full UI review evidence is retained; absent review remains unknown and never auto-passed"
+    },
+    "paid_runs_started": 0,
+    "effort": "max",
+    "native_runtime_observation": {
+      "path": "C:\\Users\\48522\\AppData\\Local\\OpenAI\\Codex\\bin\\2993767bd1dfb009\\codex.exe",
+      "sha256": "1103e9e09c71fa2cd0afd6d8f3b9a2d63174fe8efd7cb5bd09f1cb14ef58a098",
+      "version": "0.164.0-alpha.11.1"
+    },
+    "configuration_status": "selection_policy_boundaries_budgets_frozen_full_native_coordination_pending",
+    "frozen_four_app_inputs": {
+      "path": "D:\\agent-task-runs\\wsc-four-app-inputs-20261025-v1\\result.json",
+      "sha256": "2b45e70a5134a6d7be1e7b152f112418217f85ccf1ea2c7ae9cd8b80c670951f"
+    }
+  },
+  "long_context": {
+    "planned_boundaries_after_stages": [
+      2,
+      4,
+      6
+    ],
+    "stages_are_not_independent_tasks_or_repeats": true,
+    "all_requirements_visible_from_start": true,
+    "require_actual_boundary_receipts": true
+  },
+  "evaluation": {
+    "per_task": [
+      "三组原始成对结果",
+      "成功率与有效阶段完成数",
+      "功能与人工审查结论",
+      "视觉评分（涉及界面时）",
+      "完整token与耗时",
+      "失败消耗计入每成功任务成本",
+      "配对差值中位数和范围"
+    ],
+    "suite": "并列五类结果，汇总完整消耗与交付率；不以单项赢家或合并token总量替代跨任务判断。",
+    "incomplete_rule": "任一任务少于3组有效对比，整套实验未完成。任务失败和预算耗尽计入有效观察，基础设施故障另记。",
+    "statistics": "三次重复用于观察波动，不保证消除方差或统计显著；15组跨任务结果不等于单任务15次重复。",
+    "no_cherry_picking": true
+  },
+  "launch_blockers": [
+    "原生fork和注入接口已零推理验证；完整三边界执行、原生压缩与只读生成回调尚未接入矩阵worker",
+    "累计预算与质量判定组件已验证；每阶段预留/结算/回执和实际验收出口尚未整体接线",
+    "A3源码和依赖基座已冻结；每臂私有依赖物化及新功能正向/人工审核出口待接入",
+    "外部作者答案读取未有OS拒绝证明，运行时访问审计与无效观察规则仍需接入"
+  ],
+  "policy": "../../experiments/BC-REPLICATION-POLICY.md"
+}

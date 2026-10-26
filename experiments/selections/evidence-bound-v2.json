@@ -1,0 +1,164 @@
+{
+  "schema": "wsc.explicit_evidence_selection/1",
+  "producer": "current_agent_explicit_pre_repair_evidence_selection_with_current_reference_20261022",
+  "source_items_sha256": "b831da6a5abc8f2cdd272379033ae505c95be7ea36a13bb08d27fd8627d411fa",
+  "required_observations": [
+    "reader_before_repair",
+    "cli_shared_reader",
+    "old_receipt_identity",
+    "baseline_identity",
+    "memory_contract",
+    "prior_cli_contract",
+    "workspace_git_observation"
+  ],
+  "selection": {
+    "new_understandings": [
+      {
+        "text": "此前诊断已完成只读检查，尚未修改文件或执行新的 RunChecks。共享读取器第40行 errors=\"replace\" 把非法 UTF-8 替换为合法 U+FFFD，使已有 UnicodeDecodeError 分支失效；逐物理行严格解码是当时定位的修复点。CLI 的 events/folds 两处均复用该读取器。原始字节身份、LF/CRLF/CR 分行、合法 U+FFFD/U+2028、缺失/空文件语义和非原子快照边界已被检查。\n当时已读取项目 AGENTS.md、两个源码文件、原有五个专用测试、MEMORY.md 和诊断历史总结。测试覆盖坏 UTF-8 的12个组合、有效 Unicode、来源身份、只读 CLI、非标准 JSON 常量及 Decimal 保留。原始控制消息保留项目约束；下列 observations 为既有公开工具结果的原文片段，source 指向内容绑定的存档。旧记忆行号只标识历史位置，引用依据是存档内容，当前记忆文件的同号行内容未知。\n起点回执为业务9/13、专用测试2/5，四个文件身份与当时实读一致；历史18/18对应不同读取器哈希。两份都是修复前已有材料，尚无本次修复后的验证结果。当前副本与这些历史文件的关系由共同 experimental_workspace_binding 提供；历史支持与当前适用性分开。",
+        "kind": "diagnosis_with_selected_observations",
+        "sources": [
+          "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:19:040ac472fc182f5c1b70bbd0658c76742cbb087e6cc2fdadf23da44b60223b84",
+          "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:10:2f371c4816540ffe4997f96b4a8f7bcbfe2de68a08f020c8307e6c79f108310d",
+          "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:17:7ce8df66b6bdf1bc1e192f2b4190e6659cf51c2db4e449b1f95d1b8a28195d53",
+          "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:7:d34eb59404e748b668922350f78122af27edabbc61e48e15ca30d85a3ee25f22",
+          "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:13:01087d1ad896fd6f9e6e32262dd8e0817c0fe6c3692d03ab85deb3e7f22ac5f0"
+        ],
+        "scope": {
+          "source_boundary_items": 20,
+          "source_stage": "diagnosed_before_repair",
+          "semantic_applicability": "model_judgment",
+          "historical_reference_policy": "content_bound_archive; live line numbers are not content identities"
+        }
+      }
+    ],
+    "excerpts": [
+      {
+        "key": "reader_before_repair",
+        "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:10:2f371c4816540ffe4997f96b4a8f7bcbfe2de68a08f020c8307e6c79f108310d",
+        "path": [
+          "output",
+          4,
+          "text",
+          null,
+          "value",
+          "output"
+        ],
+        "start": 0,
+        "end": 2430,
+        "text_sha256": "6db0b9286f1b7d5efa99516a2540b85be3f59f3d4b4bae6b6d4429ec91fb0aac",
+        "historical_locator": "python/scripts/_wsc_jsonl_source.py, pre-repair observation"
+      },
+      {
+        "key": "cli_shared_reader",
+        "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:17:7ce8df66b6bdf1bc1e192f2b4190e6659cf51c2db4e449b1f95d1b8a28195d53",
+        "path": [
+          "output",
+          2,
+          "text",
+          null,
+          "value",
+          "output"
+        ],
+        "start": 0,
+        "end": 1136,
+        "text_sha256": "ee3c7f40c7433ab7730b463ef169d25042285369356378a77dd0bcc38cee45b1",
+        "historical_locator": "python/scripts/wsc_pairing_report.py, pre-repair observation"
+      },
+      {
+        "key": "old_receipt_identity",
+        "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:17:7ce8df66b6bdf1bc1e192f2b4190e6659cf51c2db4e449b1f95d1b8a28195d53",
+        "path": [
+          "output",
+          1,
+          "text",
+          null,
+          "value",
+          "output"
+        ],
+        "start": 0,
+        "end": 1601,
+        "text_sha256": "17066cee5131161dcb61c4996d3b83eec12db47d789ca31c02f801c3aa50c003",
+        "historical_locator": "old-verification.json, historical different reader version"
+      },
+      {
+        "key": "baseline_identity",
+        "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:17:7ce8df66b6bdf1bc1e192f2b4190e6659cf51c2db4e449b1f95d1b8a28195d53",
+        "path": [
+          "output",
+          1,
+          "text",
+          null,
+          "value",
+          "output"
+        ],
+        "start": 4623,
+        "end": 6222,
+        "text_sha256": "3f0f3cc16f6fe95c3b6f19cf6872cc8732d9716fa6101b7d2138a18ae16e6146",
+        "historical_locator": "current-baseline.json, pre-repair checkpoint"
+      },
+      {
+        "key": "memory_contract",
+        "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:10:2f371c4816540ffe4997f96b4a8f7bcbfe2de68a08f020c8307e6c79f108310d",
+        "path": [
+          "output",
+          3,
+          "text",
+          null,
+          "value",
+          "output"
+        ],
+        "start": 2090,
+        "end": 3690,
+        "text_sha256": "eafb0083ea6fcc020d82332f17ce09679ba10bd3711b5687a4dd84dd76981b56",
+        "historical_locator": "MEMORY.md:138-145 (historical citation; archived content identity)",
+        "current_resource": "C:\\Users\\48522\\.codex\\memories\\MEMORY.md",
+        "current_resource_sha256": "90af2cf48f72e11a20722333c792959323bee2b9e05c224489806358fdfcd424"
+      },
+      {
+        "key": "prior_cli_contract",
+        "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:13:01087d1ad896fd6f9e6e32262dd8e0817c0fe6c3692d03ab85deb3e7f22ac5f0",
+        "path": [
+          "output",
+          1,
+          "text"
+        ],
+        "start": 35978,
+        "end": 36472,
+        "text_sha256": "feadd85cc161a865eb0c383d3efc46ccc52367c58c46945219ee3e32dd8e433e",
+        "historical_locator": "rollout_summaries/2026-10-19T04-53-10-aOB5-xeyo_usage_accounting_pairing_diagnostic_delivery.md:38-41 (archived tool output)"
+      },
+      {
+        "key": "workspace_git_observation",
+        "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:7:d34eb59404e748b668922350f78122af27edabbc61e48e15ca30d85a3ee25f22",
+        "path": [
+          "output",
+          2,
+          "text",
+          null,
+          "value",
+          "output"
+        ],
+        "start": 0,
+        "end": 71,
+        "text_sha256": "79f5db341ea826d648cbc6c6bf76cc7572092df4e01da06b82d05e5b58e81f7a",
+        "historical_locator": "historical git status result"
+      }
+    ]
+  },
+  "limits": {
+    "selection_mode": "explicit_model_authored_not_automatic",
+    "parent_model_authoring_usage": "unknown_not_zero",
+    "completed_repair_source_used": false
+  },
+  "qualification_behavior": {
+    "mutable_memory_read_commands": 0,
+    "stale_line_reference_attempts": 0,
+    "named_checks": "13 business and 5 owned",
+    "interpretation": "These are study admission criteria, not instructions supplied to the task model."
+  },
+  "revision_from": {
+    "path": "D:\\lea\\XenYon code\\wsc\\experiments\\selections\\evidence-bound-v1.json",
+    "sha256": "758e76a3ea65b69c4cb50ea0bbf895b599be92cdf641a1f37424f61cc07ed5a4",
+    "reason": "Archive-only v1 completed the task but did not satisfy its preregistered zero mutable-memory reads. This revision adds exact content relocation against one explicitly named pinned resource; historical timestamps and the seven excerpts remain unchanged."
+  }
+}

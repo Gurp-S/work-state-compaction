@@ -1,0 +1,16 @@
+test_connection_initialization_error_still_closes_the_connection (test_execution_boundaries.ExecutionBoundaryTests.test_connection_initialization_error_still_closes_the_connection) ... FAIL
+
+======================================================================
+FAIL: test_connection_initialization_error_still_closes_the_connection (test_execution_boundaries.ExecutionBoundaryTests.test_connection_initialization_error_still_closes_the_connection)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_execution_boundaries.py", line 71, in test_connection_initialization_error_still_closes_the_connection
+    connection.close.assert_called_once_with()
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\unittest\mock.py", line 950, in assert_called_once_with
+    raise AssertionError(msg)
+AssertionError: Expected 'close' to be called once. Called 0 times.
+
+----------------------------------------------------------------------
+Ran 1 test in 0.003s
+
+FAILED (failures=1)

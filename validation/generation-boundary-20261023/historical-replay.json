@@ -1,0 +1,52 @@
+{
+  "generation_thread": "01a16660-5365-7d93-854f-f97ab8625a26",
+  "receipts": {
+    "thread_id": "01a16660-5365-7d93-854f-f97ab8625a26",
+    "response_count": 1,
+    "response_receipts": [
+      {
+        "response_id": "resp_0cc9905c5da5966f016adab881db488191b6f1a966779f209f",
+        "rollout_line": 46,
+        "usage": {
+          "input_tokens": 84523,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 9511,
+          "reasoning_output_tokens": 8162,
+          "total_tokens": 94034
+        }
+      }
+    ],
+    "duplicate_receipt_ids": [],
+    "compactor_response_ids": [],
+    "all_usage": {
+      "input_tokens": 84523,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 9511,
+      "reasoning_output_tokens": 8162,
+      "total_tokens": 94034
+    },
+    "compaction_usage": {
+      "input_tokens": 0,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 0,
+      "reasoning_output_tokens": 0,
+      "total_tokens": 0
+    },
+    "cash": null,
+    "price_status": "unknown"
+  },
+  "new_generation_calls_during_preparation": 0,
+  "selection_replayed_exactly": true,
+  "turn_binding": {
+    "scope": "fresh_single_turn_native_generation",
+    "turn_id": "01a16660-558e-7170-8651-8819feabb22f",
+    "submitted_request_sha256": "c1dec94f51e199524417f907718eb8818a9649c1dfc97fda5ece04e0819a7535",
+    "submitted_material_sha256": "e85b5e7974ea3ad808739871e7c53bc378d6d886cc5e1598f06a8cf275ed532e",
+    "final_item_id": "msg_0cc9905c5da5966f016adab8c371048191bddd9f0254f92f90",
+    "final_text_sha256": "6168e81c19cadbab2c8f7423cb6ca740345161a7e6a2908f91200ec28d47a9f3"
+  },
+  "cash": null
+}

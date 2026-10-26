@@ -1,0 +1,112 @@
+test_cli_actual_command_timeout_is_neutral_and_usage_stays_unknown (test_generation_failures.GenerationFailureTests.test_cli_actual_command_timeout_is_neutral_and_usage_stays_unknown) ... ERROR
+test_invalid_selection_keeps_known_usage_in_failed_attempt (test_generation_failures.GenerationFailureTests.test_invalid_selection_keeps_known_usage_in_failed_attempt) ... FAIL
+test_valid_command_and_partial_usage_still_work (test_generation_failures.GenerationFailureTests.test_valid_command_and_partial_usage_still_work) ... ok
+test_changed_submitted_material_rejected_even_with_rehashed_receipts (test_native_generation_binding.NativeGenerationBindingTests.test_changed_submitted_material_rejected_even_with_rehashed_receipts) ... 
+  test_changed_submitted_material_rejected_even_with_rehashed_receipts (test_native_generation_binding.NativeGenerationBindingTests.test_changed_submitted_material_rejected_even_with_rehashed_receipts) (field='response') ... FAIL
+  test_changed_submitted_material_rejected_even_with_rehashed_receipts (test_native_generation_binding.NativeGenerationBindingTests.test_changed_submitted_material_rejected_even_with_rehashed_receipts) (field='turn') ... FAIL
+test_extra_turn_or_duplicate_final_does_not_borrow_paid_receipts (test_native_generation_binding.NativeGenerationBindingTests.test_extra_turn_or_duplicate_final_does_not_borrow_paid_receipts) ... 
+  test_extra_turn_or_duplicate_final_does_not_borrow_paid_receipts (test_native_generation_binding.NativeGenerationBindingTests.test_extra_turn_or_duplicate_final_does_not_borrow_paid_receipts) (row='event_msg') ... FAIL
+  test_extra_turn_or_duplicate_final_does_not_borrow_paid_receipts (test_native_generation_binding.NativeGenerationBindingTests.test_extra_turn_or_duplicate_final_does_not_borrow_paid_receipts) (row='response_item') ... FAIL
+test_final_text_must_match_completion_and_item_identity (test_native_generation_binding.NativeGenerationBindingTests.test_final_text_must_match_completion_and_item_identity) ... 
+  test_final_text_must_match_completion_and_item_identity (test_native_generation_binding.NativeGenerationBindingTests.test_final_text_must_match_completion_and_item_identity) (key='last_agent_message') ... FAIL
+  test_final_text_must_match_completion_and_item_identity (test_native_generation_binding.NativeGenerationBindingTests.test_final_text_must_match_completion_and_item_identity) (key='turn_id') ... FAIL
+test_rehashed_draft_and_phase_cannot_replace_actual_final (test_native_generation_binding.NativeGenerationBindingTests.test_rehashed_draft_and_phase_cannot_replace_actual_final) ... FAIL
+test_unchanged_paid_turn_is_accepted (test_native_generation_binding.NativeGenerationBindingTests.test_unchanged_paid_turn_is_accepted) ... ok
+
+======================================================================
+ERROR: test_cli_actual_command_timeout_is_neutral_and_usage_stays_unknown (test_generation_failures.GenerationFailureTests.test_cli_actual_command_timeout_is_neutral_and_usage_stays_unknown)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_generation_failures.py", line 56, in test_cli_actual_command_timeout_is_neutral_and_usage_stays_unknown
+    status = main(["--db", str(self.core.store.path), "--session", "s", "--workspace",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\lea\XenYon code\wsc\src\wsc\cli.py", line 83, in main
+    view = core.generate(snapshot, JsonCommandGenerator(load(args.command_json)),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\lea\XenYon code\wsc\src\wsc\core.py", line 77, in generate
+    result = generator(material)
+             ^^^^^^^^^^^^^^^^^^^
+  File "D:\lea\XenYon code\wsc\src\wsc\generation.py", line 62, in __call__
+    outcome = subprocess.run(self.argv, cwd=self.cwd, stdin=stdin, stdout=stdout,
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\subprocess.py", line 550, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\subprocess.py", line 1228, in communicate
+    sts = self.wait(timeout=self._remaining_time(endtime))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\subprocess.py", line 1264, in wait
+    return self._wait(timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\subprocess.py", line 1593, in _wait
+    raise TimeoutExpired(self.args, timeout)
+subprocess.TimeoutExpired: Command '('C:\\Users\\48522\\AppData\\Local\\Programs\\Python\\Python311\\python.exe', '-c', 'import time; time.sleep(5) # private-command-detail')' timed out after 0.0500000000001819 seconds
+
+======================================================================
+FAIL: test_invalid_selection_keeps_known_usage_in_failed_attempt (test_generation_failures.GenerationFailureTests.test_invalid_selection_keeps_known_usage_in_failed_attempt)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_generation_failures.py", line 40, in test_invalid_selection_keeps_known_usage_in_failed_attempt
+    self.assertEqual(19, report["totals"]["input_uncached"]["known_sum"])
+AssertionError: 19 != 0
+
+======================================================================
+FAIL: test_changed_submitted_material_rejected_even_with_rehashed_receipts (test_native_generation_binding.NativeGenerationBindingTests.test_changed_submitted_material_rejected_even_with_rehashed_receipts) (field='response')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_native_generation_binding.py", line 88, in test_changed_submitted_material_rejected_even_with_rehashed_receipts
+    with self.assertRaisesRegex(ValueError, "generated_selection_.*"):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_changed_submitted_material_rejected_even_with_rehashed_receipts (test_native_generation_binding.NativeGenerationBindingTests.test_changed_submitted_material_rejected_even_with_rehashed_receipts) (field='turn')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_native_generation_binding.py", line 88, in test_changed_submitted_material_rejected_even_with_rehashed_receipts
+    with self.assertRaisesRegex(ValueError, "generated_selection_.*"):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_extra_turn_or_duplicate_final_does_not_borrow_paid_receipts (test_native_generation_binding.NativeGenerationBindingTests.test_extra_turn_or_duplicate_final_does_not_borrow_paid_receipts) (row='event_msg')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_native_generation_binding.py", line 97, in test_extra_turn_or_duplicate_final_does_not_borrow_paid_receipts
+    with self.assertRaisesRegex(ValueError, "generated_selection_.*"):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_extra_turn_or_duplicate_final_does_not_borrow_paid_receipts (test_native_generation_binding.NativeGenerationBindingTests.test_extra_turn_or_duplicate_final_does_not_borrow_paid_receipts) (row='response_item')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_native_generation_binding.py", line 97, in test_extra_turn_or_duplicate_final_does_not_borrow_paid_receipts
+    with self.assertRaisesRegex(ValueError, "generated_selection_.*"):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_final_text_must_match_completion_and_item_identity (test_native_generation_binding.NativeGenerationBindingTests.test_final_text_must_match_completion_and_item_identity) (key='last_agent_message')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_native_generation_binding.py", line 106, in test_final_text_must_match_completion_and_item_identity
+    with self.assertRaisesRegex(ValueError, "generated_selection_.*"):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_final_text_must_match_completion_and_item_identity (test_native_generation_binding.NativeGenerationBindingTests.test_final_text_must_match_completion_and_item_identity) (key='turn_id')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_native_generation_binding.py", line 106, in test_final_text_must_match_completion_and_item_identity
+    with self.assertRaisesRegex(ValueError, "generated_selection_.*"):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_rehashed_draft_and_phase_cannot_replace_actual_final (test_native_generation_binding.NativeGenerationBindingTests.test_rehashed_draft_and_phase_cannot_replace_actual_final)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_native_generation_binding.py", line 77, in test_rehashed_draft_and_phase_cannot_replace_actual_final
+    with self.assertRaisesRegex(ValueError, "generated_selection_.*"):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.694s
+
+FAILED (failures=8, errors=1)

@@ -1,0 +1,5 @@
+{
+  "error": "First validator assumed flat SOURCE-MANIFEST; initial archive uses a files envelope.",
+  "archives_changed": false,
+  "correction": "Accept the two observed manifest schemas and verify every bound file."
+}

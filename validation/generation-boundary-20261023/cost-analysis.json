@@ -1,0 +1,492 @@
+{
+  "scope": "existing_bound_generation_and_C_qualification_only; no matched current B; no new inference",
+  "generation": {
+    "usage": {
+      "input_tokens": 84523,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 9511,
+      "reasoning_output_tokens": 8162,
+      "total_tokens": 94034
+    },
+    "uncached_input": 84523,
+    "output_excluding_reported_reasoning": 1349,
+    "reasoning_fraction_of_output": 0.8581642308905478,
+    "response_count": 1,
+    "seconds": 85.70299999999997,
+    "responses": [
+      {
+        "response_id": "resp_0cc9905c5da5966f016adab881db488191b6f1a966779f209f",
+        "usage": {
+          "input_tokens": 84523,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 9511,
+          "reasoning_output_tokens": 8162,
+          "total_tokens": 94034
+        },
+        "public_items": [
+          {
+            "line": 45,
+            "type": "message",
+            "name": null,
+            "phase": "final_answer",
+            "serialized_bytes": 3970
+          }
+        ]
+      }
+    ],
+    "final_text_characters": 2483
+  },
+  "continuation": {
+    "usage": {
+      "input_tokens": 532913,
+      "cached_input_tokens": 457088,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 7844,
+      "reasoning_output_tokens": 5617,
+      "total_tokens": 540757
+    },
+    "uncached_input": 75825,
+    "output_excluding_reported_reasoning": 2227,
+    "reasoning_fraction_of_output": 0.7160887302396737,
+    "response_count": 8,
+    "seconds": 94.64100000000008,
+    "responses": [
+      {
+        "response_id": "resp_04a01ac3e1137a2b016adabbd74398819190591a33323568a2",
+        "usage": {
+          "input_tokens": 49582,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 577,
+          "reasoning_output_tokens": 387,
+          "total_tokens": 50159
+        },
+        "public_items": [
+          {
+            "line": 14,
+            "type": "message",
+            "name": null,
+            "phase": "commentary",
+            "serialized_bytes": 686
+          },
+          {
+            "line": 15,
+            "type": "message",
+            "name": null,
+            "phase": "final_answer",
+            "serialized_bytes": 2128
+          },
+          {
+            "line": 16,
+            "type": "message",
+            "name": null,
+            "phase": "commentary",
+            "serialized_bytes": 57066
+          },
+          {
+            "line": 26,
+            "type": "message",
+            "name": null,
+            "phase": "commentary",
+            "serialized_bytes": 574
+          },
+          {
+            "line": 27,
+            "type": "custom_tool_call",
+            "name": "exec",
+            "phase": null,
+            "serialized_bytes": 811
+          }
+        ]
+      },
+      {
+        "response_id": "resp_04a01ac3e1137a2b016adabbdfca208191ba8df3d281132466",
+        "usage": {
+          "input_tokens": 61800,
+          "cached_input_tokens": 49408,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1063,
+          "reasoning_output_tokens": 957,
+          "total_tokens": 62863
+        },
+        "public_items": [
+          {
+            "line": 36,
+            "type": "custom_tool_call",
+            "name": "exec",
+            "phase": null,
+            "serialized_bytes": 690
+          }
+        ]
+      },
+      {
+        "response_id": "resp_04a01ac3e1137a2b016adabbecff7481919368ad5c012147ab",
+        "usage": {
+          "input_tokens": 62887,
+          "cached_input_tokens": 61568,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 754,
+          "reasoning_output_tokens": 420,
+          "total_tokens": 63641
+        },
+        "public_items": [
+          {
+            "line": 44,
+            "type": "message",
+            "name": null,
+            "phase": "commentary",
+            "serialized_bytes": 664
+          },
+          {
+            "line": 45,
+            "type": "custom_tool_call",
+            "name": "exec",
+            "phase": null,
+            "serialized_bytes": 1199
+          }
+        ]
+      },
+      {
+        "response_id": "resp_04a01ac3e1137a2b016adabbf8992c81919019534513312dd5",
+        "usage": {
+          "input_tokens": 66920,
+          "cached_input_tokens": 62720,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1813,
+          "reasoning_output_tokens": 1689,
+          "total_tokens": 68733
+        },
+        "public_items": [
+          {
+            "line": 59,
+            "type": "custom_tool_call",
+            "name": "exec",
+            "phase": null,
+            "serialized_bytes": 739
+          }
+        ]
+      },
+      {
+        "response_id": "resp_04a01ac3e1137a2b016adabc0c19548191af1d12691a0c6d0d",
+        "usage": {
+          "input_tokens": 71092,
+          "cached_input_tokens": 66688,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 290,
+          "reasoning_output_tokens": 159,
+          "total_tokens": 71382
+        },
+        "public_items": [
+          {
+            "line": 66,
+            "type": "custom_tool_call",
+            "name": "exec",
+            "phase": null,
+            "serialized_bytes": 689
+          }
+        ]
+      },
+      {
+        "response_id": "resp_04a01ac3e1137a2b016adabc11f34c81919ea0e67b0c3651f4",
+        "usage": {
+          "input_tokens": 72642,
+          "cached_input_tokens": 70912,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 309,
+          "reasoning_output_tokens": 133,
+          "total_tokens": 72951
+        },
+        "public_items": [
+          {
+            "line": 73,
+            "type": "custom_tool_call",
+            "name": "exec",
+            "phase": null,
+            "serialized_bytes": 802
+          }
+        ]
+      },
+      {
+        "response_id": "resp_04a01ac3e1137a2b016adabc177d348191bd2dcb6c31a848fd",
+        "usage": {
+          "input_tokens": 73528,
+          "cached_input_tokens": 72448,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 556,
+          "reasoning_output_tokens": 276,
+          "total_tokens": 74084
+        },
+        "public_items": [
+          {
+            "line": 81,
+            "type": "message",
+            "name": null,
+            "phase": "commentary",
+            "serialized_bytes": 625
+          },
+          {
+            "line": 82,
+            "type": "custom_tool_call",
+            "name": "exec",
+            "phase": null,
+            "serialized_bytes": 974
+          }
+        ]
+      },
+      {
+        "response_id": "resp_04a01ac3e1137a2b016adabc208fd88191a53cbd1bb0a79b3b",
+        "usage": {
+          "input_tokens": 74462,
+          "cached_input_tokens": 73344,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 2482,
+          "reasoning_output_tokens": 1596,
+          "total_tokens": 76944
+        },
+        "public_items": [
+          {
+            "line": 96,
+            "type": "message",
+            "name": null,
+            "phase": "final_answer",
+            "serialized_bytes": 3036
+          }
+        ]
+      }
+    ],
+    "final_text_characters": 1457
+  },
+  "combined_usage": {
+    "input_tokens": 617436,
+    "cached_input_tokens": 457088,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 17355,
+    "reasoning_output_tokens": 13779,
+    "total_tokens": 634791
+  },
+  "combined_uncached_input": 160348,
+  "generation_request": {
+    "serialized_bytes": 183720,
+    "material_bytes": 182983,
+    "schema_bytes": 12346,
+    "events": [
+      {
+        "id": "s1",
+        "kind": "message",
+        "role": "developer",
+        "serialized_bytes": 33702,
+        "span_count": 30,
+        "text_utf8_bytes": 29967
+      },
+      {
+        "id": "s2",
+        "kind": "message",
+        "role": "developer",
+        "serialized_bytes": 2907,
+        "span_count": 3,
+        "text_utf8_bytes": 2400
+      },
+      {
+        "id": "s3",
+        "kind": "message",
+        "role": "developer",
+        "serialized_bytes": 544,
+        "span_count": 1,
+        "text_utf8_bytes": 271
+      },
+      {
+        "id": "s4",
+        "kind": "message",
+        "role": "user",
+        "serialized_bytes": 6109,
+        "span_count": 4,
+        "text_utf8_bytes": 5450
+      },
+      {
+        "id": "s5",
+        "kind": "message",
+        "role": "user",
+        "serialized_bytes": 1519,
+        "span_count": 1,
+        "text_utf8_bytes": 1242
+      },
+      {
+        "id": "s6",
+        "kind": "message",
+        "role": "assistant",
+        "serialized_bytes": 427,
+        "span_count": 1,
+        "text_utf8_bytes": 156
+      },
+      {
+        "id": "s7",
+        "kind": "call",
+        "role": null,
+        "serialized_bytes": 1239,
+        "span_count": 1,
+        "text_utf8_bytes": 912
+      },
+      {
+        "id": "s8",
+        "kind": "result",
+        "role": null,
+        "serialized_bytes": 5886,
+        "span_count": 5,
+        "text_utf8_bytes": 4653
+      },
+      {
+        "id": "s10",
+        "kind": "call",
+        "role": null,
+        "serialized_bytes": 1808,
+        "span_count": 2,
+        "text_utf8_bytes": 1351
+      },
+      {
+        "id": "s11",
+        "kind": "result",
+        "role": null,
+        "serialized_bytes": 35170,
+        "span_count": 26,
+        "text_utf8_bytes": 28557
+      },
+      {
+        "id": "s13",
+        "kind": "call",
+        "role": null,
+        "serialized_bytes": 1345,
+        "span_count": 1,
+        "text_utf8_bytes": 1008
+      },
+      {
+        "id": "s14",
+        "kind": "result",
+        "role": null,
+        "serialized_bytes": 60430,
+        "span_count": 43,
+        "text_utf8_bytes": 45442
+      },
+      {
+        "id": "s16",
+        "kind": "message",
+        "role": "assistant",
+        "serialized_bytes": 583,
+        "span_count": 1,
+        "text_utf8_bytes": 305
+      },
+      {
+        "id": "s17",
+        "kind": "call",
+        "role": null,
+        "serialized_bytes": 1952,
+        "span_count": 2,
+        "text_utf8_bytes": 1526
+      },
+      {
+        "id": "s18",
+        "kind": "result",
+        "role": null,
+        "serialized_bytes": 24502,
+        "span_count": 19,
+        "text_utf8_bytes": 18686
+      },
+      {
+        "id": "s20",
+        "kind": "message",
+        "role": "assistant",
+        "serialized_bytes": 2125,
+        "span_count": 2,
+        "text_utf8_bytes": 1731
+      }
+    ],
+    "public_text_bytes": 143657
+  },
+  "installed_items": [
+    {
+      "index": 0,
+      "type": "message",
+      "role": "developer",
+      "serialized_bytes": 31080
+    },
+    {
+      "index": 1,
+      "type": "message",
+      "role": "developer",
+      "serialized_bytes": 2749
+    },
+    {
+      "index": 2,
+      "type": "message",
+      "role": "developer",
+      "serialized_bytes": 584
+    },
+    {
+      "index": 3,
+      "type": "message",
+      "role": "user",
+      "serialized_bytes": 5911
+    },
+    {
+      "index": 4,
+      "type": "message",
+      "role": "user",
+      "serialized_bytes": 1539
+    },
+    {
+      "index": 5,
+      "type": "message",
+      "role": "assistant",
+      "serialized_bytes": 686
+    },
+    {
+      "index": 6,
+      "type": "message",
+      "role": "assistant",
+      "serialized_bytes": 2128
+    },
+    {
+      "index": 7,
+      "type": "message",
+      "role": "assistant",
+      "serialized_bytes": 56911,
+      "json_field_bytes": {
+        "archive": 273,
+        "clues": 2147,
+        "historical_excerpts": 23374,
+        "kind": 15,
+        "observations": 17000,
+        "understandings": 4874
+      }
+    },
+    {
+      "index": 8,
+      "type": "message",
+      "role": "developer",
+      "serialized_bytes": 808,
+      "json_field_bytes": {
+        "current_file_mapping": 91,
+        "current_workspace": 69,
+        "execution_write_scope": 69,
+        "historical_workspace": 71,
+        "initial_file_manifest_sha256": 66,
+        "kind": 32,
+        "source_history": 117
+      }
+    }
+  ],
+  "input_sha256": {
+    "D:\\agent-task-runs\\wsc-span-selection-20261023-v1\\generation\\phase-outcome.json": "b4bb95c45088356702bd2a227ee6a03ad07b5575c406d53ff709b2e256ec3961",
+    "D:\\agent-task-runs\\wsc-span-selection-20261023-v1\\generation\\rollout.jsonl": "3da07fc85389c8dfba7a98509e297155e912f33993d0b7767745e8e6b6cde51f",
+    "D:\\agent-task-runs\\wsc-generated-covered-C-20261023-v1\\C\\continuation\\phase-outcome.json": "7c5e6b529620b22b53aaadd98ecc58d46148a2062b0731f7498d2b8ecf717a43",
+    "D:\\agent-task-runs\\wsc-generated-covered-C-20261023-v1\\C\\continuation\\rollout.jsonl": "3b40e56345a031793edf9c26106befe40dfa301ac0b6026388f9ee2766f5cfb0",
+    "D:\\agent-task-runs\\wsc-span-selection-20261023-v1\\generation-request.json": "e0e2d814ca7d868aa370f3660d4acd1a6e96fffdc4baf85e307a643db69f0f42",
+    "D:\\agent-task-runs\\wsc-span-selection-20261023-v1\\output-schema.json": "def816a37bad2ae72085a5d5400cf20b21f281bc578a1c1b70e9d1d41f9457bb",
+    "D:\\agent-task-runs\\wsc-span-selection-20261023-v1\\original-material.json": "1a0ee305748cca073096d972d1bdccb3eae11777e0d53c5bffc5d921977695cb",
+    "D:\\agent-task-runs\\wsc-generated-covered-C-20261023-v1\\C\\continuation\\installed-items.json": "38ce0557e26dfde5b4b65bd60b33a05c2a5b7eb840abbbd4457df454fbcf872f"
+  },
+  "model_calls_during_analysis": 0,
+  "monetary_cost": null,
+  "causal_scope": "Reported reasoning count is measurable; hidden reasoning content and causal use of supplied facts are not observed."
+}

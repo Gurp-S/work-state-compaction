@@ -1,0 +1,32 @@
+{
+  "probe_result": "failed_preserved_no_retry",
+  "original_limit_bytes": 32768,
+  "mandatory_view_minimum_bytes": 83223,
+  "original_probe_call_count": 1,
+  "original_probe_usage": {
+    "input_tokens": 69712,
+    "cached_input_tokens": 0,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 5257,
+    "reasoning_output_tokens": 4396,
+    "total_tokens": 74969
+  },
+  "exact_quotes_compiled": 4,
+  "model_selected_full_source_ids": [
+    "s4",
+    "s5",
+    "s8",
+    "s11",
+    "s14",
+    "s18",
+    "s20"
+  ],
+  "model_understandings": 5,
+  "offline_replay_rejection": "mandatory_view_byte_budget_exhausted",
+  "offline_replay_new_model_calls": 0,
+  "offline_replay_usage_attempts": 0,
+  "semantic_quality": "not_continuation_qualified",
+  "budget_failure": "probe_configuration_and_missing_preflight_not_quote_compilation",
+  "paid_retry": false,
+  "generation_source_version": "20261023-quote-selection-v1.zip"
+}

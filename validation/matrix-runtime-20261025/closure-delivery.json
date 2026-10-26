@@ -1,0 +1,12 @@
+{
+  "version": "D:\\lea\\XenYon code\\wsc\\versions\\20261025-native-matrix-first-wave-closure-v1-delta.zip",
+  "bytes": 4094409,
+  "sha256": "907f7a7b6e12f8048e6242ce6b07dcbfc4bd246e8a5051e94bacb7055e03ecd1",
+  "files": 116,
+  "known_responses": 52,
+  "known_total_tokens": 3156889,
+  "complete_usage": null,
+  "formal_valid_pairs": 0,
+  "new_model_calls": 0,
+  "all_owned_processes_empty": true
+}

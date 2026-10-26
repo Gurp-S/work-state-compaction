@@ -1,0 +1,12 @@
+{
+  "tests": 22,
+  "failures": 0,
+  "errors": 0,
+  "seconds": 0.6399999999994179,
+  "modules": [
+    "test_span_selection",
+    "test_generation_frontier",
+    "test_selection_facts",
+    "test_span_reference_schema"
+  ]
+}

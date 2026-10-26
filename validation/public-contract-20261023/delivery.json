@@ -1,0 +1,10 @@
+{
+  "version": "wsc\\versions\\20261023-public-contract-v1-delta.zip",
+  "sha256": "6a82df249dc4557addda8a3a5492b987c165248c3e6cfaed81a9aa1087795765",
+  "bytes": 50971,
+  "source_files": 137,
+  "source_manifest_sha256": "6ff2d2e1ac626876fec088c9079a1de1c4ba6af5b09ece9b33d0e6dacc50d3b1",
+  "checks_sha256": "7f7baffabf1f9e59f023ef5dee2e1d34edf16b4654862979e6b67f2047a9f98b",
+  "new_model_calls": 0,
+  "goal_complete": false
+}

@@ -1,0 +1,56 @@
+{
+  "schema": "wsc.explicit_evidence_selection/1",
+  "producer": "current_agent_explicit_single_current_reference_20261023",
+  "source_items_sha256": "b831da6a5abc8f2cdd272379033ae505c95be7ea36a13bb08d27fd8627d411fa",
+  "required_observations": [
+    "memory_contract"
+  ],
+  "selection": {
+    "new_understandings": [],
+    "excerpts": [
+      {
+        "key": "memory_contract",
+        "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:10:2f371c4816540ffe4997f96b4a8f7bcbfe2de68a08f020c8307e6c79f108310d",
+        "path": [
+          "output",
+          3,
+          "text",
+          null,
+          "value",
+          "output"
+        ],
+        "start": 2090,
+        "end": 3690,
+        "text_sha256": "eafb0083ea6fcc020d82332f17ce09679ba10bd3711b5687a4dd84dd76981b56",
+        "historical_locator": "MEMORY.md:138-145 (historical citation; archived content identity)",
+        "current_resource": "C:\\Users\\48522\\.codex\\memories\\MEMORY.md",
+        "current_resource_sha256": "0d748cd94aed1937ba8d56307f714b54604244bc8579cfa4971c90b96d4081ea"
+      }
+    ]
+  },
+  "limits": {
+    "selection_mode": "explicit_model_authored_not_automatic",
+    "parent_model_authoring_usage": "unknown_not_zero",
+    "completed_repair_source_used": false,
+    "native_checkpoint_semantics": "opaque_native_carrier_preserved_without_decoding"
+  },
+  "qualification_behavior": {
+    "mutable_memory_read_commands": "permitted_when_relevant_and_counted",
+    "stale_line_reference_attempts": 0,
+    "named_checks": "13 business and 5 owned",
+    "interpretation": "Current rereads are assessed by their factual reason and binding, not a zero-read requirement. Old historical coordinates must not stand in for current resource identity.",
+    "causal_scope": "Same native checkpoint plus one version-bound observation; causal mental reuse remains unknown."
+  },
+  "revision_from": {
+    "path": "D:\\lea\\XenYon code\\wsc\\experiments\\selections\\evidence-bound-v3-factual.json",
+    "sha256": "541574c7f16af1255fe64e4e74f30e2de2f0474486aceb9a21c969f2f46278b6",
+    "reason": "New protocol: preserve the identical native checkpoint in both arms; C adds only one content-bound current reference. Not another replacement-summary run."
+  },
+  "presentation": "native_carrier_facts_v1",
+  "max_addendum_chars": 4096,
+  "native_carrier": {
+    "directory": "D:\\agent-task-runs\\independent-wsc-factual-pair-20261023\\B\\compaction",
+    "proof": "D:\\agent-task-runs\\wsc-native-carrier-import-20261023\\proof.json",
+    "proof_sha256": "bd17546e01928b1c35679eb47ae185c74e9aa5f4e948ffd11c575896a2699739"
+  }
+}

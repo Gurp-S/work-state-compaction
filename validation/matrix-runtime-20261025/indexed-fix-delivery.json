@@ -1,0 +1,11 @@
+{
+  "version": "D:\\lea\\XenYon code\\wsc\\versions\\20261025-shared-s2-indexed-checkpoint-v1-delta.zip",
+  "sha256": "c447a42390a017077779f8ef90d6168ca03d1e2a7a73c80eb4b1316ca4135ece",
+  "bytes": 537078,
+  "source_files": 181,
+  "delta_files": 225,
+  "base": "D:\\lea\\XenYon code\\wsc\\versions\\20261025-a3-qualification-runtime-v1-delta.zip",
+  "base_sha256": "7a193b66ef81a1b7a11b246c652d171d337415e29a7c79a05399dd104d5beb5b",
+  "model_calls_for_repair_validation": 0,
+  "scope": "Current opt-in repair, same-draft replay, zero-inference import; no business continuation/benefit proof"
+}

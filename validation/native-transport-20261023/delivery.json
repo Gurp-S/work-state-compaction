@@ -1,0 +1,21 @@
+{
+  "version": "wsc\\versions\\20261023-native-history-v1-delta.zip",
+  "sha256": "bb006584ece06c15b0ae2636eeb71c60def7ad6fc4624c1a649f4b210c561b16",
+  "bytes": 51844,
+  "source_files": 141,
+  "source_manifest_sha256": "cd349f49725612d4aece6c8600067efe5dcab8c6ebcc36bec4d0e7068ad5b025",
+  "checks_sha256": "ed5fe6bbff6bbdfbbfa78fd33d65932f82f7600e2c84148ff633860b8839a0e9",
+  "native_evidence": {
+    "schema-generation.json": "625f12da9ed706f020bb4c3825e7f6d01968e00bf3b9e22576e9a3a4e0a157cb",
+    "registration.json": "2c066f853fde29f242c96e170c8065430777685c627627032514e02367419a6b",
+    "result.json": "b496ba15414f848d6de06a25973c951616a07cc76ebf7c1aa9d568d135d18695",
+    "by-turn/registration.json": "a578b522bd7b1e2a1ffc3714401ce664c3e8d167c7601119464cf6fa80588ccc",
+    "by-turn/result.json": "28b2d20da9df723d914bea8ba357e65bc3733c2baf297195d26a6ab9d1ec4933",
+    "by-turn/fork1/audit.json": "7d5dc0cf0490e013b5394d43d1317bd539b1ffc9e4df3f3214e5bd9f0e233eff",
+    "history-binding.json": "d8ff1b0cd263578512b7abe9594d9da03124d2d8f24e31913ef690f94dead461",
+    "history-resolution.json": "6e63fe9d3afdb5ec3d5f73754e714f23468f994249bedf079bb4f7b744c85665"
+  },
+  "real_fork_rechecked_with_final_source": true,
+  "new_model_calls": 0,
+  "goal_complete": false
+}

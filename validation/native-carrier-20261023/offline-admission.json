@@ -1,0 +1,26 @@
+{
+  "scope": "Offline exact carrier plus reference preparation; no inference or HostReceipt",
+  "item_count": 7,
+  "carrier_unchanged": true,
+  "addendum_chars": 2529,
+  "maximum": 4096,
+  "observation_count": 1,
+  "current_reference_bindings": [
+    {
+      "bytes_read": 127806,
+      "checked_at": "2026-10-22T19:03:24.362053+00:00",
+      "end_line": 264,
+      "expected_resource_sha256": "0d748cd94aed1937ba8d56307f714b54604244bc8579cfa4971c90b96d4081ea",
+      "historical_observation_retimed": false,
+      "matched_normalized_text_sha256": "8d8bdc557dcc156841c2998f7a3de7f618f5133313f4f63d823542ac17699788",
+      "matching": "exact_text_after_line_ending_normalization",
+      "resource": "C:\\Users\\48522\\.codex\\memories\\MEMORY.md",
+      "resource_sha256": "0d748cd94aed1937ba8d56307f714b54604244bc8579cfa4971c90b96d4081ea",
+      "start_line": 254,
+      "status": "unique_content_match"
+    }
+  ],
+  "selection_sha256": "95d3e462cd19192272099030038e2bed55dac85d7fecb7e6cc7ca06b4c982d4e",
+  "source_times_preserved": true,
+  "full_evidence_verified": true
+}

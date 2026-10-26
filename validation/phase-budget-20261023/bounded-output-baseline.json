@@ -1,0 +1,13 @@
+{
+  "configured_max_output_bytes": 64,
+  "child_output_bytes": 4096,
+  "post_overflow_action_executed": true,
+  "error": "WSCError:generation_output_budget_exhausted",
+  "seconds": 0.5,
+  "model_calls": 0,
+  "source_sha256": {
+    "D:\\lea\\XenYon code\\wsc\\src\\wsc\\generation.py": "b4539966cd9ed6c8110a615d2b0a69bded351fe7566a0ff4496a052dbaaa28c6",
+    "D:\\lea\\XenYon code\\wsc\\src\\wsc\\generation_boundary.py": "2df752e65d5d087188bc313bb20c7f520f1aff13220dd79fe95dbeb5cee0caa5"
+  },
+  "scope": "Real finite local child; demonstrates output limit checked only after child exit, not peak disk/memory or arbitrary subprocess-tree behavior."
+}

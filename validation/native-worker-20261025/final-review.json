@@ -1,0 +1,11 @@
+{
+  "original_review_sha256": "fccc3997af6fbc54bf4ed9e8448b47f5fded2c96b289a154ee02bc547fe9cf47",
+  "current_session_sha256": "8d56b568a68b91844ebcdaf610273a969bc5d8cff0c2ff901a7bf621091f163e",
+  "paid_probe_session_sha256": "e690e7b4e737d2892ce5cd0cf8f4ebfc2afb97ff8655a22ee4be79b6d0b8cee6",
+  "post_probe_change": "Only cleanup-exception guard, verified with separate synthetic before/after; paid smoke not repeated",
+  "paid_protocol_responses": 1,
+  "paid_protocol_total_tokens": 22567,
+  "paid_comparison_started": false,
+  "cumulative_budgets_and_C_boundary_policy_pending": true,
+  "goal_complete": false
+}

@@ -1,0 +1,8 @@
+test_exact_floor_fits_without_charging_unselected_optional_history (test_generation_feasibility.GenerationFeasibilityTests.test_exact_floor_fits_without_charging_unselected_optional_history) ... ok
+test_impossible_control_floor_does_not_call_model_or_create_attempt (test_generation_feasibility.GenerationFeasibilityTests.test_impossible_control_floor_does_not_call_model_or_create_attempt) ... ok
+test_material_budget_still_rejects_before_any_model_attempt (test_generation_feasibility.GenerationFeasibilityTests.test_material_budget_still_rejects_before_any_model_attempt) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.113s
+
+OK

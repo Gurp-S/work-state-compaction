@@ -1,0 +1,15 @@
+{
+  "version": "wsc\\versions\\20261023-native-repeat-results-v1.zip",
+  "sha256": "d2eef4e1f256b5f3cfac243c0c6a2b3d4d20ab2d2e070230a8cea36a134a6a3a",
+  "bytes": 40313,
+  "reviewed_result_sha256": "f8aa75e42f474e08639bd3e609251ccdd387a2879c996a3732c0c88ced096fb0",
+  "runtime_source_files": 143,
+  "runtime_source_unchanged": true,
+  "new_model_responses": 17,
+  "new_total_tokens": 686517,
+  "new_offline_grader_methods": 20,
+  "cash": null,
+  "goal_complete": false,
+  "process_session": 17367,
+  "process_exit_code": 0
+}

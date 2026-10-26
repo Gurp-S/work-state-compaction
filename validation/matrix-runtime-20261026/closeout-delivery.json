@@ -1,0 +1,9 @@
+{
+  "version": "D:\\lea\\XenYon code\\wsc\\versions\\20261026-review-fixture-integration-and-capsule-v1-delta.zip",
+  "sha256": "3af12362e5840360f90ed765c6283b1242a64dce46db925e4328babd3d86aa5d",
+  "bytes": 763136,
+  "source_files": 185,
+  "delta_files": 82,
+  "base_sha256": "a2c968155ea7ea4610ba8ec9702585cdc2bd524784feba025ad03969f73f6e54",
+  "scope": "Both fixture routes integrated; failed bounded review; offline capsule and actual fresh receiver admission only"
+}

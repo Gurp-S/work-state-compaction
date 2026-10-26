@@ -1,0 +1,23 @@
+{
+  "source": "wsc/experiments/native_rollout_snapshot.py",
+  "sha256": "1f4107a8aaf6c80835112237133424e375947eec2cb446fa2c3e3d75af1df75a",
+  "observations": [
+    {
+      "case": "duplicate_type",
+      "raw_hex": "7b2274797065223a22726573706f6e73655f6974656d222c2274797065223a226576656e745f6d7367222c227061796c6f6164223a7b7d7d0a",
+      "parse_complete": true,
+      "records": 1,
+      "last_type": "event_msg",
+      "nonfinite_observed": false
+    },
+    {
+      "case": "nested_nonfinite",
+      "raw_hex": "7b2274797065223a22746f6b656e5f75736167655f7265636f7264222c227061796c6f6164223a7b22746f74616c5f746f6b656e73223a4e614e7d7d0a",
+      "parse_complete": true,
+      "records": 1,
+      "last_type": "token_usage_record",
+      "nonfinite_observed": true
+    }
+  ],
+  "model_calls": 0
+}

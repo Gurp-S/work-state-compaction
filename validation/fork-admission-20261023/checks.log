@@ -1,0 +1,58 @@
+test_changed_parent_is_rejected_before_inference (test_fork_phase.ForkPhaseTests.test_changed_parent_is_rejected_before_inference) ... ok
+test_current_local_fact_and_actual_workspace_required (test_fork_phase.ForkPhaseTests.test_current_local_fact_and_actual_workspace_required) ... ok
+test_first_turn_uses_two_distinct_inherited_counters (test_fork_phase.ForkPhaseTests.test_first_turn_uses_two_distinct_inherited_counters) ... ok
+test_following_turn_uses_latest_local_counters (test_fork_phase.ForkPhaseTests.test_following_turn_uses_latest_local_counters) ... ok
+test_missing_receipt_or_wrong_counter_retains_unknown_total (test_fork_phase.ForkPhaseTests.test_missing_receipt_or_wrong_counter_retains_unknown_total) ... ok
+test_parent_changes_during_execution_preserve_paid_receipts_and_fail_closed (test_fork_phase.ForkPhaseTests.test_parent_changes_during_execution_preserve_paid_receipts_and_fail_closed) ... {"phase": "C:\\Users\\48522\\AppData\\Local\\Temp\\tmpe8_sgm3v\\phase", "completed": true, "failure": null, "responses": 1, "seconds": 0.01600000000325963}
+ok
+test_parent_response_cannot_be_rebilled (test_fork_phase.ForkPhaseTests.test_parent_response_cannot_be_rebilled) ... ok
+test_shared_phase_admits_fork_counts_new_receipts_and_materializes_history (test_fork_phase.ForkPhaseTests.test_shared_phase_admits_fork_counts_new_receipts_and_materializes_history) ... {"phase": "C:\\Users\\48522\\AppData\\Local\\Temp\\tmpuwj2u523\\phase", "completed": true, "failure": null, "responses": 1, "seconds": 0.0319999999992433}
+ok
+test_changed_historical_bytes_cannot_redefine_new_phase (test_native_turn_accounting.NativeTurnAccountingTests.test_changed_historical_bytes_cannot_redefine_new_phase) ... ok
+test_compaction_receipt_substitution_and_reuse_rejected (test_native_turn_accounting.NativeTurnAccountingTests.test_compaction_receipt_substitution_and_reuse_rejected) ... ok
+test_equal_duplicate_is_counted_once_and_conflicting_duplicate_rejected (test_native_turn_accounting.NativeTurnAccountingTests.test_equal_duplicate_is_counted_once_and_conflicting_duplicate_rejected) ... ok
+test_first_available_window_with_inherited_unseen_cost_is_not_fresh (test_native_turn_accounting.NativeTurnAccountingTests.test_first_available_window_with_inherited_unseen_cost_is_not_fresh) ... ok
+test_fresh_thread_and_explicit_compaction_are_supported (test_native_turn_accounting.NativeTurnAccountingTests.test_fresh_thread_and_explicit_compaction_are_supported) ... ok
+test_historical_response_identity_cannot_be_rebilled (test_native_turn_accounting.NativeTurnAccountingTests.test_historical_response_identity_cannot_be_rebilled) ... ok
+test_interruption_retains_known_cost_without_inventing_complete_total (test_native_turn_accounting.NativeTurnAccountingTests.test_interruption_retains_known_cost_without_inventing_complete_total) ... ok
+test_invalid_receipt_is_unknown_not_zero_or_a_crash (test_native_turn_accounting.NativeTurnAccountingTests.test_invalid_receipt_is_unknown_not_zero_or_a_crash) ... ok
+test_live_resumed_admission_needs_prior_counter_and_matching_thread (test_native_turn_accounting.NativeTurnAccountingTests.test_live_resumed_admission_needs_prior_counter_and_matching_thread) ... ok
+test_missing_middle_or_final_receipt_never_becomes_complete (test_native_turn_accounting.NativeTurnAccountingTests.test_missing_middle_or_final_receipt_never_becomes_complete) ... ok
+test_next_turn_and_already_started_turn_are_not_the_registered_interval (test_native_turn_accounting.NativeTurnAccountingTests.test_next_turn_and_already_started_turn_are_not_the_registered_interval) ... ok
+test_resumed_turn_counts_compaction_and_excludes_inherited_counter (test_native_turn_accounting.NativeTurnAccountingTests.test_resumed_turn_counts_compaction_and_excludes_inherited_counter) ... ok
+test_unfinished_physical_tail_invalidates_completeness (test_native_turn_accounting.NativeTurnAccountingTests.test_unfinished_physical_tail_invalidates_completeness) ... ok
+test_shared_phase_does_not_charge_or_cap_using_old_responses (test_native_turn_accounting.NativeTurnEntryTests.test_shared_phase_does_not_charge_or_cap_using_old_responses) ... {"phase": "C:\\Users\\48522\\AppData\\Local\\Temp\\tmp5f34a55n\\phase", "completed": true, "failure": null, "responses": 1, "seconds": 0.014999999999417923}
+ok
+test_continuity_diagnostic_uses_same_execution_fact_gate (test_native_execution_binding.ExecutionBindingTests.test_continuity_diagnostic_uses_same_execution_fact_gate) ... ok
+test_explicit_generation_only_has_no_business_execution_binding (test_native_execution_binding.ExecutionBindingTests.test_explicit_generation_only_has_no_business_execution_binding) ... ok
+test_fact_before_later_historical_context_is_rejected (test_native_execution_binding.ExecutionBindingTests.test_fact_before_later_historical_context_is_rejected) ... ok
+test_missing_fact_blocks_shared_paid_entry (test_native_execution_binding.ExecutionBindingTests.test_missing_fact_blocks_shared_paid_entry) ... ok
+test_registered_current_fact_accepts_native_transport_metadata (test_native_execution_binding.ExecutionBindingTests.test_registered_current_fact_accepts_native_transport_metadata) ... ok
+test_runtime_directory_mismatch_is_rejected (test_native_execution_binding.ExecutionBindingTests.test_runtime_directory_mismatch_is_rejected) ... ok
+test_unregistered_purpose_cannot_silently_bypass_gate (test_native_execution_binding.ExecutionBindingTests.test_unregistered_purpose_cannot_silently_bypass_gate) ... ok
+test_invalid_contract_and_exhausted_entry_reject_before_inference (test_native_phase_budget.BudgetContractTests.test_invalid_contract_and_exhausted_entry_reject_before_inference) ... ok
+test_legacy_response_and_compaction_caps_remain (test_native_phase_budget.BudgetContractTests.test_legacy_response_and_compaction_caps_remain) ... ok
+test_registered_limits_override_constants_but_not_earlier_deadline (test_native_phase_budget.BudgetContractTests.test_registered_limits_override_constants_but_not_earlier_deadline) ... ok
+test_compaction_at_one_response_limit_needs_no_agent_final_message (test_native_phase_budget.PhaseBudgetIntegrationTests.test_compaction_at_one_response_limit_needs_no_agent_final_message) ... {"phase": "C:\\Users\\48522\\AppData\\Local\\Temp\\tmp2ciur9qo\\compact", "completed": true, "failure": null, "responses": 1, "seconds": 0.014999999999417923}
+ok
+test_completed_final_at_exact_caps_is_accepted (test_native_phase_budget.PhaseBudgetIntegrationTests.test_completed_final_at_exact_caps_is_accepted) ... {"phase": "C:\\Users\\48522\\AppData\\Local\\Temp\\tmplws4o87r\\exact", "completed": true, "failure": null, "responses": 11, "seconds": 0.0}
+ok
+test_final_receipts_over_limit_detected_without_token_update (test_native_phase_budget.PhaseBudgetIntegrationTests.test_final_receipts_over_limit_detected_without_token_update) ... {"phase": "C:\\Users\\48522\\AppData\\Local\\Temp\\tmpaa4yqj66\\terminal", "completed": true, "failure": "registered_token_cap", "responses": 11, "seconds": 0.0}
+ok
+test_same_trace_old_cap_stops_new_registered_cap_completes (test_native_phase_budget.PhaseBudgetIntegrationTests.test_same_trace_old_cap_stops_new_registered_cap_completes) ... {"phase": "C:\\Users\\48522\\AppData\\Local\\Temp\\tmp1mpbabvx\\old", "completed": false, "failure": "registered_response_cap", "responses": 11, "seconds": 0.01600000000325963}
+{"phase": "C:\\Users\\48522\\AppData\\Local\\Temp\\tmp1mpbabvx\\new", "completed": true, "failure": null, "responses": 11, "seconds": 0.0}
+ok
+test_token_overshoot_stops_and_preserves_full_observed_cost (test_native_phase_budget.PhaseBudgetIntegrationTests.test_token_overshoot_stops_and_preserves_full_observed_cost) ... {"phase": "C:\\Users\\48522\\AppData\\Local\\Temp\\tmpgxfanr9o\\token-stop", "completed": false, "failure": "registered_token_cap", "responses": 11, "seconds": 0.0}
+ok
+test_changed_child_or_parent_prefix_is_rejected (test_fork_history.ForkHistoryTests.test_changed_child_or_parent_prefix_is_rejected) ... ok
+test_changed_parent_reference_is_not_trusted_from_child_alone (test_fork_history.ForkHistoryTests.test_changed_parent_reference_is_not_trusted_from_child_alone) ... ok
+test_child_local_increment_is_retained_after_parent_context (test_fork_history.ForkHistoryTests.test_child_local_increment_is_retained_after_parent_context) ... ok
+test_parent_suffix_append_does_not_invalidate_historical_prefix (test_fork_history.ForkHistoryTests.test_parent_suffix_append_does_not_invalidate_historical_prefix) ... ok
+test_registered_ordinal_cannot_disagree_with_physical_prefix (test_fork_history.ForkHistoryTests.test_registered_ordinal_cannot_disagree_with_physical_prefix) ... ok
+test_sparse_local_file_retains_opaque_compaction_and_all_side_metadata (test_fork_history.ForkHistoryTests.test_sparse_local_file_retains_opaque_compaction_and_all_side_metadata) ... ok
+test_truncated_parent_and_unresolved_nested_base_are_rejected (test_fork_history.ForkHistoryTests.test_truncated_parent_and_unresolved_nested_base_are_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 44 tests in 0.592s
+
+OK

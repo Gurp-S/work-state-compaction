@@ -1,0 +1,82 @@
+{
+  "status": "failed_selection_preserved",
+  "failure": "quote_text_missing",
+  "interpretation": "One model quotation paraphrased the archived diagnosis; no normalization or similarity repair was applied.",
+  "quotes": [
+    {
+      "key": "required_utf8_and_unicode_behavior",
+      "source_id": "s5",
+      "exact_match": true,
+      "text": "无效 UTF-8 应按物理行排除，并保留其他合法行及顺序；合法 U+FFFD、U+2028 不得误删。"
+    },
+    {
+      "key": "source_identity_and_read_only_contract",
+      "source_id": "s5",
+      "exact_match": true,
+      "text": "SHA-256 和字节数对应实际用于解析的原始字节；区分缺失、空文件、空行和坏行，不改写输入账本，不把哈希说成跨账本原子快照。"
+    },
+    {
+      "key": "recorded_root_cause",
+      "source_id": "s20",
+      "exact_match": false,
+      "text": "根因已定位：读取器使用 `errors=\"replace\"`，使无效 UTF-8 被替换后进入 JSON 解析，绕过了已有的坏行排除分支。"
+    },
+    {
+      "key": "baseline_receipt_boundary",
+      "source_id": "s20",
+      "exact_match": true,
+      "text": "`current-baseline.json` 记录业务检查 **9/13**、专用 unittest **2/5**，合计 **11/18**；其登记的四个文件哈希均与当前文件一致。`old-verification.json` 的 **18/18** 属于读取器哈希不同的历史版本，不能计入本次结果。"
+    }
+  ],
+  "model_source_ids": [
+    "s4",
+    "s5",
+    "s10",
+    "s18",
+    "s20"
+  ],
+  "usage": {
+    "thread_id": "01a1665a-a2ef-7e12-8cbf-80ef41b21a61",
+    "response_count": 1,
+    "response_receipts": [
+      {
+        "response_id": "resp_02b28a9b00b7cc49016adab70cc1b081919d784ad5786be788",
+        "rollout_line": 26,
+        "usage": {
+          "input_tokens": 70320,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 3684,
+          "reasoning_output_tokens": 2983,
+          "total_tokens": 74004
+        }
+      }
+    ],
+    "duplicate_receipt_ids": [],
+    "compactor_response_ids": [],
+    "all_usage": {
+      "input_tokens": 70320,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 3684,
+      "reasoning_output_tokens": 2983,
+      "total_tokens": 74004
+    },
+    "compaction_usage": {
+      "input_tokens": 0,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 0,
+      "reasoning_output_tokens": 0,
+      "total_tokens": 0
+    },
+    "cash": null,
+    "price_status": "unknown"
+  },
+  "usage_complete": true,
+  "source_version": "20261023-selection-facts-v1.zip",
+  "draft_sha256": "ee7c16664c48432a9f0e8f584e5a28d7ab1665ed8ea35631aa6b44d3cb05740c",
+  "task_continuation_performed": false,
+  "automatic_net_benefit": "not_established",
+  "retry_count": 0
+}

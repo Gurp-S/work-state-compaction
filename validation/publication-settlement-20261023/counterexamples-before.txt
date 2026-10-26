@@ -1,0 +1,131 @@
+test_late_conflicting_reply_cannot_downgrade_confirmed_operation (test_publication_settlement.PublicationSettlementTests.test_late_conflicting_reply_cannot_downgrade_confirmed_operation) ... FAIL
+test_late_interrupt_keeps_unknown_then_reconciles_real_commit (test_publication_settlement.PublicationSettlementTests.test_late_interrupt_keeps_unknown_then_reconciles_real_commit) ... ERROR
+test_late_timeout_cannot_downgrade_concurrently_confirmed_operation (test_publication_settlement.PublicationSettlementTests.test_late_timeout_cannot_downgrade_concurrently_confirmed_operation) ... FAIL
+test_late_timeout_cannot_erase_durable_rejection (test_publication_settlement.PublicationSettlementTests.test_late_timeout_cannot_erase_durable_rejection) ... FAIL
+test_later_understanding_does_not_erase_committed_installation (test_publication_settlement.PublicationSettlementTests.test_later_understanding_does_not_erase_committed_installation) ... ERROR
+test_lost_reply_then_new_control_reconciles_after_reopen (test_publication_settlement.PublicationSettlementTests.test_lost_reply_then_new_control_reconciles_after_reopen) ... ERROR
+test_control_after_host_commit_preserves_tail_and_allows_next_publication (test_contracts.Contracts.test_control_after_host_commit_preserves_tail_and_allows_next_publication)
+The host commits before the control change; its durable result remains true. ... ERROR
+
+======================================================================
+ERROR: test_late_interrupt_keeps_unknown_then_reconciles_real_commit (test_publication_settlement.PublicationSettlementTests.test_late_interrupt_keeps_unknown_then_reconciles_real_commit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_publication_settlement.py", line 109, in test_late_interrupt_keeps_unknown_then_reconciles_real_commit
+    reopened.reconcile(self.op, self.host)
+  File "D:\lea\XenYon code\wsc\src\wsc\core.py", line 152, in reconcile
+    return reconcile(self, operation_id, host)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\lea\XenYon code\wsc\src\wsc\publication.py", line 189, in reconcile
+    return confirm(core, key, receipt)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\lea\XenYon code\wsc\src\wsc\publication.py", line 136, in confirm
+    check_binding(db, core, data)
+  File "D:\lea\XenYon code\wsc\src\wsc\publication.py", line 28, in check_binding
+    require(binding["control_epoch"] == getmeta(db, "control_epoch"), "control_changed")
+  File "D:\lea\XenYon code\wsc\src\wsc\contracts.py", line 25, in require
+    raise WSCError(reason)
+wsc.contracts.WSCError: control_changed
+
+======================================================================
+ERROR: test_later_understanding_does_not_erase_committed_installation (test_publication_settlement.PublicationSettlementTests.test_later_understanding_does_not_erase_committed_installation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_publication_settlement.py", line 74, in test_later_understanding_does_not_erase_committed_installation
+    self.core.install(self.op, CallbackHost(commit=commit, lookup=self.host.lookup))
+  File "D:\lea\XenYon code\wsc\src\wsc\core.py", line 148, in install
+    return install(self, operation_id, host)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\lea\XenYon code\wsc\src\wsc\publication.py", line 173, in install
+    return confirm(core, key, receipt)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\lea\XenYon code\wsc\src\wsc\publication.py", line 136, in confirm
+    check_binding(db, core, data)
+  File "D:\lea\XenYon code\wsc\src\wsc\publication.py", line 29, in check_binding
+    require(binding["understanding_epoch"] == getmeta(db, "understanding_epoch"), "understanding_changed")
+  File "D:\lea\XenYon code\wsc\src\wsc\contracts.py", line 25, in require
+    raise WSCError(reason)
+wsc.contracts.WSCError: understanding_changed
+
+======================================================================
+ERROR: test_lost_reply_then_new_control_reconciles_after_reopen (test_publication_settlement.PublicationSettlementTests.test_lost_reply_then_new_control_reconciles_after_reopen)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_publication_settlement.py", line 62, in test_lost_reply_then_new_control_reconciles_after_reopen
+    reopened.reconcile(self.op, self.host)
+  File "D:\lea\XenYon code\wsc\src\wsc\core.py", line 152, in reconcile
+    return reconcile(self, operation_id, host)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\lea\XenYon code\wsc\src\wsc\publication.py", line 189, in reconcile
+    return confirm(core, key, receipt)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\lea\XenYon code\wsc\src\wsc\publication.py", line 136, in confirm
+    check_binding(db, core, data)
+  File "D:\lea\XenYon code\wsc\src\wsc\publication.py", line 28, in check_binding
+    require(binding["control_epoch"] == getmeta(db, "control_epoch"), "control_changed")
+  File "D:\lea\XenYon code\wsc\src\wsc\contracts.py", line 25, in require
+    raise WSCError(reason)
+wsc.contracts.WSCError: control_changed
+
+======================================================================
+ERROR: test_control_after_host_commit_preserves_tail_and_allows_next_publication (test_contracts.Contracts.test_control_after_host_commit_preserves_tail_and_allows_next_publication)
+The host commits before the control change; its durable result remains true.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_contracts.py", line 436, in test_control_after_host_commit_preserves_tail_and_allows_next_publication
+    self.core.install(op, CallbackHost(commit=commit, lookup=self.host.lookup))
+  File "D:\lea\XenYon code\wsc\src\wsc\core.py", line 148, in install
+    return install(self, operation_id, host)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\lea\XenYon code\wsc\src\wsc\publication.py", line 173, in install
+    return confirm(core, key, receipt)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\lea\XenYon code\wsc\src\wsc\publication.py", line 136, in confirm
+    check_binding(db, core, data)
+  File "D:\lea\XenYon code\wsc\src\wsc\publication.py", line 28, in check_binding
+    require(binding["control_epoch"] == getmeta(db, "control_epoch"), "control_changed")
+  File "D:\lea\XenYon code\wsc\src\wsc\contracts.py", line 25, in require
+    raise WSCError(reason)
+wsc.contracts.WSCError: control_changed
+
+======================================================================
+FAIL: test_late_conflicting_reply_cannot_downgrade_confirmed_operation (test_publication_settlement.PublicationSettlementTests.test_late_conflicting_reply_cannot_downgrade_confirmed_operation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_publication_settlement.py", line 97, in test_late_conflicting_reply_cannot_downgrade_confirmed_operation
+    self.assert_settled_once(self.core)
+  File "D:\lea\XenYon code\wsc\tests\test_publication_settlement.py", line 51, in assert_settled_once
+    self.assertEqual("confirmed", status["operations"][0]["state"])
+AssertionError: 'confirmed' != 'recovery_required'
+- confirmed
++ recovery_required
+
+
+======================================================================
+FAIL: test_late_timeout_cannot_downgrade_concurrently_confirmed_operation (test_publication_settlement.PublicationSettlementTests.test_late_timeout_cannot_downgrade_concurrently_confirmed_operation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_publication_settlement.py", line 86, in test_late_timeout_cannot_downgrade_concurrently_confirmed_operation
+    self.assert_settled_once(self.core)
+  File "D:\lea\XenYon code\wsc\tests\test_publication_settlement.py", line 51, in assert_settled_once
+    self.assertEqual("confirmed", status["operations"][0]["state"])
+AssertionError: 'confirmed' != 'unknown'
+- confirmed
++ unknown
+
+
+======================================================================
+FAIL: test_late_timeout_cannot_erase_durable_rejection (test_publication_settlement.PublicationSettlementTests.test_late_timeout_cannot_erase_durable_rejection)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_publication_settlement.py", line 126, in test_late_timeout_cannot_erase_durable_rejection
+    self.assertEqual("rejected", self.core.status()["operations"][0]["state"])
+AssertionError: 'rejected' != 'unknown'
+- rejected
++ unknown
+
+
+----------------------------------------------------------------------
+Ran 7 tests in 1.375s
+
+FAILED (failures=3, errors=4)

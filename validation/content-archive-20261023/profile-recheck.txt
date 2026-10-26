@@ -1,0 +1,83 @@
+Stage 1
+         138402 function calls (138390 primitive calls) in 1.510 seconds
+
+   Ordered by: cumulative time
+   List reduced from 233 to 18 due to restriction <18>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.001    0.001    1.510    1.510 core.py:136(stage)
+        1    0.000    0.000    1.509    1.509 publication.py:37(stage)
+        1    0.000    0.000    1.355    1.355 content_archive.py:35(export_sources)
+        1    0.007    0.007    1.354    1.354 evidence.py:57(export_sources)
+      512    0.008    0.000    1.253    0.002 content_archive.py:10(publish_object)
+      515    0.785    0.002    0.785    0.002 {built-in method nt.fsync}
+      512    0.130    0.000    0.136    0.000 {built-in method nt.link}
+     1031    0.002    0.000    0.122    0.000 contracts.py:19(digest)
+      512    0.001    0.000    0.117    0.000 tempfile.py:322(mkstemp)
+     1293    0.001    0.000    0.113    0.000 contracts.py:14(encode)
+     1293    0.002    0.000    0.112    0.000 __init__.py:183(dumps)
+      512    0.004    0.000    0.110    0.000 tempfile.py:244(_mkstemp_inner)
+     1293    0.002    0.000    0.109    0.000 encoder.py:183(encode)
+     1293    0.106    0.000    0.106    0.000 encoder.py:205(iterencode)
+        2    0.000    0.000    0.096    0.048 snapshots.py:16(validate_snapshot)
+      512    0.091    0.000    0.091    0.000 {built-in method nt.open}
+        3    0.014    0.005    0.084    0.028 events.py:11(rows)
+      512    0.001    0.000    0.074    0.000 pathlib.py:1141(unlink)
+
+
+
+Stage 2
+         78008 function calls (78000 primitive calls) in 0.324 seconds
+
+   Ordered by: cumulative time
+   List reduced from 135 to 18 due to restriction <18>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.001    0.001    0.324    0.324 core.py:136(stage)
+        1    0.000    0.000    0.323    0.323 publication.py:37(stage)
+        1    0.000    0.000    0.171    0.171 content_archive.py:35(export_sources)
+        1    0.003    0.003    0.171    0.171 evidence.py:57(export_sources)
+     1031    0.002    0.000    0.114    0.000 contracts.py:19(digest)
+     1293    0.001    0.000    0.106    0.000 contracts.py:14(encode)
+     1293    0.002    0.000    0.105    0.000 __init__.py:183(dumps)
+     1293    0.002    0.000    0.102    0.000 encoder.py:183(encode)
+     1293    0.100    0.000    0.100    0.000 encoder.py:205(iterencode)
+      512    0.002    0.000    0.098    0.000 content_archive.py:10(publish_object)
+        2    0.000    0.000    0.092    0.046 snapshots.py:16(validate_snapshot)
+        3    0.013    0.004    0.081    0.027 events.py:11(rows)
+        2    0.000    0.000    0.054    0.027 events.py:78(safe_boundary)
+     1032    0.000    0.000    0.048    0.000 pathlib.py:1008(stat)
+     1032    0.046    0.000    0.048    0.000 {built-in method nt.stat}
+        1    0.000    0.000    0.047    0.047 publication.py:25(check_binding)
+      256    0.001    0.000    0.047    0.000 evidence.py:13(source_row)
+      512    0.001    0.000    0.036    0.000 pathlib.py:1046(read_bytes)
+
+
+
+Stage 3
+         78008 function calls (78000 primitive calls) in 0.325 seconds
+
+   Ordered by: cumulative time
+   List reduced from 135 to 18 due to restriction <18>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.001    0.001    0.325    0.325 core.py:136(stage)
+        1    0.001    0.001    0.325    0.325 publication.py:37(stage)
+        1    0.000    0.000    0.173    0.173 content_archive.py:35(export_sources)
+        1    0.003    0.003    0.173    0.173 evidence.py:57(export_sources)
+     1031    0.002    0.000    0.115    0.000 contracts.py:19(digest)
+     1293    0.001    0.000    0.107    0.000 contracts.py:14(encode)
+     1293    0.002    0.000    0.106    0.000 __init__.py:183(dumps)
+     1293    0.002    0.000    0.103    0.000 encoder.py:183(encode)
+     1293    0.101    0.000    0.101    0.000 encoder.py:205(iterencode)
+      512    0.002    0.000    0.099    0.000 content_archive.py:10(publish_object)
+        2    0.000    0.000    0.093    0.046 snapshots.py:16(validate_snapshot)
+        3    0.014    0.005    0.083    0.028 events.py:11(rows)
+        2    0.000    0.000    0.055    0.028 events.py:78(safe_boundary)
+     1032    0.000    0.000    0.049    0.000 pathlib.py:1008(stat)
+     1032    0.046    0.000    0.048    0.000 {built-in method nt.stat}
+      256    0.001    0.000    0.047    0.000 evidence.py:13(source_row)
+        1    0.001    0.001    0.046    0.046 publication.py:25(check_binding)
+      512    0.001    0.000    0.036    0.000 pathlib.py:1046(read_bytes)
+
+

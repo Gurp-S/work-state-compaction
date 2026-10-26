@@ -1,0 +1,9 @@
+Processing c:\users\48522\appdata\local\temp\wsc-quote-wheel-85qmwrns\build
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: xeyo-wsc
+  Building wheel for xeyo-wsc (pyproject.toml): started
+  Building wheel for xeyo-wsc (pyproject.toml): finished with status 'done'
+  Created wheel for xeyo-wsc: filename=xeyo_wsc-0.1.0-py3-none-any.whl size=42076 sha256=2553e52ed81c83d291129e467e2ca6a85a0778ca721f715dac4d5d70e3aea993
+  Stored in directory: C:\Users\48522\AppData\Local\Temp\pip-ephem-wheel-cache-trtlo74u\wheels\e2\7d\2b\ffe9924d3a0adaf5968f0bcf0b60c8895ee2ca89ed32ae2f02
+Successfully built xeyo-wsc

@@ -1,0 +1,1 @@
+{"tests": 16, "failures": 0, "errors": 0, "seconds": 0.6400706000003993, "scope": ["word-boundary exactness and publication", "existing fixed span behavior", "existing frontier preservation"]}

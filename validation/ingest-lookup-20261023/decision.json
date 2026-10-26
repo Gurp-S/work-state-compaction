@@ -1,0 +1,14 @@
+{
+  "candidate_status": "rejected_not_integrated",
+  "archive": "D:\\lea\\XenYon code\\wsc\\versions\\20261023-ingest-lookup-rejected.zip",
+  "archive_sha256": "2f5012df6a3d70eecfeb616b3d3cf9594de7b200fa5e7b04f5e3ad722c946568",
+  "archive_bytes": 47134,
+  "restored_events_sha256": "81478d685aebf9fbe7ad5d5f465b67be82c1fcbb1056f3294ac92296c185a78f",
+  "removed_candidate_paths": [
+    "src/wsc/ingest_lookup.py",
+    "tests/test_ingest_lookup.py",
+    "experiments/measure_ingest_lookup.py"
+  ],
+  "current_python_manifest_exactly_matches_117_check_receipt": true,
+  "current_wheel_still_matches_current_src": true
+}

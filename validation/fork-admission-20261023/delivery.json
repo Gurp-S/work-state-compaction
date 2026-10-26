@@ -1,0 +1,44 @@
+{
+  "version": "wsc\\versions\\20261023-fork-admission-v1-delta.zip",
+  "sha256": "84284c8ac9abbb8dc4d48e4d1dfd082f875633a7c52039fb3f3121839ba0fa15",
+  "bytes": 61140,
+  "source_files": 143,
+  "source_manifest_sha256": "fd631484a244fb7ae0e16090f283796f5fc48a8b8142de9dc7f061bbd6337dd6",
+  "checks_sha256": "49aa07cb215fd878b67c9d71cb8afc0e171b0fa067b67a775f1db46130fea61f",
+  "tests": 44,
+  "changed_sources": [
+    "experiments/native_execution_binding.py",
+    "experiments/native_fork_history.py",
+    "experiments/native_fork_phase.py",
+    "experiments/native_turn_accounting.py",
+    "experiments/run_native_pair.py",
+    "tests/test_fork_phase.py"
+  ],
+  "probe_evidence": {
+    "registration.json": {
+      "path": "D:\\agent-task-runs\\wsc-fork-admission-20261023-v1\\single-response-probe\\registration.json",
+      "sha256": "d8d9af60d76137d3231cb61a3d0a87d18308dbc7d74d00a699e3acbea1d39bb7"
+    },
+    "result.json": {
+      "path": "D:\\agent-task-runs\\wsc-fork-admission-20261023-v1\\single-response-probe\\result.json",
+      "sha256": "e78bee6c139ea7393686c97b9f65ce785cf84c96bffb77aa5786b5518ce2f484"
+    },
+    "parent-counters.json": {
+      "path": "D:\\agent-task-runs\\wsc-fork-admission-20261023-v1\\single-response-probe\\parent-counters.json",
+      "sha256": "b5596b8056144275b6662b4335d3504be2b5d1959271d8526d74dd5c4259d39a"
+    },
+    "history-binding.json": {
+      "path": "D:\\agent-task-runs\\wsc-fork-admission-20261023-v1\\single-response-probe\\history-binding.json",
+      "sha256": "c0f1dba49f476b8e00e4816731827c48e9273193cbce99a90fc29fffed2441da"
+    },
+    "reviewed-accounting.json": {
+      "path": "D:\\agent-task-runs\\wsc-fork-admission-20261023-v1\\single-response-probe\\reviewed-accounting.json",
+      "sha256": "22235306c754a97870c01eeabe8a026c84d342e399c2d06cb3104208de403c98"
+    }
+  },
+  "new_model_calls_in_protocol_probe": 1,
+  "protocol_probe_tokens": 26955,
+  "new_model_calls_in_validation": 0,
+  "shared_phase_paid_task_verified": false,
+  "goal_complete": false
+}

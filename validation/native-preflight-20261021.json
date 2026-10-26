@@ -1,0 +1,10 @@
+{
+  "executable": "C:\\Users\\48522\\AppData\\Local\\OpenAI\\Codex\\bin\\896a0166b774037a\\codex.exe",
+  "requested_model": "gpt-6-luna",
+  "requested_effort": "max",
+  "inference_requested": false,
+  "global_configuration_changed": false,
+  "stage": "initialize",
+  "ready": false,
+  "error": "RuntimeError: app_server_eof"
+}

@@ -1,0 +1,60 @@
+{
+  "fixed": {
+    "occurrences": [
+      {
+        "source": "s18",
+        "offset": 631,
+        "whole_value_in_one_span": true,
+        "fixed_boundary_remainder": 393
+      },
+      {
+        "source": "s25",
+        "offset": 39827,
+        "whole_value_in_one_span": true,
+        "fixed_boundary_remainder": 109
+      },
+      {
+        "source": "s33",
+        "offset": 7155,
+        "whole_value_in_one_span": false,
+        "fixed_boundary_remainder": 13
+      },
+      {
+        "source": "s54",
+        "offset": 983,
+        "whole_value_in_one_span": false,
+        "fixed_boundary_remainder": 41
+      }
+    ],
+    "request_bytes": 196801
+  },
+  "word": {
+    "occurrences": [
+      {
+        "source": "s18",
+        "offset": 631,
+        "whole_value_in_one_span": true,
+        "fixed_boundary_remainder": 393
+      },
+      {
+        "source": "s25",
+        "offset": 39827,
+        "whole_value_in_one_span": true,
+        "fixed_boundary_remainder": 109
+      },
+      {
+        "source": "s33",
+        "offset": 7155,
+        "whole_value_in_one_span": true,
+        "fixed_boundary_remainder": 13
+      },
+      {
+        "source": "s54",
+        "offset": 983,
+        "whole_value_in_one_span": true,
+        "fixed_boundary_remainder": 41
+      }
+    ],
+    "request_bytes": 196760
+  }
+}

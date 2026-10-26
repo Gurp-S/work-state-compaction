@@ -1,0 +1,33 @@
+{
+  "registration": "D:\\agent-task-runs\\wsc-frontier-generation-scope-20261023-v1\\registration.json",
+  "registration_sha256": "0356bd0a109369c949a0c9157571d2b2e8d53d399bd73894a9d785424997842d",
+  "execution_scope": {
+    "generator_workspace": "D:\\agent-task-runs\\wsc-frontier-generation-scope-20261023-v1\\workspace",
+    "generator_role": "selection_generation_without_task_execution",
+    "source_execution": {
+      "thread_id": "01a1666d-05e4-7bf2-bf78-faacf2ac2f28",
+      "turn_id": "01a1666d-8411-7163-af0d-6205bd8d9cf6",
+      "workspace": "D:\\agent-task-runs\\wsc-generated-covered-C-20261023-v1\\workspace",
+      "rollout_sha256": "3b40e56345a031793edf9c26106befe40dfa301ac0b6026388f9ee2766f5cfb0",
+      "scope": "historically_observed_execution_context"
+    },
+    "continuation_execution": {
+      "status": "not_registered",
+      "workspace": null
+    }
+  },
+  "store_bindings": {
+    "full": {
+      "schema": 1,
+      "session_id": "wsc-frontier-generation-scope-20261023-v1",
+      "workspace": "D:\\agent-task-runs\\wsc-generated-covered-C-20261023-v1\\workspace"
+    },
+    "frontier": {
+      "schema": 1,
+      "session_id": "wsc-frontier-generation-scope-20261023-v1",
+      "workspace": "D:\\agent-task-runs\\wsc-generated-covered-C-20261023-v1\\workspace"
+    }
+  },
+  "native_model_calls": 0,
+  "status": "offline_prepared_only_not_authorized_as_valid_comparison"
+}

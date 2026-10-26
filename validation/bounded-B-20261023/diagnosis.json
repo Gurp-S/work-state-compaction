@@ -1,0 +1,31 @@
+{
+  "B_status": "stopped",
+  "B_model_responses": 0,
+  "source_rollout_unchanged": true,
+  "C_workspace_unchanged": true,
+  "C_not_restored_or_moved": true,
+  "host_difference": "recommended_plugins block added to first developer message",
+  "other_host_fields_equal": true,
+  "other_bootstrap_messages_equal": true,
+  "existing_group_gate_replay": "native_group_host_drift_before_inference",
+  "active_128_files_match_final_check_manifest": true,
+  "C_continuation_usage": {
+    "input_tokens": 820607,
+    "cached_input_tokens": 753664,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 31001,
+    "reasoning_output_tokens": 23331,
+    "total_tokens": 851608
+  },
+  "C_uncached_input": 66943,
+  "C_output_other_than_reported_reasoning": 7670,
+  "causal_comparison_admissible": false,
+  "goal_complete": false,
+  "bound_evidence": {
+    "D:\\agent-task-runs\\wsc-bounded-command-20261023-v2\\B\\registration.json": "e0a62e795593f96da08dcdb6ccb21a538942e42d66c466afb4afed2e7569318b",
+    "D:\\agent-task-runs\\wsc-bounded-command-20261023-v2\\B\\result.json": "f63383fc382b55ee22a4a11e4f6e9cdf8718e90e0d9ebb76bf93a20a574128b0",
+    "D:\\agent-task-runs\\wsc-bounded-command-20261023-v2\\B\\host-observation\\admission.json": "edd87cdaccea115092ea690639029ce5692bb6e48dba607c3f604be94908b481",
+    "D:\\agent-task-runs\\wsc-bounded-command-20261023-v2\\expanded_task\\host-observation\\admission.json": "8b962633dfb776676b5d453275816a23b45bb73a8e56fb779420b735fba824a1",
+    "wsc\\validation\\bounded-B-20261023\\run.py": "3308ba138c1a6b76383ee141aa8891b37f8151448b8acff67dacb276200685c3"
+  }
+}

@@ -1,0 +1,144 @@
+{
+  "status": "four_protocol_calibrations_reviewed",
+  "tasks": [
+    {
+      "task": "imports",
+      "positive_checks": 9,
+      "positive_result": "D:\\agent-task-runs\\wsc-imports-positive-calibration-20261025-v1\\none\\checks\\result.json",
+      "positive_sha256": "a7554e5a6bd3390474cc32130b3e687cc20cc436237333285f03a86dbda3f26b",
+      "faults": [
+        {
+          "fault": "unknown_as_zero",
+          "detected_by": "unknown_zero_isolation_and_legacy",
+          "result_path": "D:\\agent-task-runs\\wsc-imports-positive-calibration-20261025-v1\\unknown_as_zero\\checks\\result.json",
+          "sha256": "5bba2b8f79bfedf6bf90af0f85fad0e413160bae3d45469873bdc31fecae9b44"
+        },
+        {
+          "fault": "duplicate_commit",
+          "detected_by": "concurrent_run_commits_once",
+          "result_path": "D:\\agent-task-runs\\wsc-imports-positive-calibration-20261025-v1\\duplicate_commit\\checks\\result.json",
+          "sha256": "14b32bf9966a4b27a69980d4148ab37270d56236fc8133ee274d284095f3a3fe"
+        },
+        {
+          "fault": "replacement_decode",
+          "detected_by": "strict_utf8_and_preview_no_commit",
+          "result_path": "D:\\agent-task-runs\\wsc-imports-positive-calibration-20261025-v1\\replacement_decode\\checks\\result.json",
+          "sha256": "007377fbaba491b7c4a53ab8dca90598a74e719116f07d0b90d526451689a6d6"
+        }
+      ]
+    },
+    {
+      "task": "booking",
+      "positive_checks": 6,
+      "positive_result": "D:\\agent-task-runs\\wsc-booking-positive-calibration-20261025-v1\\none\\checks\\result.json",
+      "positive_sha256": "7cdc35dc9f031d12dfe4537356386972c36c1650024f76aabc1486bfd13e63e7",
+      "faults": [
+        {
+          "fault": "stale_notification",
+          "detected_by": "cancel_invalidates_old_notification",
+          "result_path": "D:\\agent-task-runs\\wsc-booking-positive-calibration-20261025-v1\\stale_notification\\checks\\result.json",
+          "sha256": "d15dffae0cca51990b0df8354c04c492e299ec786286a59a1314384f1453b847"
+        },
+        {
+          "fault": "duplicate_delivery",
+          "detected_by": "notification_retry_and_restart_dedup",
+          "result_path": "D:\\agent-task-runs\\wsc-booking-positive-calibration-20261025-v1\\duplicate_delivery\\checks\\result.json",
+          "sha256": "13591c7018143efc1c879593c52d8e847861d7d536dded852b62e68e254399cd"
+        }
+      ]
+    },
+    {
+      "task": "files",
+      "positive_checks": 6,
+      "positive_result": "D:\\agent-task-runs\\wsc-files-positive-calibration-20261025-v1\\none\\checks\\result.json",
+      "positive_sha256": "17625169ce9e9110ce03f0d8e1483b9742863f2d515ad36ff858d4460de6af18",
+      "faults": [
+        {
+          "fault": "resurrection",
+          "detected_by": "deleted_file_rejects_late_write",
+          "result_path": "D:\\agent-task-runs\\wsc-files-positive-calibration-20261025-v1\\resurrection\\checks\\result.json",
+          "sha256": "e28be0ba2895af2e1ae159af259551aadbaca8aff7bf6a309cd3d17d4e5e83e4"
+        },
+        {
+          "fault": "drop_history",
+          "detected_by": "history_gc_and_permanent_delete",
+          "result_path": "D:\\agent-task-runs\\wsc-files-positive-calibration-20261025-v1\\drop_history\\checks\\result.json",
+          "sha256": "39785cf09a919a54792bac8f4fe7bb137f072dceeba1c26e32ad4fe76d5f7039"
+        },
+        {
+          "fault": "accept_conflicting_chunk",
+          "detected_by": "resume_and_chunk_identity",
+          "result_path": "D:\\agent-task-runs\\wsc-files-positive-calibration-20261025-v1\\accept_conflicting_chunk\\checks\\result.json",
+          "sha256": "46eabfc53d0627a6c1f693f9d37c3167627a79da3c018e2f252cbacf00342886"
+        }
+      ]
+    },
+    {
+      "task": "collaboration",
+      "positive_checks": 6,
+      "positive_result": "D:\\agent-task-runs\\wsc-collaboration-positive-calibration-20261025-v1\\none\\checks\\result.json",
+      "positive_sha256": "bac41b8c7761cfa9b8a8dc40c85c8ea91959fc51f16ae2c2f1d8b2a2574d2abc",
+      "faults": [
+        {
+          "fault": "ignore_version",
+          "detected_by": "version_conflict_and_isolation",
+          "result_path": "D:\\agent-task-runs\\wsc-collaboration-positive-calibration-20261025-v1\\ignore_version\\checks\\result.json",
+          "sha256": "6c87d1da322c6ac12defac923b603cb5b4c3ecc15c67dab1682cb81bb930ddfd"
+        },
+        {
+          "fault": "partial_batch",
+          "detected_by": "batch_atomicity_and_undo_conflict",
+          "result_path": "D:\\agent-task-runs\\wsc-collaboration-positive-calibration-20261025-v1\\partial_batch\\checks\\result.json",
+          "sha256": "366ccd0aca2a0f52c40b57e04c1b0b7dd89c0d9f3c05f067bd6196aa6f4ef59d"
+        },
+        {
+          "fault": "migration_reset",
+          "detected_by": "legacy_migration_twice",
+          "result_path": "D:\\agent-task-runs\\wsc-collaboration-positive-calibration-20261025-v1\\migration_reset\\checks\\result.json",
+          "sha256": "041a3b608988f3f493952a8a4240799f64bc4fdf863fc98adbfa9cdb486e7d05"
+        }
+      ]
+    }
+  ],
+  "positive_checks": 27,
+  "selected_faults_detected": 11,
+  "service_starts_and_stops": 167,
+  "current_starter_manifest": {
+    "booking/starter/backend/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "booking/starter/backend/server.py": "fe876904d39d39aa8f429cfc7498dd9b55acf3a9b24bf6dbb3bba8b1313d1173",
+    "booking/starter/backend/service.py": "6c7698939ac45c422463f245a203e04decf943221735d6b4efc79fad8f3986eb",
+    "booking/starter/web/app.js": "330681e5a224b333f12a1bcf53c7f367b798eefd9837aef3f549e00108f7c894",
+    "booking/starter/web/index.html": "fc8121a313c56f44d0264eba7a989d20585958133fa5eaf2e26b6591e167b476",
+    "booking/starter/web/style.css": "1bdf0fe3e40e1152c3824a5107e84535431f009e94038cd5fed4d32cc0b95e81",
+    "booking/task.json": "40de1d33486ca026c9ce1259d8dfa4d7b58f91dfca3b0802a75558ee08e587e3",
+    "booking/TASK.md": "4a230a3f0f5b46dd07ef1258322225cf2f0ee1bbccb0f65c567617444edf6225",
+    "collaboration/starter/backend/__init__.py": "fb69c151de81be7f2b470ad0bbba389257bef3342d3e177d940755679199705d",
+    "collaboration/starter/backend/server.py": "fe876904d39d39aa8f429cfc7498dd9b55acf3a9b24bf6dbb3bba8b1313d1173",
+    "collaboration/starter/backend/service.py": "8687ffacef1031a6c368a283ce20810a788686081482a3e89915f2d9a541368d",
+    "collaboration/starter/web/app.js": "161c64f690c274bcc7620a93dcc51f5cb3b0a014fa83374c22fcbb9983db125e",
+    "collaboration/starter/web/index.html": "da649703afe94b8ab94b266efee63b7abe28b136bc775b728717ddd1f02cb73d",
+    "collaboration/starter/web/style.css": "1bdf0fe3e40e1152c3824a5107e84535431f009e94038cd5fed4d32cc0b95e81",
+    "collaboration/task.json": "9f3c32070ace241433a4e80067b86c2e441cd778de57e3756fee6be216b9a316",
+    "collaboration/TASK.md": "fa0c2b422adb002ba537bbc3363cefaf27b312dffbb9473d9f90e63dad93cfc0",
+    "files/starter/backend/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "files/starter/backend/server.py": "fe876904d39d39aa8f429cfc7498dd9b55acf3a9b24bf6dbb3bba8b1313d1173",
+    "files/starter/backend/service.py": "d82bddf2b580b43cb213aef494edc467267055fbedd4948f0c05598cadf3c6a7",
+    "files/starter/web/app.js": "4190a3f0dd2dd81c5938f3ce76f6495cbcde6734489bae9ada16f61fa1da3f36",
+    "files/starter/web/index.html": "81524f9c926df6bc2a2607c3c82321a2914cabf87aa44e37c6cf3ee88846e2d2",
+    "files/starter/web/style.css": "1bdf0fe3e40e1152c3824a5107e84535431f009e94038cd5fed4d32cc0b95e81",
+    "files/task.json": "0add11931596b5e8df6715cd5c89b269d03c0c5ea3fd2d0cac3a3c14cb00e83f",
+    "files/TASK.md": "8fc805a49898b7bee1718cb930b9456885333ee84113af9aa12c64c30a608f5e",
+    "imports/starter/backend/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "imports/starter/backend/server.py": "fe876904d39d39aa8f429cfc7498dd9b55acf3a9b24bf6dbb3bba8b1313d1173",
+    "imports/starter/backend/service.py": "07311cd25861d08c2cf7e1a058664fffbb72f91bb6216532e41f4864bdca0808",
+    "imports/starter/web/app.js": "e84becac066e335d6295fbb3117020f93f42fbdd66b5c08083b7657162cbad31",
+    "imports/starter/web/index.html": "f982c9af88f758d357c415ae138c818b1471267a1386d9def5bedc01e354074b",
+    "imports/starter/web/style.css": "1bdf0fe3e40e1152c3824a5107e84535431f009e94038cd5fed4d32cc0b95e81",
+    "imports/task.json": "79b24a2cb069fb3d602490053b8ef3ebbcff9f49887c259c6399dddae2fca426",
+    "imports/TASK.md": "81bce2ad7af0c21c2279ab6bd4f92fc8aa9cfcb91ac93b9a45ddab7e9d5647a8"
+  },
+  "model_calls": 0,
+  "paid_BC_started": false,
+  "complete_application_qualified": false,
+  "manual_and_uncovered_edges_pending": true
+}

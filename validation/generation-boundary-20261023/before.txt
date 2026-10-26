@@ -1,0 +1,113 @@
+test_cli_actual_command_timeout_is_neutral_and_usage_stays_unknown (test_generation_failures.GenerationFailureTests.test_cli_actual_command_timeout_is_neutral_and_usage_stays_unknown) ... FAIL
+test_invalid_selection_keeps_known_usage_in_failed_attempt (test_generation_failures.GenerationFailureTests.test_invalid_selection_keeps_known_usage_in_failed_attempt) ... FAIL
+test_valid_command_and_partial_usage_still_work (test_generation_failures.GenerationFailureTests.test_valid_command_and_partial_usage_still_work) ... ERROR
+test_changed_submitted_material_rejected_even_with_rehashed_receipts (test_native_generation_binding.NativeGenerationBindingTests.test_changed_submitted_material_rejected_even_with_rehashed_receipts) ... 
+  test_changed_submitted_material_rejected_even_with_rehashed_receipts (test_native_generation_binding.NativeGenerationBindingTests.test_changed_submitted_material_rejected_even_with_rehashed_receipts) (field='response') ... FAIL
+  test_changed_submitted_material_rejected_even_with_rehashed_receipts (test_native_generation_binding.NativeGenerationBindingTests.test_changed_submitted_material_rejected_even_with_rehashed_receipts) (field='turn') ... FAIL
+test_extra_turn_or_duplicate_final_does_not_borrow_paid_receipts (test_native_generation_binding.NativeGenerationBindingTests.test_extra_turn_or_duplicate_final_does_not_borrow_paid_receipts) ... 
+  test_extra_turn_or_duplicate_final_does_not_borrow_paid_receipts (test_native_generation_binding.NativeGenerationBindingTests.test_extra_turn_or_duplicate_final_does_not_borrow_paid_receipts) (row='event_msg') ... FAIL
+  test_extra_turn_or_duplicate_final_does_not_borrow_paid_receipts (test_native_generation_binding.NativeGenerationBindingTests.test_extra_turn_or_duplicate_final_does_not_borrow_paid_receipts) (row='response_item') ... FAIL
+test_final_text_must_match_completion_and_item_identity (test_native_generation_binding.NativeGenerationBindingTests.test_final_text_must_match_completion_and_item_identity) ... 
+  test_final_text_must_match_completion_and_item_identity (test_native_generation_binding.NativeGenerationBindingTests.test_final_text_must_match_completion_and_item_identity) (key='last_agent_message') ... FAIL
+  test_final_text_must_match_completion_and_item_identity (test_native_generation_binding.NativeGenerationBindingTests.test_final_text_must_match_completion_and_item_identity) (key='turn_id') ... FAIL
+test_rehashed_draft_and_phase_cannot_replace_actual_final (test_native_generation_binding.NativeGenerationBindingTests.test_rehashed_draft_and_phase_cannot_replace_actual_final) ... FAIL
+test_unchanged_paid_turn_is_accepted (test_native_generation_binding.NativeGenerationBindingTests.test_unchanged_paid_turn_is_accepted) ... ok
+
+======================================================================
+ERROR: test_valid_command_and_partial_usage_still_work (test_generation_failures.GenerationFailureTests.test_valid_command_and_partial_usage_still_work)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_generation_failures.py", line 63, in test_valid_command_and_partial_usage_still_work
+    view = self.core.generate(self.core.capture(), self.command({"selection": {},
+                              ^^^^^^^^^^^^^^^^^^^
+  File "D:\lea\XenYon code\wsc\src\wsc\core.py", line 41, in capture
+    prefix = events.safe_boundary(db, cut)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\lea\XenYon code\wsc\src\wsc\events.py", line 79, in safe_boundary
+    require(type(cut) is int and cut > 0 and cut >= getmeta(db, "cursor"), "invalid_fold_boundary")
+  File "D:\lea\XenYon code\wsc\src\wsc\contracts.py", line 25, in require
+    raise WSCError(reason)
+wsc.contracts.WSCError: invalid_fold_boundary
+
+======================================================================
+FAIL: test_cli_actual_command_timeout_is_neutral_and_usage_stays_unknown (test_generation_failures.GenerationFailureTests.test_cli_actual_command_timeout_is_neutral_and_usage_stays_unknown)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_generation_failures.py", line 57, in test_cli_actual_command_timeout_is_neutral_and_usage_stays_unknown
+    self.assertEqual({"error": "generation_command_timeout"}, json.loads(error.getvalue()))
+AssertionError: {'error': 'generation_command_timeout'} != {'error': 'invalid_fold_boundary'}
+- {'error': 'generation_command_timeout'}
++ {'error': 'invalid_fold_boundary'}
+
+======================================================================
+FAIL: test_invalid_selection_keeps_known_usage_in_failed_attempt (test_generation_failures.GenerationFailureTests.test_invalid_selection_keeps_known_usage_in_failed_attempt)
+----------------------------------------------------------------------
+wsc.contracts.WSCError: invalid_fold_boundary
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_generation_failures.py", line 33, in test_invalid_selection_keeps_known_usage_in_failed_attempt
+    with self.assertRaisesRegex(WSCError, "source_reference_list_invalid"):
+AssertionError: "source_reference_list_invalid" does not match "invalid_fold_boundary"
+
+======================================================================
+FAIL: test_changed_submitted_material_rejected_even_with_rehashed_receipts (test_native_generation_binding.NativeGenerationBindingTests.test_changed_submitted_material_rejected_even_with_rehashed_receipts) (field='response')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_native_generation_binding.py", line 88, in test_changed_submitted_material_rejected_even_with_rehashed_receipts
+    with self.assertRaisesRegex(ValueError, "generated_selection_.*"):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_changed_submitted_material_rejected_even_with_rehashed_receipts (test_native_generation_binding.NativeGenerationBindingTests.test_changed_submitted_material_rejected_even_with_rehashed_receipts) (field='turn')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_native_generation_binding.py", line 88, in test_changed_submitted_material_rejected_even_with_rehashed_receipts
+    with self.assertRaisesRegex(ValueError, "generated_selection_.*"):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_extra_turn_or_duplicate_final_does_not_borrow_paid_receipts (test_native_generation_binding.NativeGenerationBindingTests.test_extra_turn_or_duplicate_final_does_not_borrow_paid_receipts) (row='event_msg')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_native_generation_binding.py", line 97, in test_extra_turn_or_duplicate_final_does_not_borrow_paid_receipts
+    with self.assertRaisesRegex(ValueError, "generated_selection_.*"):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_extra_turn_or_duplicate_final_does_not_borrow_paid_receipts (test_native_generation_binding.NativeGenerationBindingTests.test_extra_turn_or_duplicate_final_does_not_borrow_paid_receipts) (row='response_item')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_native_generation_binding.py", line 97, in test_extra_turn_or_duplicate_final_does_not_borrow_paid_receipts
+    with self.assertRaisesRegex(ValueError, "generated_selection_.*"):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_final_text_must_match_completion_and_item_identity (test_native_generation_binding.NativeGenerationBindingTests.test_final_text_must_match_completion_and_item_identity) (key='last_agent_message')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_native_generation_binding.py", line 106, in test_final_text_must_match_completion_and_item_identity
+    with self.assertRaisesRegex(ValueError, "generated_selection_.*"):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_final_text_must_match_completion_and_item_identity (test_native_generation_binding.NativeGenerationBindingTests.test_final_text_must_match_completion_and_item_identity) (key='turn_id')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_native_generation_binding.py", line 106, in test_final_text_must_match_completion_and_item_identity
+    with self.assertRaisesRegex(ValueError, "generated_selection_.*"):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_rehashed_draft_and_phase_cannot_replace_actual_final (test_native_generation_binding.NativeGenerationBindingTests.test_rehashed_draft_and_phase_cannot_replace_actual_final)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_native_generation_binding.py", line 77, in test_rehashed_draft_and_phase_cannot_replace_actual_final
+    with self.assertRaisesRegex(ValueError, "generated_selection_.*"):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.543s
+
+FAILED (failures=9, errors=1)

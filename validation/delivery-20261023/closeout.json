@@ -1,0 +1,29 @@
+{
+  "utc": "2026-10-22T20:28:37.709601+00:00",
+  "status": "current_unit_saved_long_term_goal_unachieved",
+  "stop_reason": "user_requested_China_time_0430_shutdown_boundary",
+  "goal_status_before_shutdown": "active",
+  "goal_pause_to_be_requested": true,
+  "model_experiments_running": false,
+  "delivery_path": "D:\\lea\\XenYon code\\wsc\\validation\\delivery-20261023\\delivery.json",
+  "delivery_sha256": "21966175d611c5af980aa9b0e171ce10d9616daa920f85a220934ceefd36b946",
+  "current_python_files": 63,
+  "source_matches_117_check_receipt": true,
+  "wheel_sha256_verified": true,
+  "handoff_path": "D:\\lea\\XenYon code\\wsc\\experiments\\NATIVE-LOCAL-HANDOFF.md",
+  "handoff_sha256": "d594d36f2d5e49524830b43dd3a3859bc00dbb0f49171dbfb98bdc1b20bfe74d",
+  "shutdown": {
+    "state_at_receipt": "prepared_not_launched",
+    "force": false,
+    "launch_receipt": "D:\\agent-task-runs\\wsc-closeout-20261023T0430\\shutdown-launch.json",
+    "result_receipt": "D:\\agent-task-runs\\wsc-closeout-20261023T0430\\shutdown-result.json"
+  },
+  "unverified": [
+    "general superiority over unchanged native Codex",
+    "automatic semantic selection economics",
+    "continuous repeated compaction",
+    "full actual HostPort atomic installation",
+    "whole XEYO test suite",
+    "atomic cross-file source snapshot"
+  ]
+}

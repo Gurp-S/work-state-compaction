@@ -1,0 +1,15 @@
+test_compaction_at_one_response_limit_needs_no_agent_final_message (test_native_phase_budget.PhaseBudgetIntegrationTests.test_compaction_at_one_response_limit_needs_no_agent_final_message) ... {"phase": "C:\\Users\\48522\\AppData\\Local\\Temp\\tmpuc8k3shq\\compact", "completed": false, "failure": "registered_token_cap", "responses": 1, "seconds": 0.01599999999962165}
+FAIL
+
+======================================================================
+FAIL: test_compaction_at_one_response_limit_needs_no_agent_final_message (test_native_phase_budget.PhaseBudgetIntegrationTests.test_compaction_at_one_response_limit_needs_no_agent_final_message)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_native_phase_budget.py", line 145, in test_compaction_at_one_response_limit_needs_no_agent_final_message
+    self.assertTrue(result['completed'] and result['usage_complete'])
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 1 test in 0.028s
+
+FAILED (failures=1)

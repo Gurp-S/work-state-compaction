@@ -1,0 +1,13 @@
+test_late_conflicting_reply_cannot_downgrade_confirmed_operation (test_publication_settlement.PublicationSettlementTests.test_late_conflicting_reply_cannot_downgrade_confirmed_operation) ... ok
+test_late_interrupt_keeps_unknown_then_reconciles_real_commit (test_publication_settlement.PublicationSettlementTests.test_late_interrupt_keeps_unknown_then_reconciles_real_commit) ... ok
+test_late_timeout_cannot_downgrade_concurrently_confirmed_operation (test_publication_settlement.PublicationSettlementTests.test_late_timeout_cannot_downgrade_concurrently_confirmed_operation) ... ok
+test_late_timeout_cannot_erase_durable_rejection (test_publication_settlement.PublicationSettlementTests.test_late_timeout_cannot_erase_durable_rejection) ... ok
+test_later_understanding_does_not_erase_committed_installation (test_publication_settlement.PublicationSettlementTests.test_later_understanding_does_not_erase_committed_installation) ... ok
+test_lost_reply_then_new_control_reconciles_after_reopen (test_publication_settlement.PublicationSettlementTests.test_lost_reply_then_new_control_reconciles_after_reopen) ... ok
+test_control_after_host_commit_preserves_tail_and_allows_next_publication (test_contracts.Contracts.test_control_after_host_commit_preserves_tail_and_allows_next_publication)
+The host commits before the control change; its durable result remains true. ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 1.690s
+
+OK

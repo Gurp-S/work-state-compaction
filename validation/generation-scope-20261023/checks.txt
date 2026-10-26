@@ -1,0 +1,11 @@
+test_changed_rollout_cannot_reuse_an_old_context_receipt (test_native_generation_scope.GenerationScopeTests.test_changed_rollout_cannot_reuse_an_old_context_receipt) ... ok
+test_missing_ambiguous_or_relative_source_workspace_is_rejected (test_native_generation_scope.GenerationScopeTests.test_missing_ambiguous_or_relative_source_workspace_is_rejected) ... ok
+test_source_context_is_historical_and_future_execution_stays_unknown (test_native_generation_scope.GenerationScopeTests.test_source_context_is_historical_and_future_execution_stays_unknown) ... ok
+test_new_runner_cannot_enter_generation_when_admission_fails (test_native_generation_admission.GenerationAdmissionTests.test_new_runner_cannot_enter_generation_when_admission_fails) ... ok
+test_plugin_bootstrap_difference_blocks_both_paid_callbacks (test_native_generation_admission.GenerationAdmissionTests.test_plugin_bootstrap_difference_blocks_both_paid_callbacks) ... ok
+test_two_member_group_keeps_one_attempt_and_rechecks_retained_identity (test_native_generation_admission.GenerationAdmissionTests.test_two_member_group_keeps_one_attempt_and_rechecks_retained_identity) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.003s
+
+OK

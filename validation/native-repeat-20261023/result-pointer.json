@@ -1,0 +1,8 @@
+{
+  "path": "D:\\agent-task-runs\\wsc-native-repeat-20261023-v1\\reviewed-result.json",
+  "sha256": "f8aa75e42f474e08639bd3e609251ccdd387a2879c996a3732c0c88ced096fb0",
+  "review_script_sha256": "42843722b11a354d997e1b85dba8b686bc7b3a81697f95fa031055b1698d3049",
+  "new_model_responses": 17,
+  "new_total_tokens": 686517,
+  "goal_complete": false
+}

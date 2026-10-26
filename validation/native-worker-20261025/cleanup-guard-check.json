@@ -1,0 +1,18 @@
+{
+  "before": {
+    "error": "fixture_cleanup_failure",
+    "journal_entries": 0,
+    "receipt_persisted": false,
+    "termination_error": null
+  },
+  "after": {
+    "error": null,
+    "journal_entries": 1,
+    "receipt_persisted": true,
+    "termination_error": "RuntimeError:fixture_cleanup_failure"
+  },
+  "model_calls": 0,
+  "before_sha256": "e690e7b4e737d2892ce5cd0cf8f4ebfc2afb97ff8655a22ee4be79b6d0b8cee6",
+  "current_sha256": "8d56b568a68b91844ebcdaf610273a969bc5d8cff0c2ff901a7bf621091f163e",
+  "scope": "Synthetic simultaneous disconnect and cleanup failure; no paid-stage replay"
+}

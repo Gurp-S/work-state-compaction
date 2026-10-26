@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "checks": [
+    "real_three_level_ancestry_and_single_inherited_receipt",
+    "tampered_parent_rejected",
+    "unclosed_ancestry_rejected",
+    "changed_local_prefix_rejected"
+  ],
+  "legacy_failure": "fork_history_nested_parent_unresolved",
+  "source_sha256": "719c8ae47e69a771f90ceb5cec26a259a2c04f6b6e8a2312985e47ae0ab0dd58",
+  "model_calls": 0,
+  "scope": "Replay of real zero-inference forks and sealed-source negative cases, not new model execution"
+}

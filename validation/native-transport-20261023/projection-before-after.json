@@ -1,0 +1,47 @@
+{
+  "legacy_producer_sha256": "cb769d02770d0903cb91135dee0e0578ee8773f74adceae5ecabd9de6ac8f054",
+  "candidate_sha256": "60eb1fa8ffb2a7d65a241442d9865dcfae6393179cc31cf5469b917672a84658",
+  "scope": "Independent in-memory copies of unchanged real archives; no model calls or task edits",
+  "results": {
+    "B/compaction1": {
+      "old_source_mutated": false,
+      "old_first_count": 6,
+      "old_second_count": 6,
+      "new_count": 6,
+      "new_repeat_equal": true,
+      "source_unchanged": true,
+      "matches_original_saved_canonical_state": true,
+      "rollout_sha256": "cd4ac7d4d1ce4c214c785c0a33f1b75cdfe25ed9da4112c6a0af7409a9a55d22"
+    },
+    "B/finite_task": {
+      "old_source_mutated": true,
+      "old_first_count": 61,
+      "old_second_count": 116,
+      "new_count": 61,
+      "new_repeat_equal": true,
+      "source_unchanged": true,
+      "matches_original_saved_canonical_state": true,
+      "rollout_sha256": "f89122c0d2b877b35953e16aec41957e7650a7f9abb197f68edff06068ad1e54"
+    },
+    "B/line_budget_task": {
+      "old_source_mutated": true,
+      "old_first_count": 66,
+      "old_second_count": 125,
+      "new_count": 66,
+      "new_repeat_equal": true,
+      "source_unchanged": true,
+      "matches_original_saved_canonical_state": true,
+      "rollout_sha256": "07f38373dd8d056d41a04e196dbf8a8b94cbb47897ff600ead265f7ee92b5302"
+    },
+    "C/finite_task": {
+      "old_source_mutated": false,
+      "old_first_count": 72,
+      "old_second_count": 72,
+      "new_count": 72,
+      "new_repeat_equal": true,
+      "source_unchanged": true,
+      "matches_original_saved_canonical_state": true,
+      "rollout_sha256": "7deef1f3490b409c88d28b44d021d2c50698e58bd1989bf17fd384af1336c799"
+    }
+  }
+}

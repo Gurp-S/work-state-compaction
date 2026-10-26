@@ -1,0 +1,11 @@
+{
+  "base_db_sha256": "3034d4498837c4210bf200bec37444c2eae32e299a7a9ba516ce09176fb98f86",
+  "previous_view": "e7ccb7d2c807469f9e9ef71b622698cf",
+  "full_source_count": 8,
+  "excerpt_count": 16,
+  "excerpt_characters": 13634,
+  "excerpt_parent_count": 5,
+  "excerpt_parents_not_already_full": [],
+  "avoidable_parent_expansions_in_this_source": 0,
+  "conclusion": "No reduction for this source while preserving explicitly selected full sources; no general zero-benefit claim."
+}

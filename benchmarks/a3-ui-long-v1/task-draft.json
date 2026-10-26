@@ -1,0 +1,128 @@
+{
+  "kind": "wsc_ui_task_draft_v1",
+  "status": "automated_acceptance_implemented_study_registration_pending",
+  "ready_to_launch": false,
+  "title": "A3 用量分析工作台：长程界面开发",
+  "user_request": "这样让他们做 A3 的界面，要求好看点",
+  "proposed_target": {
+    "workspace": "D:/lea/XenYon code",
+    "entrypoints": ["gui/src/components/A3SnapshotPanel.tsx", "gui/src/components/A3NativePanel.tsx"],
+    "supporting_scope": ["gui/src/components/usage", "gui/src/components/review/A3DayNavigator.tsx"],
+    "confirmed_by_user": true,
+    "confirmation": "是，重做项目里的 A3 界面"
+  },
+  "common_brief": "把 A3 做成精致、清晰、耐看的用量分析工作台。重新组织信息层级、布局、图表、筛选与会话明细，允许设计自己的视觉方案。大屏、普通桌面和窄窗口都要完整可用，明暗主题保持一致。正常、空、加载、失败和部分数据状态都属于成品。保留实时数据的真实含义，不用装饰性数字替代实际读数。交付可运行界面、实际交互证据和截图。",
+  "design_requirements": [
+    "首屏能快速读懂总体用量、费用、缓存命中与当前数据状态；主要信息与辅助操作有明确层级。",
+    "字体、数字对齐、间距、边界、留白和主题颜色形成一致系统，避免信息密集但难以阅读。",
+    "图表有可读的标签、单位、图例和选中反馈，零值、缺失值和极端值均有合理呈现。",
+    "筛选、展开、搜索、刷新、导出和快照操作具有明确状态反馈，键盘焦点可见。",
+    "长模型名称、大金额、小额费用、多模型和大批量会话数据不能破坏布局。",
+    "颜色沿用或扩展项目主题令牌；不同系列和状态不能仅依赖颜色区分。",
+    "图表读数与部分未知等状态说明不能互相挤压遮挡；完整模型身份在窄窗口也可通过可访问的交互获取。"
+  ],
+  "existing_semantics_to_preserve": [
+    "主数据源为实时用量账本；网页快照是独立的次要功能，不作为实时读取失败的替代数据。",
+    "真实零、无价目、字段缺失、部分未知、账本不存在和请求失败分别表达。",
+    "已验收、待验收、未快照由服务端事实确定，不根据漂亮的数字反推。",
+    "模型筛选作用于模型图表和分模型表；总体 KPI 与活动热力图保持当前日期范围全口径。",
+    "小时分布沿用当前北京时间及轮次首笔时间口径，无时间戳记录不静默丢弃。",
+    "明细按需加载，刷新和日期切换不能让旧请求覆盖新状态。",
+    "快照回执未读到与服务端明确失败不同；快照状态读取不改变主数据源。",
+    "金额保留现有精度语义，未知金额不补零；导出保留数据身份与未知状态。"
+  ],
+  "stages": [
+    {
+      "id": "S1",
+      "request": "完成 A3 信息架构和第一版可运行的精致界面，包括总体读数、模型分析、活动分布、日期导航与辅助操作。保留当前数据口径。",
+      "evidence": ["正常数据真实浏览器截图", "正常数据关键读数核对", "交互入口可用"]
+    },
+    {
+      "id": "S2",
+      "request": "完善明暗主题、1440/1024/390 宽度布局，以及长标签、极小费用、零值、无价目、部分未知、空账本和读取失败状态，使这些状态与正常页面同样完整。",
+      "evidence": ["三种宽度两种主题截图", "数据状态语义检查", "页面无意外横向溢出，数据表可局部横向滚动"]
+    },
+    {
+      "id": "S3",
+      "request": "完善模型多选、图表联动、日期切换与刷新。清楚标出局部筛选范围，保持总体读数的既定口径；处理快速连续操作、慢响应、乱序响应与刷新失败后的旧读数标识。",
+      "evidence": ["筛选前后总体读数不变", "日期切换后的选择状态核对", "受控乱序响应交互记录"]
+    },
+    {
+      "id": "S4",
+      "request": "完成按需展开的会话与请求明细、用户消息搜索、模型标识、错误和未知字段呈现。在长会话和多条请求下保持可读性，并提供完整键盘操作。",
+      "evidence": ["展开前不请求明细", "按日期请求对应明细", "搜索及展开交互", "键盘路径"]
+    },
+    {
+      "id": "S5",
+      "request": "新增多供应商同名模型场景：分别展示和筛选不同供应商的同名模型，保持图例、表格、明细及导出中的身份一致。之前的单供应商数据仍正常工作。",
+      "evidence": ["同名不同供应商不串选", "刷新及排序后身份稳定", "总体读数语义未改变"]
+    },
+    {
+      "id": "S6",
+      "request": "完善导出与网页快照操作，包括成功、后端失败、回执未确认和快照状态读取失败。导出范围可见，并提供全范围数据和当前筛选数据两种明确的导出选择。",
+      "evidence": ["实际下载内容核对", "两种导出范围与页面状态一致", "快照不替换实时页面", "重复操作反馈"]
+    },
+    {
+      "id": "S7",
+      "request": "在更大数据量和频繁切换下完善性能及可访问性；再增加可撤销的图表显示偏好。偏好只影响呈现，不改变数据口径；重新加载后恢复偏好，旧或损坏的偏好数据不阻断页面。",
+      "evidence": ["冻结大数据样本下的交互记录", "偏好保存恢复及重置", "无效偏好兼容", "键盘与主题复查"]
+    },
+    {
+      "id": "S8",
+      "request": "完成最终整体打磨与交付。复查此前全部有效需求，提供明暗主题、桌面和窄屏、正常及异常状态的真实截图。交付报告区分当前代码已验证的范围、历史验证和仍未确认的问题。",
+      "evidence": ["完整功能验收", "统一场景截图集", "当前源码绑定的验证记录", "交付报告与实际产物一致"]
+    }
+  ],
+  "long_context_protocol_proposal": {
+    "same_task_sequence_for_both_arms": true,
+    "planned_boundary_after_stages": ["S2", "S4", "S6"],
+    "boundary_protocol_frozen": false,
+    "boundary_requirement": "正式登记须固定原生压缩、WSC 发布及重启的实际路径与成本范围；不能将阶段数当作已经发生的压缩次数。",
+    "instruction_visibility": "首次调用前两臂可读取相同的全部阶段合同和公开验收；各阶段按序请求实施，不宣称未来需求是盲测。",
+    "previous_receipts": "历史验收绑定历史源码；变更后的正确性通过当前产物重新核对，不将旧通过结果自动沿用。"
+  },
+  "evaluation": {
+    "functional_gate_independent_of_visual_score": true,
+    "visual_rubric": "../../experiments/BC-UI-REVIEW-RUBRIC.md",
+    "visual_dimensions": ["信息层级", "排版与布局", "色彩与主题", "图表表达", "交互反馈", "完成度"],
+    "points_per_dimension": 4,
+    "viewports": [{"width": 1440, "height": 1000}, {"width": 1024, "height": 768}, {"width": 390, "height": 844}],
+    "themes": ["light", "dark"],
+    "anonymous_review": "先打乱产物身份并评分，再揭示 B/C；已见过实现的评审明确标为非严格盲评。",
+    "strong_difference": "任务用于观察差异，不保证差异或预设赢家；五组结果全部报告。"
+  },
+  "replication": {
+    "policy": "../../experiments/BC-REPLICATION-POLICY.md",
+    "minimum_pairs": 3,
+    "trajectories": 6,
+    "suite": "../application-five-task-v1/suite-draft.json",
+    "suite_tasks": 5,
+    "suite_trajectories": 30,
+    "parallel_pairs": 2,
+    "model_workers_per_full_wave": 4,
+    "independent_writable_resources": ["workspace", "output", "browser_profile", "ports", "build_cache", "fixture_state"],
+    "quality_failures_retained": true,
+    "budget_failures_retained": true,
+    "automatic_retry": false,
+    "phase_and_total_budgets": null,
+    "cost": "包括压缩、WSC 构建、回查、返工和失败；未知金额保留未知。"
+  },
+  "launch_blockers": [
+    "冻结源码、依赖、数据夹具、实际模型配置、工具和 WSC 候选版本。",
+    "自动浏览器验收和部分故障校准已完成；新增导出/偏好在具备功能的应用上的浏览器正向路径尚未校准，人工审核流程尚未最终冻结。",
+    "多供应商、导出和偏好契约已写入public-contract.json；需与最终冻结任务版本一起登记。",
+    "确认原生与 WSC 三次边界的可比范围，并完成并行进程清理、超时和端口隔离检查。",
+    "登记每阶段及整体预算、基础设施故障分类与补充组上限。"
+  ],
+  "execution_state": {
+    "production_ui_modified": false,
+    "model_experiments_started": 0,
+    "full_task_acceptance_complete": false,
+    "automated_acceptance_baseline": "D:/agent-task-runs/wsc-a3-acceptance-20261023-v1/result.json",
+    "automated_acceptance_review": "../../validation/a3-acceptance-20261023/review.json",
+    "baseline_capture": "D:/agent-task-runs/wsc-a3-ui-baseline-20261023-v6/result.json",
+    "baseline_scope": "现有页面四种固定数据状态、十三张实际截图及按需明细检查；不是八阶段验收。",
+    "scheduler_module": "../../experiments/native_task_matrix.py",
+    "scheduler_validation": "Five-task matrix and underlying scheduler passed 16 offline checks; no live native worker adapter"
+  }
+}

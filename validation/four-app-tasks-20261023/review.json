@@ -1,0 +1,35 @@
+{
+  "status": "four_app_preparation_reviewed",
+  "receipts": [
+    {
+      "task": "collaboration",
+      "path": "D:\\agent-task-runs\\wsc-four-app-starters-20261025-v1\\collaboration\\result.json",
+      "sha256": "d2e96d549367f63802d1c6256b639f646e279b95c67fcac96e340a4503dceed4"
+    },
+    {
+      "task": "files",
+      "path": "D:\\agent-task-runs\\wsc-four-app-starters-20261025-v1\\files\\result.json",
+      "sha256": "73cb9fa957683ee5994e49319724bb7fa86826bb825f1e0a547d811d6d4abe4c"
+    },
+    {
+      "task": "imports",
+      "path": "D:\\agent-task-runs\\wsc-four-app-starters-20261025-v1\\imports\\result.json",
+      "sha256": "f0c0fb21de6def5c095a371f91989be73d470e0726144fc1e1df9eecedcf2eb7"
+    },
+    {
+      "task": "booking",
+      "path": "D:\\agent-task-runs\\wsc-four-app-starters-20261025-v1\\booking\\result.json",
+      "sha256": "75f184e5f4a81b06da17e4c7d1d3f415d579df37e38f83c69673e665745332b1"
+    }
+  ],
+  "total_checks": 17,
+  "startup_passes": 4,
+  "expected_feature_gaps": 13,
+  "all_recorded_service_processes_stopped": true,
+  "starter_sources_unchanged": true,
+  "positive_domain_calibration_complete": false,
+  "current_contract_delta": "After execution, explicitly specified deleted file PATCH=404 and synchronized task.json; original run pins retained",
+  "model_calls": 0,
+  "study_started": false,
+  "goal_complete": false
+}

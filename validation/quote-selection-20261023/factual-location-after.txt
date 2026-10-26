@@ -1,0 +1,17 @@
+test_changed_control_during_model_call_rejects_old_candidate (test_quote_selection.QuoteSelectionTests.test_changed_control_during_model_call_rejects_old_candidate) ... ok
+test_existing_understanding_revision_is_selected_explicitly_and_can_be_revised (test_quote_selection.QuoteSelectionTests.test_existing_understanding_revision_is_selected_explicitly_and_can_be_revised) ... ok
+test_generate_compile_export_reopen_preserves_exact_text_time_and_usage (test_quote_selection.QuoteSelectionTests.test_generate_compile_export_reopen_preserves_exact_text_time_and_usage) ... ok
+test_invalid_selection_retains_known_generation_cost_and_does_not_retry (test_quote_selection.QuoteSelectionTests.test_invalid_selection_retains_known_generation_cost_and_does_not_retry) ... ok
+test_material_aliases_preserve_public_facts_without_raw_payload_or_opaque (test_quote_selection.QuoteSelectionTests.test_material_aliases_preserve_public_facts_without_raw_payload_or_opaque) ... ok
+test_missing_ambiguous_overlapping_and_normalized_text_are_not_guessed (test_quote_selection.QuoteSelectionTests.test_missing_ambiguous_overlapping_and_normalized_text_are_not_guessed) ... ok
+test_public_text_basis_cannot_be_confused_with_payload_or_path (test_quote_selection.QuoteSelectionTests.test_public_text_basis_cannot_be_confused_with_payload_or_path) ... ok
+test_quote_without_historical_location_exports_through_factual_adapter (test_quote_selection.QuoteSelectionTests.test_quote_without_historical_location_exports_through_factual_adapter) ... ok
+test_revoked_permission_during_model_call_rejects_quote_and_rolls_back_understanding (test_quote_selection.QuoteSelectionTests.test_revoked_permission_during_model_call_rejects_quote_and_rolls_back_understanding) ... ok
+test_unicode_uses_character_offsets_and_utf8_hash_without_normalization (test_quote_selection.QuoteSelectionTests.test_unicode_uses_character_offsets_and_utf8_hash_without_normalization) ... ok
+test_unoffered_sources_live_paths_and_duplicate_quote_names_are_rejected (test_quote_selection.QuoteSelectionTests.test_unoffered_sources_live_paths_and_duplicate_quote_names_are_rejected) ... ok
+test_view_byte_limit_remains_authoritative (test_quote_selection.QuoteSelectionTests.test_view_byte_limit_remains_authoritative) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.683s
+
+OK

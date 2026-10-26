@@ -1,0 +1,10 @@
+{
+  "version": "D:\\lea\\XenYon code\\wsc\\versions\\20261026-c-s3-diagnostic-and-fixture-transport-v1.zip",
+  "sha256": "a2c968155ea7ea4610ba8ec9702585cdc2bd524784feba025ad03969f73f6e54",
+  "bytes": 904751,
+  "source_files": 183,
+  "files": 258,
+  "screenshots_referenced": 24,
+  "base_sha256": "c447a42390a017077779f8ef90d6168ca03d1e2a7a73c80eb4b1316ca4135ece",
+  "scope": "Current opt-in transport source; closed failed C/S3 execution and 17 independent passing feature checks"
+}

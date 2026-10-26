@@ -1,0 +1,67 @@
+{
+  "status": "native_execution_layer_reviewed_not_full_matrix_worker",
+  "current_executable": {
+    "path": "C:\\Users\\48522\\AppData\\Local\\OpenAI\\Codex\\bin\\2993767bd1dfb009\\codex.exe",
+    "sha256": "1103e9e09c71fa2cd0afd6d8f3b9a2d63174fe8efd7cb5bd09f1cb14ef58a098",
+    "version": "0.164.0-alpha.11.1"
+  },
+  "observed_model": "gpt-6-luna",
+  "effort": "max",
+  "concurrent_native_servers": 4,
+  "parent_only_supervision_gap_reproduced": true,
+  "private_job_child_cleanup_verified": true,
+  "observed_owned_members_at_parallel_barrier": 16,
+  "zero_inference_history_materialization_verified": true,
+  "stage_fixture_checks": 2,
+  "paid_protocol_responses": 1,
+  "paid_protocol_usage": {
+    "input_tokens": 22542,
+    "cached_input_tokens": 11776,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 25,
+    "reasoning_output_tokens": 14,
+    "total_tokens": 22567
+  },
+  "paid_protocol_seconds": 2.7340000000003783,
+  "paid_protocol_cash": null,
+  "input_tasks_frozen": 4,
+  "paid_comparison_started": false,
+  "goal_complete": false,
+  "receipts": {
+    "parallel_review": {
+      "path": "D:\\agent-task-runs\\wsc-native-parallel-preflight-20261025-v1\\reviewed-result.json",
+      "sha256": "c3f7de7d49819666e86fd7d8dcbea409435cfea54374ae738278b49aa01c2329"
+    },
+    "history_probe": {
+      "path": "D:\\agent-task-runs\\wsc-native-history-materialization-20261025-v1\\result.json",
+      "sha256": "847583b1df3d5e01fd1bcd1dbbb43873bf6482e39f8966021a62a498155cab31"
+    },
+    "new_session_open": {
+      "path": "D:\\agent-task-runs\\wsc-native-application-open-20261025-v1\\result.json",
+      "sha256": "7df4cf054ac0234075c13d0c2a6df1415aaee16c60c61083563ef80ed31e7868"
+    },
+    "paid_probe": {
+      "path": "D:\\agent-task-runs\\wsc-native-application-phase-20261025-v1\\result.json",
+      "sha256": "660579c70ef8223cb0971e499afc0db80c3d41ebd282379638bb54287d3007b9"
+    },
+    "frozen_inputs": {
+      "path": "D:\\agent-task-runs\\wsc-four-app-inputs-20261025-v1\\result.json",
+      "sha256": "2b45e70a5134a6d7be1e7b152f112418217f85ccf1ea2c7ae9cd8b80c670951f"
+    }
+  },
+  "remaining": [
+    "A3 frozen workspace/dependencies",
+    "full paired host admission",
+    "matrix worker stage/boundary coordination",
+    "C candidate and three boundary policy",
+    "cumulative per-arm/study budgets",
+    "final quality review adapter",
+    "external author-read access boundary"
+  ],
+  "limits": [
+    "Windows job attached before RPC handshake, not suspended process creation; no universal pre-attach descendant claim",
+    "Paid smoke has no tools or compaction; not a tool-heavy or multi-stage application proof",
+    "Native idle history absence is corrected via separate zero-inference materialization, not overwritten",
+    "Input contents frozen; absence of external reads is not proven"
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "scope": "Offline reparse only; does not qualify prior failed experiments",
+  "artifacts": [
+    {
+      "path": "D:\\agent-task-runs\\independent-wsc-qualified-pair-20261022\\B\\compaction\\rollout.jsonl",
+      "sha256": "79b4bee76688ea1af19de22759d66f147900f3dae4100394c4138243002a6745",
+      "old_usage_complete": true,
+      "new_durable_proof": {
+        "complete": true,
+        "reasons": [],
+        "turn_id": "01a15f3a-377d-7d43-8be4-4e5c84f35902",
+        "scope": "fresh_single_turn_native_phase",
+        "rollout_sha256": "79b4bee76688ea1af19de22759d66f147900f3dae4100394c4138243002a6745"
+      },
+      "same_known_usage": true,
+      "response_count": 1
+    },
+    {
+      "path": "D:\\agent-task-runs\\independent-wsc-qualified-pair-20261022\\B\\continuation\\rollout.jsonl",
+      "sha256": "d3e5bf7eb456626f8c7faf115b4e9a500678ae4b27f8ef6dd5eee338466f2501",
+      "old_usage_complete": true,
+      "new_durable_proof": {
+        "complete": true,
+        "reasons": [],
+        "turn_id": "01a15f3a-c731-7123-828a-64f6c9637a41",
+        "scope": "fresh_single_turn_native_phase",
+        "rollout_sha256": "d3e5bf7eb456626f8c7faf115b4e9a500678ae4b27f8ef6dd5eee338466f2501"
+      },
+      "same_known_usage": true,
+      "response_count": 7
+    },
+    {
+      "path": "D:\\agent-task-runs\\independent-wsc-qualified-pair-20261022\\C\\continuation\\rollout.jsonl",
+      "sha256": "62250df73d4044906806c2e36624b969218c8205ca2c1852c88fd9827fcf36cb",
+      "old_usage_complete": true,
+      "new_durable_proof": {
+        "complete": true,
+        "reasons": [],
+        "turn_id": "01a15f3c-9eb1-7732-821f-492ec9786039",
+        "scope": "fresh_single_turn_native_phase",
+        "rollout_sha256": "62250df73d4044906806c2e36624b969218c8205ca2c1852c88fd9827fcf36cb"
+      },
+      "same_known_usage": true,
+      "response_count": 8
+    },
+    {
+      "path": "D:\\agent-task-runs\\independent-wsc-evidence-C-20261022\\C\\continuation\\rollout.jsonl",
+      "sha256": "d1631cd6038acee259484b47afa9e57483e48eb1634a92d5880ffa458f426f03",
+      "old_usage_complete": true,
+      "new_durable_proof": {
+        "complete": true,
+        "reasons": [],
+        "turn_id": "01a15f5e-97db-7741-898e-166a2327dd85",
+        "scope": "fresh_single_turn_native_phase",
+        "rollout_sha256": "d1631cd6038acee259484b47afa9e57483e48eb1634a92d5880ffa458f426f03"
+      },
+      "same_known_usage": true,
+      "response_count": 5
+    },
+    {
+      "path": "D:\\agent-task-runs\\independent-wsc-evidence-C-20261022-v2b\\C\\continuation\\rollout.jsonl",
+      "sha256": "6084028cb86faa1855e9598c09fe02b1600097c464c1de541513cd9693b99a57",
+      "old_usage_complete": false,
+      "new_durable_proof": {
+        "complete": false,
+        "reasons": [
+          "durable_turn_completion_missing_or_ambiguous",
+          "terminal_cumulative_usage_mismatch"
+        ],
+        "turn_id": "01a15f6b-b172-78e2-a760-a9e34817aaea",
+        "scope": "fresh_single_turn_native_phase",
+        "rollout_sha256": "6084028cb86faa1855e9598c09fe02b1600097c464c1de541513cd9693b99a57"
+      },
+      "same_known_usage": true,
+      "response_count": 10
+    }
+  ]
+}

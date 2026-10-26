@@ -1,0 +1,42 @@
+                if index == 1:
+                    request = prepared['initial_request'] + '\n\n当前交付阶段：\n' + stage['request']
+                else:
+                    request = stage['request']
+                phase = execute(session, f'S{index}-phase', request)
+                executed_stages = index
+                snap = parse_rollout((output / f'S{index}-phase/rollout.jsonl').read_bytes())
+                start = phase['turn_accounting']['before']['records']
+                business, host = split(snap.rows[start:])
+                save(output / f'S{index}-host-sources.json', host)
+                if index == 1 and hasattr(self.admit_pair, 'after_first_phase'):
+                    wait_start = time.monotonic()
+                    try:
+                        self.admit_pair.after_first_phase(job, host)
+                    finally:
+                        self.budget.record_peer_wait(arm_key, time.monotonic() - wait_start)
+                if first_turn is None:
+                    first_turn = phase['turn_accounting']['turn_id']
+                if core:
+                    ordinal = sum(r['type'] == 'response_item' for r in snap.rows[:start])
+                    business_ids = {id(row) for row in business}
+                    batch = []
+                    for row in snap.rows[start:]:
+                        if row['type'] != 'response_item':
+                            continue
+                        if id(row) in business_ids:
+                            batch.extend(CodexCheckpointAdapter().import_items([row['payload']], thread_id=phase['thread_id'],
+                                start_ordinal=ordinal, observed_at=[row.get('timestamp')]))
+                        ordinal += 1
+                    core.ingest(batch)
+                    core.presented(f'S{index}-results', tuple(e.id for e in batch if e.kind == 'result'), receiver=phase['thread_id'])
+                if index in (2, 4, 6, 8):
+                    grade = self.grade(job, index, output / f'S{index}-acceptance')
+                    grades.append(grade)
+                    fact = dict(kind='independent_check_observation', stage=f'S{index}',
+                        source_manifest_sha256=grade['source_manifest_sha256'], checks=grade['observations'],
+                        observed_at=grade['observed_at'], artifact=grade['artifact'])
+                    if index < 8:
+                        inject_fact(session, fact, f'S{index}-checks')
+                    if core:
+                        core.ingest([Event(f'check:S{index}:{digest(fact)}', 'observation', fact,
+                            text=encode(fact), observed_at=fact['observed_at'])])

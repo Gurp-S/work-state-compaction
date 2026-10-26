@@ -1,0 +1,8 @@
+{
+  "version": "D:\\lea\\XenYon code\\wsc\\versions\\20261026-scoped-selection-and-visual-state-v1-delta.zip",
+  "sha256": "520529fb6e2ba3c34bf1c9fc7f918d065fb76584784d171708cbdc398cd49539",
+  "bytes": 770319,
+  "source_files": 190,
+  "delta_files": 49,
+  "scope": "One scoped selection; corrected declarations and smaller hot state; confirmed visual risk needs incremental revision"
+}

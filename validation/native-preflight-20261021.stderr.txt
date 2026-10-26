@@ -1,0 +1,3 @@
+WARNING: failed to clean up stale arg0 temp dirs: 拒绝访问。 (os error 5)
+WARNING: proceeding, even though we could not create PATH aliases: 拒绝访问。 (os error 5) at path "C:\\Users\\48522\\.codex\\tmp\\arg0-windows\\codex-arg0jAqm0d"
+Error: failed to initialize sqlite state runtime under C:\Users\48522\.codex: failed to initialize state runtime at C:\Users\48522\.codex

@@ -1,0 +1,104 @@
+test_all_declared_control_roles_and_kinds_share_the_same_retention_rule (test_control_retention.ControlRetentionTests.test_all_declared_control_roles_and_kinds_share_the_same_retention_rule) ... FAIL
+test_control_access_denial_cannot_be_bypassed_by_empty_selection (test_control_retention.ControlRetentionTests.test_control_access_denial_cannot_be_bypassed_by_empty_selection) ... FAIL
+test_empty_selection_retains_declared_control_exactly_and_exports_it (test_control_retention.ControlRetentionTests.test_empty_selection_retains_declared_control_exactly_and_exports_it) ... FAIL
+test_exact_floor_and_selection_facts_match_actual_retention (test_control_retention.ControlRetentionTests.test_exact_floor_and_selection_facts_match_actual_retention) ... FAIL
+test_mandatory_floor_rejects_before_generator_and_ignores_forged_snapshot_fields (test_control_retention.ControlRetentionTests.test_mandatory_floor_rejects_before_generator_and_ignores_forged_snapshot_fields) ... FAIL
+test_opaque_control_is_rejected_before_generator_but_unmarked_opaque_stays_cold (test_control_retention.ControlRetentionTests.test_opaque_control_is_rejected_before_generator_but_unmarked_opaque_stays_cold) ... FAIL
+test_retained_control_survives_frontier_and_new_control_invalidates_old_snapshot (test_control_retention.ControlRetentionTests.test_retained_control_survives_frontier_and_new_control_invalidates_old_snapshot) ... FAIL
+
+======================================================================
+FAIL: test_all_declared_control_roles_and_kinds_share_the_same_retention_rule (test_control_retention.ControlRetentionTests.test_all_declared_control_roles_and_kinds_share_the_same_retention_rule)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\agent-task-runs\wsc-control-retention-20261023-v1\baseline\tests\test_control_retention.py", line 61, in test_all_declared_control_roles_and_kinds_share_the_same_retention_rule
+    self.assertEqual([r for r in snapshot.events if r["control"]], self.body(view)["sources"])
+AssertionError: Lists differ: [{'seq': 1, 'call_id': None, 'control': True[2070 chars]one}] != [{'call_id': None, 'control': True, 'id': 's[1107 chars]one}]
+
+First differing element 0:
+{'seq': 1, 'call_id': None, 'control': True[147 chars]int'}
+{'call_id': None, 'control': True, 'id': 's[135 chars]None}
+
+First list contains 5 additional elements.
+First extra element 6:
+{'seq': 9, 'call_id': None, 'control': True, 'id': 'system:observation', 'kind': 'observation', 'observed_at': None, 'payload': {'identity': 'system:observation'}, 'role': 'system', 'text': None}
+
+Diff is 2504 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_control_access_denial_cannot_be_bypassed_by_empty_selection (test_control_retention.ControlRetentionTests.test_control_access_denial_cannot_be_bypassed_by_empty_selection)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\agent-task-runs\wsc-control-retention-20261023-v1\baseline\tests\test_control_retention.py", line 87, in test_control_access_denial_cannot_be_bypassed_by_empty_selection
+    with self.assertRaisesRegex(WSCError, "Permission denied"):
+AssertionError: WSCError not raised
+
+======================================================================
+FAIL: test_empty_selection_retains_declared_control_exactly_and_exports_it (test_control_retention.ControlRetentionTests.test_empty_selection_retains_declared_control_exactly_and_exports_it)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\agent-task-runs\wsc-control-retention-20261023-v1\baseline\tests\test_control_retention.py", line 43, in test_empty_selection_retains_declared_control_exactly_and_exports_it
+    self.assertEqual([snapshot.events[0]], self.body(view)["sources"])
+AssertionError: Lists differ: [{'seq': 1, 'call_id': None, 'control': Tr[150 chars]nt'}] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+{'seq': 1, 'call_id': None, 'control': True, 'id': 'scope', 'kind': 'control', 'observed_at': 'original', 'payload': {'scope': 'declared constraint'}, 'role': None, 'text': 'declared constraint'}
+
++ []
+- [{'call_id': None,
+-   'control': True,
+-   'id': 'scope',
+-   'kind': 'control',
+-   'observed_at': 'original',
+-   'payload': {'scope': 'declared constraint'},
+-   'role': None,
+-   'seq': 1,
+-   'text': 'declared constraint'}]
+
+======================================================================
+FAIL: test_exact_floor_and_selection_facts_match_actual_retention (test_control_retention.ControlRetentionTests.test_exact_floor_and_selection_facts_match_actual_retention)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\agent-task-runs\wsc-control-retention-20261023-v1\baseline\tests\test_control_retention.py", line 78, in test_exact_floor_and_selection_facts_match_actual_retention
+    self.assertTrue(facts["source_records"]["scope"]["automatically_retained"])
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_mandatory_floor_rejects_before_generator_and_ignores_forged_snapshot_fields (test_control_retention.ControlRetentionTests.test_mandatory_floor_rejects_before_generator_and_ignores_forged_snapshot_fields)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\agent-task-runs\wsc-control-retention-20261023-v1\baseline\tests\test_control_retention.py", line 65, in test_mandatory_floor_rejects_before_generator_and_ignores_forged_snapshot_fields
+    with self.assertRaisesRegex(WSCError, "mandatory_view_byte_budget_exhausted"):
+AssertionError: WSCError not raised
+
+======================================================================
+FAIL: test_opaque_control_is_rejected_before_generator_but_unmarked_opaque_stays_cold (test_control_retention.ControlRetentionTests.test_opaque_control_is_rejected_before_generator_but_unmarked_opaque_stays_cold)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\agent-task-runs\wsc-control-retention-20261023-v1\baseline\tests\test_control_retention.py", line 107, in test_opaque_control_is_rejected_before_generator_but_unmarked_opaque_stays_cold
+    with self.assertRaisesRegex(WSCError, "opaque_hot_selection_unavailable"):
+AssertionError: WSCError not raised
+
+======================================================================
+FAIL: test_retained_control_survives_frontier_and_new_control_invalidates_old_snapshot (test_control_retention.ControlRetentionTests.test_retained_control_survives_frontier_and_new_control_invalidates_old_snapshot)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\agent-task-runs\wsc-control-retention-20261023-v1\baseline\tests\test_control_retention.py", line 97, in test_retained_control_survives_frontier_and_new_control_invalidates_old_snapshot
+    self.assertEqual(["s1", "s4"], [e["id"] for e in offered["events"]])
+AssertionError: Lists differ: ['s1', 's4'] != ['s4']
+
+First differing element 0:
+'s1'
+'s4'
+
+First list contains 1 additional elements.
+First extra element 1:
+'s4'
+
+- ['s1', 's4']
++ ['s4']
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.199s
+
+FAILED (failures=7)

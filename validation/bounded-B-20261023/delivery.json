@@ -1,0 +1,21 @@
+{
+  "status": "B_stopped_zero_inference_retained_pair_rehearsal_passed",
+  "experimental_model_responses": 0,
+  "core_source_changed": false,
+  "new_full_test_run": false,
+  "active_128_manifest_unchanged": true,
+  "source_version_base": "versions/20261023-phase-budget-compaction-v2-delta.zip",
+  "version": "wsc\\versions\\20261023-bounded-B-admission-v1.zip",
+  "version_sha256": "1136a802ee9805bca7ffa2ffd4d9552359e1ce621f0c1067065df87bee46634f",
+  "version_bytes": 18592,
+  "files_sha256": {
+    "wsc\\validation\\bounded-B-20261023\\run.py": "3308ba138c1a6b76383ee141aa8891b37f8151448b8acff67dacb276200685c3",
+    "wsc\\validation\\bounded-B-20261023\\retained_rehearsal.py": "452334abf969d2618615e1384df3e01f12115272aa7222ca7afb7148fde13019",
+    "wsc\\validation\\bounded-B-20261023\\diagnosis.json": "4c227d06d1c0a701a6b8aa94514be3bbb04d08b68d8e5b88e5310c4a5df076c9",
+    "wsc\\validation\\bounded-B-20261023\\host-diff.txt": "31930a55ba2ee8521e1e4aa4fc19ef41a9cde974311833d463672e10c8765843",
+    "wsc\\reviews\\2026-10-23-status-and-B-admission.md": "02f1fbaed2828486786c4b92d667382d91733ef150de5a8f9a89e8e4de9f00d2",
+    "wsc\\experiments\\NATIVE-LOCAL-HANDOFF.md": "78352203862dcb6476b889fdea259ea75304846a7a3865ca4a398550528a1251"
+  },
+  "goal_complete": false,
+  "next": "Register a new multi-change task with both actual threads admitted and retained before shared-source inference."
+}

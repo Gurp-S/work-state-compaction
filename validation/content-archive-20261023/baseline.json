@@ -1,0 +1,47 @@
+{
+  "scope": "offline synthetic repeated full cold archive; no model or host install",
+  "events": 256,
+  "text_bytes": 2258834,
+  "stages": [
+    {
+      "stage_seconds": 1.6050675000005867,
+      "evidence_count": 256,
+      "total_files": 515,
+      "total_bytes": 4880248
+    },
+    {
+      "stage_seconds": 1.534370499997749,
+      "evidence_count": 256,
+      "total_files": 1030,
+      "total_bytes": 9760496
+    },
+    {
+      "stage_seconds": 1.3455228000020725,
+      "evidence_count": 256,
+      "total_files": 1545,
+      "total_bytes": 14640744
+    }
+  ],
+  "source_sha256": {
+    "src/wsc/__init__.py": "622493ca2e1a6c1c3c13fe5c8a410b0f43b318f531c438e327262bc6fe8f172d",
+    "src/wsc/__main__.py": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+    "src/wsc/accounting.py": "eb9cc00b277e93e741a47a3c2c16ad0448121a43f61bf0763b25da0ab61769ea",
+    "src/wsc/adapters/__init__.py": "32fc77b1766e229f1a4c686a841310da9fc1b37a006b61fb483bbf9cd36d3278",
+    "src/wsc/adapters/callback.py": "0cc8a5d0b3a6e8fd90a112cdb624fb10748d36229286c69b9533d0f2644e60c9",
+    "src/wsc/adapters/codex.py": "b1745491e15be9ec2615e5371ec7546a8df9f3116085c8d0133612374c821db4",
+    "src/wsc/cli.py": "39cf66a1c51429a0056f46d081a1c38b5b0d405e27c7f82e8208f073072b8f52",
+    "src/wsc/contracts.py": "e1b27eaf5bf1b541fb88ab9a66850f37da824e280749de66cf2994f7747fe381",
+    "src/wsc/core.py": "678e13a55e44f733bf608e3d0a64606775e3a11fbfc3a2fd23000dc9682f47db",
+    "src/wsc/events.py": "81478d685aebf9fbe7ad5d5f465b67be82c1fcbb1056f3294ac92296c185a78f",
+    "src/wsc/evidence.py": "bc89f98720907a6ebc180d095df83566774f179f5522b713a6e91398f8d3c147",
+    "src/wsc/excerpts.py": "daf4d3186ff036620c297ed1f177a4e8be1dfadc5397f49a6e5ba6118eb95a16",
+    "src/wsc/generation.py": "d5556d75376182486638f14455a7a6df113644d8aa5262c30a35f3f997168fe7",
+    "src/wsc/plugin.py": "8a5687f915decda46c12c9422cc6162d9c6834022cef5a211eadf0c529c64aeb",
+    "src/wsc/publication.py": "29361134b48a1119c8f464fc2684b5b224c4be6f5437fb7da6fba8bccfe54df9",
+    "src/wsc/references.py": "e8efa4113a7184612ff22521a524a224ed6d1621366bbe935d396256d74694e0",
+    "src/wsc/settlement.py": "a07efa3b576a19c93d3c130bb9ea10447c7b4b2e1406f5fece322b95a3d8ebec",
+    "src/wsc/snapshots.py": "1a63f8b6d55d3899c4e108db3b96a258351206622e2dfd20707cd016c50c9e5c",
+    "src/wsc/store.py": "3c983329c5907318317bed0fcda63e5bba3addc020a8518ba628ba107c626051",
+    "src/wsc/understanding.py": "ae28c331b0d974d3cff7eac205ee92ac7cbb188470b69df8cc2c962ade50c70b"
+  }
+}

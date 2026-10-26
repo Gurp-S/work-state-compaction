@@ -1,0 +1,88 @@
+{
+  "status": "baseline_capture_reviewed",
+  "result": {
+    "path": "D:\\agent-task-runs\\wsc-a3-ui-baseline-20261023-v6\\result.json",
+    "sha256": "b63a31a03e6eb0d6b5217692db9a20c40ac84c1c3c52cf1c5231d4855c45fd3f"
+  },
+  "source_manifest": {
+    "path": "D:\\agent-task-runs\\wsc-a3-ui-baseline-20261023-v6\\source-manifest.json",
+    "sha256": "902c01d13f6e7a7af5aca85e9f570a60f42916c8a4d9e35fd5398df74247134f"
+  },
+  "screenshots": [
+    {
+      "name": "normal-detail-1440-light.png",
+      "sha256": "b5544c833d92bbfea9dcd5ae60e93b8b5e97990a82731692a7256e0042b25ce7"
+    },
+    {
+      "name": "normal-1440-light.png",
+      "sha256": "ab08c5bce1ffa1dd37762f5676008678ce20352c6f7dda1de44045df4bf04d4c"
+    },
+    {
+      "name": "normal-1440-dark.png",
+      "sha256": "3a2566dd034c3a007c9aac5fec71e8bad3e63c887629fee28c3fee77885602d9"
+    },
+    {
+      "name": "normal-1024-light.png",
+      "sha256": "93b0fc6d5576fcb7f1b271dcbb090119cc0ce101b94194417f7555d5ae9bac8b"
+    },
+    {
+      "name": "normal-1024-dark.png",
+      "sha256": "08c57f5ccf72b49fcbce4ebcad2a370b1cfb2bb32a268ffd39ab77ccf29bb4c4"
+    },
+    {
+      "name": "normal-390-light.png",
+      "sha256": "1d0368fcd08055da3ab73298b7d7ef4bd25b66fb1b387c37e496ad7392f38339"
+    },
+    {
+      "name": "normal-390-dark.png",
+      "sha256": "10b1461a840b9a9e4b5ad105d03b6f68310f24523d8d13b6eea0add6e45b98c3"
+    },
+    {
+      "name": "unknown-1440-light.png",
+      "sha256": "e9d555f488d92f5dafd67d2653e9782330402b8b0c2293623921bbfa19f43ad3"
+    },
+    {
+      "name": "unknown-1440-dark.png",
+      "sha256": "8d93c6d6defdb1c9aac1443c972e206b5506e4061afde884510dbb86e291c02b"
+    },
+    {
+      "name": "empty-1440-light.png",
+      "sha256": "93ca3ade8b4589db92c42e6bdea0787ee25c3cda56474806030cefe02027c3bc"
+    },
+    {
+      "name": "empty-1440-dark.png",
+      "sha256": "28f5266221351f9d5f60e4b3b6994b1580d866eea2a6ae2a22a3b012199d9497"
+    },
+    {
+      "name": "error-1440-light.png",
+      "sha256": "2d03d6aafc0013f2256f22616733b08b2f7cbea2615bb6f6df3644b561831703"
+    },
+    {
+      "name": "error-1440-dark.png",
+      "sha256": "31e8794cc5fa27e0e2381497469ea274f27e0acf940093d5cd22f3628cc5ebc2"
+    }
+  ],
+  "inspected": [
+    "normal-1440-light.png",
+    "normal-390-dark.png",
+    "normal-detail-1440-light.png",
+    "unknown-1440-light.png",
+    "error-1440-dark.png"
+  ],
+  "observations": [
+    "Desktop and narrow layouts render; no redesign performed.",
+    "Unknown costs remain partial/unknown instead of zero.",
+    "Long partial-cost readout is crowded in donut center; common task brief includes readability.",
+    "HTTP failure remains visible without replacement by a snapshot."
+  ],
+  "historical_runs": {
+    "v1": "module export error",
+    "v2": "development dependency timeout",
+    "v3": "development dependency timeout",
+    "v4": "hidden SVG title selected by readiness locator",
+    "v5": "rendered but screenshots retain internal scroll position"
+  },
+  "browser_acceptance_complete": false,
+  "paid_BC_started": false,
+  "new_model_calls": 0
+}

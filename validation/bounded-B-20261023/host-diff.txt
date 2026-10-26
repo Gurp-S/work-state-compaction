@@ -1,0 +1,26 @@
+--- C_host
+
++++ B_host
+
+@@ -296 +296,20 @@
+
+ </collaboration_mode>
++<recommended_plugins>
++Here is a list of plugins that are available but not installed.
++
++- Dropbox (app-69b31dc2110c8191b8b47dc98fe5a052@openai-curated-remote)
++- Box (box@openai-curated-remote)
++- Codex Security (codex-security@openai-curated-remote)
++- Figma (figma@openai-curated-remote)
++- Gmail (gmail@openai-curated-remote)
++- Google Calendar (google-calendar@openai-curated-remote)
++- Google Drive (google-drive@openai-curated-remote)
++- Linear (linear@openai-curated-remote)
++- Notion (notion@openai-curated-remote)
++- OpenAI Developers (openai-developers@openai-curated-remote)
++- Outlook Calendar (outlook-calendar@openai-curated-remote)
++- Outlook Email (outlook-email@openai-curated-remote)
++- SharePoint (sharepoint@openai-curated-remote)
++- Slack (slack@openai-curated-remote)
++- Teams (teams@openai-curated-remote)
++</recommended_plugins>

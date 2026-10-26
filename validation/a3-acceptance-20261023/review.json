@@ -1,0 +1,250 @@
+{
+  "status": "scoped_A3_acceptance_calibration_reviewed",
+  "receipts": {
+    "initial_baseline": {
+      "result_path": "D:\\agent-task-runs\\wsc-a3-acceptance-20261023-v1\\result.json",
+      "result_sha256": "fe648a3a8ac8a9a6a7887afb9d4d59618e54af507c60e7ba1981c917e608f135",
+      "registration_sha256": "6f703d0bc4d9cfb891f1841ba8a093d78ea6cc995cec422c61ddc2188d970812",
+      "entries": [
+        {
+          "id": "C01",
+          "passed": true,
+          "path": "D:\\agent-task-runs\\wsc-a3-acceptance-20261023-v1\\C01.json",
+          "sha256": "2861dce1ad8f522aacae87fd288267bd37c1feee5fae0918594ea5580e4cf684"
+        },
+        {
+          "id": "C02-zero",
+          "passed": true,
+          "path": "D:\\agent-task-runs\\wsc-a3-acceptance-20261023-v1\\C02-zero.json",
+          "sha256": "8768a719a5f8509a82e08e1ec188ae094ccac19e2759d3489cf8d41b18d74c59"
+        },
+        {
+          "id": "C02-unknown",
+          "passed": true,
+          "path": "D:\\agent-task-runs\\wsc-a3-acceptance-20261023-v1\\C02-unknown.json",
+          "sha256": "7fd9d1652ccda11ef57ee55ef29ee9265e0896fbb4eb956c990ae950d1c76f48"
+        },
+        {
+          "id": "C02-unpriced",
+          "passed": true,
+          "path": "D:\\agent-task-runs\\wsc-a3-acceptance-20261023-v1\\C02-unpriced.json",
+          "sha256": "372bf008e7d38ec7b824ecfb8671a50136766b0cb7ef300dc3c4694f6ad32cde"
+        },
+        {
+          "id": "C02-missing_fields",
+          "passed": true,
+          "path": "D:\\agent-task-runs\\wsc-a3-acceptance-20261023-v1\\C02-missing_fields.json",
+          "sha256": "01615506c8dfe501cb8049fbd31027a6c989727d7590db41915f83a481d32298"
+        },
+        {
+          "id": "C02-empty",
+          "passed": true,
+          "path": "D:\\agent-task-runs\\wsc-a3-acceptance-20261023-v1\\C02-empty.json",
+          "sha256": "867a0ca9a379aa169b3010ab3dabc8c60efed3dc7a7a69ff89a9ef169007c284"
+        },
+        {
+          "id": "C02-missing_store",
+          "passed": true,
+          "path": "D:\\agent-task-runs\\wsc-a3-acceptance-20261023-v1\\C02-missing_store.json",
+          "sha256": "eccffbe96f12596f87b96a66d529b88bb2ee338a31fca363d312dd1979cd6d6c"
+        },
+        {
+          "id": "C02-error",
+          "passed": true,
+          "path": "D:\\agent-task-runs\\wsc-a3-acceptance-20261023-v1\\C02-error.json",
+          "sha256": "0517233e34c22817b6382000de27dd3d756ef9bb8b42c23da09bf5821879ec24"
+        },
+        {
+          "id": "C02-small_cost",
+          "passed": true,
+          "path": "D:\\agent-task-runs\\wsc-a3-acceptance-20261023-v1\\C02-small_cost.json",
+          "sha256": "b3657fc2cdd59cfa1e30da320fa46494912b7349b139773e995f5c244580fddb"
+        },
+        {
+          "id": "C03",
+          "passed": true,
+          "path": "D:\\agent-task-runs\\wsc-a3-acceptance-20261023-v1\\C03.json",
+          "sha256": "4605f9ad0663f68f7c95be3d09a5379122c87a4374c53d1b82e3b6d855887a8f"
+        },
+        {
+          "id": "C04",
+          "passed": true,
+          "path": "D:\\agent-task-runs\\wsc-a3-acceptance-20261023-v1\\C04.json",
+          "sha256": "914c618ad0d491695fbe15affbc68141030b79a6a11e13581fd980a57eb97685"
+        },
+        {
+          "id": "C05",
+          "passed": true,
+          "path": "D:\\agent-task-runs\\wsc-a3-acceptance-20261023-v1\\C05.json",
+          "sha256": "5ba625f3140d8b9beae5d7aa522ba2e4704a77dafcfb88dd7ed19c0e21faab81"
+        },
+        {
+          "id": "C06",
+          "passed": true,
+          "path": "D:\\agent-task-runs\\wsc-a3-acceptance-20261023-v1\\C06.json",
+          "sha256": "82eff17e6ab75a597718b8f4d98dee2959b9ba1add0f823a70a6a52159a1bff5"
+        },
+        {
+          "id": "C07",
+          "passed": false,
+          "path": "D:\\agent-task-runs\\wsc-a3-acceptance-20261023-v1\\C07.json",
+          "sha256": "a1a9d4937f322c76cc2a1c1354fdb7d2fa865716fbfdb63a88114db901e94add"
+        },
+        {
+          "id": "C08",
+          "passed": false,
+          "path": "D:\\agent-task-runs\\wsc-a3-acceptance-20261023-v1\\C08.json",
+          "sha256": "473cdb0ccda3ab81c67090e4d39c14f050b6b6d5e13f99da4cec0d0a0268cf3b"
+        },
+        {
+          "id": "C09-success",
+          "passed": true,
+          "path": "D:\\agent-task-runs\\wsc-a3-acceptance-20261023-v1\\C09-success.json",
+          "sha256": "f80ff6759e11e000f1c7b86df0993f9484b9769aeddf5f6c73da73210f325fde"
+        },
+        {
+          "id": "C09-failed",
+          "passed": true,
+          "path": "D:\\agent-task-runs\\wsc-a3-acceptance-20261023-v1\\C09-failed.json",
+          "sha256": "694abc6c7206e50ed454b7266f171df47d56318bca3d6138f868d7496d2ea65a"
+        },
+        {
+          "id": "C09-unconfirmed",
+          "passed": true,
+          "path": "D:\\agent-task-runs\\wsc-a3-acceptance-20261023-v1\\C09-unconfirmed.json",
+          "sha256": "fb13a978740b4f11f154c7d0e7001643a0bc5c78fecc1275201afbfba732efe7"
+        },
+        {
+          "id": "C09-status_error",
+          "passed": true,
+          "path": "D:\\agent-task-runs\\wsc-a3-acceptance-20261023-v1\\C09-status_error.json",
+          "sha256": "10586a6c486cea0910d198164d2afb547249d5261576caf5d05b9086b50668d1"
+        },
+        {
+          "id": "C10",
+          "passed": false,
+          "path": "D:\\agent-task-runs\\wsc-a3-acceptance-20261023-v1\\C10.json",
+          "sha256": "cbc1289c3967b83b18402d43154e0873ee210e2b7df1c2e689a3e5d4ed8565f4"
+        },
+        {
+          "id": "C11",
+          "passed": true,
+          "path": "D:\\agent-task-runs\\wsc-a3-acceptance-20261023-v1\\C11.json",
+          "sha256": "2deb83726164f5269cf621bc88dd40a8e49c8d083a8f998bf88917efaa5f60cc"
+        }
+      ]
+    },
+    "large_date_cases": {
+      "result_path": "D:\\agent-task-runs\\wsc-a3-acceptance-large-20261023-v1\\result.json",
+      "result_sha256": "a8dbbe8f452b1f9aa37bd10d5ee0510a3ba5e92616b348f5c070fec606f2aabe",
+      "registration_sha256": "9da01ad41d4182577fece5c4a15255867c2b18fd97a0b5c46a3c5dfa20dcd6d7",
+      "entries": [
+        {
+          "id": "C11",
+          "passed": true,
+          "path": "D:\\agent-task-runs\\wsc-a3-acceptance-large-20261023-v1\\C11.json",
+          "sha256": "da0e3c0ebb33c93bfe580e92672be6e33b38d5d3a71a5ee277b02d8345a8f342"
+        }
+      ]
+    },
+    "price_fault": {
+      "result_path": "D:\\agent-task-runs\\wsc-a3-calibration-price-20261023-v1\\result.json",
+      "result_sha256": "cb7caeacafc1af5d06bf4475fa2bdfef9176db19509b3890a6784642a0bd3372",
+      "registration_sha256": "37cf311a7580c89c7b898d9f3821f0929f22496ec4cbd76175410ada834831f7",
+      "entries": [
+        {
+          "id": "C02-unpriced",
+          "passed": false,
+          "path": "D:\\agent-task-runs\\wsc-a3-calibration-price-20261023-v1\\C02-unpriced.json",
+          "sha256": "9285eee6f8606dc9d728e8e60d6fd74e81d1dfc41a3fa0703121c86fea7c21a7"
+        }
+      ]
+    },
+    "race_fault": {
+      "result_path": "D:\\agent-task-runs\\wsc-a3-calibration-race-20261023-v2\\result.json",
+      "result_sha256": "fe8625e22159dc7f160e2bc900b7d22f5c46df341d88473b6ac2a8d62636d319",
+      "registration_sha256": "583711d45cd2808a846b6447304ecd08cc2249edccfb7f130e93288b729beb80",
+      "entries": [
+        {
+          "id": "C06",
+          "passed": false,
+          "path": "D:\\agent-task-runs\\wsc-a3-calibration-race-20261023-v2\\C06.json",
+          "sha256": "71aa2d9dad1764fb701e335c075e278b358e661edabd0ec282049a873489d230"
+        }
+      ]
+    },
+    "final_scoped": {
+      "result_path": "D:\\agent-task-runs\\wsc-a3-acceptance-final-scoped-20261023-v1\\result.json",
+      "result_sha256": "0097db56eaf09c4c48e3e3987ecb1f4a9cb472a7e8ac7bc44b8117c54f4943e6",
+      "registration_sha256": "aa6efb917602fa212d2041abf96f61567a2f1737472a62f54f678d6d47e16c84",
+      "entries": [
+        {
+          "id": "C06",
+          "passed": true,
+          "path": "D:\\agent-task-runs\\wsc-a3-acceptance-final-scoped-20261023-v1\\C06.json",
+          "sha256": "93b12a2cb67a9104c8085d5aa01bd0731c13782db730396618a591f8da12dc51"
+        },
+        {
+          "id": "C07",
+          "passed": false,
+          "path": "D:\\agent-task-runs\\wsc-a3-acceptance-final-scoped-20261023-v1\\C07.json",
+          "sha256": "6108e273953ffcb6e44799720c2c0d9803b377fdc6e611ff4aa47612c80f803c"
+        },
+        {
+          "id": "C08",
+          "passed": false,
+          "path": "D:\\agent-task-runs\\wsc-a3-acceptance-final-scoped-20261023-v1\\C08.json",
+          "sha256": "77947d5fe9a143b29a5f749e170d1ea34b15ea1541d9f630b871466e85f4920d"
+        },
+        {
+          "id": "C11",
+          "passed": true,
+          "path": "D:\\agent-task-runs\\wsc-a3-acceptance-final-scoped-20261023-v1\\C11.json",
+          "sha256": "5e890b85b0e7a0cd6ca4595d63aa86dfc6a4f341352ceb2c97a1f10509a8e2b8"
+        }
+      ]
+    }
+  },
+  "baseline": {
+    "automated_checks": 21,
+    "passed": 18,
+    "expected_new_requirements_missing": [
+      "C07",
+      "C08",
+      "C10"
+    ]
+  },
+  "fault_detection": {
+    "unknown_cost_to_zero": true,
+    "stale_date_response": true
+  },
+  "export_oracle": {
+    "accepted_examples": 4,
+    "rejected_corruptions": 10,
+    "path": "D:\\lea\\XenYon code\\wsc\\validation\\a3-acceptance-20261023\\export-oracle-checks.json",
+    "sha256": "989b82550288dc3eab71de2cb05d3a63e94be9b77e7ef652a3bdda52036f9c3f"
+  },
+  "large_interaction_ms": {
+    "bootstrap_ms": 343,
+    "filter_ms": 146,
+    "date_and_open_ms": 341,
+    "search_ms": 81,
+    "date_switch_ms": 303
+  },
+  "production_gui_source_unchanged": true,
+  "new_model_calls": 0,
+  "retained_infrastructure_failure": {
+    "path": "D:/agent-task-runs/wsc-a3-calibration-race-20261023-v1/infrastructure-error.json",
+    "reason": "Mutation selector expected one guard, but source has success and catch guards; corrected to remove first only."
+  },
+  "version_limits": [
+    "Initial baseline ran earlier acceptance source; C11 then gained date switching and separated bootstrap time.",
+    "Final scoped run covers C06/C07/C08/C11; it is not a repeat of all 21 checks.",
+    "C07/C08 remain blocked by missing new UI controls; their later happy paths are not browser-calibrated.",
+    "After final execution, manual-coverage projection was corrected to include browser_and_manual C11; no browser logic changed.",
+    "C11/C12/C13/C14 manual evidence remains pending; full task qualification false."
+  ],
+  "complete_browser_positive_calibration": false,
+  "paid_BC_started": false,
+  "goal_complete": false
+}

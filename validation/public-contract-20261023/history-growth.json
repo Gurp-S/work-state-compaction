@@ -1,0 +1,44 @@
+{
+  "scope": "Two actual checkpoint packages, package hashes and cold files verified. Bytes are not tokens/cost or semantic benefit estimates.",
+  "checkpoints": [
+    {
+      "checkpoint": "checkpoint1",
+      "package_file_sha256": "dfcaef2b9d8fd1670dae418936b867466cb23ad1d9011475e560bb922fc159ad",
+      "package_digest": "fc1679e340124d44808257207928592301b35d6ef1bb7cc150fc4f7e787f5fbc",
+      "items": 7,
+      "encoded_item_bytes": 12896,
+      "state_text_bytes": 6194,
+      "state_field_value_bytes": {
+        "archive": 295,
+        "clues": 2,
+        "historical_excerpts": 3938,
+        "historical_host_context": 1846,
+        "kind": 15,
+        "model_records": 2
+      },
+      "source_count": 73
+    },
+    {
+      "checkpoint": "checkpoint2",
+      "package_file_sha256": "5fc3640d1792e7c1d17219ad9cd6979112744da202b67176ab76532f55eab0a6",
+      "package_digest": "00ac4847a631519cec4e28520308769e8b7a391116ab5bf3f67f3f2f3274a274",
+      "items": 15,
+      "encoded_item_bytes": 27427,
+      "state_text_bytes": 6891,
+      "state_field_value_bytes": {
+        "archive": 295,
+        "clues": 2,
+        "historical_excerpts": 4188,
+        "historical_host_context": 2293,
+        "kind": 15,
+        "model_records": 2
+      },
+      "source_count": 74
+    }
+  ],
+  "first_state_same_role_phase_content_indices_in_second": [
+    7
+  ],
+  "comparison_domain": "type/role/phase/content; native import adds id and internal_chat_message_metadata_passthrough. A raw-dict equality assertion was rejected; no source edits.",
+  "interpretation": "Prior state content carried alongside new state. Two boundaries do not establish long-run growth law or unnecessary-work causality. Old observation scope and provenance still matter."
+}

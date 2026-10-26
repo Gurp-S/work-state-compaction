@@ -1,0 +1,10 @@
+{
+  "files": 128,
+  "checks": 46,
+  "version": "D:\\lea\\XenYon code\\wsc\\versions\\20261023-phase-budget-task-v1-delta.zip",
+  "bytes": 45176,
+  "sha256": "211f1adaddcbd006e04835bfdc5be1894fe8aa44013a89581eab6cfd5276a6cb",
+  "overlay_reconstruction_verified": true,
+  "registration": "D:/agent-task-runs/wsc-bounded-command-20261023-v2/registration.json",
+  "scope": "Prepared unique new task; no inference at time of this receipt."
+}

@@ -1,0 +1,108 @@
+{
+  "status": "materials_prepared_live_execution_blocked",
+  "question": "Does reusing the actual pre-repair diagnosis through independent WSC reduce continuation errors and full cost versus native checkpoint recovery?",
+  "evidence_level": "offline_preflight_only",
+  "source_items": 20,
+  "understanding_ordinal": 19,
+  "understanding_characters": 1177,
+  "completed_repair_material_used_as_input": false,
+  "common_original_controls_equal": true,
+  "native_user_transport_normalization": [
+    {
+      "ordinal": 0,
+      "original_sha256": "5bf59d1221d6a379f8b3276db3fbbd20f2d8fb6e5d13c2c5a54d74d7ff4a590a",
+      "restored_sha256": "f00829c4304c5f66d6749b0953d708557afa2ea3da520ea479d1f2741aef4e00",
+      "role_type_content_equal": true,
+      "changed_envelope_fields": [
+        "id",
+        "internal_chat_message_metadata_passthrough"
+      ]
+    },
+    {
+      "ordinal": 1,
+      "original_sha256": "ac088684836ee23ad773c01733813e557c38c2584da79fc0052e51a22ae4bbce",
+      "restored_sha256": "ac088684836ee23ad773c01733813e557c38c2584da79fc0052e51a22ae4bbce",
+      "role_type_content_equal": true,
+      "changed_envelope_fields": []
+    }
+  ],
+  "frozen_python_files_match_registered_baseline": 1854,
+  "source_pins": {
+    "D:\\agent-task-runs\\native-wsc-compaction-pair-c7e1d8ba3f\\common-native-source.json": "f04cc3291a74ea1028a336593b19fe870cd2508a73790f4966128064cc79145c",
+    "D:\\agent-task-runs\\native-wsc-compaction-pair-c7e1d8ba3f\\registration-v2.json": "c3fe5f3efa5b180e2f5a1655adf104a1e7f716fd16a82bd53428184ba31af2e4",
+    "D:\\agent-task-runs\\native-wsc-compaction-pair-c7e1d8ba3f\\native-v2\\native-restoration.json": "a702f0f6b95739dae852dca12ba0e0ba30abeefa9d5ddb1ea4efdacfeee68fc6",
+    "D:\\agent-task-runs\\native-wsc-compaction-pair-c7e1d8ba3f\\diagnostic\\phase-outcome.json": "6146d40fbc41f2897d27f82d751a8c2f571a332fa64333f4dc6697d4e118c984",
+    "D:\\agent-task-runs\\native-wsc-compaction-pair-c7e1d8ba3f\\native\\compaction\\phase-outcome.json": "6113b00679de56d1da1708dcc7c156fa55e66eabca5b0afd2faae49cfc158c72",
+    "D:\\lea\\XenYon code\\wsc\\src\\wsc\\accounting.py": "eb9cc00b277e93e741a47a3c2c16ad0448121a43f61bf0763b25da0ab61769ea",
+    "D:\\lea\\XenYon code\\wsc\\src\\wsc\\cli.py": "39cf66a1c51429a0056f46d081a1c38b5b0d405e27c7f82e8208f073072b8f52",
+    "D:\\lea\\XenYon code\\wsc\\src\\wsc\\contracts.py": "520cfc1229fb5135480b7299d31ec63a19247e17beb310806c64e8f6b7938219",
+    "D:\\lea\\XenYon code\\wsc\\src\\wsc\\core.py": "24d3ca2e9428c802cfd16f4001444b0fb2885a8de1865f0d571457983dbc80f4",
+    "D:\\lea\\XenYon code\\wsc\\src\\wsc\\events.py": "81478d685aebf9fbe7ad5d5f465b67be82c1fcbb1056f3294ac92296c185a78f",
+    "D:\\lea\\XenYon code\\wsc\\src\\wsc\\evidence.py": "bc89f98720907a6ebc180d095df83566774f179f5522b713a6e91398f8d3c147",
+    "D:\\lea\\XenYon code\\wsc\\src\\wsc\\generation.py": "dfe4f46ab51214b20ca181b3874987114f48746233b6aaebdfd6eebbe5a42e7e",
+    "D:\\lea\\XenYon code\\wsc\\src\\wsc\\plugin.py": "8a5687f915decda46c12c9422cc6162d9c6834022cef5a211eadf0c529c64aeb",
+    "D:\\lea\\XenYon code\\wsc\\src\\wsc\\publication.py": "f2b72194fcee080bed96515c0052535e75057fe83ede02a4e0e69ccc6086943d",
+    "D:\\lea\\XenYon code\\wsc\\src\\wsc\\snapshots.py": "1a63f8b6d55d3899c4e108db3b96a258351206622e2dfd20707cd016c50c9e5c",
+    "D:\\lea\\XenYon code\\wsc\\src\\wsc\\store.py": "3c983329c5907318317bed0fcda63e5bba3addc020a8518ba628ba107c626051",
+    "D:\\lea\\XenYon code\\wsc\\src\\wsc\\understanding.py": "ae28c331b0d974d3cff7eac205ee92ac7cbb188470b69df8cc2c962ade50c70b",
+    "D:\\lea\\XenYon code\\wsc\\src\\wsc\\__init__.py": "fc2526f8c6f09c27ac949084064775bc54129e9b83b99007935d12ef87628f51",
+    "D:\\lea\\XenYon code\\wsc\\src\\wsc\\__main__.py": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+    "D:\\lea\\XenYon code\\wsc\\src\\wsc\\adapters\\callback.py": "0cc8a5d0b3a6e8fd90a112cdb624fb10748d36229286c69b9533d0f2644e60c9",
+    "D:\\lea\\XenYon code\\wsc\\src\\wsc\\adapters\\codex.py": "0d19ab13a0d4bb8009b943208f597b5fade5f6b1a7e3ac745430eda0b5cbfa57",
+    "D:\\lea\\XenYon code\\wsc\\src\\wsc\\adapters\\__init__.py": "32fc77b1766e229f1a4c686a841310da9fc1b37a006b61fb483bbf9cd36d3278"
+  },
+  "shared_diagnostic_usage": {
+    "cache_write_input_tokens": 0,
+    "cached_input_tokens": 122752,
+    "input_tokens": 174785,
+    "output_tokens": 3221,
+    "reasoning_output_tokens": 1155,
+    "total_tokens": 178006
+  },
+  "native_compaction_usage": {
+    "cache_write_input_tokens": 0,
+    "cached_input_tokens": 0,
+    "input_tokens": 53835,
+    "output_tokens": 4107,
+    "reasoning_output_tokens": 0,
+    "total_tokens": 57942
+  },
+  "new_wsc_generation_calls": 0,
+  "new_live_model_calls": 0,
+  "automatic_semantic_selection_tested": false,
+  "material_selection": "explicit_existing_diagnosis_reuse_research_choice",
+  "shared_current_task_request": "继续完成前述来源保真修复、必要验证和最终交付。",
+  "suggested_initial_caps": {
+    "pairs": 1,
+    "responses_per_arm": 10,
+    "wall_seconds_per_arm": 480,
+    "check_invocations_per_arm": 3
+  },
+  "frozen_acceptance": [
+    "Current-artifact 13 business and 5 owned regression cases",
+    "Original tests, pairing.py and unrelated inputs unchanged",
+    "Actual final report matches observed scope and results",
+    "All attempts: uncached/cached input, output, retries, retrieval and elapsed time"
+  ],
+  "stop_conditions": [
+    "Input/control/source drift",
+    "Unknown execution or usage outcome",
+    "Registered budget exhausted; no unregistered extension"
+  ],
+  "cost_rule": "Report full attributed costs and conditional continuation separately; unknown prices are not zero; no claim from byte count",
+  "verdict": null,
+  "live_admission_pending": [
+    "Callable native execution entrypoint",
+    "Isolated same-source workspace and absolute-path handling",
+    "Same model, tools, system context and recovery boundary",
+    "Actual installed-context and complete usage receipts"
+  ],
+  "codex_on_current_path": null,
+  "limitations": [
+    "No fresh native continuous arm A",
+    "Single selected repair cannot establish general or multi-compaction benefit",
+    "Original developer prefix reattached identically in both B and C",
+    "Prepared WSC package has provisional workspace binding; regenerate for live workspace",
+    "Offline presentation receipt does not certify native model consumption"
+  ]
+}

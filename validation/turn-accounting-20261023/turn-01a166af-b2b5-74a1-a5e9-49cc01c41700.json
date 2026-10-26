@@ -1,0 +1,172 @@
+{
+  "complete": true,
+  "reasons": [],
+  "thread_id": "01a15edf-1654-7ee3-a6ae-96e2a2949025",
+  "turn_id": "01a166af-b2b5-74a1-a5e9-49cc01c41700",
+  "scope": "append_only_single_turn_with_in_turn_compaction",
+  "before": {
+    "sha256": "fd6dd989761ad40811ec95807611e7f34939b6d79b355e6b3bfa7fea509ea215",
+    "byte_length": 15670802,
+    "exists": true,
+    "tail_status": "terminated",
+    "parse_complete": true,
+    "records": 3458,
+    "snapshot_scope": "single_read_bytes_not_cross_file_atomic"
+  },
+  "after": {
+    "sha256": "53a178c9b5186b346c95dd2397f670b405c1218dc489cf28aef70b0765f15244",
+    "byte_length": 15825205,
+    "exists": true,
+    "tail_status": "terminated",
+    "parse_complete": true,
+    "records": 3511,
+    "snapshot_scope": "single_read_bytes_not_cross_file_atomic"
+  },
+  "receipts": {
+    "thread_id": "01a15edf-1654-7ee3-a6ae-96e2a2949025",
+    "response_count": 6,
+    "response_receipts": [
+      {
+        "response_id": "resp_031391d8ad91516b016adaccc92a6c81918512384a7b1add73",
+        "rollout_line": 3471,
+        "usage": {
+          "input_tokens": 214766,
+          "cached_input_tokens": 212608,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 691,
+          "reasoning_output_tokens": 516,
+          "total_tokens": 215457
+        }
+      },
+      {
+        "response_id": "resp_031391d8ad91516b016adaccef5868819184b892e4ef103446",
+        "rollout_line": 3479,
+        "usage": {
+          "input_tokens": 218875,
+          "cached_input_tokens": 214656,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1234,
+          "reasoning_output_tokens": 949,
+          "total_tokens": 220109
+        }
+      },
+      {
+        "response_id": "resp_031391d8ad91516b016adacd31be208191b2aa286f69b827aa",
+        "rollout_line": 3489,
+        "usage": {
+          "input_tokens": 220553,
+          "cached_input_tokens": 218752,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1755,
+          "reasoning_output_tokens": 239,
+          "total_tokens": 222308
+        }
+      },
+      {
+        "response_id": "resp_031391d8ad91516b016adacd6e21848191928d87c51575be21",
+        "rollout_line": 3495,
+        "usage": {
+          "input_tokens": 222332,
+          "cached_input_tokens": 220416,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 960,
+          "reasoning_output_tokens": 274,
+          "total_tokens": 223292
+        }
+      },
+      {
+        "response_id": "resp_031391d8ad91516b016adacda69cd08191a53c4f2d4814aa0b",
+        "rollout_line": 3504,
+        "usage": {
+          "input_tokens": 223851,
+          "cached_input_tokens": 222208,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1799,
+          "reasoning_output_tokens": 437,
+          "total_tokens": 225650
+        }
+      },
+      {
+        "response_id": "resp_031391d8ad91516b016adacdf512ac819194724b4d82d1b0c9",
+        "rollout_line": 3509,
+        "usage": {
+          "input_tokens": 225809,
+          "cached_input_tokens": 223744,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 181,
+          "reasoning_output_tokens": 0,
+          "total_tokens": 225990
+        }
+      }
+    ],
+    "duplicate_receipt_ids": [],
+    "compactor_response_ids": [],
+    "all_usage": {
+      "input_tokens": 1326186,
+      "cached_input_tokens": 1312384,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 6620,
+      "reasoning_output_tokens": 2415,
+      "total_tokens": 1332806
+    },
+    "compaction_usage": {
+      "input_tokens": 0,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 0,
+      "reasoning_output_tokens": 0,
+      "total_tokens": 0
+    },
+    "cash": null,
+    "price_status": "unknown"
+  },
+  "known_usage": {
+    "input_tokens": 1326186,
+    "cached_input_tokens": 1312384,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 6620,
+    "reasoning_output_tokens": 2415,
+    "total_tokens": 1332806
+  },
+  "complete_usage": {
+    "input_tokens": 1326186,
+    "cached_input_tokens": 1312384,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 6620,
+    "reasoning_output_tokens": 2415,
+    "total_tokens": 1332806
+  },
+  "known_normal_usage": {
+    "input_tokens": 1326186,
+    "cached_input_tokens": 1312384,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 6620,
+    "reasoning_output_tokens": 2415,
+    "total_tokens": 1332806
+  },
+  "known_compaction_usage": {
+    "input_tokens": 0,
+    "cached_input_tokens": 0,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 0,
+    "reasoning_output_tokens": 0,
+    "total_tokens": 0
+  },
+  "inherited_thread_counter": {
+    "input_tokens": 82534997,
+    "cached_input_tokens": 80198912,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 660887,
+    "reasoning_output_tokens": 262092,
+    "total_tokens": 83195884
+  },
+  "display_counter_baseline": {
+    "input_tokens": 80683142,
+    "cached_input_tokens": 78375680,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 613680,
+    "reasoning_output_tokens": 262092,
+    "total_tokens": 81296822
+  },
+  "historical_response_count": 382
+}

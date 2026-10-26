@@ -1,0 +1,118 @@
+{
+  "scope": "Read-only arithmetic decomposition of existing observed receipts, not new execution or causal inference",
+  "old_result_sha256": "4a555a41e795998b9d7b7c5e1f0a56f138bc9ce029bcef35ea896307da9220e4",
+  "phase_rows": {
+    "B/finite_task": {
+      "sha256": "72fb23054ac102594f1bdeea2cf242c449cb47b41adb6738547ed53d58df6567",
+      "seconds": 170.7970000000023,
+      "responses": 13,
+      "output": 11357,
+      "reasoning": 6110,
+      "output_minus_reported_reasoning": 5247
+    },
+    "B/line_budget_task": {
+      "sha256": "124d700c3924b902030bbc6d384c66c3a91b89983ea9f7d40dc190b1ec51bed5",
+      "seconds": 159.70400000000154,
+      "responses": 14,
+      "output": 14225,
+      "reasoning": 7545,
+      "output_minus_reported_reasoning": 6680
+    },
+    "B/handoff": {
+      "sha256": "7a42a092f2f4f30814318470c9875544d1afe9a1730e1cfe20477ae5949a579e",
+      "seconds": 70.23399999999674,
+      "responses": 3,
+      "output": 7375,
+      "reasoning": 5161,
+      "output_minus_reported_reasoning": 2214
+    },
+    "B/compaction1": {
+      "sha256": "0e9a632b90667115453e2743638908a911b79baca19de54fc71f04e2ca4383be",
+      "seconds": 19.65599999999904,
+      "responses": 1,
+      "output": 2268,
+      "reasoning": 0,
+      "output_minus_reported_reasoning": 2268
+    },
+    "B/compaction2": {
+      "sha256": "9e2d341ade391c1d26c9100274fbd21f08d1e7089041984b4f99573fec7df11e",
+      "seconds": 14.703000000001339,
+      "responses": 1,
+      "output": 1654,
+      "reasoning": 0,
+      "output_minus_reported_reasoning": 1654
+    },
+    "C/finite_task": {
+      "sha256": "57f20182c2832af570cc0f113ad2040e38001c107573cbb9e35bd5c3b17e654f",
+      "seconds": 231.01599999999962,
+      "responses": 13,
+      "output": 17647,
+      "reasoning": 11177,
+      "output_minus_reported_reasoning": 6470
+    },
+    "C/line_budget_task": {
+      "sha256": "ab82bd5a56d6d971575324059a8e178a8b57b5dcbf60b63f75f3d0e90457c313",
+      "seconds": 166.86000000000058,
+      "responses": 9,
+      "output": 14635,
+      "reasoning": 7449,
+      "output_minus_reported_reasoning": 7186
+    },
+    "C/handoff": {
+      "sha256": "246dfeb93650ae06dda67e82344d2744f1c92587b39a01a4b92c54598df26f7f",
+      "seconds": 81.07800000000134,
+      "responses": 3,
+      "output": 8077,
+      "reasoning": 6305,
+      "output_minus_reported_reasoning": 1772
+    }
+  },
+  "all_phase_totals": {
+    "B": {
+      "seconds": 435.09400000000096,
+      "responses": 32,
+      "output": 36879,
+      "reasoning": 18816,
+      "output_minus_reported_reasoning": 18063
+    },
+    "C": {
+      "seconds": 478.95400000000154,
+      "responses": 25,
+      "output": 40359,
+      "reasoning": 24931,
+      "output_minus_reported_reasoning": 15428
+    }
+  },
+  "task_only_totals": {
+    "B": {
+      "seconds": 400.7350000000006,
+      "responses": 30,
+      "output": 32957,
+      "reasoning": 18816,
+      "output_minus_reported_reasoning": 14141
+    },
+    "C": {
+      "seconds": 478.95400000000154,
+      "responses": 25,
+      "output": 40359,
+      "reasoning": 24931,
+      "output_minus_reported_reasoning": 15428
+    }
+  },
+  "C_vs_B_percent_all": {
+    "seconds": 10.080580288397556,
+    "responses": -21.875,
+    "output": 9.43626454079558,
+    "reasoning": 32.49893707482994,
+    "output_minus_reported_reasoning": -14.587831478713387
+  },
+  "C_vs_B_percent_task_only": {
+    "seconds": 19.518884050557304,
+    "responses": -16.666666666666664,
+    "output": 22.45956852868889,
+    "reasoning": 32.49893707482994,
+    "output_minus_reported_reasoning": 9.101195106428106
+  },
+  "caution": "Nonreasoning balance is not final answer length; it includes tool calls and, in B all-phase scope, compactor output. No hidden reasoning text is interpreted.",
+  "new_model_calls": 0
+}

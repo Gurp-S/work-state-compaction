@@ -1,0 +1,63 @@
+{
+  "before": {
+    "passed": false,
+    "error": "quote_source_missing"
+  },
+  "after": {
+    "passed": true,
+    "selected_sources": [
+      "native:01a17169-51c7-7902-9c7e-9c60f0b77090:0:dc61d3c4643a40cf460c2f2bde20066aac4b4d405f361f1e9738a527778c4c73",
+      "native:01a17169-51c7-7902-9c7e-9c60f0b77090:1:3bc46055be0434f3d69324ff35447fae8ed6fd147258b44e62077496d000c38c",
+      "native:01a17169-51c7-7902-9c7e-9c60f0b77090:3:3fbe8e3874396f40c455027e44b5bb3f24d30b4f9045edb63c4047143745f6c2"
+    ],
+    "clues": [
+      {
+        "sources": [
+          "native:01a17169-51c7-7902-9c7e-9c60f0b77090:1:3bc46055be0434f3d69324ff35447fae8ed6fd147258b44e62077496d000c38c",
+          "native:01a17169-51c7-7902-9c7e-9c60f0b77090:3:3fbe8e3874396f40c455027e44b5bb3f24d30b4f9045edb63c4047143745f6c2"
+        ],
+        "text": "The user requested a standalone read-only protocol measurement and asked for the exact JSON {\"ready\":true}; the assistant returned that JSON."
+      }
+    ],
+    "excerpts": [
+      {
+        "basis": "public_text",
+        "call_id": null,
+        "current_resource": null,
+        "current_resource_sha256": null,
+        "end": 39,
+        "historical_locator": null,
+        "key": "s2:0:39:faca8dca8c76e9ab306f2e1b3819c31fd856dcb3b67c3caba0c19f09f396a0b3",
+        "observed_at": "2026-10-25T04:54:52.760Z",
+        "path": [],
+        "source_id": "native:01a17169-51c7-7902-9c7e-9c60f0b77090:1:3bc46055be0434f3d69324ff35447fae8ed6fd147258b44e62077496d000c38c",
+        "source_kind": "message",
+        "start": 0,
+        "text": "这是一条独立的只读协议测量。直接输出 JSON {\"ready\":true}。",
+        "text_sha256": "dd37dc4bf5ea7519b1bb6ab1827cd9dbacd351de38eb549807c91e72e25379b2"
+      },
+      {
+        "basis": "public_text",
+        "call_id": null,
+        "current_resource": null,
+        "current_resource_sha256": null,
+        "end": 14,
+        "historical_locator": null,
+        "key": "s4:0:14:4f93e459306aa85241b8974098075c7292be26422cdd7568ee9741c423026661",
+        "observed_at": "2026-10-25T04:54:54.565Z",
+        "path": [],
+        "source_id": "native:01a17169-51c7-7902-9c7e-9c60f0b77090:3:3fbe8e3874396f40c455027e44b5bb3f24d30b4f9045edb63c4047143745f6c2",
+        "source_kind": "message",
+        "start": 0,
+        "text": "{\"ready\":true}",
+        "text_sha256": "b342fc286d0216cc212e0d7ba234894e2e7283ddf14f959adf0fe7fd5924308a"
+      }
+    ]
+  },
+  "original_draft_path": "D:\\agent-task-runs\\wsc-live-boundary-qualification-20261025-v1\\selection\\model-draft.json",
+  "original_draft_sha256": "df122bbf1144e5f591ccf826d65f23f098565b2b7ce987dc63eb293aabb41bab",
+  "current_source_sha256": "09195464e4281cf71c43bfb4d487648d06e81918a967199311d87a4ad560d927",
+  "old_attempt_remains_failed": true,
+  "model_calls": 0,
+  "scope": "Exact displayed IDs compiled without changing selections, clues or quoted spans; no semantic model retry"
+}

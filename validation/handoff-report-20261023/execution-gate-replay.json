@@ -1,0 +1,18 @@
+[
+  {
+    "study": "D:\\agent-task-runs\\wsc-stable-carrier-20261023\\comparison",
+    "arm": "B",
+    "admitted": true,
+    "scope": "actual archived prefix before task_started; zero new model calls"
+  },
+  {
+    "study": "D:\\agent-task-runs\\wsc-stable-carrier-20261023\\comparison",
+    "arm": "C",
+    "admitted": true,
+    "scope": "actual archived prefix before task_started; zero new model calls"
+  },
+  {
+    "study": "wsc-handoff-report-20261023-v1",
+    "rejected_before_model": "native_execution_fact_missing"
+  }
+]

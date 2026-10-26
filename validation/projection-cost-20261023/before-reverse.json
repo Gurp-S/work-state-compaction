@@ -1,0 +1,82 @@
+{
+  "scope": "Synthetic 2049 events / 512 records; capture + material + prepare, no export/model/native cost claim",
+  "events": 2049,
+  "understandings": 512,
+  "model_calls": 0,
+  "public_material_equal": true,
+  "binding_equal": true,
+  "snapshot_public_history_preserved": true,
+  "micro": {
+    "legacy_binding": {
+      "seconds": [
+        0.03621380000549834,
+        0.036501200003840495,
+        0.04115649999585003
+      ],
+      "median_seconds": 0.036501200003840495,
+      "peak_python_bytes": 1149138
+    },
+    "candidate_binding": {
+      "seconds": [
+        3.1999952625483274e-06,
+        5.999972927384079e-07,
+        2.9999500839039683e-07
+      ],
+      "median_seconds": 5.999972927384079e-07,
+      "peak_python_bytes": 208
+    },
+    "legacy_material": {
+      "seconds": [
+        0.046842499999911524,
+        0.045293800001672935,
+        0.04204060000483878
+      ],
+      "median_seconds": 0.045293800001672935,
+      "peak_python_bytes": 744376
+    },
+    "candidate_material": {
+      "seconds": [
+        0.001299199997447431,
+        0.001389600001857616,
+        0.003874599999107886
+      ],
+      "median_seconds": 0.001389600001857616,
+      "peak_python_bytes": 711688
+    }
+  },
+  "actual_cycle": {
+    "seconds": [
+      0.24150709999958053,
+      0.23640680000244174,
+      0.22785770000336925
+    ],
+    "median_seconds": 0.23640680000244174,
+    "peak_python_bytes": 20721700
+  },
+  "source_sha256": {
+    "src/wsc/__init__.py": "622493ca2e1a6c1c3c13fe5c8a410b0f43b318f531c438e327262bc6fe8f172d",
+    "src/wsc/__main__.py": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+    "src/wsc/accounting.py": "eb9cc00b277e93e741a47a3c2c16ad0448121a43f61bf0763b25da0ab61769ea",
+    "src/wsc/adapters/__init__.py": "32fc77b1766e229f1a4c686a841310da9fc1b37a006b61fb483bbf9cd36d3278",
+    "src/wsc/adapters/callback.py": "0cc8a5d0b3a6e8fd90a112cdb624fb10748d36229286c69b9533d0f2644e60c9",
+    "src/wsc/adapters/codex.py": "b1745491e15be9ec2615e5371ec7546a8df9f3116085c8d0133612374c821db4",
+    "src/wsc/adapters/factual_codex.py": "f9850ca6cab90ab8bf8506cab81fbb29ac24ca460aeffeeb0975d19e05c53823",
+    "src/wsc/adapters/native_carrier.py": "a3eae1f1078f633bf8638d4bcaf1796faba40f2ba078aa11021210837a47bb9c",
+    "src/wsc/cli.py": "aa4425a763317de34865f8c058cfd796f0d8f43d236556dd511486131c0cc73a",
+    "src/wsc/content_archive.py": "fdf7150a773a3808ff23e5ba7c2cd187297bc0d6b8dcb7aeda9d66b5483715b1",
+    "src/wsc/contracts.py": "e1b27eaf5bf1b541fb88ab9a66850f37da824e280749de66cf2994f7747fe381",
+    "src/wsc/core.py": "b40663b1ef5707982f63de5a896c6990287c3185a6b0736d467c31fe93c22776",
+    "src/wsc/events.py": "81478d685aebf9fbe7ad5d5f465b67be82c1fcbb1056f3294ac92296c185a78f",
+    "src/wsc/evidence.py": "82da46a36c2d7226d8ad547fbf520563da088c1a0650b519d26236b0fe520205",
+    "src/wsc/excerpts.py": "daf4d3186ff036620c297ed1f177a4e8be1dfadc5397f49a6e5ba6118eb95a16",
+    "src/wsc/generation.py": "d5556d75376182486638f14455a7a6df113644d8aa5262c30a35f3f997168fe7",
+    "src/wsc/plugin.py": "8a5687f915decda46c12c9422cc6162d9c6834022cef5a211eadf0c529c64aeb",
+    "src/wsc/projection.py": "99bad0d95a874cb3b0959b0046ab19e4748b0a3c79a42a7e5090380c8e6f1234",
+    "src/wsc/publication.py": "78c98cbd9f5229d723e6174e572528916f47b427c6cbe3b16834cdfa0e135d9e",
+    "src/wsc/references.py": "e8efa4113a7184612ff22521a524a224ed6d1621366bbe935d396256d74694e0",
+    "src/wsc/settlement.py": "a07efa3b576a19c93d3c130bb9ea10447c7b4b2e1406f5fece322b95a3d8ebec",
+    "src/wsc/snapshots.py": "1a63f8b6d55d3899c4e108db3b96a258351206622e2dfd20707cd016c50c9e5c",
+    "src/wsc/store.py": "1f1b4e1db22f8b7c5e5ffad2e22e886286329f3c9f22ca58e85c377c45ce3996",
+    "src/wsc/understanding.py": "ae28c331b0d974d3cff7eac205ee92ac7cbb188470b69df8cc2c962ade50c70b"
+  }
+}

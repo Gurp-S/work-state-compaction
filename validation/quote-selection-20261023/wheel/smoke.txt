@@ -1,0 +1,15 @@
+{"import": "C:\\Users\\48522\\AppData\\Local\\Temp\\wsc-quote-wheel-85qmwrns\\installed\\wsc\\__init__.py", "generate_export": true, "installation": "not_performed"}
+usage: wsc [-h] --db DB --session SESSION --workspace WORKSPACE
+           {import-native,presented,material,prepare,generate,export,export-handoff,discard,read,status}
+           ...
+
+Independent WSC checkpoint sidecar
+
+positional arguments:
+  {import-native,presented,material,prepare,generate,export,export-handoff,discard,read,status}
+
+options:
+  -h, --help            show this help message and exit
+  --db DB
+  --session SESSION
+  --workspace WORKSPACE

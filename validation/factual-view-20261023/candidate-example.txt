@@ -1,0 +1,183 @@
+Working state
+
+Current execution facts
+
+{"current_file_mapping":"Same relative paths contain registered pre-repair file bytes.","current_workspace":"C:\\Users\\48522\\AppData\\Local\\Temp\\wsc-factual-view-check-3_8o3f1v","historical_workspace":"D:\\agent-task-runs\\native-wsc-compaction-pair-c7e1d8ba3f\\workspace"}
+
+Understanding: diagnosis_with_selected_observations (b74dac90c9044cc2b73d364cf7c6c657@1)
+
+此前诊断已完成只读检查，尚未修改文件或执行新的 RunChecks。共享读取器第40行 errors="replace" 把非法 UTF-8 替换为合法 U+FFFD，使已有 UnicodeDecodeError 分支失效；逐物理行严格解码是当时定位的修复点。CLI 的 events/folds 两处均复用该读取器。原始字节身份、LF/CRLF/CR 分行、合法 U+FFFD/U+2028、缺失/空文件语义和非原子快照边界已被检查。
+当时已读取项目 AGENTS.md、两个源码文件、原有五个专用测试、MEMORY.md 和诊断历史总结。测试覆盖坏 UTF-8 的12个组合、有效 Unicode、来源身份、只读 CLI、非标准 JSON 常量及 Decimal 保留。原始控制消息保留项目约束；下列 observations 为既有公开工具结果的原文片段，source 指向内容绑定的存档。旧记忆行号只标识历史位置，引用依据是存档内容，当前记忆文件的同号行内容未知。
+起点回执为业务9/13、专用测试2/5，四个文件身份与当时实读一致；历史18/18对应不同读取器哈希。两份都是修复前已有材料，尚无本次修复后的验证结果。当前副本与这些历史文件的关系由共同 experimental_workspace_binding 提供；历史支持与当前适用性分开。
+
+Scope: {"historical_reference_policy":"content_bound_archive; live line numbers are not content identities","semantic_applicability":"model_judgment","source_boundary_items":20,"source_stage":"diagnosed_before_repair"}
+
+Source observed 2026-10-21T05:42:40.948Z: C:\Users\48522\AppData\Local\Temp\wsc-factual-view-check-3_8o3f1v\exports\ab0c7d36e8d34368881c81015623fc09\sources\c2d0de9045f14b061894e21cd2cbad789306b720bd1261f0d98fc4c5e9e7e6f7.txt
+
+Source observed 2026-10-21T05:41:35.453Z: C:\Users\48522\AppData\Local\Temp\wsc-factual-view-check-3_8o3f1v\exports\ab0c7d36e8d34368881c81015623fc09\sources\dfb281c595b952297f0ca1efd5c72dc210d10a7fd2e7a5dd96a988336a4ed910.txt
+
+Source observed 2026-10-21T05:42:15.356Z: C:\Users\48522\AppData\Local\Temp\wsc-factual-view-check-3_8o3f1v\exports\ab0c7d36e8d34368881c81015623fc09\sources\47d0990f36b2266eb022f8c03aac8882817dfe42ff1a80369e560a7c6dd85906.txt
+
+Source observed 2026-10-21T05:41:19.632Z: C:\Users\48522\AppData\Local\Temp\wsc-factual-view-check-3_8o3f1v\exports\ab0c7d36e8d34368881c81015623fc09\sources\3123458b1840714a0d337362bfc174194af8b2cbe7d1bb2a5f1a63f4a5f8a358.txt
+
+Source observed 2026-10-21T05:41:50.693Z: C:\Users\48522\AppData\Local\Temp\wsc-factual-view-check-3_8o3f1v\exports\ab0c7d36e8d34368881c81015623fc09\sources\fcc88a15a0c23019ac7ada954c40239d2fc0c2d0f517c756f6946177efb31cc8.txt
+
+Observation: reader_before_repair
+
+Historical location: python/scripts/_wsc_jsonl_source.py, pre-repair observation
+
+Observed: 2026-10-21T05:41:35.453Z
+
+python/scripts/_wsc_jsonl_source.py
+   1: """Strict, read-only JSONL ingestion with identity for the bytes actually parsed."""
+   2: 
+   3: from __future__ import annotations
+   4: 
+   5: import hashlib
+   6: import json
+   7: import re
+   8: from decimal import Decimal, DecimalException
+   9: from pathlib import Path
+  10: from typing import Any
+  11: 
+  12: 
+  13: def _reject_json_constant(value: str) -> None:
+  14:     raise ValueError(f"non-standard JSON constant: {value}")
+  15: 
+  16: 
+  17: def read_jsonl(path: Path) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+  18:     """Read object rows; a file identity makes no cross-file atomicity claim."""
+  19:     rows: list[dict[str, Any]] = []
+  20:     source: dict[str, Any] = {
+  21:         "state": "missing",
+  22:         "invalid_lines": 0,
+  23:         "blank_lines": 0,
+  24:         "sha256": None,
+  25:         "bytes": None,
+  26:     }
+  27:     try:
+  28:         raw = path.read_bytes()
+  29:     except FileNotFoundError:
+  30:         return rows, source
+  31: 
+  32:     # Identity and records use the same read, including every malformed byte.
+  33:     source.update(state="ok", sha256=hashlib.sha256(raw).hexdigest(), bytes=len(raw))
+  34:     # Match the prior text reader's LF/CRLF/CR boundaries, not Unicode separators.
+  35:     lines = re.split(rb"\r\n?|\n", raw)
+  36:     if lines[-1] == b"":
+  37:         lines.pop()  # A final terminator (or empty file) adds no extra line.
+  38:     for raw_line in lines:
+  39:         try:
+  40:             line = raw_line.decode("utf-8", errors="replace")
+  41:         except UnicodeDecodeError:
+  42:             source["invalid_lines"] += 1
+  43:             continue
+  44:         if not line.strip():
+  45:             source["blank_lines"] += 1
+  46:             continue
+  47:         try:
+  48:             value = json.loads(
+  49:                 line,
+  50:                 parse_float=Decimal,
+  51:                 parse_constant=_reject_json_constant,
+  52:             )
+  53:         except (json.JSONDecodeError, ValueError, DecimalException, RecursionError):
+  54:             source["invalid_lines"] += 1
+  55:             continue
+  56:         if not isinstance(value, dict):
+  57:             source["invalid_lines"] += 1
+  58:             continue
+  59:         rows.append(value)
+  60:     return rows, source
+
+
+Exact archived excerpt: C:\Users\48522\AppData\Local\Temp\wsc-factual-view-check-3_8o3f1v\exports\ab0c7d36e8d34368881c81015623fc09\excerpts\6db0b9286f1b7d5efa99516a2540b85be3f59f3d4b4bae6b6d4429ec91fb0aac.txt
+
+Observation: cli_shared_reader
+
+Historical location: python/scripts/wsc_pairing_report.py, pre-repair observation
+
+Observed: 2026-10-21T05:42:15.356Z
+
+python/scripts/wsc_pairing_report.py:18:from scripts._wsc_jsonl_source import read_jsonl as _read_jsonl  # noqa: E402
+python/scripts/wsc_pairing_report.py:22:def _known_cost_total(costs: list[float]) -> float | int | str | None:
+python/scripts/wsc_pairing_report.py:35:def _json_safe(value: Any) -> Any:
+python/scripts/wsc_pairing_report.py:45:def build_report(usage_dir: Path, *, include_requests: bool = False) -> dict[str, Any]:
+python/scripts/wsc_pairing_report.py:47:    events, events_source = _read_jsonl(usage_dir / "events.jsonl")
+python/scripts/wsc_pairing_report.py:48:    folds, folds_source = _read_jsonl(usage_dir / "fold_events.jsonl")
+python/scripts/wsc_pairing_report.py:61:        "atomic_ledger_snapshot": "not_established",
+python/scripts/wsc_pairing_report.py:72:def main(argv: Sequence[str] | None = None) -> int:
+python/scripts/wsc_pairing_report.py:75:    parser.add_argument("--json", action="store_true", required=True, help="write the report as JSON to stdout")
+python/scripts/wsc_pairing_report.py:83:    sys.stdout.write(json.dumps(report, ensure_ascii=True, allow_nan=False, separators=(",", ":")) + "\n")
+
+
+Exact archived excerpt: C:\Users\48522\AppData\Local\Temp\wsc-factual-view-check-3_8o3f1v\exports\ab0c7d36e8d34368881c81015623fc09\excerpts\ee3c7f40c7433ab7730b463ef169d25042285369356378a77dd0bcc38cee45b1.txt
+
+Observation: old_receipt_identity
+
+Historical location: old-verification.json, historical different reader version
+
+Observed: 2026-10-21T05:42:15.356Z
+
+{"file":".study-evidence/old-verification.json","run_id":"registered-artifact-audit-3fa57e1ede1d4bc6831f60e73309bf30","observed_utc":"2026-10-21T10:09:19.122223+09:00","passed":18,"total":18,"groups":{"business":{"passed":13,"total":13},"owned_regression":{"passed":5,"total":5}},"manifest_identity":"673a9d9443d3a27437e2d5a9b61d73be4d7796a24a39f04b30f083ba9bcd2377","source_scope":"13 named source-fidelity cases and 5 registered owned unittest tests only; not full-project certification.","runtime":{"executable":"C:\\Users\\48522\\AppData\\Local\\Programs\\Python\\Python311\\python.exe","python_version":"3.11.9","process_role":"application_cli"},"registered_files":[{"path":"python/scripts/_wsc_jsonl_source.py","receipt_sha256":"7b90b3852aa0174e6045236acf1b94856be14275678a70225cfc7422c44bc948","current_sha256":"69e3513b8316da3d12cebd6edb8e1e6b5ec0fd5d59fda20e9f36bfa923f2f015","matches":false},{"path":"python/scripts/wsc_pairing_report.py","receipt_sha256":"7da6f953908e14c3f9fcc210beba823cbcf1de0779ecf40b27906e27d910228e","current_sha256":"7da6f953908e14c3f9fcc210beba823cbcf1de0779ecf40b27906e27d910228e","matches":true},{"path":"python/tests/wsc/test_pairing_report_source_fidelity.py","receipt_sha256":"63a994386e83a88a4112456e7cb32010e1f43b0f490d96b0c51ea0fc87e39185","current_sha256":"63a994386e83a88a4112456e7cb32010e1f43b0f490d96b0c51ea0fc87e39185","matches":true},{"path":"python/usage/pairing.py","receipt_sha256":"dd6a84f739110ebc3dfb1bced9078093df89754b6700d1e79d01d45e8c848322","current_sha256":"dd6a84f739110ebc3dfb1bced9078093df89754b6700d1e79d01d45e8c848322","matches":true}]
+
+Exact archived excerpt: C:\Users\48522\AppData\Local\Temp\wsc-factual-view-check-3_8o3f1v\exports\ab0c7d36e8d34368881c81015623fc09\excerpts\17066cee5131161dcb61c4996d3b83eec12db47d789ca31c02f801c3aa50c003.txt
+
+Observation: baseline_identity
+
+Historical location: current-baseline.json, pre-repair checkpoint
+
+Observed: 2026-10-21T05:42:15.356Z
+
+{"file":".study-evidence/current-baseline.json","run_id":"registered-artifact-audit-4733505d039145619c5e12d4e1b939e5","observed_utc":"2026-10-21T14:39:27.786126+09:00","passed":11,"total":18,"groups":{"business":{"passed":9,"total":13},"owned_regression":{"passed":2,"total":5}},"manifest_identity":"fb7966bd0b729ddd0ee8ac683c5f37f65c8bd64f70a5fdc50005eb6cd9da5e94","source_scope":"13 named source-fidelity cases and 5 registered owned unittest tests only; not full-project certification.","runtime":{"executable":"C:\\Users\\48522\\AppData\\Local\\Programs\\Python\\Python311\\python.exe","process_role":"application_cli","python_version":"3.11.9"},"registered_files":[{"path":"python/scripts/_wsc_jsonl_source.py","receipt_sha256":"69e3513b8316da3d12cebd6edb8e1e6b5ec0fd5d59fda20e9f36bfa923f2f015","current_sha256":"69e3513b8316da3d12cebd6edb8e1e6b5ec0fd5d59fda20e9f36bfa923f2f015","matches":true},{"path":"python/scripts/wsc_pairing_report.py","receipt_sha256":"7da6f953908e14c3f9fcc210beba823cbcf1de0779ecf40b27906e27d910228e","current_sha256":"7da6f953908e14c3f9fcc210beba823cbcf1de0779ecf40b27906e27d910228e","matches":true},{"path":"python/tests/wsc/test_pairing_report_source_fidelity.py","receipt_sha256":"63a994386e83a88a4112456e7cb32010e1f43b0f490d96b0c51ea0fc87e39185","current_sha256":"63a994386e83a88a4112456e7cb32010e1f43b0f490d96b0c51ea0fc87e39185","matches":true},{"path":"python/usage/pairing.py","receipt_sha256":"dd6a84f739110ebc3dfb1bced9078093df89754b6700d1e79d01d45e8c848322","current_sha256":"dd6a84f739110ebc3dfb1bced9078093df89754b6700d1e79d01d45e8c848322","matches":true}]
+
+Exact archived excerpt: C:\Users\48522\AppData\Local\Temp\wsc-factual-view-check-3_8o3f1v\exports\ab0c7d36e8d34368881c81015623fc09\excerpts\3f0f3cc16f6fe95c3b6f19cf6872cc8732d9716fa6101b7d2138a18ae16e6146.txt
+
+Observation: memory_contract
+
+Historical location: MEMORY.md:138-145 (historical citation; archived content identity)
+
+Observed: 2026-10-21T05:41:35.453Z
+
+## User preferences
+
+- when accounting semantics are involved, the user required “金额未知不等于已知零”, preserve every request and existing public calls -> model unknown as `cost_cny=None`/`billed=None`, not a fabricated zero or deleted record. [Task 1]
+- when a pre-existing receipt may be reused, the user said “已有真实RunChecks回执如果仍适用于当前源码，可以引用” -> compare the current source manifest/hash first; rerun checks if it drifted. [Task 1]
+- when delivering, the user required “如实交代实际验证” -> explicitly separate named RunChecks from full-project, semantic, real-ledger, and atomic-snapshot claims. [Task 1]
+
+## Reusable knowledge
+
+- Amount identity: missing, `None`, booleans, nonnumeric/nonfinite values, and `cost_source="unpriced"` mean unknown; known zero remains `0.0`; finite negative values remain recorded with `billed=False`. If any request is unknown, total `cost_cny` is null while a known-amount subtotal is retained. [Task 1]
+- `fold_shot_extra_miss` must group by `(request.session_id, request.anchor_ts)` and compare only windows containing both `fold_shot` and `post_fold`; retry/pre-fold/isolated-shot windows do not contribute, and negative differences remain valid. [Task 1]
+- `python/scripts/wsc_pairing_report.py --usage-dir DIR --json [--include-requests]` is read-only: parse `events.jsonl`/`fold_events.jsonl` from raw bytes, report SHA-256/bytes plus missing/empty/bad/invalid-UTF-8 conditions, keep valid attempts, and emit strict JSON with no NaN/Infinity. `atomic_ledger_snapshot="not_established"` means two independently hashed files are not a common-time snapshot. [Task 1]
+
+
+Exact archived excerpt: C:\Users\48522\AppData\Local\Temp\wsc-factual-view-check-3_8o3f1v\exports\ab0c7d36e8d34368881c81015623fc09\excerpts\eafb0083ea6fcc020d82332f17ce09679ba10bd3711b5687a4dd84dd76981b56.txt
+
+Observed current reference: {"checked_at":"2026-10-22T18:18:24.464164+00:00","end_line":264,"matching":"exact_text_after_line_ending_normalization","resource":"C:\\Users\\48522\\.codex\\memories\\MEMORY.md","start_line":254,"status":"unique_content_match"}
+
+Observation: prior_cli_contract
+
+Historical location: rollout_summaries/2026-10-19T04-53-10-aOB5-xeyo_usage_accounting_pairing_diagnostic_delivery.md:38-41 (archived tool output)
+
+Observed: 2026-10-21T05:41:50.693Z
+
+38: - 只读取 `events.jsonl` 和 `fold_events.jsonl`，缺失文件标记 `missing`，空行与坏行分别计数，非对象 JSON 计为坏行；保留有效请求（包括同 `request_id` 的不同 `attempt`）。\r\n  39: - 复用 canonical pairing 与同窗口比较；输出 totals、by_role、comparison、sources，以及可选的配对请求顺序和 `request_id/cost_cny/billed`。\r\n  40: - 先读取原始字节计算每个来源的 SHA-256 和 bytes，再严格逐行 UTF-8 解码；无效 UTF-8 行计入 `invalid_lines` 并跳过，其他有效行保留，输入不改写。输出使用 `allow_nan=False`，不产生 NaN/Infinity。\r\n  41: - 输出 `atomic_ledger_snapshot: \"not_established\"`，明确独立文件哈希不能证明同一原子时刻快照；金额仅为记录值，不是厂商账单认证。\r\n
+
+Exact archived excerpt: C:\Users\48522\AppData\Local\Temp\wsc-factual-view-check-3_8o3f1v\exports\ab0c7d36e8d34368881c81015623fc09\excerpts\feadd85cc161a865eb0c383d3efc46ccc52367c58c46945219ee3e32dd8e433e.txt
+
+Observation: workspace_git_observation
+
+Historical location: historical git status result
+
+Observed: 2026-10-21T05:41:19.632Z
+
+
+fatal: not a git repository (or any of the parent directories): .git
+
+
+Exact archived excerpt: C:\Users\48522\AppData\Local\Temp\wsc-factual-view-check-3_8o3f1v\exports\ab0c7d36e8d34368881c81015623fc09\excerpts\79f5db341ea826d648cbc6c6bf76cc7572092df4e01da06b82d05e5b58e81f7a.txt
+
+Full source index: C:\Users\48522\AppData\Local\Temp\wsc-factual-view-check-3_8o3f1v\exports\ab0c7d36e8d34368881c81015623fc09\sources.json
+
+Full understanding index: C:\Users\48522\AppData\Local\Temp\wsc-factual-view-check-3_8o3f1v\exports\ab0c7d36e8d34368881c81015623fc09\understandings.json

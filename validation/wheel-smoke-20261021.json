@@ -1,0 +1,16 @@
+{
+  "successful": true,
+  "wheel": "xeyo_wsc-0.1.0-py3-none-any.whl",
+  "wheel_sha256": "f93c65981daa3193961bfe27856eaafef18f8e32ec7cf7768c03c39e26a80c6b",
+  "isolated_python": true,
+  "imported_from_wheel": true,
+  "cli_operations": [
+    "import-native",
+    "prepare",
+    "export",
+    "status"
+  ],
+  "export_did_not_fold": true,
+  "new_model_calls": 0,
+  "live_native_installation": "not_tested"
+}

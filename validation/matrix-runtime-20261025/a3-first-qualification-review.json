@@ -1,0 +1,76 @@
+{
+  "arms": {
+    "B": {
+      "phase_sha256": "e865c2f7bb9a1db5a68b9953c0d76095b79f6aa4379132359c1cc80c7252722d",
+      "closed_sha256": "99b4263a43abc5411c8984e12a51c16e2e56016f9da791a661bc958410dfd4e4",
+      "known_usage": {
+        "input_tokens": 3809195,
+        "cached_input_tokens": 3451776,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 40591,
+        "reasoning_output_tokens": 21964,
+        "total_tokens": 3849786
+      },
+      "responses": 32,
+      "failure": "registered_response_cap",
+      "complete_usage": null,
+      "compression_boundaries": 0,
+      "owned_processes_empty": true
+    },
+    "C": {
+      "phase_sha256": "e86bdeae3c6f0d64aad0fe99340f357d16fec6eff8c2e27bf824ed4168c8f515",
+      "closed_sha256": "994ede6bffe1124cd92f5d9182b46c940e665ec3e25cf83fb844e77b85e13633",
+      "known_usage": {
+        "input_tokens": 3509731,
+        "cached_input_tokens": 3365120,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 37823,
+        "reasoning_output_tokens": 20587,
+        "total_tokens": 3547554
+      },
+      "responses": 32,
+      "failure": "registered_response_cap",
+      "complete_usage": null,
+      "compression_boundaries": 0,
+      "owned_processes_empty": true
+    }
+  },
+  "known_usage": {
+    "input_tokens": 7318926,
+    "cached_input_tokens": 6816896,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 78414,
+    "reasoning_output_tokens": 42551,
+    "total_tokens": 7397340
+  },
+  "known_responses": 64,
+  "complete_usage": null,
+  "formal_valid_pairs": 0,
+  "remaining_formal_pairs_not_run": 13,
+  "formal_valid_pairs_still_required": 15,
+  "browser_before": "Same script outside native succeeds; native default cache fails EPERM",
+  "browser_after": "Same binary bytes inside private workspace launch, navigate loopback and screenshot",
+  "browser_model_route_passed": true,
+  "browser_model_turn_complete": false,
+  "browser_model_known_usage": {
+    "input_tokens": 95047,
+    "cached_input_tokens": 81024,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 1708,
+    "reasoning_output_tokens": 887,
+    "total_tokens": 96755
+  },
+  "browser_model_known_responses": 4,
+  "browser_model_complete_usage": null,
+  "new_model_calls_in_this_review": 0,
+  "all_owned_processes_empty": true,
+  "executed_source_version": {
+    "version": "D:\\lea\\XenYon code\\wsc\\versions\\20261025-a3-qualification-runtime-v1-delta.zip",
+    "bytes": 395213,
+    "sha256": "7a193b66ef81a1b7a11b246c652d171d337415e29a7c79a05399dd104d5beb5b",
+    "source_files": 170,
+    "files": 20,
+    "model_tasks_still_in_flight": true,
+    "new_model_calls": 0
+  }
+}

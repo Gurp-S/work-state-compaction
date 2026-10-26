@@ -1,0 +1,15 @@
+{
+  "tests": 9,
+  "failures": [],
+  "errors": [],
+  "log": "test_failure_costs_count_toward_cost_per_success (test_native_repeated_pairs.RepeatedPairsTests.test_failure_costs_count_toward_cost_per_success) ... ok\ntest_five_pairs_is_required_before_any_worker (test_native_repeated_pairs.RepeatedPairsTests.test_five_pairs_is_required_before_any_worker) ... ok\ntest_four_workers_overlap_waves_remain_ordered_and_inputs_are_isolated (test_native_repeated_pairs.RepeatedPairsTests.test_four_workers_overlap_waves_remain_ordered_and_inputs_are_isolated) ... ok\ntest_invalid_time_cannot_become_performance_result (test_native_repeated_pairs.RepeatedPairsTests.test_invalid_time_cannot_become_performance_result) ... ok\ntest_journal_survives_failure_and_keeps_paid_usage_unknown_total (test_native_repeated_pairs.RepeatedPairsTests.test_journal_survives_failure_and_keeps_paid_usage_unknown_total) ... ok\ntest_missing_or_unqualified_observation_cannot_supply_fifth_pair (test_native_repeated_pairs.RepeatedPairsTests.test_missing_or_unqualified_observation_cannot_supply_fifth_pair) ... ok\ntest_receipts_cannot_be_shared_between_arms (test_native_repeated_pairs.RepeatedPairsTests.test_receipts_cannot_be_shared_between_arms) ... ok\ntest_resource_and_port_overlap_rejected_before_any_worker (test_native_repeated_pairs.RepeatedPairsTests.test_resource_and_port_overlap_rejected_before_any_worker) ... ok\ntest_scheduler_evidence_directory_cannot_overlap_worker (test_native_repeated_pairs.RepeatedPairsTests.test_scheduler_evidence_directory_cannot_overlap_worker) ... ok\n\n----------------------------------------------------------------------\nRan 9 tests in 0.398s\n\nOK\n",
+  "passed": true,
+  "source_manifest": {
+    "experiments\\native_repeated_pairs.py": "510adb7103feaa261c3caf79cae6d146280f6d7b2e9491d3676838d0f7ed476f",
+    "tests\\test_native_repeated_pairs.py": "08576183d5337f927203008a884f651b70aa982cce73aff319a45f0db210a5b0",
+    "experiments\\native_continuity_checks.py": "62e37cc911fb0b816e97cd95d6004d0b59a774d73ecdb4c3c1862bde83737661",
+    "experiments\\native_evidence.py": "c58bdf53e64281d93a0fb0c332e8b980cac50946ae9431b5f24f8be1aea002bd"
+  },
+  "new_model_calls": 0,
+  "scope": "Offline worker scheduling and settlement, not live native process integration"
+}

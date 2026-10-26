@@ -1,0 +1,311 @@
+{
+  "schema": "wsc.native_generated_selection/1",
+  "producer": "native_model:gpt-6-luna:span-selection-v1",
+  "source_items_sha256": "b831da6a5abc8f2cdd272379033ae505c95be7ea36a13bb08d27fd8627d411fa",
+  "required_observations": [
+    "s4:0:1024:857472c63abc7e50253049570e11374915c21e95d925bba6871e15ad1f6002f6",
+    "s4:1024:2048:595e88f3fba69a9d9ce1379476dffa0befa7b9e147766d1149bdb39c5ce85f3d",
+    "s4:2048:3072:bd777c329c977629fcb57a1135053967e32be823fb72b2e7f501fe4f7707b885",
+    "s4:3072:3504:9c7c95cd944cc2d4e98c6606006f1df1a6cfcfbddcf700ba7b2d463aa606aa74",
+    "s5:0:626:aea6d35eb81524346015de5e6c37743e1d108545337ce723dd6569d8e049498d",
+    "s16:0:135:d6ad032c49dae23af3da8fea1c2c7773c1b10333299dcd05cfe95c03cc6d30b8",
+    "s18:0:1024:1ba39602400523b4f647ce5ab31e11924297ea2dd31ed7f07426a0c08cce075c",
+    "s18:1024:2048:5817a284003a416e6209619a3948ba86dfcc2587f881948420437aa39b5be96d",
+    "s18:6144:7168:aab71a5ca08c7ceec69e29f686057cb87b5631eb93ad5506776990eb1882174a",
+    "s18:7168:8192:7b6e4baaa515eb4ef5c64ba771d7e9d09671b42bdc071ae2fed9604db4ec3c1c",
+    "s18:8192:9216:9a459d256c4793d17e029dfd4574ce6cec2713ada29ff7993a8ca8f951a261b8",
+    "s18:9216:10240:b7bff586365e56fe30c8b15732a663e609e785deb63e145dfde2cee504ad69d2",
+    "s18:11264:12288:49a99a76d3059f091de736080c8f4abc85e0824d56d9771e5108e2049cd280ae",
+    "s18:17408:18432:d8883c1750970cd5793497ab6aac6a91ff3d0a087453a656cf31a230ac96ed24",
+    "s20:0:1024:9238f3313983b4f20bd135961ee8133de9f2a961beaf2c045d5db0a0b957453a",
+    "s20:1024:1177:2cf221e8f16ab7382611b953ebe5cf407e83cd5fd7abe245ae7dac770a6c3e12"
+  ],
+  "selection": {
+    "source_ids": [
+      "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:3:5bf59d1221d6a379f8b3276db3fbbd20f2d8fb6e5d13c2c5a54d74d7ff4a590a",
+      "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:4:ac088684836ee23ad773c01733813e557c38c2584da79fc0052e51a22ae4bbce",
+      "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:15:f4ba0c103d97f343de4a58a85b90b42daa8d1f027a582ccbdd3a83742d50551c",
+      "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:17:7ce8df66b6bdf1bc1e192f2b4190e6659cf51c2db4e449b1f95d1b8a28195d53",
+      "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:19:040ac472fc182f5c1b70bbd0658c76742cbb087e6cc2fdadf23da44b60223b84"
+    ],
+    "understanding_refs": [],
+    "new_understandings": [
+      {
+        "text": "待完成的修复仅涉及 python/scripts/_wsc_jsonl_source.py 和 python/scripts/wsc_pairing_report.py：按物理行严格解码并排除无效 UTF-8，同时保留合法 U+FFFD、U+2028、其他有效行及顺序；SHA-256 和字节数对应解析时读取的原始字节。缺失、空文件、空行、坏行须保持可区分；账本只读，独立哈希不证明跨文件原子快照。保持原有测试和 usage/pairing.py 不变，可按需新增回归测试；按请求运行共同 RunChecks 的 13 项业务检查和 5 个专用 unittest。",
+        "kind": "task_contract",
+        "sources": [
+          "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:4:ac088684836ee23ad773c01733813e557c38c2584da79fc0052e51a22ae4bbce"
+        ],
+        "scope": null,
+        "id": null,
+        "expected_revision": null
+      },
+      {
+        "text": "归档源码显示，共享读取器先对原始字节计算哈希/长度并按 LF、CRLF、CR 分行，但用 errors=\"replace\" 解码；损坏字节可能因此变为 U+FFFD 并进入合法 JSON，绕过解码异常坏行分支。CLI 对两份账本复用此读取器。修复点是共享读取器的逐物理行严格 UTF-8 解码，保留原始字节身份计算和既有分行行为。",
+        "kind": "diagnosis",
+        "sources": [
+          "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:15:f4ba0c103d97f343de4a58a85b90b42daa8d1f027a582ccbdd3a83742d50551c",
+          "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:17:7ce8df66b6bdf1bc1e192f2b4190e6659cf51c2db4e449b1f95d1b8a28195d53"
+        ],
+        "scope": null,
+        "id": null,
+        "expected_revision": null
+      },
+      {
+        "text": "归档的 current-baseline.json 记录 9/13 业务检查、2/5 专用测试，共 11/18；old-verification.json 的 18/18 属于较早源码版本，其读取器哈希与基线版本不同，不能并入基线或当作修复结果。此前只读轮次明确未修改文件、未重跑检查；修复和交付仍待完成。",
+        "kind": "verification_state",
+        "sources": [
+          "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:17:7ce8df66b6bdf1bc1e192f2b4190e6659cf51c2db4e449b1f95d1b8a28195d53",
+          "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:19:040ac472fc182f5c1b70bbd0658c76742cbb087e6cc2fdadf23da44b60223b84"
+        ],
+        "scope": null,
+        "id": null,
+        "expected_revision": null
+      },
+      {
+        "text": "项目指引要求由当前代理直接完成，限定在根因修复和必要验证范围；用户也明确要求不使用子代理。",
+        "kind": "execution_constraints",
+        "sources": [
+          "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:3:5bf59d1221d6a379f8b3276db3fbbd20f2d8fb6e5d13c2c5a54d74d7ff4a590a",
+          "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:4:ac088684836ee23ad773c01733813e557c38c2584da79fc0052e51a22ae4bbce"
+        ],
+        "scope": null,
+        "id": null,
+        "expected_revision": null
+      }
+    ],
+    "clues": [
+      {
+        "text": "这些检查记录是 2026-10-21 的归档观察，记录的工作区路径与当前任务工作区不同；复用哈希或声称当前检查结果前，须先核对当前文件与源码清单。",
+        "sources": [
+          "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:3:5bf59d1221d6a379f8b3276db3fbbd20f2d8fb6e5d13c2c5a54d74d7ff4a590a",
+          "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:17:7ce8df66b6bdf1bc1e192f2b4190e6659cf51c2db4e449b1f95d1b8a28195d53"
+        ]
+      },
+      {
+        "text": "历史 18/18 回执不是本次基线：归档基线仅为 11/18。应在修复后重新运行具名检查并将最终回执绑定到修复后的源码清单。",
+        "sources": [
+          "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:17:7ce8df66b6bdf1bc1e192f2b4190e6659cf51c2db4e449b1f95d1b8a28195d53",
+          "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:19:040ac472fc182f5c1b70bbd0658c76742cbb087e6cc2fdadf23da44b60223b84"
+        ]
+      }
+    ],
+    "excerpts": [
+      {
+        "key": "s4:0:1024:857472c63abc7e50253049570e11374915c21e95d925bba6871e15ad1f6002f6",
+        "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:3:5bf59d1221d6a379f8b3276db3fbbd20f2d8fb6e5d13c2c5a54d74d7ff4a590a",
+        "path": [],
+        "start": 0,
+        "end": 1024,
+        "text_sha256": "cab5dbc0af018680791c779ced0e9533645bda11d858a275f49f90b4e6171b7d",
+        "historical_locator": null,
+        "current_resource": null,
+        "current_resource_sha256": null,
+        "basis": "public_text"
+      },
+      {
+        "key": "s4:1024:2048:595e88f3fba69a9d9ce1379476dffa0befa7b9e147766d1149bdb39c5ce85f3d",
+        "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:3:5bf59d1221d6a379f8b3276db3fbbd20f2d8fb6e5d13c2c5a54d74d7ff4a590a",
+        "path": [],
+        "start": 1024,
+        "end": 2048,
+        "text_sha256": "c85304d403cb3de80327e0b05955fe0d0b9a2563b3f67a7585e3991cd0dff804",
+        "historical_locator": null,
+        "current_resource": null,
+        "current_resource_sha256": null,
+        "basis": "public_text"
+      },
+      {
+        "key": "s4:2048:3072:bd777c329c977629fcb57a1135053967e32be823fb72b2e7f501fe4f7707b885",
+        "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:3:5bf59d1221d6a379f8b3276db3fbbd20f2d8fb6e5d13c2c5a54d74d7ff4a590a",
+        "path": [],
+        "start": 2048,
+        "end": 3072,
+        "text_sha256": "faa215289fa6889d9f80817690800e18dd6dfd7ca76879d128ccd09372f1b5b5",
+        "historical_locator": null,
+        "current_resource": null,
+        "current_resource_sha256": null,
+        "basis": "public_text"
+      },
+      {
+        "key": "s4:3072:3504:9c7c95cd944cc2d4e98c6606006f1df1a6cfcfbddcf700ba7b2d463aa606aa74",
+        "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:3:5bf59d1221d6a379f8b3276db3fbbd20f2d8fb6e5d13c2c5a54d74d7ff4a590a",
+        "path": [],
+        "start": 3072,
+        "end": 3504,
+        "text_sha256": "51b9c0eb40639f80bf96fe27640650ebc95a473c9b02c0cb337831f4e4d61c90",
+        "historical_locator": null,
+        "current_resource": null,
+        "current_resource_sha256": null,
+        "basis": "public_text"
+      },
+      {
+        "key": "s5:0:626:aea6d35eb81524346015de5e6c37743e1d108545337ce723dd6569d8e049498d",
+        "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:4:ac088684836ee23ad773c01733813e557c38c2584da79fc0052e51a22ae4bbce",
+        "path": [],
+        "start": 0,
+        "end": 626,
+        "text_sha256": "87003b3f76a59ef7cba2797702ab13c88f74b23c1d329a660bd267054c81c358",
+        "historical_locator": null,
+        "current_resource": null,
+        "current_resource_sha256": null,
+        "basis": "public_text"
+      },
+      {
+        "key": "s16:0:135:d6ad032c49dae23af3da8fea1c2c7773c1b10333299dcd05cfe95c03cc6d30b8",
+        "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:15:f4ba0c103d97f343de4a58a85b90b42daa8d1f027a582ccbdd3a83742d50551c",
+        "path": [],
+        "start": 0,
+        "end": 135,
+        "text_sha256": "0f3326342bb089e91b3f9fa5ad7b0a8887cc24a1bba8309981b0a078064536c5",
+        "historical_locator": null,
+        "current_resource": null,
+        "current_resource_sha256": null,
+        "basis": "public_text"
+      },
+      {
+        "key": "s18:0:1024:1ba39602400523b4f647ce5ab31e11924297ea2dd31ed7f07426a0c08cce075c",
+        "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:17:7ce8df66b6bdf1bc1e192f2b4190e6659cf51c2db4e449b1f95d1b8a28195d53",
+        "path": [],
+        "start": 0,
+        "end": 1024,
+        "text_sha256": "baf97572dfed9a6d4d751c1ccf520f83fc1cf78e19b5535c59ee91ce2595018d",
+        "historical_locator": null,
+        "current_resource": null,
+        "current_resource_sha256": null,
+        "basis": "public_text"
+      },
+      {
+        "key": "s18:1024:2048:5817a284003a416e6209619a3948ba86dfcc2587f881948420437aa39b5be96d",
+        "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:17:7ce8df66b6bdf1bc1e192f2b4190e6659cf51c2db4e449b1f95d1b8a28195d53",
+        "path": [],
+        "start": 1024,
+        "end": 2048,
+        "text_sha256": "aa9e0ba44030624ba0649ae1780b5d5d83890e6f07d1e1cc97ae45447404e58f",
+        "historical_locator": null,
+        "current_resource": null,
+        "current_resource_sha256": null,
+        "basis": "public_text"
+      },
+      {
+        "key": "s18:6144:7168:aab71a5ca08c7ceec69e29f686057cb87b5631eb93ad5506776990eb1882174a",
+        "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:17:7ce8df66b6bdf1bc1e192f2b4190e6659cf51c2db4e449b1f95d1b8a28195d53",
+        "path": [],
+        "start": 6144,
+        "end": 7168,
+        "text_sha256": "19d62f286483a3595e7aee233eaa7fcd494372d93906afd74fbe102b3c832703",
+        "historical_locator": null,
+        "current_resource": null,
+        "current_resource_sha256": null,
+        "basis": "public_text"
+      },
+      {
+        "key": "s18:7168:8192:7b6e4baaa515eb4ef5c64ba771d7e9d09671b42bdc071ae2fed9604db4ec3c1c",
+        "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:17:7ce8df66b6bdf1bc1e192f2b4190e6659cf51c2db4e449b1f95d1b8a28195d53",
+        "path": [],
+        "start": 7168,
+        "end": 8192,
+        "text_sha256": "85ccb8cefd5fd4550fd7dd77fd389ee26ecf87bbee2baba06cf4b6fce5f30fcd",
+        "historical_locator": null,
+        "current_resource": null,
+        "current_resource_sha256": null,
+        "basis": "public_text"
+      },
+      {
+        "key": "s18:8192:9216:9a459d256c4793d17e029dfd4574ce6cec2713ada29ff7993a8ca8f951a261b8",
+        "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:17:7ce8df66b6bdf1bc1e192f2b4190e6659cf51c2db4e449b1f95d1b8a28195d53",
+        "path": [],
+        "start": 8192,
+        "end": 9216,
+        "text_sha256": "c869991c98045f3082adfbe4fa9ddf9605b615701a6d18d76329f748f3c23b7c",
+        "historical_locator": null,
+        "current_resource": null,
+        "current_resource_sha256": null,
+        "basis": "public_text"
+      },
+      {
+        "key": "s18:9216:10240:b7bff586365e56fe30c8b15732a663e609e785deb63e145dfde2cee504ad69d2",
+        "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:17:7ce8df66b6bdf1bc1e192f2b4190e6659cf51c2db4e449b1f95d1b8a28195d53",
+        "path": [],
+        "start": 9216,
+        "end": 10240,
+        "text_sha256": "38d8b3566418e9afb6b716ff936e5fd12d1ce02198ff40668cfb0b93b284f382",
+        "historical_locator": null,
+        "current_resource": null,
+        "current_resource_sha256": null,
+        "basis": "public_text"
+      },
+      {
+        "key": "s18:11264:12288:49a99a76d3059f091de736080c8f4abc85e0824d56d9771e5108e2049cd280ae",
+        "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:17:7ce8df66b6bdf1bc1e192f2b4190e6659cf51c2db4e449b1f95d1b8a28195d53",
+        "path": [],
+        "start": 11264,
+        "end": 12288,
+        "text_sha256": "bef1d99f7b794cf1aa1d7c1db47ac43ef6a47dbf4c66873ef5f9fe3dd9d707c0",
+        "historical_locator": null,
+        "current_resource": null,
+        "current_resource_sha256": null,
+        "basis": "public_text"
+      },
+      {
+        "key": "s18:17408:18432:d8883c1750970cd5793497ab6aac6a91ff3d0a087453a656cf31a230ac96ed24",
+        "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:17:7ce8df66b6bdf1bc1e192f2b4190e6659cf51c2db4e449b1f95d1b8a28195d53",
+        "path": [],
+        "start": 17408,
+        "end": 18432,
+        "text_sha256": "33cd8cc994463adcddf1e6b68b349fc7a88a01755bba3f971e582723747c743e",
+        "historical_locator": null,
+        "current_resource": null,
+        "current_resource_sha256": null,
+        "basis": "public_text"
+      },
+      {
+        "key": "s20:0:1024:9238f3313983b4f20bd135961ee8133de9f2a961beaf2c045d5db0a0b957453a",
+        "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:19:040ac472fc182f5c1b70bbd0658c76742cbb087e6cc2fdadf23da44b60223b84",
+        "path": [],
+        "start": 0,
+        "end": 1024,
+        "text_sha256": "dde55c35a56431e51d9d4e2f4a8fa741bc41667093f4df2afc89ac2ca342bb20",
+        "historical_locator": null,
+        "current_resource": null,
+        "current_resource_sha256": null,
+        "basis": "public_text"
+      },
+      {
+        "key": "s20:1024:1177:2cf221e8f16ab7382611b953ebe5cf407e83cd5fd7abe245ae7dac770a6c3e12",
+        "source_id": "native:01a15cf9-e5cf-7750-bdd0-b4c357775eb7:19:040ac472fc182f5c1b70bbd0658c76742cbb087e6cc2fdadf23da44b60223b84",
+        "path": [],
+        "start": 1024,
+        "end": 1177,
+        "text_sha256": "e0e6a68d4ba35f38172ce4d2897a6c92e39d663f7503aca18575aa9cca0ef551",
+        "historical_locator": null,
+        "current_resource": null,
+        "current_resource_sha256": null,
+        "basis": "public_text"
+      }
+    ]
+  },
+  "presentation": "covered_json_v1",
+  "generated_selection": {
+    "format": "bound_spans_v1",
+    "max_chars": 1024,
+    "evidence": {
+      "material": {
+        "path": "D:\\agent-task-runs\\wsc-span-selection-20261023-v1\\original-material.json",
+        "sha256": "1a0ee305748cca073096d972d1bdccb3eae11777e0d53c5bffc5d921977695cb"
+      },
+      "draft": {
+        "path": "D:\\agent-task-runs\\wsc-span-selection-20261023-v1\\model-draft.json",
+        "sha256": "8d9203ab692c1074670e64c7a3cfc4201971a409e15e41bace1f98bf3d3474a0"
+      },
+      "phase": {
+        "path": "D:\\agent-task-runs\\wsc-span-selection-20261023-v1\\generation\\phase-outcome.json",
+        "sha256": "b4bb95c45088356702bd2a227ee6a03ad07b5575c406d53ff709b2e256ec3961"
+      },
+      "rollout": {
+        "path": "D:\\agent-task-runs\\wsc-span-selection-20261023-v1\\generation\\rollout.jsonl",
+        "sha256": "3da07fc85389c8dfba7a98509e297155e912f33993d0b7767745e8e6b6cde51f"
+      }
+    }
+  }
+}

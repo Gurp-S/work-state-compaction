@@ -1,0 +1,8 @@
+{
+  "version": "D:\\lea\\XenYon code\\wsc\\versions\\20261026-evaluation-context-calibration-v1-delta.zip",
+  "sha256": "bb4cc7a62b59e9badcc4984cd65fd511dee3db0437e2617667ea3fddf7f0dfdf",
+  "bytes": 1630029,
+  "files": 62,
+  "model_calls": 0,
+  "scope": "Opt-in host/applicability correction; 6 focused unit checks, 2 geometry probes, 11 cumulative checks; no native BC benefit proof"
+}
