@@ -1,48 +1,31 @@
 # WSC
 
-Work State Compaction。一个给长期运行的 coding agent 做上下文压缩的 Python 组件。独立进程内库，旁路接入，默认关闭。
+Work State Compaction。给长期运行的 coding agent 做上下文压缩的 Python 组件。独立进程内库，旁路接入，默认关闭。
 
-## 问题
+压缩最容易出的问题不是丢信息，而是"看起来接上了，实际接错了"。文件 V1 通过测试，改成 V2 后还没验证，压缩完只剩一句"文件已修改，测试通过"——字都是真的，版本对应关系没了，模型据此认为 V2 已验证。WSC 把压缩当成一次可核对的发布，而不是一次改写文本。
 
-Agent 跑得久了，历史一定放不下，harness 必须挑一部分塞进上下文。这一步很容易把信息压成"看起来对"的样子。
+## 工作方式
 
-比如文件 V1 跑过测试并通过，之后改成 V2 但没验证。压缩后剩一句"文件已修改，测试通过"。每个字都是真的，但"测试通过"对应哪个版本没了。模型读到的结论是 V2 已验证，接着就按这个结论往下走。
+一次压缩的输入固定成快照，输出是一份带来源的候选上下文，由宿主原子安装后才推进折叠位置。
 
-记录没丢，丢的是区别。WSC 想解决的是这个。
+- **来源**：事件按原样入库，重复投递不产生新事件；工具调用与结果必须配对，缺一半拒绝导出
+- **快照**：绑定会话、工作区、代次、控制版本、理解版本和来源序号，每次使用前重新校验
+- **选材**：由调用方的模型决定，组件只负责把选择绑到字节上（范围、内容哈希、唯一匹配）
+- **预算**：按字节算必留内容的下界，超了在模型调用和记账之前拒绝
+- **发布**：写盘只是 `ready`，宿主返回持久回执才是 `confirmed`；结果未知走对账，不重发
+- **证据**：授权检查加精确字节读取，部分哈希、对象哈希、观察时间、完整性分开报
 
-## 设计
+组件不判断语义对错，不调用模型，不替宿主执行任务，不伪造安装回执。宿主如果没有原子安装和持久查询能力，就只能停在导出边界。
 
-压缩的产物不是一段摘要文本，而是一份带来源、可核对、可回滚的上下文快照。围绕这个判断，代码里有六个概念。
-
-**Source。** 一条原生事件：消息、工具调用、工具结果、opaque 项。按原样入库，同一 id 重复投递不会产生新事件，一个批次在一个事务里提交。工具调用和结果靠 `(call_id, kind)` 唯一索引配对，缺一半的直接拒绝导出。opaque 项原样归档，不尝试解密，也不进热上下文。
-
-**Snapshot。** 一次压缩的输入被固定成快照，绑定 session、workspace、generation、控制版本、理解版本、cut 和来源摘要。`cut` 是来源序号，不是压缩后数组的下标。快照每次使用都重新校验，前缀变了就拒绝。
-
-**Understanding。** 模型明确说出来的判断，带来源、类别、适用范围和版本号。修订要带期望版本（CAS），并发改不会静默覆盖。系统允许存没有来源的假设，但不会把它升级成事实。
-
-**Selection。** 选什么由调用方的模型决定。核心不做关键词排名，也不内置摘要提示词。三种前端（原文引用、字符区间、精确片段）只负责把模型的选择绑到字节上：算范围、算哈希、校验唯一匹配。模型改写、来源对不上、路径已经变了，一律返回事实状态，不修补、不猜。
-
-**View。** 候选上下文。生成前先算必留的 user/system/developer 消息和视图骨架的字节下界，超了就直接拒绝，这次生成连记账都不进。全程按字节算，不按 token 猜，真实容量由宿主按实际请求判断。
-
-**Publication。** 候选写盘只是 `ready`，不等于安装。`install` 时宿主在同一个同步边界里检查代次、控制版本、容量和在途工具，返回持久回执；只有 `confirmed` 才推进折叠游标。响应丢了走 `reconcile`，不重发。`lookup` 返回 `None` 表示结果未知，不表示没执行。
-
-一次压缩的路径：
-
-```
-events -> snapshot -> selection -> view -> stage -> install -> confirm -> cursor
-```
-
-配套还有两层。证据访问：`read` 做授权检查和精确字节读取，部分哈希、对象哈希、观察时间、完整性分开报；引用可以带资源哈希去查当前位置，只在唯一匹配时给行号。用量账本：调用发出前记账，失败、超时、没回执都留着，没报的用量记 `null`，汇总分成已知和未知两类。
-
-边界也划清楚。WSC 不判断语义对错，不调用模型，不替宿主执行任务，不伪造安装回执。宿主如果没有原子安装和持久查询能力，就只能停在导出边界。`off` 模式不建库、不调 factory、不改传进来的上下文对象。
-
-## 用法
+## 安装
 
 Python 3.11 以上，运行时只用标准库。
 
 ```bash
 python -m pip install --no-deps .
 ```
+
+## 用法
 
 ```python
 from wsc import WSC, Store, Selection, Understanding
@@ -59,29 +42,19 @@ core.ingest(adapter.import_items(native_items, thread_id=native_thread_id))
 core.presented(request_id, presented_source_ids, receiver=actual_receiver)
 
 snapshot = core.capture(cut=source_boundary)
-view = core.prepare(
-    snapshot,
-    Selection(new_understandings=(Understanding(
-        text=explicit_model_statement,
-        kind="diagnosis",
-        sources=statement_source_ids,
-        scope=known_scope,
-    ),)),
-    producer=model_output_identity,
-)
+view = core.prepare(snapshot, Selection(), producer=model_output_identity)
 
 operation = core.stage(view, directory=export_directory, adapter=adapter)
 host = CallbackHost(commit=atomic_host_install, lookup=durable_host_lookup)
 receipt = core.install(operation, host)
 ```
 
-需要模型产出选材时用 `core.generate(snapshot, generator, producer=..., limits=...)`。generator 收到公开材料，返回 `Generated(Selection(...), Usage(...))`。组件不带供应商、不带提示词、不读密钥。`JsonCommandGenerator(argv)` 提供 stdin/stdout 的 JSON 传输，不经 shell。
+选材也可以交给模型：`core.generate(snapshot, generator, producer=..., limits=...)`。generator 收到公开材料，返回 `Generated(Selection(...), Usage(...))`。组件不带供应商、不带提示词、不读密钥。
 
 CLI 每条命令都显式绑定 `--db`、`--session`、`--workspace`，不会去猜或改现有会话：
 
 ```bash
 wsc --db state.db --session sample --workspace . import-native --input canonical-state.json
-wsc --db state.db --session sample --workspace . presented --receipt presentation.json
 wsc --db state.db --session sample --workspace . prepare --selection selection.json --producer existing-model-output
 wsc --db state.db --session sample --workspace . export --view VIEW_ID --directory checkpoint-output
 wsc --db state.db --session sample --workspace . status
@@ -89,18 +62,7 @@ wsc --db state.db --session sample --workspace . status
 
 ## 状态
 
-仍在逐步实验中。上面的契约与接口已经实现，并有测试覆盖；语义选材策略、压缩后的长期收益还在持续验证，暂不建议直接接生产链路。
-
-## 目录
-
-```
-src/wsc/      组件源码
-tests/        契约测试
-experiments/  旁路实验
-reviews/      每轮设计与取舍记录
-validation/   验证材料
-benchmarks/   任务集与评分口径
-```
+仍在逐步实验中，暂不建议直接接生产链路。
 
 ## License
 
