@@ -5,9 +5,14 @@ from hashlib import sha256
 from pathlib import Path
 import json
 import os
+import stat
 
 from .contracts import AccessCheck, digest, encode, require
 from .store import Store
+
+
+_REPARSE_POINT = 0x400
+_COMPARE_CHUNK_BYTES = 65536
 
 
 def source_row(db, source_id: str) -> dict:
@@ -42,16 +47,42 @@ def read(store: Store, access: AccessCheck, source_id: str, *, offset=0, limit=N
             "observed_at": record["observed_at"]}
 
 
+def link_like(path: Path) -> bool:
+    """Symlinks and Windows reparse points, junctions included. Absent paths are not links."""
+    try:
+        info = os.stat(path, follow_symlinks=False)
+    except FileNotFoundError:
+        return False
+    return stat.S_ISLNK(info.st_mode) or bool(getattr(info, "st_file_attributes", 0) & _REPARSE_POINT)
+
+
+def same_bytes(path: Path, payload: bytes) -> bool:
+    """Compare in bounded chunks; the whole object is never read into memory."""
+    if path.stat().st_size != len(payload):
+        return False
+    offset = 0
+    with path.open("rb") as stream:
+        while True:
+            chunk = stream.read(_COMPARE_CHUNK_BYTES)
+            if not chunk:
+                return offset == len(payload)
+            if chunk != payload[offset:offset + len(chunk)]:
+                return False
+            offset += len(chunk)
+
+
 def write_once(path: Path, payload: bytes) -> None:
-    """Never replaces an existing evidence object or follows a symlink leaf."""
-    require(not path.is_symlink(), "evidence_path_symlink")
+    """Never replaces an existing evidence object or follows a link leaf."""
+    require(not link_like(path), "evidence_path_symlink")
     try:
         with path.open("xb") as stream:
             stream.write(payload)
             stream.flush()
             os.fsync(stream.fileno())
     except FileExistsError:
-        require(path.read_bytes() == payload, "evidence_object_conflict")
+        # The entry appeared after the first check; it must still not be a link.
+        require(not link_like(path), "evidence_path_symlink")
+        require(same_bytes(path, payload), "evidence_object_conflict")
 
 
 def export_sources(store: Store, access: AccessCheck, source_ids: list[str], directory: Path,

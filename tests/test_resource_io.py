@@ -57,7 +57,13 @@ class ResourceIOTests(unittest.TestCase):
             with patch.object(io,'equal',side_effect=PermissionError('fixture unreadable')):
                 with self.assertRaisesRegex(WSCError,'evidence_object_unavailable'):io.write_once(path,b'original')
             self.assertEqual(b'original',path.read_bytes())
-            io.write_once(path,b'original')
+
+    def test_conflict_comparison_does_not_read_whole_object(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path=Path(directory)/'object';payload=b'x'*200000;write_once(path,payload)
+            with patch.object(Path,'read_bytes',side_effect=AssertionError('unbounded read')):
+                write_once(path,payload)
+                with self.assertRaisesRegex(WSCError,'evidence_object_conflict'):write_once(path,b'y'*200000)
 
     def test_stale_symlink_precheck_cannot_bypass_descriptor_policy(self):
         with tempfile.TemporaryDirectory() as directory:
