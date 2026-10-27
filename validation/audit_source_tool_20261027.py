@@ -11,14 +11,18 @@ from wsc.contracts import encode,digest
 from wsc.evidence import source_row
 
 
-def audit(root,*,selection_only=False):
+def audit(root,*,selection_only=False,decode_json_strings=False):
     trace=read(root/'source-tool-trace.json');snap=capture_rollout(root/'selection/rollout.jsonl')
     assert snap.metadata['parse_complete']
     persisted={}
     for number,row in enumerate(snap.rows,1):
         payload=row.get('payload',{})
         if row['type']=='response_item' and payload.get('type') in ('function_call_output','custom_tool_call_output'):
-            for value in decoded_objects(payload.get('output')):
+            decoder=decoded_objects
+            if decode_json_strings:
+                from structured_tool_outputs import decoded_transport_objects
+                decoder=decoded_transport_objects
+            for value in decoder(payload.get('output')):
                 persisted.setdefault(encode(value),[]).append(number)
     checks=[]
     with sqlite3.connect(root/'state.db') as db:

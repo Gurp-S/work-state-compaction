@@ -46,8 +46,10 @@ def output_schema(offered, *, scoped_manifest_bindings=False,source_aliases_only
     return schema
 
 
-def generate(offered, execute, destination, *, short_span_handles=False, scoped_manifest_bindings=False,compact_wire=False,source_access=None):
+def generate(offered, execute, destination, *, short_span_handles=False, scoped_manifest_bindings=False,compact_wire=False,source_access=None,cold_event_table=False,metadata_columns=False,event_columns=False,deferred_catalog=None):
     """execute(request, schema) owns cumulative grants and records native spend."""
+    if event_columns and cold_event_table:raise ValueError('event_representation_modes_conflict')
+    if deferred_catalog is not None and (not compact_wire or cold_event_table or metadata_columns or event_columns):raise ValueError('deferred_representation_modes_conflict')
     destination = Path(destination)
     destination.mkdir(parents=True, exist_ok=False)
     if source_access is not None:
@@ -65,6 +67,22 @@ def generate(offered, execute, destination, *, short_span_handles=False, scoped_
         from native_selection_wire import project
         offered,manifest,wire_bindings=project(offered,destination/'resource-manifest.json')
         save(destination/'wire-bindings.json',wire_bindings)
+    if deferred_catalog is not None:
+        offered,catalog,catalog_binding=deferred_catalog.project_material(offered)
+        save(destination/'deferred-catalog.json',catalog)
+        save(destination/'deferred-catalog-binding.json',catalog_binding)
+    if cold_event_table:
+        from native_event_table import project as project_event_table
+        offered,event_table_binding=project_event_table(offered)
+        save(destination/'event-table-binding.json',event_table_binding)
+    if metadata_columns:
+        from native_metadata_columns import project as project_metadata_columns
+        offered,column_binding=project_metadata_columns(offered)
+        save(destination/'metadata-column-binding.json',column_binding)
+    if event_columns:
+        from native_event_columns import project as project_event_columns
+        offered,events_binding=project_event_columns(offered)
+        save(destination/'event-columns-binding.json',events_binding)
     request = dict(operation='working_state_selection', material=offered,
         generation_scope=dict(role='selection_generation_without_task_execution', model_records='unverified_interpretations',
                               original_sources='historical_observations_with_identity_and_time'))

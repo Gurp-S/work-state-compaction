@@ -21,14 +21,21 @@ class ResourceIO:
         self.max_open_handles=max_open_handles
         self.bytes_read=0
 
+    @staticmethod
+    def _windows_api():
+        import ctypes
+        from ctypes import wintypes
+        kernel=ctypes.WinDLL('kernel32',use_last_error=True)
+        create=kernel.CreateFileW
+        create.argtypes=[wintypes.LPCWSTR,wintypes.DWORD,wintypes.DWORD,wintypes.LPVOID,wintypes.DWORD,wintypes.DWORD,wintypes.HANDLE]
+        create.restype=wintypes.HANDLE
+        return kernel,create
+
     def _fd(self,path,*,directory=False):
         if os.name=='nt':
             import ctypes,msvcrt
             from ctypes import wintypes
-            kernel=ctypes.WinDLL('kernel32',use_last_error=True)
-            create=kernel.CreateFileW
-            create.argtypes=[wintypes.LPCWSTR,wintypes.DWORD,wintypes.DWORD,wintypes.LPVOID,wintypes.DWORD,wintypes.DWORD,wintypes.HANDLE]
-            create.restype=wintypes.HANDLE
+            kernel,create=self._windows_api()
             flags=0x00200000|(0x02000000 if directory else 0) # OPEN_REPARSE_POINT, BACKUP_SEMANTICS
             handle=create(str(path),0x80000000,3 if directory else 1,None,3,flags,None)
             if handle==ctypes.c_void_p(-1).value:raise ctypes.WinError(ctypes.get_last_error())

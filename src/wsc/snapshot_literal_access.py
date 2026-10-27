@@ -1,6 +1,7 @@
 """Opt-in exact discovery over sealed snapshot text; live validation on hits."""
 from dataclasses import dataclass
 from hashlib import sha256
+from time import monotonic
 from .source_access import SnapshotSourceAccess,SourceAccessLimits,serialized
 from .contracts import require,digest,encode,WSCError
 from .evidence import authorize
@@ -9,7 +10,9 @@ from .evidence import authorize
 @dataclass(frozen=True)
 class SnapshotSearchLimits:
     max_catalog_text_bytes:int=16*1024*1024
+    max_catalog_sources:int=65536
     max_scan_sources_per_call:int=8192
+    max_scan_milliseconds_per_call:int=250
 
 
 def bounded_utf8_size(text,ceiling):
@@ -24,6 +27,7 @@ def bounded_utf8_size(text,ceiling):
 class SnapshotLiteralAccess(SnapshotSourceAccess):
     def __init__(self,store,snapshot,*,access,limits=SourceAccessLimits(),search_limits=SnapshotSearchLimits()):
         require(all(type(v) is int and v>0 for v in vars(search_limits).values()),'snapshot_search_limits_invalid')
+        require(len(snapshot.events)<=search_limits.max_catalog_sources,'snapshot_catalog_source_budget_exhausted')
         super().__init__(store,snapshot,access=access,limits=limits)
         self.search_limits=search_limits;self.catalog={};total=0
         for row in snapshot.events:
@@ -41,14 +45,12 @@ class SnapshotLiteralAccess(SnapshotSourceAccess):
         return {**super().describe(),'search_basis':'sealed_snapshot_public_text',
             'storage_validation':'Returned matches use live source validation. Negative results describe snapshot text, not current storage health.',
             'search_limits':vars(self.search_limits),
+            'scan_deadline':'Cooperative between sources; permission callbacks and database operations are not preempted.',
             'max_rows_per_call_scope':'Live source validations; snapshot scan sources have a separate limit.'}
 
-    def _finish(self,value):
-        result=super()._finish(value)
-        result['metrics'].update(snapshot_sources_scanned=self.snapshot_sources_scanned,
-            snapshot_public_text_bytes_scanned=self.snapshot_text_bytes_scanned,catalog_public_text_bytes=self.catalog_bytes)
-        require(len(encode(result).encode())<=self.limits.max_return_bytes,'source_access_return_budget_exhausted')
-        return result
+    def _search_finish(self,value):
+        return self._finish({**value,'search_metrics':dict(snapshot_sources_scanned=self.snapshot_sources_scanned,
+            snapshot_public_text_bytes_scanned=self.snapshot_text_bytes_scanned)})
 
     @serialized
     def find(self,literal,*,cursor=0,limit=8):
@@ -56,14 +58,17 @@ class SnapshotLiteralAccess(SnapshotSourceAccess):
         require(type(literal) is str and 0<len(literal)<=256,'source_access_literal_invalid')
         require(type(cursor) is int and 0<=cursor<=len(self.order) and type(limit) is int and 0<limit<=self.limits.max_matches,'source_access_cursor_invalid')
         matches=[];errors=[];index=cursor;scanned=0;verified=0
+        deadline=monotonic()+self.search_limits.max_scan_milliseconds_per_call/1000
         with self.store.connect() as db:
             while index<len(self.order) and scanned<self.search_limits.max_scan_sources_per_call:
                 alias=self.order[index];text,size=self.catalog[alias]
-                if isinstance(text,str) and self.text_bytes_examined+size>self.limits.max_text_bytes_total:
-                    errors.append(dict(source=alias,code='source_access_text_budget_exhausted'));break
+                if monotonic()>=deadline:
+                    errors.append(dict(source=alias,code='snapshot_search_time_budget_exhausted'));break
                 scanned+=1;self.snapshot_sources_scanned+=1
                 try:
                     authorize(self.store,self.access,self.bound[alias])
+                    if isinstance(text,str) and self.text_bytes_examined+size>self.limits.max_text_bytes_total:
+                        errors.append(dict(source=alias,code='source_access_text_budget_exhausted'));break
                     position=-1
                     if isinstance(text,str):
                         self.text_bytes_examined+=size;self.snapshot_text_bytes_scanned+=size;position=text.find(literal)
@@ -90,7 +95,7 @@ class SnapshotLiteralAccess(SnapshotSourceAccess):
                 index+=1
                 if len(matches)>=limit:break
         complete=index==len(self.order) and not errors
-        return self._finish(dict(status='ok' if complete else 'partial',matches=matches,errors=errors,complete=complete,
+        return self._search_finish(dict(status='ok' if complete else 'partial',matches=matches,errors=errors,complete=complete,
             next_cursor=index if index<len(self.order) else None,
             coverage={'start_cursor':cursor,'end_cursor':index,'total_sources':len(self.order)},
             search_basis='sealed_snapshot_public_text',storage_validation='returned_matches_only',

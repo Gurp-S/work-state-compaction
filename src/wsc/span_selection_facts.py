@@ -1,18 +1,15 @@
 """Describe the span frontend's actual independent retention choices."""
 from copy import deepcopy
 
-FULL_SOURCE_EFFECT = (
-    "Complete source records retained in the prepared view, including payload and public text. "
-    "A span or provenance link does not require its source in source_ids."
-)
-SPAN_EFFECT = (
-    "Selected exact public-text spans and source bindings retained in the prepared view. "
-    "Their parent records remain independently selectable through source_ids; "
-    "span selection alone does not inline a complete parent record."
-)
+from .selection_effects import FULL_SOURCE_EFFECT, SPAN_EFFECT
+
+__all__ = ["FULL_SOURCE_EFFECT", "SPAN_EFFECT", "span_facts"]
 
 
 def span_facts(facts):
+    if facts.get('schema')=='wsc.projected_selection_facts/1':
+        from .projected_selection_facts import span_facts as projected_span_facts
+        return projected_span_facts(facts)
     result = deepcopy(facts)
     effects = result['selection_effects']
     effects.pop('quotes', None)

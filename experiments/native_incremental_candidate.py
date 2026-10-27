@@ -52,9 +52,14 @@ def compile_draft(material, draft):
     return compile_spans(material, value, max_chars=POLICY['max_chars_per_span'], boundary_policy='word')
 
 
-def frontier(core, snapshot, previous, archive):
+def frontier(core, snapshot, previous, archive, *, projection_facts=False):
     original = core.material(snapshot)
-    admit_generation(snapshot.events, POLICY['max_view_body_bytes'])
+    describe_costs=describe
+    if projection_facts:
+        from wsc.projected_selection_facts import describe as describe_projected,admit
+        describe_costs=describe_projected
+        admit(snapshot.events,POLICY['max_view_body_bytes'])
+    else:admit_generation(snapshot.events, POLICY['max_view_body_bytes'])
     cut = previous['cut'] if previous else 0
     require(type(cut) is int and 0 <= cut <= snapshot.cut, 'incremental_previous_cut_invalid')
     if previous:
@@ -111,7 +116,7 @@ def frontier(core, snapshot, previous, archive):
         'frontier_boundary': {'previous_cut': cut, 'current_cut': snapshot.cut, 'source_digest': snapshot.source_digest},
         'previous_excerpts': offered_prior,
         'previous_selection': previous_selection,
-        'selection_facts': {**describe(snapshot.events, POLICY['max_view_body_bytes']),
+        'selection_facts': {**describe_costs(snapshot.events, POLICY['max_view_body_bytes']),
             'adapter_rendered_limit_bytes': POLICY['max_rendered_bytes'],
             'adapter_measurement_scope': 'Encoded exported native items; separate from prepared-view storage bytes and model tokens.'},
         'selection_fields': {'source_ids': 'Selected entire original records, including their unchanged payloads.',

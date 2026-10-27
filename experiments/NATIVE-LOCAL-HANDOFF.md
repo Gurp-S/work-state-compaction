@@ -2,7 +2,129 @@
 
 更新：2026-10-27。当前代理直接完成，不使用子代理。长期目标未达成。用户确认额度恢复，明确采用实际实验运行时间累计、额度等待不计；旧消耗、失败、未知及原上限不变。以下历史段落不覆盖本节。
 
-## 最新：两轮恢复三对系统观测完成，C6/6、B3/6，平均调用多5.4%
+## 最新：三条独立C1/C2完整链完成，C6/6、B3/6，平均仍贵25.57%
+
+[三完整链报告](D:/lea/XenYon%20code/wsc/reviews/2026-10-27-c1-three-full-chains.md)。复用v1.31新C R01及历史三B，只补两条完整C1/C2/QA，并行2worker/共享ledger；不再共享C1冒充独立全链，不加新输入格式。三C146346/180767/149866平均158993，6/6；B145645/135148/99045平均126612.7，3/6。比旧C平均188466.7少15.64%，但比B多25.57%，非超越/省时。C1新均62934.3，旧89442少29.64%；首input61299/61320/61322较稳定。
+
+平均阶段C56.885秒、B30.162；C1自身新均18.979>旧16.828，不称提速。R01完整墙钟unknown保留，R02/R03 101.671/87.453秒。C2同三次读取但R02多一响应，input多31248、缓存input多30720、output少24，阶段都27.9；Token差不等价计算/时间/金额差。既有同案例规律位置可推别名，实际恢复仍有原文确认，不称检索泛化。
+
+全部三C实际请求/schema/641源等价审计，C2目标nonce不在输入/schema，实际工具返回与评分2/2、回执/进程闭合，原DB不变。新9回执/330633Token逐臂与全局对账。审计复用单臂/恢复字段假设导致的两个KeyError补记保留，修为--arm及单链阶段求和、optional恢复标记，0模型重跑。另修LateCell异常对账硬编码R01的guard，按rep标未知并全局冻结；前后测试旧peer可准入/新拒绝，5定向过。执行两进程加载旧代码，正常轨迹未触该分支，原执行模块保留；不拿异常guard修复冒充模型收益。
+
+证据wsc-c1-columns-repeats-20261027-v1与wsc-c1-three-chain-report-20261027-v1(JSON/CSV)。最新封套repeats/next-admission-envelope.json：18091795/280/11143秒，新增330633/9、101.671扣ceil102，保守1040000/24扣留非实际/未知上界。全三C476979/13含复用146346/4，不重复计费，维护/审计unknown与旧失败保留。v1.32只存增量/小证据，不复制DB/cold树。
+
+下一步结束此案例重跑，保留C1候选。转向C2整目录常驻/往返重复输入，先离线设计短绑定入口＋完整事实恢复，证明源/权限/失效/引用不弱化并披露资源差异，不新增语义排名，不让引擎决定保留。通过准入再小额资格及状态覆盖/失效/依赖扩展，长期目标active。
+
+## 历史：C1新表示完整链2/2、146346Token，成本下降但尚未超原生
+
+[C1事件列报告](D:/lea/XenYon%20code/wsc/reviews/2026-10-27-c1-event-columns-qualified.md)。预算独立整表查询的额外请求成本大、piggyback有16KiB限制，先不加工具。发现首轮C1事件227280B/公开原文111060B，大量重复元数据。新native_event_columns保序同构列、原span/ref/文本/字段完整保留，异构/无收益回退，默认关闭；C1用event_columns+metadata_columns，C2仍稳定cold_event_table，未用上一轮慢的C2列式。
+
+0模型旧C1请求/草稿还原编译等价，246019→150594B（实际150591）；新C1 input87949→61299（少30.3%）、总89442→63465（少29.04%）。真实完整链C1 63465/1、C2 64061/2、QA18820/1，合146346/4、2/2；原稳定行表177645少17.62%，比既有三组B平均126612.7仍高15.59%。C1阶段20.703秒比旧16.828慢，整链阶段56.641秒，但C2选择/服务波动，单次不证稳定提速。实际录制区间下限87.072140秒，完整外层墙钟unknown，不冒称精确加速。
+
+收尾误将boot.close()字典传timing.call导致TypeError exit1；cell模型/cleanup已全部落盘。execution-failure保留，executed脚本逆向重建与登记SHA完全匹配；0模型按4唯一回执/closed logs/bootstrap清理恢复ledger，started/seconds派生于span并标注不是旧内存原账。新settle_bootstrap用span关闭且finally保存dispatch-ledger，清理失败仍保留unknown/inflight，未模型重跑。23定向/18子用例过。
+
+独立audit实际C2无nonce、原s540工具回执与评分2/2、全进程清理；C1实际请求绑定及解码后与旧同（仅manifest locators、fresh source_digest/source id规范化），641源除新id外内容严格同，schema同，原DB不变。
+
+证据wsc-c1-columns-admission/qualification-20261027-v1、wsc-budget-delivery-audit-20261027-v1。最新封套qualification/next-admission-envelope.json：19131795/304/11245秒；新增实际146346/4，保守520000/12扣留非实际或未知上界；准入.153扣ceil1、录制下限87.072扣ceil88，其他unknown/旧失败保留。v1.31增量不复制DB/cold树。
+
+下一步冻结C1新列式＋稳定C2，复用新已完成C及历史B三组，只补两条独立完整C1/C2/QA（不共享单次C1冒充三重复），检查成本/质量分布再考虑推广及状态覆盖/失效案例。长期目标active，未证总体超原生。
+
+## 历史：投影预算事实错误已旁路修复，0模型；重复read并非无信息
+
+[预算接口报告](D:/lea/XenYon%20code/wsc/reviews/2026-10-27-projected-budget-interface.md)。旧facts/admit用未投影字节，实际prepare用native_source_refs_v1，span文案又覆盖为完整payload。新独立projected_selection_facts＋frontier(projection_facts=True)显式计算最终存储投影，默认旧路径保留，最终硬检查/权限/发布状态机不改。新schema保留至span前端，不让表述覆盖存储契约。
+
+真实A/B：普通观察旧200148B/新与实际143B；控制空视图旧190/实际234B；大型显式control旧200338B误拒1000预算，新377B与真实prepare均过。opaque必留/未知mode仍拒，预算减一新预检与prepare均拒，17定向通过。真实晚位全643消息源，空视图仅1526→1570差44B，不能解释上一轮长推理或声称提速。
+
+实际find(s540)只有0..186片段，read补到227、额外41字符和complete/fullhash证明；不能引擎按已见nonce自动删除这个read。没有证据证明模型在手工算预算，不凭隐藏思考猜因果。本轮0模型；源DB不变。证据wsc-projected-budget-audit-20261027-v1，开发测试路径/别名断言失误补记保留，非模型实验失败。
+
+最新封套该目录next-admission-envelope.json：19651795/316/11334秒；已知.084468扣ceil1，测试/导入/维护unknown及全部旧失败/用量保留。v1.30增量不复制大DB/cold树。
+
+下一步离线设计预算事实按需查询：原事实完整可获取、源/权限绑定、计量对齐，先验证输入收益再小额模型资格，不重做三组、不推广未提速列式。长期目标active。
+
+## 历史：列式候选首请求Token下降48%，总费只少3.7%、耗时增加，默认不推广
+
+[列式资格报告](D:/lea/XenYon%20code/wsc/reviews/2026-10-27-metadata-columns-qualified.md)。新独立native_metadata_columns只对既有旧事件行/预算行作严格类型等值段、字典、整数/前缀整数列与单字段包装，完整hash绑定/还原；不删字段/文本/来源，不决定重要性，不改输出schema。generate(metadata_columns=True)默认关闭，真实入口需新增准入hash/源DB匹配，policy另记metadata_columns_v1。
+
+三旧接受请求0模型完整还原和旧草稿编译等价；请求约55479→11246、55471→11238字节，事件rows33535→456、预算14680→3526。22定向/18子用例通过，非全项目。新实际请求11251字节（路径差异），首响应input30214→15697Token（少48%）；但新5工具/3选材响应，选材输出10008其中reason9607，旧7243/6858。C2+QA实际84923/4、2/2、109.218秒，原88203/3、2/2、95.406秒：费少3.7%、时间多14.5%，未证明提速。含共享C1逻辑174365/5，原177645/4，少1.85%。不能由单次推断格式导致额外思考。
+
+独立column-run-audit证实新输入还原除manifest locator外与旧同、schema同、643源对象同、原文工具输出与4唯一回执精确对账、cleanup确认，原DB不变。无新B/无重复三组/无额外裁判。frontier2.183、发布4.787、evidence.122秒，本地3次编译等价.288秒；模型pipeline86.292不是编码计算耗时。冷目录DB-only分叉仍重建，未跳同步/校验或共享可变文件。
+
+证据wsc-metadata-columns-admission-20261027-v1与qualification-20261027-v1；后者最新封套19651795/316/11335秒，新增实际84923/4，保守320000/8扣留非实际或未知上界。零模型已知.324扣ceil1，维护/审计/测试unknown与旧失败/花费保留。v1.29增量不复制DB/cold树。
+
+下一步不推广默认、不重复大批评测。0模型复盘实际源调用与预算接口，检查能否把确定性资源核算留给引擎，减少模型重复验证且保留可恢复信息/源绑定；不把字节下降当最终性能成功。长期目标active。
+
+## 历史：晚位三组完成，C6/6、B3/6，平均完整链Token多48.85%
+
+[三组报告](D:/lea/XenYon%20code/wsc/reviews/2026-10-27-late-three-pairs.md)。同晚位案例/两问题，三组U6/6、B3/6（每次当前正确、旧nonce未恢复）、C6/6。三个C共享旧C1，R01历史结果，R02/R03新C2＋后测；不是三独立完整选材链/三个任务。B各自真实两压缩，所有6次确认，不解析摘要。默认模型与输入协议不变，新C仅已验函数绑定优化/主机计时。
+
+完整逻辑链平均B126612.7、C188466.7 Token（每C均加回共享C1 89442），C多48.85%，不省；阶段平均B30.162、C79.411秒，不作历史/新时刻因果速度结论。R02/R03 C实际68.953/76.906秒，不含C1；冷发布4.738/5.306秒，局部热微基准收益不外推。新C请求均55471字节，独立审计除manifest locator外同旧请求，schema相同；R02一次find/2选材响应，R03四工具/3选材响应，模型策略有波动。
+
+新两组并行3worker、两组顺序、相反提交顺序，新增563950/17、145.938秒。全部原DB/源不变、回执精确对账、cleanup确认。源工具审计初失败是R03模型双重JSON编码，原括号扫描漏读；新增validation/structured_tool_outputs有界严格JSON旁路，只审计不改评分/模型输入。真实旧/新审计A/B R02 1→1、R03 0→4精确输出匹配；3正反例过。旧失败补记保留，时间unknown，0模型重跑。报告JSON/CSV/input分项在wsc-late-three-pair-report-20261027-v1，原始在wsc-late-remaining-pairs-20261027-v1。
+
+最新封套后者next-admission-envelope.json：19971795/324/11446秒；1920000/48保守扣留非实际563950/17或未知上界。维护/审计/测试unknown及旧失败保留，未重复扣C1。v1.28只存增量与小证据，不复制DB/cold树。
+
+下一步不重跑本案例，0模型调查events34599＋selection_facts16177占请求约91.5%及冷制品重建数秒的结构性成本，先完整还原/源绑定/权限/持久化等价证明，再决定小额资格。不能由本例推断状态覆盖/关系/50次压缩已正确；长期目标active。
+
+## 历史：晚位第一组对照完成，U2/2、B1/2、C2/2
+
+[第一组报告](D:/lea/XenYon%20code/wsc/reviews/2026-10-27-late-first-pair.md)。补齐同晚位320构建案例的真实原生B（两次压缩各有绑定回执/持久边界/terminal证明）及未压缩U，复用行表资格C，不重付C1/C2。U2/2、B1/2（旧nonce答不可获得、当前321正确）、C2/2。这是历史C/前瞻B混合系统观察，一组不是三重复，不解析加密摘要；不能推断摘要包含或丢失哪些内容。
+
+完整逻辑链B145645/5、C177645/4（含共同旧C1），C多32000约22%，不省Token。B阶段38.657/实际46.719秒；U62038/1、阶段6.938/实际15.000秒。C历史阶段92.218，不与B作当前配对墙钟结论；上一轮95.406实际是C2-only。当前没有新优化C整轮加速证明。
+
+新独立late_native_counterpart入口原bootstrap分叉，前缀/全文与原parent按既有传输标准化校验，actor/executable/问题/后测预算相同，两个worker并行B/U。0模型准入4.562秒通过，实际新增207683/6、46.719秒；独立确定性audit重算分数、两次压缩证明、6唯一回执、账本、源不变及全部cleanup。重复audit既有结果相同则不覆写。旧失败/unknown保留，无额外LLM裁判。
+
+证据D:/agent-task-runs/wsc-late-native-admission-20261027-v1与wsc-late-native-counterpart-20261027-v1；后者next-admission-envelope.json最新21891795/372/11592秒。640000/16是保守扣留非实际207683/6或未知上界；维护未完整计时unknown。v1.27仅执行器/报告/小证据增量，父v1.26，不复制DB和cold树。
+
+按用户第一组结束先报告，本轮不扩大派发。下一步后两组，保持输入协议，使用已验证性能旁路及计时，复用共同C1并明确“固定C1后C2条件重复”而非三独立完整选材链。固定并发/冷热初始环境、记录实际与逻辑全链成本；原生B仍真实两次压缩。长期目标active，未证明总体超越原生。
+
+## 历史：保持模型与输入的耗时优化，先优化再三配对
+
+[耗时归因与性能报告](D:/lea/XenYon%20code/wsc/reviews/2026-10-27-latency-attribution-and-performance.md)。复用后整轮110.750→95.406秒，省15.344秒；先前31.8%变慢仅指C2+QA。C2多24.203秒主要在非工具服务区间（多24.176），工具仅.011→.030秒；不把服务区间冒作纯模型计算。复用只带DB/草稿，新cold目录重新物化，不能忽略冷热差异。
+
+新增默认关闭的主机计时native_latency与BoundWindowsIO，只缓存Win32函数绑定，不缓存文件/权限/hash或省检查。5交替稳态发布中位.417268→.327726秒（21.5%局部），包与1294对象逐字节同；不是整轮21.5%收益。服务准入可复用实际选择器、减少一个一次性进程，额度检查仍在模型派发前，模型可见items相同。39过/1本机symlink跳过/6子用例，非全项目。本轮0模型调用，默认原路径保留；冷回放、微基准与实际模型轮不能混比。
+
+证据wsc-latency-analysis、wsc-external-latency-replay、wsc-bound-io-profile-v1/v2、wsc-publication-bound-io-profile-v1/v2、wsc-selector-readiness-reuse（均20261027）。最新封套latency-analysis/next-admission-envelope.json；旧unknown/失败/花费保留，维护/预热等未完整计时仍unknown。v1.26为v1.25增量。
+
+下一步固定协议做晚位三次B/C，明确冷热初始制品、并发与顺序，记录总墙钟及组件耗时，复用兼容已完成单元并标明历史属性，不再增加输入格式；真实native压缩，不做额外LLM评分。
+
+## 历史：旧事件可逆行表实际2/2，后续Token少31.3%，但阶段更慢
+
+[行表报告](D:/lea/XenYon%20code/wsc/reviews/2026-10-27-event-table-qualified.md)。独立native_event_table.py/可选generate(cold_event_table=True)，old text_in_frontier is False共同字段defaults/具名列/原event_index，不删字段/正文/角色/来源，不语义筛选；异构/无收益原样通过。默认关闭，C-only --cold-event-table与新策略/event_rows_v1；schema先生成所以输出schema不变。严格哈希/类型/索引恢复，false0null/missing不混。
+
+真实旧请求+草稿0模型还原/编译等价通过。准入v1/v2脚本分别忘恢复原text、预算表原source身份而失败，均0模型，原目录保留；修正审计接口层后v3过。36定向/6子用例过（6文件），非全项目。
+
+复用晚位资格C1 89442，不再运行。新C2选材69187/2（旧109456/2），查询19016/1（旧19022/1），合88203/3（旧128478），少31.3%；含复用C1完整链路177645 vs217920少18.5%。请求145655→55479B；首次输入51930→30214；仍2/2。新读s540/s643/s642三次正常来源，旧一次find；模型输出更多、C2+查询阶段57.219→75.39秒，慢31.8%。不宣称更快/金额/任意任务质量保证，不把所有总量差都归因静态编码。
+
+新source-tool-audit核对3工具实收原文/哈希；table-run-audit解码后请求除冷清单path/sha定位外全等、schema全等、643source对象文件相同，原DBhash未变。源码源中M=0准入，旧C2信息不经M目录泄漏；新线程只给C1 previous状态，旧views/用量保留但未注入。实际新模型policy单次资格不是正式3对或B优势。
+
+证据wsc-event-table-admission-20261027-v1/v2/v3、wsc-event-table-qualification-20261027-v1（candidate全日志/新绑定/两个audit/comparison）。最新后者next-time-reconciled-envelope.json：22531795/388/11697秒；成功0模型准入.078另扣ceil1；失败准入hash/精确时间unknown，failure.json为观察错误后补记非虚构自动回执。新增实际88203，不是含C1的177645，保守320k扣留非实际费或未知上界，旧unknown/维护unknown保留。版本v1.25保存代码/报告/小证据，不复制DB/cold树。
+
+下一步固定这版协议做晚位三次B/C，复用已完成单元并明确历史已知属性，补缺失C/B/未压缩基线；必须真实native compact不假摘要。完成前不再叠加输入新格式。之后再其他案例/多轮；长期goal active。
+
+## 历史：晚位旧证据真实C续接2/2；下一步压缩重复元数据，不重做C1
+
+[资格报告](D:/lea/XenYon%20code/wsc/reviews/2026-10-27-late-recovery-qualification.md)。新seed20261028/320构建，641旧来源目标build270在s540，后50构建。新独立late_recovery_case+LateCell复用核心真实两选择/导入，最初没预告审计目标；新用户审计在C1结束后才入历史。0模型准入过28.734秒；实际C1模型89442/1，C2选择109456/2，后测19022/1，共217920/4，2/2。C2真实请求/schema均无目标nonce，模型一次find(build270)收到旧s540原回执与新s643请求，正确答旧nonce/current321。独立audit核对生成绑定、原文hash和native实际工具输出、回执/评分/清理。
+
+本例不是B对比或三重复，未native compact；不fake原生摘要。两个selector同minimal+compactwire+budget_results+snapshot_literal，第二个全新不继承原prefix；答题正常WSC包兄弟隔离。选材前无oracle文件。0模型准入的空选只是接口检查，真实C1/C2均模型决定。30定向/6子用例（6文件）通过，所有owner清理确认。
+
+实际C2请求145655B+schema5873B，events124776B占请求85.7%，旧641事件重复kind/不可见/null/空span/frontier=false，sourcefacts16177B。C2输入51930与52935（缓存51712），非免费恢复。离线仅将旧元数据共同字段defaults/其余列带原位置成表，全字段严格还原，候选request55421B（-62%）。input-audit明确production_codec_implemented=false，未证明新模型Token/质量收益；不把byte当Token，不语义筛选。
+
+证据wsc-late-recovery-admission-20261027-v1和wsc-late-recovery-qualification-20261027-v1（audit/input-audit/feasibility及所有raw）。最新封套后者next-admission-envelope.json：22851795/396/11794秒。实际已知217920，保守扣520k分配非实际/未知上界，旧研究unknown保留，维护未完整计时。v1.24保存新case/执行器/审计/报告/小证据，不复制DB/cold树。
+
+下一步通用可逆冷元数据行表：类型/缺失/false0严格、旧草稿/请求还原与编译等价后，仅复用本次C1做新C2小额质量检查。通过再晚位三次B/C（真实B/未压缩同题基线/统一预算），不重做89442Token C1，不直接扩75格。此case有规律receipt/log排列，已观察实际find但不称唯一恢复路线；正式扩展须说明。长期goal active。
+
+## 历史：大历史后部证据可达性已复现并做可选快照检索，0模型
+
+[本轮报告](D:/lea/XenYon%20code/wsc/reviews/2026-10-27-late-source-reachability.md)。默认find把每条不匹配日志也读DB/hash，累计512行预算，1024中1016/4096中4088的旧目标不可达；已知别名read都正确。8确定性案例旧6/8、新8/8，不是模型压缩正确率，也不是新B/C。
+
+新独立SnapshotLiteralAccess：封存公开正文按模型literal精确搜索、source-order无排名，只命中项live ACL/DB/seal校验后返回，缓存不修补坏行。正结果完整性/权限不降；负结果只指sealed snapshot正文，未命中库健康不作证，search_basis/storage_validation明示。原8调用/512 live校验/2MiB正文/16KiB返回不增；新目录最多65536事件/16MiB公开正文引用，扫描每次8192来源/协作250ms，不能抢占ACL/DB阻塞，不称硬墙钟。目录字节统计主机侧，拒绝正文不冒作byte预算失败。
+
+最终仪表测量4096后部：旧构建.142+查询.057秒却失败，峰值1.156MB；新.311+.070秒成功，1.606MB；校验512→1，实际逻辑文本15252→125886。不是更快/省内存，快照/全进程峰值未包含，physical I/O未知，O(N)未解决。默认不改，C-only --snapshot-literal-search新命名策略；可组合预算错误结果与精简运行环境。34定向/6子用例（6文件）过，包含原生工具端口/绑定，独立原库内容/range/hash审计8源DB不变，未调用模型。
+
+证据wsc-late-source-access-20261027-v1；开发profile-v1/v2保留，最终wsc-snapshot-literal-profile-20261027-v3含所有原始搜索输出/审计/测试。0模型计时.657+2.0079374+1.8944947+1.9375665合6.497扣ceil7秒；最新profile-v3/next-admission-envelope.json：23371795/408/11934秒。维护未完整计时仍unknown，旧unknown不重置。v1.23只存代码/报告/小回执，不复制8fixture DB。
+
+下一步晚位旧来源的新预登记真实任务先小额模型资格，确认能用新入口正确续接后3配对，不用原早位build003冒充晚位覆盖，不直接跑75格。新负结果契约/缓存构建成本/资源差异必须单列，未证明模型Token或最终正确率改善。长期goal active。
+
+## 历史：两轮恢复三对系统观测完成，C6/6、B3/6，平均调用多5.4%
 
 [完成报告](D:/lea/XenYon%20code/wsc/reviews/2026-10-27-two-boundary-mixed-results.md)。原同release-receipt历史/同题：未压缩6/6、B3/6、C6/6；B都当前65正确、旧nonce缺失，C全部正确。完成链路B两压缩+后测均98308.7 Token/41.552阶段秒，C两选材+后测均103587/57.995；C多5.4%Token、39.6%阶段时间。不是热context/金额优势，也不是总体长期保证。
 
