@@ -22,15 +22,15 @@ Work State Compaction。给长期运行的 coding agent 做上下文压缩的 Py
 
 **2. 快照。** 一次压缩的输入固定成快照，绑定会话、工作区、代次、控制版本、理解版本、`cut` 和来源摘要。`cut` 是来源序号，不是压缩后数组的下标。快照每次使用前重新校验，前缀变了就拒绝。控制或理解版本变化会让旧候选失效；新到的普通尾部事件不会。
 
-**3. 选材。** 留什么由调用方的模型决定，核心不做关键词排名，也不内置摘要提示词。三种前端（原文引用、字符区间、精确片段）只负责把选择绑到字节上：算范围、算内容哈希、校验唯一匹配。模型改写、来源对不上、路径已经变了，一律返回事实状态，不修补。必留的 user/system/developer 消息强制并入，不受选材影响。模型明确说出的判断另存为理解，带来源、类别、适用范围和版本号，修订走 CAS，没有来源的假设不会被升级成事实。
+**3. 选材。** 留什么由调用方的模型决定，核心不做关键词排名，也不内置摘要提示词。三种前端（原文引用、字符区间、精确片段）只负责把选择绑到字节上：算范围、算内容哈希、校验唯一匹配。模型改写、来源对不上、路径已经变了，一律返回事实状态，不修补。标了控制位的事件（user/system/developer 角色，或显式 `control=True`）强制并入，不受选材影响。模型明确说出的判断另存为理解，带来源、类别、适用范围和版本号，修订走 CAS，没有来源的假设不会被升级成事实。
 
 **4. 预算。** 生成前先算必留消息与视图骨架的字节下界。下界已超 `max_view_bytes` 时，在模型调用和记账之前返回 `mandatory_view_byte_budget_exhausted`；候选整体超限同样拒绝。上限按字节计，不按 token 折算，真实容量由宿主按实际请求判断。
 
-**5. 发布。** 候选写盘只是 `ready`，不等于安装。`install` 时宿主在同一个同步边界内检查代次、控制版本、容量和在途工具，返回持久回执；只有 `confirmed` 才推进折叠游标。`rejected` 表示该操作从未安装且此后不会安装，可以安全重做；`lookup` 返回 `None` 表示结果未知，不等于没执行，此时走 `reconcile` 对账，不重发请求，也不重复执行任务工具。安装超时保留来源和未推进的游标。
+**5. 发布。** 候选写盘只是 `ready`，不等于安装。`install` 时宿主在同一个同步边界内检查代次、控制版本、容量和在途工具，返回持久回执；只有 `confirmed` 才推进折叠游标。`rejected` 表示该操作从未安装且此后不会安装，可以安全重做；`lookup` 返回 `None` 表示结果未知，不等于没执行，此时走 `reconcile` 对账，不重发请求，也不重复执行任务工具。安装超时保留来源和未推进的游标。传入 `resource_io=ResourceIO()` 时，安装会在描述符层持有路径租约（Windows），并在安装前重新核对每个证据文件的摘要。
 
-**6. 证据与账本。** 证据读取单独一层：授权检查加精确字节读取，部分哈希、对象哈希、观察时间、完整性分开报；引用可以带资源哈希去查当前位置，只在唯一匹配时给行号。用量单独记账：调用发出前登记，失败、超时、没回执都保留，没报的用量记 `null`，汇总分成已知和未知两类。
+**6. 证据与账本。** 证据读取单独一层：授权检查加精确字节读取，部分哈希、对象哈希、观察时间、完整性分开报；引用可以带资源哈希去查当前位置，只在唯一匹配时给行号。另有可选的快照内字面检索（`SnapshotLiteralAccess`），按调用上限扫描已封存来源，命中后再做实时校验，不做语义排序。用量单独记账：调用发出前登记，失败、超时、没回执都保留，没报的用量记 `null`，汇总分成已知和未知两类。
 
-组件不判断语义对错，不调用模型，不替宿主执行任务，不伪造安装回执。宿主如果没有原子安装和持久查询能力，就只能停在导出边界。
+组件不判断语义对错，不替宿主执行任务，不伪造安装回执。生成由调用方提供：组件不内置供应商、不内置提示词、不读密钥，只负责预算、边界与记账。宿主如果没有原子安装和持久查询能力，就只能停在导出边界。
 
 ### 机制图
 
@@ -83,16 +83,20 @@ core = WSC(
 adapter = CodexCheckpointAdapter()
 core.ingest(adapter.import_items(native_items, thread_id=native_thread_id))
 core.presented(request_id, presented_source_ids, receiver=actual_receiver)
+# 一个回合有多条结果时，用一次事务提交：
+# core.presented_many([(request_id, source_ids, actual_receiver), ...])
 
 snapshot = core.capture(cut=source_boundary)
 view = core.prepare(snapshot, Selection(), producer=model_output_identity)
 
 operation = core.stage(view, directory=export_directory, adapter=adapter)
 host = CallbackHost(commit=atomic_host_install, lookup=durable_host_lookup)
-receipt = core.install(operation, host)
+receipt = core.install(operation, host)      # 返回已确认的回执（dict）
 ```
 
-选材也可以交给模型：`core.generate(snapshot, generator, producer=..., limits=...)`。generator 收到公开材料，返回 `Generated(Selection(...), Usage(...))`。组件不带供应商、不带提示词、不读密钥。
+选材也可以交给模型：`core.generate(snapshot, generator, producer=..., limits=...)`。generator 收到公开材料，返回 `Generated(Selection(...), Usage(...))`；`JsonCommandGenerator` / `BoundedJsonCommandGenerator` 提供了 stdin/stdout 的 JSON 传输，带超时与输出上限。调用方负责实际模型调用和诚实用量。
+
+构造参数里还有几个可选开关，默认全部关闭：`resource_io=ResourceIO()` 启用有界描述符 I/O 与安装期路径租约；`query_policy="prefix_index_v1"` 让快照校验走前缀索引；`publication_policy="bounded_catalog_v1"` 在最终绑定校验前释放导出的目录副本；`evidence_sync=False` 跳过逐对象 fsync（只保证进程崩溃安全，不保证掉电）。
 
 CLI 每条命令都显式绑定 `--db`、`--session`、`--workspace`，不会去猜或改现有会话：
 
@@ -102,6 +106,8 @@ wsc --db state.db --session sample --workspace . prepare --selection selection.j
 wsc --db state.db --session sample --workspace . export --view VIEW_ID --directory checkpoint-output
 wsc --db state.db --session sample --workspace . status
 ```
+
+全局还有 `--resource-io`、`--prefix-index`、`--bounded-catalog` 三个开关，对应上面同名的构造参数。
 
 ## 什么时候不该用 WSC
 
