@@ -64,6 +64,9 @@ class ResourceIOTests(unittest.TestCase):
             root=Path(directory);target=root/'target';outside=root/'outside';outside.write_bytes(b'original')
             try:target.symlink_to(outside)
             except OSError:self.skipTest('local symlink creation unavailable')
+            # Some sandboxes accept symlink_to and create nothing; the case is
+            # only meaningful when the link actually exists.
+            if not os.path.lexists(target):self.skipTest('local symlink creation ignored')
             # Inject the stale precheck result possible during a replacement race.
             with patch.object(Path,'is_symlink',return_value=False):
                 publish_object(target,b'original') # Baseline accepts a substituted link.
