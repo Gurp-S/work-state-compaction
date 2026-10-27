@@ -1,0 +1,719 @@
+{
+  "report_type": "Existing-artifact aggregation only; no new model calls, tests, benchmarks or experiments.",
+  "dataset": {
+    "seed": 20261028,
+    "builds": 320,
+    "C1_sources": 641,
+    "C2_sources": 643,
+    "task": "Recover exact old build-270 nonce and current build number after two checkpoints.",
+    "case_count": 1,
+    "questions": 2,
+    "repetitions": 3
+  },
+  "compressor_raw_metrics": [
+    {
+      "repetition": "R01",
+      "scheme": "WSC_C",
+      "stage": "C1",
+      "source_records": 641,
+      "original_public_text_bytes": 111060,
+      "original_native_items_json_bytes": 177074,
+      "incremental_visible_input_json_bytes": 177074,
+      "compressor_request_json_bytes": 150591,
+      "output_schema_json_bytes": 9998,
+      "prepared_body_json_bytes": 5069,
+      "rendered_items_json_bytes": 2906,
+      "rendered_items_count": 4,
+      "model_draft_text_bytes": 453,
+      "rendered_over_full_history_byte_ratio": 0.016411217908896845,
+      "rendered_over_incremental_visible_input_byte_ratio": 0.016411217908896845,
+      "pure_original_context_tokens": null,
+      "pure_compressed_context_tokens": null,
+      "pure_context_token_ratio": null,
+      "call_input_tokens": 61299,
+      "call_cached_input_tokens": 0,
+      "call_output_tokens": 2166,
+      "call_reasoning_output_tokens": 2043,
+      "call_total_tokens": 63465,
+      "responses": 1,
+      "phase_seconds": 20.702999999994063,
+      "complete": true,
+      "source": "D:\\agent-task-runs\\wsc-c1-columns-qualification-20261027-v1\\R01\\C1-generation"
+    },
+    {
+      "repetition": "R01",
+      "scheme": "WSC_C",
+      "stage": "C2",
+      "source_records": 643,
+      "original_public_text_bytes": 111459,
+      "original_native_items_json_bytes": 177669,
+      "incremental_visible_input_json_bytes": 3501,
+      "compressor_request_json_bytes": 55378,
+      "output_schema_json_bytes": 5873,
+      "prepared_body_json_bytes": 6325,
+      "rendered_items_json_bytes": 3766,
+      "rendered_items_count": 5,
+      "model_draft_text_bytes": 710,
+      "rendered_over_full_history_byte_ratio": 0.021196719742892684,
+      "rendered_over_incremental_visible_input_byte_ratio": 1.0756926592402172,
+      "pure_original_context_tokens": null,
+      "pure_compressed_context_tokens": null,
+      "pure_context_token_ratio": null,
+      "call_input_tokens": 61550,
+      "call_cached_input_tokens": 30080,
+      "call_output_tokens": 2511,
+      "call_reasoning_output_tokens": 2250,
+      "call_total_tokens": 64061,
+      "responses": 2,
+      "phase_seconds": 24.546999999991385,
+      "complete": true,
+      "source": "D:\\agent-task-runs\\wsc-c1-columns-qualification-20261027-v1\\R01\\C2-generation"
+    },
+    {
+      "repetition": "R01",
+      "scheme": "Codex_native_B",
+      "stage": "B1",
+      "source_records": 641,
+      "original_public_text_bytes": 111060,
+      "original_native_items_json_bytes": 177074,
+      "incremental_visible_input_json_bytes": null,
+      "compressor_request_json_bytes": null,
+      "output_schema_json_bytes": null,
+      "prepared_body_json_bytes": null,
+      "rendered_items_json_bytes": null,
+      "rendered_items_count": null,
+      "model_draft_text_bytes": null,
+      "rendered_over_full_history_byte_ratio": null,
+      "rendered_over_incremental_visible_input_byte_ratio": null,
+      "pure_original_context_tokens": null,
+      "pure_compressed_context_tokens": null,
+      "pure_context_token_ratio": null,
+      "call_input_tokens": 58212,
+      "call_cached_input_tokens": 11520,
+      "call_output_tokens": 424,
+      "call_reasoning_output_tokens": 0,
+      "call_total_tokens": 58636,
+      "responses": 1,
+      "phase_seconds": 8.468999999997322,
+      "complete": true,
+      "source": "D:\\agent-task-runs\\wsc-late-native-counterpart-20261027-v1\\B\\B1-compression"
+    },
+    {
+      "repetition": "R01",
+      "scheme": "Codex_native_B",
+      "stage": "B2",
+      "source_records": 643,
+      "original_public_text_bytes": 111459,
+      "original_native_items_json_bytes": 177669,
+      "incremental_visible_input_json_bytes": null,
+      "compressor_request_json_bytes": null,
+      "output_schema_json_bytes": null,
+      "prepared_body_json_bytes": null,
+      "rendered_items_json_bytes": null,
+      "rendered_items_count": null,
+      "model_draft_text_bytes": null,
+      "rendered_over_full_history_byte_ratio": null,
+      "rendered_over_incremental_visible_input_byte_ratio": null,
+      "pure_original_context_tokens": null,
+      "pure_compressed_context_tokens": null,
+      "pure_context_token_ratio": null,
+      "call_input_tokens": 18435,
+      "call_cached_input_tokens": 11520,
+      "call_output_tokens": 658,
+      "call_reasoning_output_tokens": 0,
+      "call_total_tokens": 19093,
+      "responses": 1,
+      "phase_seconds": 6.532000000006519,
+      "complete": true,
+      "source": "D:\\agent-task-runs\\wsc-late-native-counterpart-20261027-v1\\B\\B2-compression"
+    },
+    {
+      "repetition": "R02",
+      "scheme": "WSC_C",
+      "stage": "C1",
+      "source_records": 641,
+      "original_public_text_bytes": 111060,
+      "original_native_items_json_bytes": 177074,
+      "incremental_visible_input_json_bytes": 177074,
+      "compressor_request_json_bytes": 150590,
+      "output_schema_json_bytes": 9998,
+      "prepared_body_json_bytes": 4945,
+      "rendered_items_json_bytes": 2785,
+      "rendered_items_count": 4,
+      "model_draft_text_bytes": 329,
+      "rendered_over_full_history_byte_ratio": 0.01572788777573218,
+      "rendered_over_incremental_visible_input_byte_ratio": 0.01572788777573218,
+      "pure_original_context_tokens": null,
+      "pure_compressed_context_tokens": null,
+      "pure_context_token_ratio": null,
+      "call_input_tokens": 61320,
+      "call_cached_input_tokens": 0,
+      "call_output_tokens": 1111,
+      "call_reasoning_output_tokens": 1008,
+      "call_total_tokens": 62431,
+      "responses": 1,
+      "phase_seconds": 20.952999999994063,
+      "complete": true,
+      "source": "D:\\agent-task-runs\\wsc-c1-columns-repeats-20261027-v1\\R02\\R01\\C1-generation"
+    },
+    {
+      "repetition": "R02",
+      "scheme": "WSC_C",
+      "stage": "C2",
+      "source_records": 643,
+      "original_public_text_bytes": 111459,
+      "original_native_items_json_bytes": 177669,
+      "incremental_visible_input_json_bytes": 3380,
+      "compressor_request_json_bytes": 55253,
+      "output_schema_json_bytes": 5873,
+      "prepared_body_json_bytes": 5518,
+      "rendered_items_json_bytes": 3601,
+      "rendered_items_count": 5,
+      "model_draft_text_bytes": 576,
+      "rendered_over_full_history_byte_ratio": 0.0202680264987139,
+      "rendered_over_incremental_visible_input_byte_ratio": 1.0653846153846154,
+      "pure_original_context_tokens": null,
+      "pure_compressed_context_tokens": null,
+      "pure_context_token_ratio": null,
+      "call_input_tokens": 93964,
+      "call_cached_input_tokens": 60928,
+      "call_output_tokens": 2321,
+      "call_reasoning_output_tokens": 2043,
+      "call_total_tokens": 96285,
+      "responses": 3,
+      "phase_seconds": 27.922000000005937,
+      "complete": true,
+      "source": "D:\\agent-task-runs\\wsc-c1-columns-repeats-20261027-v1\\R02\\R01\\C2-generation"
+    },
+    {
+      "repetition": "R02",
+      "scheme": "Codex_native_B",
+      "stage": "B1",
+      "source_records": 641,
+      "original_public_text_bytes": 111060,
+      "original_native_items_json_bytes": 177074,
+      "incremental_visible_input_json_bytes": null,
+      "compressor_request_json_bytes": null,
+      "output_schema_json_bytes": null,
+      "prepared_body_json_bytes": null,
+      "rendered_items_json_bytes": null,
+      "rendered_items_count": null,
+      "model_draft_text_bytes": null,
+      "rendered_over_full_history_byte_ratio": null,
+      "rendered_over_incremental_visible_input_byte_ratio": null,
+      "pure_original_context_tokens": null,
+      "pure_compressed_context_tokens": null,
+      "pure_context_token_ratio": null,
+      "call_input_tokens": 58212,
+      "call_cached_input_tokens": 11520,
+      "call_output_tokens": 330,
+      "call_reasoning_output_tokens": 0,
+      "call_total_tokens": 58542,
+      "responses": 1,
+      "phase_seconds": 8.40700000000652,
+      "complete": true,
+      "source": "D:\\agent-task-runs\\wsc-late-remaining-pairs-20261027-v1\\R02\\B\\B1-compression"
+    },
+    {
+      "repetition": "R02",
+      "scheme": "Codex_native_B",
+      "stage": "B2",
+      "source_records": 643,
+      "original_public_text_bytes": 111459,
+      "original_native_items_json_bytes": 177669,
+      "incremental_visible_input_json_bytes": null,
+      "compressor_request_json_bytes": null,
+      "output_schema_json_bytes": null,
+      "prepared_body_json_bytes": null,
+      "rendered_items_json_bytes": null,
+      "rendered_items_count": null,
+      "model_draft_text_bytes": null,
+      "rendered_over_full_history_byte_ratio": null,
+      "rendered_over_incremental_visible_input_byte_ratio": null,
+      "pure_original_context_tokens": null,
+      "pure_compressed_context_tokens": null,
+      "pure_context_token_ratio": null,
+      "call_input_tokens": 18341,
+      "call_cached_input_tokens": 11520,
+      "call_output_tokens": 389,
+      "call_reasoning_output_tokens": 0,
+      "call_total_tokens": 18730,
+      "responses": 1,
+      "phase_seconds": 7.1560000000026776,
+      "complete": true,
+      "source": "D:\\agent-task-runs\\wsc-late-remaining-pairs-20261027-v1\\R02\\B\\B2-compression"
+    },
+    {
+      "repetition": "R03",
+      "scheme": "WSC_C",
+      "stage": "C1",
+      "source_records": 641,
+      "original_public_text_bytes": 111060,
+      "original_native_items_json_bytes": 177074,
+      "incremental_visible_input_json_bytes": 177074,
+      "compressor_request_json_bytes": 150590,
+      "output_schema_json_bytes": 9998,
+      "prepared_body_json_bytes": 5802,
+      "rendered_items_json_bytes": 3357,
+      "rendered_items_count": 4,
+      "model_draft_text_bytes": 742,
+      "rendered_over_full_history_byte_ratio": 0.018958175677965143,
+      "rendered_over_incremental_visible_input_byte_ratio": 0.018958175677965143,
+      "pure_original_context_tokens": null,
+      "pure_compressed_context_tokens": null,
+      "pure_context_token_ratio": null,
+      "call_input_tokens": 61322,
+      "call_cached_input_tokens": 0,
+      "call_output_tokens": 1585,
+      "call_reasoning_output_tokens": 1393,
+      "call_total_tokens": 62907,
+      "responses": 1,
+      "phase_seconds": 15.281000000002678,
+      "complete": true,
+      "source": "D:\\agent-task-runs\\wsc-c1-columns-repeats-20261027-v1\\R03\\R01\\C1-generation"
+    },
+    {
+      "repetition": "R03",
+      "scheme": "WSC_C",
+      "stage": "C2",
+      "source_records": 643,
+      "original_public_text_bytes": 111459,
+      "original_native_items_json_bytes": 177669,
+      "incremental_visible_input_json_bytes": 3952,
+      "compressor_request_json_bytes": 55786,
+      "output_schema_json_bytes": 5943,
+      "prepared_body_json_bytes": 6021,
+      "rendered_items_json_bytes": 3280,
+      "rendered_items_count": 5,
+      "model_draft_text_bytes": 519,
+      "rendered_over_full_history_byte_ratio": 0.01846129600549336,
+      "rendered_over_incremental_visible_input_byte_ratio": 0.8299595141700404,
+      "pure_original_context_tokens": null,
+      "pure_compressed_context_tokens": null,
+      "pure_context_token_ratio": null,
+      "call_input_tokens": 62716,
+      "call_cached_input_tokens": 30208,
+      "call_output_tokens": 2345,
+      "call_reasoning_output_tokens": 2039,
+      "call_total_tokens": 65061,
+      "responses": 2,
+      "phase_seconds": 27.906000000002678,
+      "complete": true,
+      "source": "D:\\agent-task-runs\\wsc-c1-columns-repeats-20261027-v1\\R03\\R01\\C2-generation"
+    },
+    {
+      "repetition": "R03",
+      "scheme": "Codex_native_B",
+      "stage": "B1",
+      "source_records": 641,
+      "original_public_text_bytes": 111060,
+      "original_native_items_json_bytes": 177074,
+      "incremental_visible_input_json_bytes": null,
+      "compressor_request_json_bytes": null,
+      "output_schema_json_bytes": null,
+      "prepared_body_json_bytes": null,
+      "rendered_items_json_bytes": null,
+      "rendered_items_count": null,
+      "model_draft_text_bytes": null,
+      "rendered_over_full_history_byte_ratio": null,
+      "rendered_over_incremental_visible_input_byte_ratio": null,
+      "pure_original_context_tokens": null,
+      "pure_compressed_context_tokens": null,
+      "pure_context_token_ratio": null,
+      "call_input_tokens": 58212,
+      "call_cached_input_tokens": 11520,
+      "call_output_tokens": 317,
+      "call_reasoning_output_tokens": 0,
+      "call_total_tokens": 58529,
+      "responses": 1,
+      "phase_seconds": 7.703000000008615,
+      "complete": true,
+      "source": "D:\\agent-task-runs\\wsc-late-remaining-pairs-20261027-v1\\R03\\B\\B1-compression"
+    },
+    {
+      "repetition": "R03",
+      "scheme": "Codex_native_B",
+      "stage": "B2",
+      "source_records": 643,
+      "original_public_text_bytes": 111459,
+      "original_native_items_json_bytes": 177669,
+      "incremental_visible_input_json_bytes": null,
+      "compressor_request_json_bytes": null,
+      "output_schema_json_bytes": null,
+      "prepared_body_json_bytes": null,
+      "rendered_items_json_bytes": null,
+      "rendered_items_count": null,
+      "model_draft_text_bytes": null,
+      "rendered_over_full_history_byte_ratio": null,
+      "rendered_over_incremental_visible_input_byte_ratio": null,
+      "pure_original_context_tokens": null,
+      "pure_compressed_context_tokens": null,
+      "pure_context_token_ratio": null,
+      "call_input_tokens": 18328,
+      "call_cached_input_tokens": 11520,
+      "call_output_tokens": 560,
+      "call_reasoning_output_tokens": 0,
+      "call_total_tokens": 18888,
+      "responses": 1,
+      "phase_seconds": 7.514999999999418,
+      "complete": true,
+      "source": "D:\\agent-task-runs\\wsc-late-remaining-pairs-20261027-v1\\R03\\B\\B2-compression"
+    }
+  ],
+  "storage": [
+    {
+      "repetition": "R01",
+      "state_db_logical_bytes": 2658304,
+      "artifact_directories": {
+        "cold-public": {
+          "files": 643,
+          "logical_bytes": 259770
+        },
+        "cold-objects": {
+          "files": 1286,
+          "logical_bytes": 288484
+        },
+        "C1-exports": {
+          "files": 7,
+          "logical_bytes": 1214434
+        },
+        "C2-exports": {
+          "files": 7,
+          "logical_bytes": 1220110
+        }
+      },
+      "physical_allocated_bytes": null,
+      "scope": "Cumulative after C2; includes duplicated export metadata; source DB and native logs accounted separately."
+    },
+    {
+      "repetition": "R02",
+      "state_db_logical_bytes": 2641920,
+      "artifact_directories": {
+        "cold-public": {
+          "files": 643,
+          "logical_bytes": 259770
+        },
+        "cold-objects": {
+          "files": 1286,
+          "logical_bytes": 288484
+        },
+        "C1-exports": {
+          "files": 7,
+          "logical_bytes": 1211732
+        },
+        "C2-exports": {
+          "files": 6,
+          "logical_bytes": 1215708
+        }
+      },
+      "physical_allocated_bytes": null,
+      "scope": "Cumulative after C2; includes duplicated export metadata; source DB and native logs accounted separately."
+    },
+    {
+      "repetition": "R03",
+      "state_db_logical_bytes": 2658304,
+      "artifact_directories": {
+        "cold-public": {
+          "files": 643,
+          "logical_bytes": 259770
+        },
+        "cold-objects": {
+          "files": 1286,
+          "logical_bytes": 288484
+        },
+        "C1-exports": {
+          "files": 7,
+          "logical_bytes": 1215033
+        },
+        "C2-exports": {
+          "files": 7,
+          "logical_bytes": 1216888
+        }
+      },
+      "physical_allocated_bytes": null,
+      "scope": "Cumulative after C2; includes duplicated export metadata; source DB and native logs accounted separately."
+    }
+  ],
+  "system_results": {
+    "passed": true,
+    "model_calls": 0,
+    "rows": [
+      {
+        "repetition": "R01",
+        "arm": "C",
+        "correct": 2,
+        "questions": 2,
+        "tokens": 146346,
+        "responses": 4,
+        "phase_seconds": 56.64099999998871,
+        "system_seconds": null,
+        "historical_control": false,
+        "C1_reused": false,
+        "first_stage_tokens": 63465,
+        "first_stage_input": 61299,
+        "first_stage_seconds": 20.702999999994063
+      },
+      {
+        "repetition": "R01",
+        "arm": "B",
+        "correct": 1,
+        "questions": 2,
+        "tokens": 145645,
+        "responses": 5,
+        "phase_seconds": 38.65700000000652,
+        "system_seconds": 46.71899999999732,
+        "historical_control": true,
+        "C1_reused": false,
+        "first_stage_tokens": 58636,
+        "first_stage_input": 58212,
+        "first_stage_seconds": 8.468999999997322
+      },
+      {
+        "repetition": "R02",
+        "arm": "C",
+        "correct": 2,
+        "questions": 2,
+        "tokens": 180767,
+        "responses": 5,
+        "phase_seconds": 65.375,
+        "system_seconds": 101.6710000000021,
+        "historical_control": false,
+        "C1_reused": false,
+        "first_stage_tokens": 62431,
+        "first_stage_input": 61320,
+        "first_stage_seconds": 20.952999999994063
+      },
+      {
+        "repetition": "R02",
+        "arm": "B",
+        "correct": 1,
+        "questions": 2,
+        "tokens": 135148,
+        "responses": 5,
+        "phase_seconds": 30.26600000001781,
+        "system_seconds": 36.75,
+        "historical_control": true,
+        "C1_reused": false,
+        "first_stage_tokens": 58542,
+        "first_stage_input": 58212,
+        "first_stage_seconds": 8.40700000000652
+      },
+      {
+        "repetition": "R03",
+        "arm": "C",
+        "correct": 2,
+        "questions": 2,
+        "tokens": 149866,
+        "responses": 4,
+        "phase_seconds": 48.63999999999942,
+        "system_seconds": 87.45299999999406,
+        "historical_control": false,
+        "C1_reused": false,
+        "first_stage_tokens": 62907,
+        "first_stage_input": 61322,
+        "first_stage_seconds": 15.281000000002678
+      },
+      {
+        "repetition": "R03",
+        "arm": "B",
+        "correct": 1,
+        "questions": 2,
+        "tokens": 99045,
+        "responses": 3,
+        "phase_seconds": 21.562000000005355,
+        "system_seconds": 29.938000000009197,
+        "historical_control": true,
+        "C1_reused": false,
+        "first_stage_tokens": 58529,
+        "first_stage_input": 58212,
+        "first_stage_seconds": 7.703000000008615
+      }
+    ],
+    "summary": {
+      "B": {
+        "correct": 3,
+        "questions": 6,
+        "tokens": [
+          145645,
+          135148,
+          99045
+        ],
+        "mean_tokens": 126612.66666666667,
+        "median_tokens": 135148,
+        "mean_phase_seconds": 30.161666666676563,
+        "mean_first_stage_tokens": 58569,
+        "mean_first_stage_seconds": 8.193000000004153
+      },
+      "C": {
+        "correct": 6,
+        "questions": 6,
+        "tokens": [
+          146346,
+          180767,
+          149866
+        ],
+        "mean_tokens": 158993,
+        "median_tokens": 149866,
+        "mean_phase_seconds": 56.88533333332938,
+        "mean_first_stage_tokens": 62934.333333333336,
+        "mean_first_stage_seconds": 18.978999999996933
+      }
+    },
+    "new_known_tokens": 330633,
+    "new_responses": 9,
+    "C_cost_excess_vs_historical_B": 0.2557432379066864,
+    "C_cost_reduction_vs_old_C": 0.156386628935267,
+    "paired_token_delta": {
+      "mean": 32380.333333333332,
+      "minimum": 701,
+      "maximum": 50821,
+      "empirical_bootstrap_95": [
+        701,
+        50821
+      ],
+      "repetitions": 3,
+      "scope": "Descriptive paired bootstrap; tiny sample and shared runtime do not establish population reliability."
+    },
+    "old_C_mean_tokens": 188466.66666666666,
+    "source_unchanged": true,
+    "all_new_receipts_closed": true,
+    "limitations": [
+      "Same single case, one recovered historical C and two new C, all B historical.",
+      "Three independent C1/C2 chains; not shared C1 and not independent tasks.",
+      "C1 R01 exact full wall unknown after recovered coordinator failure; no imputed time.",
+      "Descriptive tiny-sample bootstrap does not establish population confidence or algorithm causation."
+    ]
+  },
+  "latest_unfinished_candidate": {
+    "status": "unfinished",
+    "reason": "registered_response_cap",
+    "grade": null,
+    "known_tokens": 68343,
+    "known_responses": 4,
+    "usage_complete": false,
+    "stage_seconds": 38.09399999999732,
+    "attempt_wall_seconds": 46.671999999991385,
+    "request_json_bytes": 7461,
+    "baseline_request_json_bytes": 55378,
+    "first_response_input_tokens": 12974,
+    "baseline_first_response_input_tokens": 30209,
+    "calls": [
+      {
+        "operation": "catalog"
+      },
+      {
+        "operation": "find",
+        "literal": "build-270",
+        "limit": 8
+      },
+      {
+        "operation": "read",
+        "source": "s540"
+      },
+      {
+        "operation": "find",
+        "literal": "\"record_type\":\"release.receipt/1\"",
+        "limit": 8,
+        "cursor": 600
+      }
+    ],
+    "usage": {
+      "input_tokens": 65293,
+      "cached_input_tokens": 46336,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 3050,
+      "reasoning_output_tokens": 2895,
+      "total_tokens": 68343
+    },
+    "unknowns_preserved": true
+  },
+  "interpretation": {
+    "bytes": "Canonical JSON UTF-8; rendered item byte ratio is not model Token ratio.",
+    "C2_denominators": "Full original history is a compression representation measure; incremental C1 package plus delta is the actual already-folded visible-input measure. Both retained.",
+    "native_black_box": "Pure native compressed Context Tokens/content are unobservable. Input/output usage measures compactor calls, not actual Context size.",
+    "cost": "Token counts include cached input; price and internal resource cost unknown. Reasoning output is part of output, not added again.",
+    "scope": "Same one case; historical B and one historical recovered C plus two new C. No general app-development or 5/10/20/50 cycle claim."
+  },
+  "compressor_summary": {
+    "WSC_C": {
+      "call_input_tokens": 134057.0,
+      "call_cached_input_tokens": 40405.333333333336,
+      "call_output_tokens": 4013.0,
+      "call_reasoning_output_tokens": 3592.0,
+      "call_total_tokens": 138070.0,
+      "phase_seconds": 45.7706666666636
+    },
+    "Codex_native_B": {
+      "call_input_tokens": 76580.0,
+      "call_cached_input_tokens": 23040.0,
+      "call_output_tokens": 892.6666666666666,
+      "call_reasoning_output_tokens": 0.0,
+      "call_total_tokens": 77472.66666666667,
+      "phase_seconds": 15.260666666673691
+    },
+    "C1": {
+      "full_history_bytes_mean": 177074,
+      "incremental_input_bytes_mean": 177074,
+      "rendered_bytes_mean": 3016,
+      "weighted_full_history_byte_ratio": 0.017032427120864724,
+      "weighted_incremental_byte_ratio": 0.017032427120864724
+    },
+    "C2": {
+      "full_history_bytes_mean": 177669,
+      "incremental_input_bytes_mean": 3611,
+      "rendered_bytes_mean": 3549,
+      "weighted_full_history_byte_ratio": 0.019975347415699982,
+      "weighted_incremental_byte_ratio": 0.9828302409304902
+    }
+  },
+  "latest_campaign_envelope": {
+    "remaining_limits": {
+      "max_total_tokens": 17771795,
+      "max_responses": 272,
+      "max_seconds": 11095
+    },
+    "local_closure": {
+      "remaining_limits": {
+        "max_total_tokens": 17771795,
+        "max_responses": 272,
+        "max_seconds": 11095
+      },
+      "original_limits": {
+        "max_total_tokens": 18091795,
+        "max_responses": 280,
+        "max_seconds": 11142
+      },
+      "historical_known": {
+        "tokens": 68343,
+        "responses": 4
+      },
+      "historical_complete_usage": null,
+      "historical_ledger_frozen": true,
+      "historical_uncertainty": true,
+      "withheld_unused_arm_allocation": {
+        "tokens": 251657,
+        "responses": 4
+      },
+      "protocol_known": {
+        "tokens": 0,
+        "responses": 0
+      },
+      "elapsed_execution_wall_seconds": 46.671999999991385,
+      "reservation_scope": "Withheld original arm allocation; not a proven upper bound on unknown spend",
+      "total_campaign_usage_complete": false
+    },
+    "old_unknowns_preserved": true,
+    "historical_uncertainty": true,
+    "whole_campaign_usage_complete": false,
+    "old_evaluation_remains_retired": true,
+    "diagnostic_limits": {
+      "max_total_tokens": 320000,
+      "max_responses": 8,
+      "max_seconds": 360
+    },
+    "accounting_scope": "Projected campaign closure; diagnostic ledger is unchanged. Withheld allocation is not actual spend.",
+    "parent_envelope": "D:\\agent-task-runs\\wsc-deferred-catalog-admission-20261027-v2\\next-admission-envelope.json",
+    "parent_envelope_sha256": "9f7df2ac50aeec79faeceb7f1386aa200c965a7feeb00e5514764f706cb8bf28"
+  },
+  "user_instruction": "No further experiments; report existing evidence only. Not a request to pause all code work."
+}

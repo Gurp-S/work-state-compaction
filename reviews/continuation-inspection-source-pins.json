@@ -1,0 +1,16 @@
+{
+  "scope": "Static syntax and file integrity only. Module not imported or executed; no tests, models, benchmarks, or runtime integration.",
+  "files": {
+    "wsc/src/wsc/continuation_inspection.py": "1ab20a1898b888fe7548efe9aa2d8e1799237d6e06fa9c054aa21f00966a9328",
+    "wsc/reviews/continuation-inspection-implementation.md": "42f82bdfb0928c3ae30fd93c52040476229fab8e5cbb6e2bc93a94340b663556",
+    "wsc/experiments/NATIVE-LOCAL-HANDOFF.md": "6fb5b5c653d317047d94690288e2816ea490a534d0c5c3df9c2892c9f2911235",
+    "wsc/src/wsc/snapshots.py": "d48738fbf16e39e7461d8e9307499babb04dee46904bec706a606aa6f40b54d8",
+    "wsc/src/wsc/events.py": "9df6e8635ea29638191dc60ce6f79c54372a5a35eb43f668a0f9467e806dea69",
+    "wsc/src/wsc/store.py": "1e9c8eaf863e04518039d8c625d9b78c6034f8f09adf27d7b2e09d9ae1639343",
+    "wsc/src/wsc/excerpts.py": "b1370a48f25fda4b7c46cdd3a532c6fb471ca65a53f81541c8b2484cdb9a4c3d",
+    "wsc/src/wsc/understanding.py": "f1a893128f2ea595026f128c2787fef363ccdd4c5aa03bdc8a0e6ad53af196c5",
+    "wsc/src/wsc/source_reference_view.py": "e151dede075961a5e8096c0ddf214bb57940c5586501853a152b126b45b5b797",
+    "wsc/src/wsc/view_budget.py": "9fd24e104cc13ef64e9c69fd980f7de02f6e7f5fa238c31b9905a4f7d0de04bb",
+    "wsc/src/wsc/evidence.py": "59c93ef5fcec0c9cc3771db96f9179d5771747e33eedb52d9848d68ece6528e0"
+  }
+}

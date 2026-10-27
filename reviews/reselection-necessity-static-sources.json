@@ -1,0 +1,16 @@
+{
+  "scope": "Static source reading only; no execution, model calls, tests, or experiments.",
+  "files": {
+    "wsc/experiments/native_incremental_candidate.py": "26411c47f59e0ee7d3fcc333ca93038ebe013e8ad0c7bd6ff3ada089f426130c",
+    "wsc/experiments/native_incremental_compile.py": "34c8ceb746538c5fc62b1a19e1b0c574c3efbdf7a2226006ef7521d49db41cfe",
+    "wsc/src/wsc/core.py": "a8dfd4e2c9179e03614de0a6ea82ff6ff03b1322cf9126a0c2652c475e3c957e",
+    "wsc/src/wsc/snapshots.py": "d48738fbf16e39e7461d8e9307499babb04dee46904bec706a606aa6f40b54d8",
+    "wsc/src/wsc/adapters/codex.py": "b1745491e15be9ec2615e5371ec7546a8df9f3116085c8d0133612374c821db4",
+    "wsc/experiments/native_indexed_checkpoint.py": "14b4cbfbc1bf59e1ea1310605e7b64b76dd018870263ec39c2345746b9c73259",
+    "wsc/benchmarks/deterministic_v1/late_recovery_qualification.py": "fbaa54d3635e8789628c31dbaa9e61fe04782032fb37c1f0e79668bcce434c53",
+    "wsc/benchmarks/deterministic_v1/blackbox_group_runner.py": "5152435988185c26148f359880b3a685b648a5d7ae4a23601acd41780b4e8bb5",
+    "wsc/src/wsc/understanding.py": "f1a893128f2ea595026f128c2787fef363ccdd4c5aa03bdc8a0e6ad53af196c5",
+    "wsc/src/wsc/excerpts.py": "b1370a48f25fda4b7c46cdd3a532c6fb471ca65a53f81541c8b2484cdb9a4c3d",
+    "wsc/experiments/native_message_checkpoint.py": "54970c48656dc2d425189cc21f572009e342268224269a825d8760f757682f9e"
+  }
+}

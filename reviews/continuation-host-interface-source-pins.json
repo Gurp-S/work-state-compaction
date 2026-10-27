@@ -1,0 +1,26 @@
+{
+  "scope": "Static source and document review only; no imports, model calls, tests, benchmarks, or execution of candidates.",
+  "goal_document": {
+    "path": "C:\\快捷方式\\临时文件\\`12.md",
+    "sha256": "18c50a86a3c1e3087852a114736c81ce00150f71a8e985fbc9e4d09b9bc04f64"
+  },
+  "files": {
+    "wsc/reviews/continuation-host-interface-review.md": "eb2029fb9378e263850d21b2e3b3b510dd888d596edabbbb1fcf229bcdad505b",
+    "wsc/reviews/continuation-inspection-implementation.md": "7734f94744b6e3ec9b713a257a8e0ae090f0bac9854fa389e8fdc45826080df7",
+    "wsc/experiments/NATIVE-LOCAL-HANDOFF.md": "39ed35fee072c6858398ad7bbbd2eef2d9812fc97a9b69563b4e5bca6faa1f6f",
+    "wsc/src/wsc/adapters/codex.py": "b1745491e15be9ec2615e5371ec7546a8df9f3116085c8d0133612374c821db4",
+    "wsc/src/wsc/adapters/covered_codex.py": "e458310a50283fa04492abc2693a9a822a55c62c3b05b81836451c7a6632e078",
+    "wsc/src/wsc/adapters/recorded_codex.py": "88e604c4869ea236dd418355c98fcb1292de3402e95b7581546bd8185abc6fc2",
+    "wsc/src/wsc/publication.py": "75cca279b91a13bd11af68396e065bf06010164fcd0ba6012f4bf5fd5465be96",
+    "wsc/experiments/native_indexed_checkpoint.py": "14b4cbfbc1bf59e1ea1310605e7b64b76dd018870263ec39c2345746b9c73259",
+    "wsc/experiments/native_source_tool.py": "838b6c4389e98c9b70b04a10aeda6d507b10067f31dd28424779ca888d435bc2",
+    "wsc/experiments/native_application_session.py": "d1b85307bc71ff742469febaafff31f9162114d08a6f253bf2526e4f50b427d9",
+    "wsc/experiments/native_study_fork_session.py": "b645022f9bda24897288788ecdc920d99c905bcccb8e8f44b95dbd4e13bd33cc",
+    "wsc/benchmarks/deterministic_v1/native_blackbox_sessions.py": "84f465fbec55bbe463e3613d921b6b515a140bf6770c9026860903fa0371c9a4",
+    "wsc/benchmarks/deterministic_v1/blackbox_group_runner.py": "5152435988185c26148f359880b3a685b648a5d7ae4a23601acd41780b4e8bb5",
+    "wsc/benchmarks/deterministic_v1/blackbox_recovery_runner.py": "267e89aaab39f5b6603be6ce893be02dfb47a183141a4bf3b36c7877507e085b",
+    "wsc/benchmarks/deterministic_v1/late_recovery_qualification.py": "fbaa54d3635e8789628c31dbaa9e61fe04782032fb37c1f0e79668bcce434c53",
+    "wsc/src/wsc/snapshot_literal_access.py": "66e61a3a57889376f67db8bdf34ee10dfb974de3e9c36f8e5d16717751159b72",
+    "wsc/src/wsc/continuation_inspection.py": "1ab20a1898b888fe7548efe9aa2d8e1799237d6e06fa9c054aa21f00966a9328"
+  }
+}

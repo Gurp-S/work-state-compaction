@@ -1,0 +1,12 @@
+{
+  "scope": "Offline aggregation and artifact integrity only; no sessions, model calls, tests, or experiments.",
+  "original_inputs_rechecked": 55,
+  "files": {
+    "wsc/validation/report_existing_continuation_latency.py": "967e65032aefec01dc6766adcc197a18bff934306d62e93291741984c578b218",
+    "wsc/validation/analyze_turn_latency_20261027.py": "498c51f0137847b389696f9d68f14e4ab7fec1f25e2285c76f17e2d155bbed3e",
+    "wsc/reviews/existing-continuation-latency-report.md": "c7470f6b1547ee8a20ca474613547f434c9e1ff75a4ece29b418250cd5088927",
+    "wsc/reviews/existing-continuation-latency-v2/analysis.json": "1e16c652bfbbc89d7a747c3828eea1b352172c98966373ea1e164bad91bc97b6",
+    "wsc/reviews/existing-continuation-latency-v2/phases.csv": "844e1f04319affb368b1766e8181f4667323338a2c414df25d9c25f4f6f02992",
+    "wsc/experiments/NATIVE-LOCAL-HANDOFF.md": "9ebf1c9706e79048c004cf9a0277848dd701e32758722339bb92a43af2aab533"
+  }
+}

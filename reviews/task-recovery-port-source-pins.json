@@ -1,0 +1,18 @@
+{
+  "scope": "Static review of source and test definitions only; no modules imported or executed, no tests or experiments run.",
+  "files": {
+    "wsc/reviews/task-recovery-port-contract.md": "57fcb96fc2fbeaaa2d9fd6c33141d61dcd5cc89ea5c8663f2b6b1e16433e40b4",
+    "wsc/experiments/NATIVE-LOCAL-HANDOFF.md": "081b4d5b0d7c48f6299c681b2faeea94a12748ac152c9d4e5d6197fb7c9ee180",
+    "wsc/src/wsc/source_access.py": "f59f03cb45840a53abc1046937f26c3e0167cda1f550ea0274abb34904ffc3e7",
+    "wsc/src/wsc/snapshot_literal_access.py": "66e61a3a57889376f67db8bdf34ee10dfb974de3e9c36f8e5d16717751159b72",
+    "wsc/src/wsc/evidence.py": "59c93ef5fcec0c9cc3771db96f9179d5771747e33eedb52d9848d68ece6528e0",
+    "wsc/experiments/native_source_tool.py": "838b6c4389e98c9b70b04a10aeda6d507b10067f31dd28424779ca888d435bc2",
+    "wsc/experiments/native_source_tool_budget.py": "d258e9b4b6e041579d108ec432aa47669b9db8fbb7660c70a040353ee878b990",
+    "wsc/experiments/native_selector_runtime.py": "29f6853f8c1684a21e2a20f880fa7c39db12fbaaf6da79f5d3663e29896b2ff1",
+    "wsc/experiments/native_application_session.py": "d1b85307bc71ff742469febaafff31f9162114d08a6f253bf2526e4f50b427d9",
+    "wsc/benchmarks/deterministic_v1/native_blackbox_sessions.py": "84f465fbec55bbe463e3613d921b6b515a140bf6770c9026860903fa0371c9a4",
+    "wsc/tests/test_native_source_tool.py": "334fad9f0e52bab9f827d708de94e0dd2a8c9c73e93eb4c826531b4cf4d7629a",
+    "wsc/tests/test_native_source_tool_budget.py": "8a4acc6a12c06954b262f95bf1c4e2682a144f28ca02ab8330a466bf8058c656",
+    "wsc/tests/test_snapshot_literal_access.py": "ac5a81cd090cf7fbe809713139c9be4b85e304e3e2a2d018ab6091260f1c8a7d"
+  }
+}

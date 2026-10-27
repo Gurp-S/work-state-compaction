@@ -2,7 +2,69 @@
 
 更新：2026-10-27。当前代理直接完成，不使用子代理。长期目标未达成。用户确认额度恢复，明确采用实际实验运行时间累计、额度等待不计；旧消耗、失败、未知及原上限不变。以下历史段落不覆盖本节。
 
-## 最新：三条独立C1/C2完整链完成，C6/6、B3/6，平均仍贵25.57%
+## 最新：既有计时日志分解完成；未重跑实验
+
+[耗时报告](D:/lea/XenYon%20code/wsc/reviews/existing-continuation-latency-report.md)与existing-continuation-latency-v2的JSON/CSV：复用旧分析器，19阶段/7时间线全部保留，源hash绑定，无新模型/会话/测试/性能实验。成功C的7个恢复回调本地合4.564ms，服务工具区间81ms；每链C/B阶段56.885/30.162秒，其中非工具服务区间55.414/29.543秒。纯推理/排队/网络仍unknown，不能因该拆分归因温度或纯模型计算。
+
+C研究集成启动/关闭14.113/14.820/18.384秒；B3.028/3.847/3.899。C资格command/exec约4.884/5.030/5.279秒；未归因9–12秒含核心/制品/协调校验，不标噪声也不扣账。R01完整wall仍unknown/87.072仅下限；R02/R03记录区间101.636/87.423不是外层101.671/87.453。失败catalog4回调本地10.042ms、服务44ms，38.094秒阶段仍四响应失败，不计QA正确率、不清unknown。
+
+v1.38仅存报告/离线分析器/派生数据小增量。当前不再追微秒级读路径；下一步据此收敛正常续接与重新压缩的职责/成本，避免重复actor与恢复链。跳C2的收益/正确率仍未验证，候选不启用、原生B不变、实验继续禁止。
+
+## 历史：普通任务恢复端口契约收敛；无新执行模块
+
+[最小契约](D:/lea/XenYon%20code/wsc/reviews/task-recovery-port-contract.md)：复用现有read/find、工具注册和分派；普通任务不套selector_runtime。补齐的边界为固定来源/owner、跨回合共享额度、显式换范围/关闭和缓存回执语义。现有seen重放不重新授权，不冒充新鲜读取；默认8次是reader生命周期额度，不是每回合重建免费重置。阴性find只证快照字面范围，opaque/当前文件/理解记录不纳入同等恢复保证。
+
+仅静态读源码/测试源码与契约归档，未执行测试/实验/模型，不再叠加未验证执行模块。v1.37小增量保存契约与源指纹。下一步只分析既有日志中模型响应/恢复回调/宿主等待的计时可观测性，缺失记unknown，不重跑。端口接入/收益仍未完成，原生B不变、旧失败/成本保留。
+
+## 历史：宿主接口静态审查；正常续接无需重建渲染
+
+[接口审查](D:/lea/XenYon%20code/wsc/reviews/continuation-host-interface-review.md)：first_receiver已按顺序append完整delta，继续旧线程不需新renderer/prepare/stage；只有重建新检查点存在旧clue位置问题。恢复专用工具目前仅selector注册，正常任务还缺同等注册＋handler分派；现有fresh与execute_stage分别有接口，可复用SourceToolHandler/SnapshotLiteralAccess，不能假定现有线程可事后加工具。
+
+新增重要边界：RecoveryCell.publish是import_receiver＋verify_paths＋core.discard，不是install/confirm；不能用head_matches=false否定已导入研究材料，也不能用导入证明冒充生产原子安装回执。正常任务有普通工具/冷索引，专用通路未交付不等于完全不可恢复。
+
+本轮仅静态调查与文档修正，未新增执行模块、未启用候选、未运行测试/实验或模型。v1.36保存小增量与源码指纹。下一步限正常任务恢复接口契约与安全边界审查，不新增压缩表示/发布机制，不重跑旧实验。长期目标未完成。
+
+## 历史：机械续接检查独立候选；未启用、未执行
+
+新增src/wsc/continuation_inspection.py：只读事务/query_only，统一旧view body digest、前缀/配对/权限、精确旧记录/片段校验；列出全尾部、epoch变化不完整、未决发布和外部引用待观察事实。executable恒false，无Selection/发布/默认入口接入。内部合并存储形态字节仅诊断，不是有序rendered/宿主Token。旧frontier缺口未改，既有正确率不适用于此候选。
+
+[实现说明](D:/lea/XenYon%20code/wsc/reviews/continuation-inspection-implementation.md)。本轮未调用模型、运行测试或任何实验，只做静态语法和交付完整性检查。v1.35保存候选与说明的小增量，不复制DB。后续限静态审查有序呈现与正常任务恢复接口，不启用候选、不启动评测。长期目标未完成。
+
+## 历史：第二次选材必要性静态审查完成；继续禁止实验
+
+用户选择“查清第二次选材何时真的必要”。本轮只读源码和既有报告，没有实验、测试、模型调用，也未修改执行路径。[静态审查报告](D:/lea/XenYon%20code/wsc/reviews/reselection-necessity-static-review.md)，源文件指纹在reselection-necessity-static-sources.json，v1.34为静态报告小增量。
+
+查明：LateCell先把完整delta追加给first_receiver，再固定self.select C2；native_incremental_candidate.prepare每次都generate，没容量/复用分支。core.prepare已支持现成Selection且不调用模型。故检查点/新消息/新需求本身不等于必须重新选材；但显式generate API不得静默改为no-op，未来要独立入口/旁路。
+
+分类：全旧选择+完整增量可保留且绑定/宿主容量/恢复能力成立时可机械延续；必须舍弃/改写/重组或明确请求重选时才需要新的语义决策；坏hash/权限/发布状态/工具配对必须先拒绝或恢复，模型不修补。全局understanding_epoch变化不等于相关语义变更，source.cut不变也不等于完整工作状态不变，缺变化证明时不能自动套新revision。
+
+不能直接删C2：该案例C2还取回旧nonce，而WSCSource只挂selector，普通probe无该专用handler（仍有普通工具/冷索引路径，但同成本恢复未证明）。不能把C2全部75135.7Token都当可节省。旧帧+全尾部顺序要先旧后新；旧epoch view不可直接重发布，需合法新绑定，语义选择as-of边界不能被更新成“当前已认证”。字节fit不证明宿主Tokenfit。
+
+相关静态缺口：frontier直接SQL读旧view，仅比binding/ref/key集，没有走snapshots.view_record的body digest检查，旧clue改动可能进入输入。标明静态发现未做篡改实验、未改代码；复用/重选前都应验证旧选择完整性。旧native_message_checkpoint是首轮按类型全选，不是第二轮旧选择续接，不套用。
+
+后续限静态方案/代码审查及既有数据整理，原生B不变，不开模型/性能/零模型方案实验。长期目标active未完成；以下历史next-step不覆盖禁实验约束。
+
+## 历史：用户停止后续实验；当前指标报告已完成
+
+用户最新明确：“之后都不进行实验，因为现在难以得出结论……给我一个报告，当前的各方面指标，至少带上压缩器的原始指标”。禁止再启动模型实验、B/C、性能跑分或零模型方案试验；不能因自动Goal续接或旧段落next-step而重新派发。目标未被用户整体暂停，当前继续范围为既有证据报告与静态代码/方案分析。用户同时说明能正常调用就是有额度，不能沿用旧错误推断无额度；研究budget剩余额不是账户额度。
+
+[当前完整指标报告](D:/lea/XenYon%20code/wsc/reviews/2026-10-27-current-wsc-metrics-report.md)，原始压缩器CSV和机器JSON在reviews/current-metrics-20261027。仅统计既有日志/产物，无新调用/测试/实验。成功协议三C平均158993 Token、6/6，历史B126612.7、3/6；C贵25.57%。仅压缩器C1+C2平均138070/45.771阶段秒，B77472.7/15.261；后测C20923、B49140，所以不能只报后测节省。
+
+原始字节：C1完整历史177074→平均rendered3016B（缩减98.297%）；C2完整历史177669→3549B（98.002%），但实际已有可见旧视图＋delta平均3611→3549B，仅合计加权缩减1.717%，两次反增。请求C1约150590/C2约55472B；内部body5272/5955B。纯Context Token和原生加密压缩后大小均unknown，调用Token不冒充Context。磁盘逻辑累计5.36–5.38MiB/链，不含日志/截图；峰值RAM/物理IO/金额unknown。
+
+最新独立deferred_catalog候选默认关闭：初始旧元数据改快照绑定catalog，read/find/catalog同8次限额，仅整包≤16KiB且metadata源≤8192才移出，当前ACL检查/250ms协作期限，声明snapshot metadata不是当前storage健康。schema与完整事实可恢复、源引用不弱化，27定向/6子用例通过于停止实验指令前。零模型v1仅临时SQLite连接未关闭清理失败保留，closing修正v2通过：55378→7178B（实际新description后7461B），catalog5002B，旧草稿编译/旧trace字节同。
+
+实际资格session62270已终止（process exit0，研究status failed_preserved）：模型catalog→find270→read540→find当前，4响应到registered_response_cap无final，已知68343/4，usage_complete=false/unknown保留；不是quota问题，未做QA，不能计0/2或2/2。实际请求/恢复、四条native工具返回、已知4回执与closed日志一致、全所属进程清理、原DB不变；incomplete-attempt-audit只证证据不证质量，未清未知。46.672秒，未补大cap或重跑。最新封套qualification/next-admission-envelope.json：17771795/272/11095秒，320000/8保守扣留非实际/未知上界。
+
+用户同时修改当前核心性能源码。对应循环import修复/selection_effects、流比较/link、批量回执、可选evidence_sync、rows/stage复用、PRAGMA已在文件中发现，不覆盖不重做其benchmark。所列commit在当前父repo不可解析，按当前文件hash记录且声明非旧执行版本证明。当前evidence_sync默认true、BoundWindowsIO保持file fsync，不启用sync=False求快。CPU局部测量不可叠加冒充当前模型B/C提速。
+
+旧文档明确停用了native-plus-R/M，不重启该方向、不改变B。后续只静态审查“复用原模型选择＋完整原始新尾部”的预算/绑定/版本与时间顺序边界，避免重复语义选材；尚未实现/验证，不承诺收益，也不启动实验。原WSC长期目标未完成。
+
+临时准入留下C:/Users/48522/AppData/Local/Temp/tmpoucrzrdx/state.db约2.7MB，自有克隆已确认，递归/精确非递归清理均被自动审批blocked by policy，未给具体原因，保留且不再绕路删除。报告如实记录。
+
+v1.33保存源码旁路/失败证据/当前指标和用户性能兼容源快照，不复制DB/cold大树。以下历史next-step不覆盖停止实验约束。
+
+## 历史：三条独立C1/C2完整链完成，C6/6、B3/6，平均仍贵25.57%
 
 [三完整链报告](D:/lea/XenYon%20code/wsc/reviews/2026-10-27-c1-three-full-chains.md)。复用v1.31新C R01及历史三B，只补两条完整C1/C2/QA，并行2worker/共享ledger；不再共享C1冒充独立全链，不加新输入格式。三C146346/180767/149866平均158993，6/6；B145645/135148/99045平均126612.7，3/6。比旧C平均188466.7少15.64%，但比B多25.57%，非超越/省时。C1新均62934.3，旧89442少29.64%；首input61299/61320/61322较稳定。
 
