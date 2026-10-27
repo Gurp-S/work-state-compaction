@@ -72,6 +72,9 @@ class Store:
             db.row_factory = sqlite3.Row
             db.execute("PRAGMA synchronous=FULL")
             db.execute("PRAGMA foreign_keys=ON")
+            # Read-side knobs only; neither changes what is durable on disk.
+            db.execute("PRAGMA mmap_size=268435456")
+            db.execute("PRAGMA cache_size=-65536")
             yield db
         finally:
             db.close()

@@ -77,7 +77,6 @@ def write_once(path: Path, payload: bytes, *, sync: bool = True) -> None:
     sync=False skips the per-object flush; the caller then owns the durability of
     the batch, for example one directory fsync after the last object.
     """
-    require(not link_like(path), "evidence_path_symlink")
     try:
         with path.open("xb") as stream:
             stream.write(payload)
@@ -85,7 +84,8 @@ def write_once(path: Path, payload: bytes, *, sync: bool = True) -> None:
             if sync:
                 os.fsync(stream.fileno())
     except FileExistsError:
-        # The entry appeared after the first check; it must still not be a link.
+        # O_EXCL / CREATE_NEW already refuse an existing entry, including a link
+        # leaf; this branch decides whether it is a link or a different object.
         require(not link_like(path), "evidence_path_symlink")
         require(same_bytes(path, payload), "evidence_object_conflict")
 
