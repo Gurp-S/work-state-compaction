@@ -13,14 +13,16 @@ def semantic_writes_allowed(db):
             "component_switching")
 
 
-def validate_snapshot(db, store, snapshot: Snapshot, *, indexed=False) -> list[dict]:
+def validate_snapshot(db, store, snapshot: Snapshot, *, indexed=False, all_rows=None) -> list[dict]:
     require(snapshot.session_id == store.session_id and snapshot.workspace == store.workspace,
             "snapshot_binding_mismatch")
     require(getmeta(db, "mode") == "active", "component_not_active")
     require(snapshot.generation == getmeta(db, "generation"), "stale_generation")
     require(snapshot.control_epoch == getmeta(db, "control_epoch"), "control_changed")
     require(snapshot.understanding_epoch == getmeta(db, "understanding_epoch"), "understanding_changed")
-    prefix = events.safe_boundary(db, snapshot.cut,indexed=indexed)
+    # all_rows lets a caller that already read this transaction's sources reuse
+    # them; the digest and pairing checks below still run on those rows.
+    prefix = events.safe_boundary(db, snapshot.cut, indexed=indexed, all_rows=all_rows)
     require(digest(prefix) == snapshot.source_digest, "source_binding_changed")
     return prefix
 

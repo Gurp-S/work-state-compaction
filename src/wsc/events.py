@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from dataclasses import asdict
+from hashlib import sha256
 import json
 
 from .contracts import Event, digest, encode, identifier, require
@@ -17,9 +18,11 @@ def rows(db, through: int | None = None) -> list[dict]:
         args = (through,)
     result = []
     for row in db.execute(query + " ORDER BY seq", args):
-        data = json.loads(row["data"])
-        require(digest(data) == row["digest"], "source_integrity_mismatch")
-        result.append({"seq": row["seq"], **data})
+        # The stored text is exactly encode(payload) written at ingest, so the
+        # recorded digest can be checked without re-serializing the payload.
+        raw = row["data"]
+        require(sha256(raw.encode("utf-8")).hexdigest() == row["digest"], "source_integrity_mismatch")
+        result.append({"seq": row["seq"], **json.loads(raw)})
     return result
 
 
@@ -76,12 +79,15 @@ def presented(db, request_id: str, source_ids: tuple[str, ...], receiver: str) -
         db.execute("INSERT INTO presentations VALUES (?,?)", (request_id, encode(data)))
 
 
-def safe_boundary(db, cut: int, *, indexed=False) -> list[dict]:
+def safe_boundary(db, cut: int, *, indexed=False, all_rows=None) -> list[dict]:
     if indexed:
         from .scoped_queries import safe_boundary as scoped_boundary
-        return scoped_boundary(db,cut,read_prefix=rows)
+        if all_rows is None:
+            return scoped_boundary(db, cut, read_prefix=rows)
+        return scoped_boundary(db, cut, read_prefix=lambda database, bound: all_rows[:bound])
     require(type(cut) is int and cut > 0 and cut >= getmeta(db, "cursor"), "invalid_fold_boundary")
-    all_rows = rows(db)
+    if all_rows is None:
+        all_rows = rows(db)
     require(cut <= len(all_rows), "source_boundary_missing")
     prefix = all_rows[:cut]
     pending = set()

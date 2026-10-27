@@ -1,7 +1,8 @@
 """End-to-end pipeline timing over a synthetic native session; no model calls.
 
-Phases are timed separately so a change can be attributed: ingest, capture,
-material, prepare, stage, install. Use --profile to print the hot functions.
+Phases are timed separately, in wall clock and in CPU time. Wall clock is what a
+user feels but is dominated by fsync and disk state; CPU time isolates code cost
+and is the fair metric when comparing two implementations on the same machine.
 """
 import argparse
 import json
@@ -62,7 +63,21 @@ def host():
     return CallbackHost(commit=commit, lookup=lookup)
 
 
-def run(count, *, archive=False, profile=False, batch_present=False, sync=True):
+class phase:
+    def __init__(self, timings, name):
+        self.timings, self.name = timings, name
+
+    def __enter__(self):
+        self.wall = time.perf_counter()
+        self.cpu = time.process_time()
+
+    def __exit__(self, *exc):
+        self.timings.setdefault("wall", {})[self.name] = time.perf_counter() - self.wall
+        self.timings.setdefault("cpu", {})[self.name] = time.process_time() - self.cpu
+        return False
+
+
+def run(count, *, archive=False, batch_present=False, sync=True):
     adapter = CodexCheckpointAdapter()
     items = make_items(count)
     events = adapter.import_items(items, thread_id="benchmark")
@@ -75,52 +90,48 @@ def run(count, *, archive=False, profile=False, batch_present=False, sync=True):
             core = WSC(store, access=lambda *_: True, evidence_sync=sync)
         except TypeError:
             core = WSC(store, access=lambda *_: True)
-        batch = 200
-        start = time.perf_counter()
-        for offset in range(0, len(events), batch):
-            core.ingest(events[offset:offset + batch])
-        timings["ingest"] = time.perf_counter() - start
+
+        with phase(timings, "ingest"):
+            for offset in range(0, len(events), 200):
+                core.ingest(events[offset:offset + 200])
 
         receipts = [(f"present:{event.call_id}", (event.id,), "benchmark-host")
                     for event in events if event.kind == "result"]
-        start = time.perf_counter()
-        if batch_present and hasattr(core, "presented_many"):
-            core.presented_many(receipts)
-        else:
-            for request_id, source_ids, receiver in receipts:
-                core.presented(request_id, source_ids, receiver=receiver)
-        timings["present"] = time.perf_counter() - start
+        with phase(timings, "present"):
+            if batch_present and hasattr(core, "presented_many"):
+                core.presented_many(receipts)
+            else:
+                for request_id, source_ids, receiver in receipts:
+                    core.presented(request_id, source_ids, receiver=receiver)
 
-        start = time.perf_counter()
-        snapshot = core.capture()
-        timings["capture"] = time.perf_counter() - start
-
-        start = time.perf_counter()
-        material = core.material(snapshot)
-        timings["material"] = time.perf_counter() - start
+        with phase(timings, "capture"):
+            snapshot = core.capture()
+        with phase(timings, "material"):
+            core.material(snapshot)
 
         selectable = tuple(row["id"] for row in snapshot.events if row["kind"] != "opaque")
-        start = time.perf_counter()
-        view = core.prepare(snapshot, Selection(source_ids=selectable), producer="benchmark",
-                            limits=Limits(max_view_bytes=8_000_000, max_material_bytes=32_000_000))
-        timings["prepare"] = time.perf_counter() - start
+        with phase(timings, "prepare"):
+            view = core.prepare(snapshot, Selection(source_ids=selectable), producer="benchmark",
+                                limits=Limits(max_view_bytes=8_000_000, max_material_bytes=32_000_000))
+        with phase(timings, "stage"):
+            operation = core.stage(view, directory=root / "out", adapter=adapter,
+                                   archive_directory=root / "cold" if archive else None)
+        with phase(timings, "install"):
+            core.install(operation, host())
 
-        start = time.perf_counter()
-        operation = core.stage(view, directory=root / "out", adapter=adapter,
-                               archive_directory=root / "cold" if archive else None)
-        timings["stage"] = time.perf_counter() - start
+        timings["events"] = len(snapshot.events)
+    return timings
 
-        start = time.perf_counter()
-        core.install(operation, host())
-        timings["install"] = time.perf_counter() - start
 
-        timings["_events"] = len(snapshot.events)
-        timings["_material_bytes"] = len(json.dumps(material, ensure_ascii=False).encode())
-        timings["_view_bytes"] = len(json.dumps(core.store and view).encode())
-
-    if profile:
-        return timings, None
-    return timings, None
+def summarise(samples):
+    keys = [key for key in samples[0]["wall"]]
+    result = {"wall": {}, "cpu": {}}
+    for bucket in ("wall", "cpu"):
+        for key in keys:
+            result[bucket][key] = round(statistics.median([s[bucket][key] for s in samples]), 4)
+        result[bucket]["total"] = round(sum(result[bucket][key] for key in keys), 4)
+    result["events"] = samples[0]["events"]
+    return result
 
 
 def main():
@@ -138,20 +149,14 @@ def main():
         profiler.enable()
         run(args.events)
         profiler.disable()
-        pstats.Stats(profiler).sort_stats("cumulative").print_stats(28)
+        pstats.Stats(profiler).sort_stats("tottime").print_stats(20)
         return 0
 
-    samples = []
-    for _ in range(args.rounds):
-        timings, _ = run(args.events, archive=args.archive, batch_present=args.batch_present,
-                         sync=not args.no_sync)
-        samples.append(timings)
-    keys = [key for key in samples[0] if not key.startswith("_")]
-    result = {"format": "wsc.pipeline_timing/1", "events": args.events, "rounds": args.rounds,
-              "archive": args.archive, "batch_present": args.batch_present, "sync": not args.no_sync,
-              "phases": {key: round(statistics.median([s[key] for s in samples]), 4) for key in keys},
-              "info": {key: samples[0][key] for key in samples[0] if key.startswith("_")}}
-    result["total"] = round(sum(result["phases"].values()), 4)
+    samples = [run(args.events, archive=args.archive, batch_present=args.batch_present,
+                   sync=not args.no_sync) for _ in range(args.rounds)]
+    result = {"format": "wsc.pipeline_timing/2", "events": args.events, "rounds": args.rounds,
+              "archive": args.archive, "batch_present": args.batch_present,
+              "sync": not args.no_sync, **summarise(samples)}
     print(json.dumps(result, ensure_ascii=False, indent=2))
     return 0
 

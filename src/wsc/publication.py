@@ -3,7 +3,7 @@ from dataclasses import asdict
 from pathlib import Path
 import json
 from uuid import uuid4
-from hashlib import sha256
+from hashlib import file_digest
 from contextlib import nullcontext
 from functools import partial
 
@@ -49,7 +49,8 @@ def stage(core, view_id, *, directory, adapter, detach, archive_directory=None):
         if not detach:
             require(view is not None, "view_unavailable")
             binding = view["binding"]
-            validate_snapshot(db, core.store, Snapshot(**binding, events=(), understandings=()),indexed=core.indexed_queries)
+            validate_snapshot(db, core.store, Snapshot(**binding, events=(), understandings=()),
+                              indexed=core.indexed_queries, all_rows=source)
         else:
             # Switching is only possible after all observed calls have results.
             pending = {r["call_id"] for r in source if r["kind"] == "call"} - {
@@ -132,26 +133,27 @@ def stage(core, view_id, *, directory, adapter, detach, archive_directory=None):
 
 def check_evidence(core, package):
     io=core.resource_io
-    def file_digest(path):
-        return io.digest(path) if io is not None else sha256(Path(path).read_bytes()).hexdigest()
+    def digest_file(path):
+        if io is not None:
+            return io.digest(path)
+        with open(path, "rb") as stream:
+            return file_digest(stream, "sha256").hexdigest()
     excerpts.check(core.store, core.access, package.get("excerpt_evidence", {}),resource_io=io)
     references.check(package.get("current_reference_bindings", []),resource_io=io)
     projection=package.get('adapter',{}).get('projection_evidence')
     if projection:
-        from hashlib import sha256
-        require(file_digest(projection['file_path'])==projection['sha256'],
+        require(digest_file(projection['file_path'])==projection['sha256'],
                 'exported_projection_index_changed')
     for key, locator in package["evidence"].items():
         evidence.authorize(core.store, core.access, key, "export")
         path = Path(locator["file_path"])
         require(path.is_file(), "exported_source_unavailable")
-        from hashlib import sha256
-        require(file_digest(path) == locator["sha256"], "exported_source_changed")
+        require(digest_file(path) == locator["sha256"], "exported_source_changed")
         if "readable_path" in locator:
-            require(file_digest(locator["readable_path"]) == locator["readable_sha256"],
+            require(digest_file(locator["readable_path"]) == locator["readable_sha256"],
                     "exported_readable_changed")
     for name in ("source_index", "understanding_index"):
-        actual=file_digest(package[name]) if io is not None else digest(json.loads(Path(package[name]).read_text(encoding="utf-8")))
+        actual=digest_file(package[name]) if io is not None else digest(json.loads(Path(package[name]).read_text(encoding="utf-8")))
         require(actual == package[name + "_sha256"],
                 "exported_index_changed")
 
