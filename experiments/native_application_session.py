@@ -96,7 +96,7 @@ class NativeApplicationSession:
             self.close()
             raise
 
-    def execute_stage(self, request, destination, limits, record_phase, *, compact=False, output_schema=None):
+    def execute_stage(self, request, destination, limits, record_phase, *, compact=False, output_schema=None,tool_handler=None):
         """Execute once, journal once. Limits are checked at response boundaries.
 
         The caller freezes study/arm cumulative budgets and boundary policy
@@ -151,6 +151,9 @@ class NativeApplicationSession:
                     turn_id = p['turn']['id']
                 if p.get('turnId') not in (None, turn_id):
                     continue
+                if method=='item/tool/call' and 'id' in event and tool_handler is not None and not compact:
+                    self.server.send(tool_handler.handle(event,thread_id=tid,turn_id=turn_id))
+                    continue
                 require(not ('id' in event and method), 'application_unregistered_callback:' + str(method))
                 if method == 'error':
                     outcome['retry_notices'].append(p)
@@ -187,8 +190,14 @@ class NativeApplicationSession:
                         except queue.Empty:
                             continue
                         p = observed(event)
+                        if p is not None and event.get('method') == 'item/completed' and self.registration.get('native_cleanup_terminal_observation') is True:
+                            from native_cleanup_terminal import observe_final
+                            observe_final(outcome,p,thread_id=tid,turn_id=turn_id)
                         if p is not None and event.get('method') == 'turn/completed' and p['turn']['id'] == turn_id:
                             terminal = True
+                            if self.registration.get('native_cleanup_terminal_observation') is True:
+                                from native_cleanup_terminal import observe
+                                observe(outcome,p,thread_id=tid,turn_id=turn_id)
                             break
                 except Exception as error:
                     outcome['interrupt_error'] = str(error)

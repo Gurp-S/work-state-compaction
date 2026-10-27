@@ -3,6 +3,8 @@ from dataclasses import asdict
 from pathlib import Path
 import json
 from uuid import uuid4
+from hashlib import sha256
+from contextlib import nullcontext
 
 from .contracts import HostReceipt, HostRejection, Snapshot, digest, encode, require
 from .snapshots import validate_snapshot, view_record
@@ -29,7 +31,7 @@ def check_binding(db, core, data):
     require(binding["control_epoch"] == getmeta(db, "control_epoch"), "control_changed")
     require(binding["understanding_epoch"] == getmeta(db, "understanding_epoch"), "understanding_changed")
     if not data["detach"]:
-        validate_snapshot(db, core.store, Snapshot(**binding, events=(), understandings=()))
+        validate_snapshot(db, core.store, Snapshot(**binding, events=(), understandings=()),indexed=core.indexed_queries)
     else:
         require(digest(events.rows(db, binding["cut"])) == binding["source_digest"], "source_binding_changed")
 
@@ -46,7 +48,7 @@ def stage(core, view_id, *, directory, adapter, detach, archive_directory=None):
         if not detach:
             require(view is not None, "view_unavailable")
             binding = view["binding"]
-            validate_snapshot(db, core.store, Snapshot(**binding, events=(), understandings=()))
+            validate_snapshot(db, core.store, Snapshot(**binding, events=(), understandings=()),indexed=core.indexed_queries)
         else:
             # Switching is only possible after all observed calls have results.
             pending = {r["call_id"] for r in source if r["kind"] == "call"} - {
@@ -65,42 +67,54 @@ def stage(core, view_id, *, directory, adapter, detach, archive_directory=None):
                    (key, "detach" if detach else "publish", "preparing", encode(data)))
         records = understanding.all_records(db)
     try:
-        root = Path(directory).resolve() / key
-        if archive_directory is None:
-            locators = evidence.export_sources(core.store, core.access, [r["id"] for r in source], root / "sources")
-        else:
-            from .content_archive import export_sources
-            locators = export_sources(core.store, core.access, [r["id"] for r in source], archive_directory)
-        index = root / "sources.json"
-        root.mkdir(parents=True, exist_ok=True)
-        evidence.write_once(index, encode(locators).encode("utf-8"))
-        memories = root / "understandings.json"
-        evidence.write_once(memories, encode(records).encode("utf-8"))
-        body = view["body"] if view else None
-        if body and body.get('source_projection'):
-            require(adapter.capabilities().get('source_projection')==body['source_projection'],
-                    'adapter_source_projection_unsupported')
-            from .source_reference_view import hydrate
-            body=hydrate(body,source)
-        excerpt_locators = excerpts.export(core.store, core.access,
-            (body or {}).get("excerpts", []), root / "excerpts")
-        if excerpt_locators:
-            body = {**body, "excerpt_locators": excerpt_locators}
-        items = adapter.render(body, source, binding["cut"], locators,
-                               source_index=str(index), understanding_index=str(memories))
-        package = {"format": "wsc.checkpoint/1", "operation_id": key, "action": "detach" if detach else "publish",
-                   "binding": binding, "through": len(source),
-                   "next_generation": binding["generation"] + (0 if detach else 1),
-                   "adapter": adapter.capabilities(), "items": items,
-                   "source_index": str(index), "source_index_sha256": digest(locators),
-                   "understanding_index": str(memories), "understanding_index_sha256": digest(records),
-                   "evidence": locators, "semantic_status": "unverified"}
-        if excerpt_locators:
-            package["excerpt_evidence"] = excerpt_locators
-            package["current_reference_bindings"] = [e["current_reference"] for e in body["excerpts"]
-                                                     if "current_reference" in e]
-        package["package_digest"] = digest(package)
-        evidence.write_once(root / "checkpoint.json", encode(package).encode("utf-8"))
+        io=core.resource_io
+        with io.publication_writer() if io is not None else nullcontext(evidence.write_once) as writer:
+            root = Path(directory).resolve() / key
+            if archive_directory is None:
+                locators = evidence.export_sources(core.store, core.access, [r["id"] for r in source], root / "sources",write_object=writer)
+            else:
+                from .content_archive import export_sources
+                locators = export_sources(core.store, core.access, [r["id"] for r in source], archive_directory,write_object=writer if io is not None else None)
+            index = root / "sources.json"
+            root.mkdir(parents=True, exist_ok=True)
+            memories = root / "understandings.json"
+            if core.bounded_catalog:
+                from .publication_memory import write_catalog
+                source_checksum=write_catalog(writer,index,locators)
+                understanding_checksum=write_catalog(writer,memories,records)
+                # Complete cold history is persisted; release its decoded duplicate.
+                records=None
+            else:
+                writer(index, encode(locators).encode("utf-8"))
+                writer(memories, encode(records).encode("utf-8"))
+                source_checksum=digest(locators);understanding_checksum=digest(records)
+            body = view["body"] if view else None
+            if body and body.get('source_projection'):
+                require(adapter.capabilities().get('source_projection')==body['source_projection'],
+                        'adapter_source_projection_unsupported')
+                from .source_reference_view import hydrate
+                body=hydrate(body,source)
+            excerpt_locators = excerpts.export(core.store, core.access,
+                (body or {}).get("excerpts", []), root / "excerpts",write_object=writer)
+            if excerpt_locators:
+                body = {**body, "excerpt_locators": excerpt_locators}
+            items = adapter.render(body, source, binding["cut"], locators,
+                                   source_index=str(index), understanding_index=str(memories))
+            through=len(source)
+            if core.bounded_catalog:source=None
+            package = {"format": "wsc.checkpoint/1", "operation_id": key, "action": "detach" if detach else "publish",
+                       "binding": binding, "through": through,
+                       "next_generation": binding["generation"] + (0 if detach else 1),
+                       "adapter": adapter.capabilities(), "items": items,
+                       "source_index": str(index), "source_index_sha256": source_checksum,
+                       "understanding_index": str(memories), "understanding_index_sha256": understanding_checksum,
+                       "evidence": locators, "semantic_status": "unverified"}
+            if excerpt_locators:
+                package["excerpt_evidence"] = excerpt_locators
+                package["current_reference_bindings"] = [e["current_reference"] for e in body["excerpts"]
+                                                         if "current_reference" in e]
+            package["package_digest"] = digest(package)
+            writer(root / "checkpoint.json", encode(package).encode("utf-8"))
         with core.store.transaction() as db:
             require(operation(db, key)["state"] == "preparing", "publication_cancelled")
             check_binding(db, core, data)
@@ -114,24 +128,28 @@ def stage(core, view_id, *, directory, adapter, detach, archive_directory=None):
 
 
 def check_evidence(core, package):
-    excerpts.check(core.store, core.access, package.get("excerpt_evidence", {}))
-    references.check(package.get("current_reference_bindings", []))
+    io=core.resource_io
+    def file_digest(path):
+        return io.digest(path) if io is not None else sha256(Path(path).read_bytes()).hexdigest()
+    excerpts.check(core.store, core.access, package.get("excerpt_evidence", {}),resource_io=io)
+    references.check(package.get("current_reference_bindings", []),resource_io=io)
     projection=package.get('adapter',{}).get('projection_evidence')
     if projection:
         from hashlib import sha256
-        require(sha256(Path(projection['file_path']).read_bytes()).hexdigest()==projection['sha256'],
+        require(file_digest(projection['file_path'])==projection['sha256'],
                 'exported_projection_index_changed')
     for key, locator in package["evidence"].items():
         evidence.authorize(core.store, core.access, key, "export")
         path = Path(locator["file_path"])
         require(path.is_file(), "exported_source_unavailable")
         from hashlib import sha256
-        require(sha256(path.read_bytes()).hexdigest() == locator["sha256"], "exported_source_changed")
+        require(file_digest(path) == locator["sha256"], "exported_source_changed")
         if "readable_path" in locator:
-            require(sha256(Path(locator["readable_path"]).read_bytes()).hexdigest() == locator["readable_sha256"],
+            require(file_digest(locator["readable_path"]) == locator["readable_sha256"],
                     "exported_readable_changed")
     for name in ("source_index", "understanding_index"):
-        require(digest(json.loads(Path(package[name]).read_text(encoding="utf-8"))) == package[name + "_sha256"],
+        actual=file_digest(package[name]) if io is not None else digest(json.loads(Path(package[name]).read_text(encoding="utf-8")))
+        require(actual == package[name + "_sha256"],
                 "exported_index_changed")
 
 
@@ -161,7 +179,7 @@ def confirm(core, key, receipt):
                 and isinstance(receipt.receiver, str) and bool(receipt.receiver.strip())
                 and receipt.evidence_accessible is True,
                 "host_receipt_binding_mismatch")
-        check_committed_binding(db, core.store, data)
+        check_committed_binding(db, core.store, data,indexed=core.indexed_queries)
         if data["detach"]:
             setmeta(db, "mode", "detached")
         else:
@@ -175,6 +193,17 @@ def confirm(core, key, receipt):
 
 
 def install(core, key, host):
+    if core.resource_io is None:
+        return _install(core,key,host)
+    with core.store.connect() as db:
+        data=operation(db,key)
+    if data['state'] in {'confirmed','rejected'}:return data['receipt']
+    require(data['state']=='ready','installation_outcome_requires_reconciliation')
+    with core.resource_io.lease(data['package']):
+        return _install(core,key,host)
+
+
+def _install(core, key, host):
     with core.store.transaction() as db:
         data = operation(db, key)
         if data["state"] in {"confirmed", "rejected"}:

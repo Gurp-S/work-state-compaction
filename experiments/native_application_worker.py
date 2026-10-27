@@ -216,6 +216,7 @@ class ApplicationStudyWorker:
                             return phase, output / f'S{index}-generation-phase/rollout.jsonl'
                         return generate(offered, run_selection, output / f'S{index}-generation',
                             short_span_handles=bool(self.conditions.get('short_span_handles')),
+                            **({'compact_wire': True} if self.conditions.get('compact_selection_wire') is True else {}),
                             **({'scoped_manifest_bindings': True} if scoped_state is not None else {}))
                     try:
                         indexed = bool(self.conditions.get('indexed_checkpoint'))

@@ -13,14 +13,14 @@ def semantic_writes_allowed(db):
             "component_switching")
 
 
-def validate_snapshot(db, store, snapshot: Snapshot) -> list[dict]:
+def validate_snapshot(db, store, snapshot: Snapshot, *, indexed=False) -> list[dict]:
     require(snapshot.session_id == store.session_id and snapshot.workspace == store.workspace,
             "snapshot_binding_mismatch")
     require(getmeta(db, "mode") == "active", "component_not_active")
     require(snapshot.generation == getmeta(db, "generation"), "stale_generation")
     require(snapshot.control_epoch == getmeta(db, "control_epoch"), "control_changed")
     require(snapshot.understanding_epoch == getmeta(db, "understanding_epoch"), "understanding_changed")
-    prefix = events.safe_boundary(db, snapshot.cut)
+    prefix = events.safe_boundary(db, snapshot.cut,indexed=indexed)
     require(digest(prefix) == snapshot.source_digest, "source_binding_changed")
     return prefix
 

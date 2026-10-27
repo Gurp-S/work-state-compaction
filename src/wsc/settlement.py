@@ -11,14 +11,14 @@ from .contracts import HostReceipt, HostRejection, digest, encode, require
 from .store import getmeta
 
 
-def check_committed_binding(db, store, data):
+def check_committed_binding(db, store, data, *, indexed=False):
     binding = data["binding"]
     require(binding["session_id"] == store.session_id and binding["workspace"] == store.workspace,
             "snapshot_binding_mismatch")
     require(getmeta(db, "mode") == "active", "component_not_active")
     require(binding["generation"] == getmeta(db, "generation"), "stale_generation")
     prefix = (events.rows(db, binding["cut"]) if data["detach"] else
-              events.safe_boundary(db, binding["cut"]))
+              events.safe_boundary(db, binding["cut"],indexed=indexed))
     require(digest(prefix) == binding["source_digest"], "source_binding_changed")
 
 

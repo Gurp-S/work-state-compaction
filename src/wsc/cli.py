@@ -17,6 +17,9 @@ def load(path):
 
 def parser():
     p = argparse.ArgumentParser(prog="wsc", description="Independent WSC checkpoint sidecar")
+    p.add_argument('--resource-io',action='store_true',help='Bounded descriptor I/O and Windows installation resource leases')
+    p.add_argument('--prefix-index',action='store_true',help='Prefix-scoped validation and indexed presentation membership')
+    p.add_argument('--bounded-catalog',action='store_true',help='Release exported catalog copies before final binding validation')
     p.add_argument("--db", required=True)
     p.add_argument("--session", required=True)
     p.add_argument("--workspace", required=True)
@@ -38,9 +41,13 @@ def parser():
             s.add_argument("--selection", required=True)
         else:
             s.add_argument("--command-json", required=True, help="JSON file with a program argv array")
+            s.add_argument('--bounded-command',action='store_true',help='Windows suspended-root Job containment and live stream byte caps')
+            s.add_argument('--max-output-bytes',type=int,default=1048576,help='Active with --bounded-command')
+            s.add_argument('--max-stderr-bytes',type=int,default=65536,help='Active with --bounded-command')
     export = sub.add_parser("export")
     export.add_argument("--view", required=True)
     export.add_argument("--directory", required=True)
+    export.add_argument('--archive-directory',help='Session-bound shared immutable cold-object directory')
     handoff = sub.add_parser("export-handoff")
     handoff.add_argument("--directory", required=True)
     discard = sub.add_parser("discard")
@@ -58,8 +65,12 @@ def main(argv=None):
     try:
         # Local owner mode uses filesystem access; embedding hosts supply their
         # own live authorization callback and do not use this CLI policy.
+        from .resource_io import ResourceIO
         core = WSC(Store(args.db, session_id=args.session, workspace=args.workspace),
-                   access=lambda session, source, action: session == args.session)
+                   access=lambda session, source, action: session == args.session,
+                   resource_io=ResourceIO() if args.resource_io else None,
+                   publication_policy='bounded_catalog_v1' if args.bounded_catalog else None,
+                   query_policy='prefix_index_v1' if args.prefix_index else None)
         adapter = CodexCheckpointAdapter()
         if args.command == "import-native":
             value = load(args.input)
@@ -80,11 +91,18 @@ def main(argv=None):
                 view = core.prepare(snapshot, selection_from_json(load(args.selection)),
                                     producer=args.producer, limits=limits)
             else:
-                view = core.generate(snapshot, JsonCommandGenerator(load(args.command_json)),
+                if args.bounded_command:
+                    from .bounded_generation import BoundedJsonCommandGenerator
+                    generator=BoundedJsonCommandGenerator(load(args.command_json),max_output_bytes=args.max_output_bytes,max_stderr_bytes=args.max_stderr_bytes)
+                else:
+                    require_default=args.max_output_bytes==1048576 and args.max_stderr_bytes==65536
+                    if not require_default:raise WSCError('generation_live_limits_require_bounded_command')
+                    generator=JsonCommandGenerator(load(args.command_json))
+                view = core.generate(snapshot, generator,
                                      producer=args.producer, limits=limits)
             result = {"view_id": view, "installation": "not_started"}
         elif args.command in {"export", "export-handoff"}:
-            operation = (core.stage(args.view, directory=args.directory, adapter=adapter)
+            operation = (core.stage(args.view, directory=args.directory, adapter=adapter,archive_directory=args.archive_directory)
                          if args.command == "export" else
                          core.stage_detach(directory=args.directory, adapter=adapter))
             result = {"operation_id": operation, "installation": "not_started",

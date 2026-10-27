@@ -5,7 +5,7 @@ old source handles, selected prior model records and selectable prior excerpts.
 Only model choices determine semantic retention. No automatic whole-message
 carry, summary nesting, inferred relevance or claim of current applicability.
 """
-from dataclasses import asdict, replace
+from dataclasses import asdict
 from hashlib import sha256
 import json
 from pathlib import Path
@@ -134,18 +134,8 @@ def prepare(core, snapshot, previous, archive, generate, *, source_projection=No
         draft = generate(offered)
         require(isinstance(draft, SelectionDraft) and isinstance(draft.usage, Usage), 'incremental_generation_result_invalid')
         usage = draft.usage
-        value = dict(draft.selection)
-        retained = value.pop('retained_excerpt_keys', [])
-        require(isinstance(retained, list) and all(isinstance(k, str) for k in retained)
-                and len(retained) == len(set(retained)), 'incremental_retained_excerpt_keys_invalid')
-        known = {item['key']: item for item in (previous['excerpts'] if previous else [])}
-        require(set(retained) <= known.keys(), 'incremental_retained_excerpt_missing')
-        selection = compile_draft(material, value)
-        require(set(selection.understanding_refs) <= {r['ref'] for r in material['understandings']},
-                'incremental_record_not_offered')
-        combined = (*selection.excerpts, *(Excerpt(**known[key]) for key in retained))
-        require(len({e.key for e in combined}) == len(combined), 'incremental_excerpt_key_collision')
-        selection = replace(selection, excerpts=combined)
+        from native_incremental_compile import compile_choice
+        selection=compile_choice(material,previous,draft.selection,compile_draft)
         view = core.prepare(snapshot, selection, producer=POLICY['id'],
             limits=Limits(max_material_bytes=POLICY['max_material_bytes'], max_view_bytes=POLICY['max_view_body_bytes']),
             source_projection=source_projection)

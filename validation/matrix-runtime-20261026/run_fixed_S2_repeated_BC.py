@@ -22,10 +22,12 @@ from native_s2_workspace_restore import restore
 from native_stage_time_policy import propose
 import native_cold_access
 from native_package_media import dependencies as package_media_dependencies
+from native_repeat_admission import decide as repeat_admission
+from native_execution_time import carry as carry_execution_time
 
 OUT=Path('D:/agent-task-runs/wsc-a3-fixed-S2-repeated-BC-20261026-v1')
 SEED=OUT/'B-seed-v2'
-RUN=OUT/'execution-v2'
+RUN=OUT/'execution-v3'
 RUN.mkdir(exist_ok=False)
 COMMON=Path('D:/agent-task-runs/wsc-a3-common-prefix-20261025-v1')
 FROZEN=COMMON/'staged/frozen-workspace'
@@ -38,17 +40,22 @@ source_reg=read(COMMON/'registration.json')
 conditions=propose({**source_reg['conditions'],'fixture_transport':'http_attached_websocket_v1',
     'evaluation_host':'a3_production_panel_host_v1','indexed_checkpoint':True,'phase_budget_facts':True,'standalone_stage':3})
 limits=spec['per_arm_limits']
-prior_envelope=OUT/'R01/next-admission-envelope.json'
-envelope=read(prior_envelope)
-envelope['remaining_limits']['max_seconds']-=math.ceil(max(0,time.time()-prior_envelope.stat().st_mtime))
+prior_envelope=OUT/'execution-v2/R03/next-admission-envelope.json'
+adoption=read(OUT/'execution-time-policy-adoption.json')
+assert adoption['user_choice']=='按实际实验运行时间累计，额度等待不计（推荐）'
+assert adoption['parent_envelope_sha256']==file_hash(prior_envelope)
+envelope=carry_execution_time(read(prior_envelope),adoption['new_completed_operation_seconds'])
+quota=read(Path(adoption['quota_readback']))
+assert quota['available_observed'] and quota['cleanup']['empty_confirmed'],'current_quota_not_admitted'
+DIAGNOSTIC=Path(adoption['scope_diagnostic_path'])
 code_pins={str(path):file_hash(path) for folder in ('src','experiments') for path in (ROOT/folder).rglob('*.py')}
 for path in (Path(__file__),Path(__file__).with_name('grade_auto_compacting_c_s3.py'),OUT/'registration.json',
              OUT/'C-package.json',OUT/'shared-raw-observations.json',SEED/'result.json',
              Path(__file__).with_name('s3-concurrency-direct.mjs'),Path(__file__).with_name('s3-scope-check.mjs'),
-             Path(__file__).with_name('check_s2_clipping.mjs')):
+             Path(__file__).with_name('check_s2_clipping.mjs'),DIAGNOSTIC,OUT/'execution-time-policy-adoption.json'):
     code_pins[str(path)]=file_hash(path)
 save(RUN/'execution-contract.json',dict(registered_at=datetime.now(timezone.utc).isoformat(),conditions=conditions,
-    fixed_seed_comparison=True,repetitions=3,concurrent_arms=2,native_B_default_unchanged=True,
+    fixed_seed_comparison=True,repetitions=2,remaining_registered_repetitions=[2,3],concurrent_arms=2,native_B_default_unchanged=True,
     initial_envelope=envelope,pins=code_pins,per_arm_limits=limits,automatic_retries=0,
     repetition_budget_policy='Separately registered closed pairs; next envelope uses existing conservative qualification_envelope. No old uncertain ledger resumed; unused allocation withheld, not labelled actual spend.',
     future_pair_gate='Previous pair processes closed, no inflight tickets, exact S2 restore, frozen seed and implementation pins unchanged',
@@ -144,7 +151,7 @@ def grade(arm,area,result):
         automatic=adapter.grade(job,3,area/'S3-acceptance')
         save(area/'S3-grade.json',automatic)
         with (area/'supplemental-stdout.txt').open('x',encoding='utf-8') as stdout,(area/'supplemental-stderr.txt').open('x',encoding='utf-8') as stderr:
-            completed=subprocess.run([sys.executable,'-B','-X','utf8',str(Path(__file__).with_name('grade_auto_compacting_c_s3.py')),str(area)],
+            completed=subprocess.run([sys.executable,'-B','-X','utf8',str(Path(__file__).with_name('grade_auto_compacting_c_s3.py')),str(area),str(DIAGNOSTIC)],
                 stdout=stdout,stderr=stderr,timeout=180,creationflags=subprocess.CREATE_NO_WINDOW)
         assert completed.returncode==0,'supplemental_driver_failed'
         supplemental=read(area/'supplemental-grade.json')
@@ -153,13 +160,14 @@ def grade(arm,area,result):
         passed=(ui and result.get('native_completed') is True and result.get('usage_complete') is True and not result.get('failure')
             and not result.get('error') and not result.get('accounting_mismatch') and result['pins_unchanged'] and result['cleanup']['empty_confirmed'])
         grade_result.update(qualification_passed=passed,functional_17_and_scroll=ui)
+        grade_result['scoped_control_diagnostic_passed']=read(area/'scope-diagnostic-grade.json')['passed']
     except Exception as error:
         grade_result.update(qualification_passed=False,error=type(error).__name__+':'+str(error))
     save(area/'qualification.json',grade_result)
     return grade_result
 
 all_pairs=[]
-for repeat in range(1,4):
+for repeat in (2,3):
     unchanged()
     pair=RUN/f'R{repeat:02d}'
     pair.mkdir(exist_ok=False)
@@ -184,11 +192,19 @@ for repeat in range(1,4):
         parent_result=dict(path=str(pair/'pair-result.json'),sha256=file_hash(pair/'pair-result.json')))
     save(pair/'next-admission-envelope.json',envelope)
     print(dict(repeat=repeat,grades=grades,known_tokens=snapshot['study']['tokens'],local_uncertainty=snapshot['study']['uncertain']),flush=True)
-    if not all(r['inference_started'] for r in results.values()):break
+    phase_records={arm:read(pair/arm/'phase-journal.json') if (pair/arm/'phase-journal.json').exists() else {} for arm in ('B','C')}
+    admission=repeat_admission(results,phase_records,snapshot)
+    save(pair/'next-repetition-admission.json',admission)
+    if not admission['admitted']:
+        print(dict(cohort_stopped=True,admission=admission),flush=True)
+        break
     if repeat<3:
+        restore_start=time.monotonic()
         for arm in ('B','C'):
             restore(spec['sessions'][arm],FROZEN,pair/('preserved-final-'+arm),expected_current=results[arm]['source_manifest_after'])
-save(RUN/'cohort-result.json',dict(registered_pairs=3,completed_pairs=len(all_pairs),pairs=all_pairs,
+        envelope=carry_execution_time(envelope,[time.monotonic()-restore_start])
+        save(pair/'post-restore-admission-envelope.json',envelope)
+save(RUN/'cohort-result.json',dict(registered_pairs=2,attempted_pairs=len(all_pairs),pairs=all_pairs,
     final_envelope=envelope,whole_campaign_usage_complete=False,
     semantic_attribution_proven=False,full_five_task_matrix_completed=False))
 print(dict(cohort_finished=True,completed_pairs=len(all_pairs)),flush=True)

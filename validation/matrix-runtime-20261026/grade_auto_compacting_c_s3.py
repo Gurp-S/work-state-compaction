@@ -18,6 +18,8 @@ scripts = Path(__file__).parent
 jobs = [('concurrency', scripts / 's3-concurrency-direct.mjs', [str(work/'gui'), str(AREA/'S3-concurrency'), reg['fixture_root']]),
     ('scope', scripts / 's3-scope-check.mjs', [str(work/'gui'), reg['fixture_root'], str(AREA/'S3-scope')]),
     ('clipping', scripts / 'check_s2_clipping.mjs', [str(work/'gui'), reg['fixture_root'], str(AREA/'S3-clipping')])]
+if len(sys.argv)>2:
+    jobs.append(('scope-diagnostic',Path(sys.argv[2]),[str(work/'gui'),reg['fixture_root'],str(AREA/'S3-scope-diagnostic')]))
 save(AREA / 'supplemental-grade-registration.json', dict(source_manifest=before,
     scripts_sha256={name: file_hash(path) for name, path, _ in jobs},
     scope='Independent S3 concurrency, scope/date/keyboard, production host real-wheel checks', model_calls=0))
@@ -49,6 +51,8 @@ after = manifest(work/'gui/src')
 save(AREA / 'supplemental-grade.json', dict(drivers=outcomes, source_unchanged=before == after, model_calls=0,
     concurrency=read(AREA/'S3-concurrency/result.json'), scope=read(AREA/'S3-scope/result.json'),
     clipping=read(AREA/'S3-clipping/result.json')))
+if len(sys.argv)>2:
+    save(AREA/'scope-diagnostic-grade.json',read(AREA/'S3-scope-diagnostic/result.json'))
 print(dict(source_unchanged=before == after, drivers=outcomes,
     concurrency=read(AREA/'S3-concurrency/result.json')['passed'], scope=read(AREA/'S3-scope/result.json')['passed'],
     clipping=read(AREA/'S3-clipping/result.json')['clipping_observed']))

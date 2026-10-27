@@ -1,6 +1,186 @@
 # 独立 WSC 本地续接：当前交接
 
-更新：2026-10-26。长期目标尚未达成，当前正在运行固定S2交接状态的三组B/C续接对照，没有修改目标工具状态。当前代理直接完成，不使用子代理。用户要求每次报告明确下一步。以下历史段落不覆盖本节最新状态。
+更新：2026-10-27。当前代理直接完成，不使用子代理。长期目标未达成。用户确认额度恢复，明确采用实际实验运行时间累计、额度等待不计；旧消耗、失败、未知及原上限不变。以下历史段落不覆盖本节。
+
+## 最新：两轮恢复三对系统观测完成，C6/6、B3/6，平均调用多5.4%
+
+[完成报告](D:/lea/XenYon%20code/wsc/reviews/2026-10-27-two-boundary-mixed-results.md)。原同release-receipt历史/同题：未压缩6/6、B3/6、C6/6；B都当前65正确、旧nonce缺失，C全部正确。完成链路B两压缩+后测均98308.7 Token/41.552阶段秒，C两选材+后测均103587/57.995；C多5.4%Token、39.6%阶段时间。不是热context/金额优势，也不是总体长期保证。
+
+三对混合历史/新增，不是完全同revision前瞻随机对照。复用原B1/B2、C1、R02 C和R03 B；v4 R03 C选材43223/2完整、已导入，因他臂unknown没答题；resume_published_c_query验证绑定/导入/冷资源只补20453/1→2/2。R01新修复资格61890/3→2/2，两个缺失B补123344/5→各1/2。B/C新后测同4/120000/120秒，复用旧1响应未碰2cap结果，标签明示非约束预算兼容。
+
+v4 R01真实第9读取在handler错误适配层外抛quota异常，整个turn中断→unknown；已有目标s6不是没存原文。新独立BudgetResultSourceToolHandler/--budget-tool-results旁路把这一错误转中性success=false工具结果，不增加8次读限、不吞其他错。真实9回调前后0模型回放旧抛异常/新返回错误，前8严格相同、读仍8。38定向/8子用例通过。R01新实测只find1，未触发错误分支，不能称模型超限后续接已证。三条最终C trace各1次，旧/新handler逐字节相同；修复不是隐形改变已接受轨迹。旧handler默认保留，后续新组显式用结果型拒绝，不混称revision相同。
+
+v4新增62331/3（R01失败19108/1+R03选择43223/2）；新资格61890/3；补C20453/1；补B123344/5，合268018/12已知，v4和旧研究unknown保留。605687是6条完成链路含复用合计，非新增/研究总费。所有owner清理确认，source/native父源未改。报告机器JSON/CSV/SVG/PNG在wsc-minimal-recovery-report-20261027-v2，独立评分+回执去重+工具兼容回放；金额/内部context/storage未知。
+
+最新封套wsc-native-recovery-queries-20261027-v1/next-admission-envelope.json：23371795/408/11941秒；维护计时unknown，保守扣留非实际消耗/未知上界。版本v1.22保存新旁路、3个定向复用入口、报告/证据，不复制DB/cold大树。
+
+下一步0模型审计大历史晚位旧证据在512行累计扫描预算下的可达性；再版本/失效或任务切换案例统一精简+新错误结果协议3重复。不重跑本组，不盲全跑75格，不把局部3/6→6/6扩大成所有长期任务。001/011全冷线性与003等边界仍开放，长期goal active。
+
+## 历史：三配对部分续跑，连接与后测限额问题已定位，尚未完成
+
+[续跑报告](D:/lea/XenYon%20code/wsc/reviews/2026-10-27-minimal-recovery-pairs.md)。同精简C配置，复用R02历史2/2不重跑；已有原B1/B2与C1都不重做。新独立blackbox_minimal_recovery_group执行器封存原source/native线程哈希，原结果/旧unknown保留，非LLM裁判。
+
+v1组三B派发TLS EOF，C额度接口失败，已知0/0但实际unknown，清理全确认。修为协调器先0模型额度检查后统一准入（旧C独立入口检查不改），readiness-v1一度恢复。v2组新已知116732/5：R01B48619/2、R02B43437/2被原后测2响应cap截断无final，不能算错；R03B完整24676/1，1/2（nonce null、current65）。全局unknown正确冻结C，两个C未派发。不能把R03B和R02C跨重复直接配对称收益，三配对未完成。
+
+依实际2次工具后无作答记录，登记B/C后测统一4响应/120000Token/120秒；C选材仍4/200000/240秒，C臂320000/8/360。明确是后测预算调整，不改算法。复用R03B和R02C原完成且未碰旧预算的结果，注明混合历史/前瞻，所有失败/花费另留。新C先并行完成才补B。v3在服务检查再次网络失败，0模型派发，故新预算尚未实际执行。不继续无依据模型重试。
+
+三组group-audit验证source/native父源未变、5个新回执去重/账目一致、unknown/清理保留。37定向通过/8子用例（8文件），非全项目。新脚本/评测修正在v1.21，核心来源端口/精简模型输入保持v1.20。最新封套v3/next-time-reconciled-envelope.json：24691795/444/12098秒，补扣两个准入合0.032秒ceil1；维护unknown。上述Token预算保守扣留不等于已知实际116732或未知费用上界。
+
+下一步等连接稳定先0模型check；通过后新目录补R01/R03 C + R01/R02 B，--reuse-native v2复用R03B，R02C仍用minimal-candidate-v1。全部源/旧失败在原处，不删除usage，不改B，不复跑已完成阶段。具体命令在报告；长期goal active，不能宣布三配对或最终目标完成。
+
+## 历史：来源恢复端口实测后，精简选择器输入，单次资格保持2/2
+
+[本轮报告](D:/lea/XenYon%20code/wsc/reviews/2026-10-27-source-access-port.md)。可选 SnapshotSourceAccess + native WSCSource：模型提供literal/别名，引擎仅快照/ACL/范围/hash/精确查找，source-order不排名，无语义热选。previous_selection与旧excerpts typed来源引用统一短别名可逆；模型自由文字不改。source descriptor必须绑定offered的session/cut/digest，engine_binding不进模型。35命名定向测试/6子用例通过，非全项目。
+
+复用原R02 C1与同131来源，来源工具版C-only实际4工具调用、2/2、新175347/5响应；精简source_selector_minimal_v1版实际1工具调用、2/2、新61634/3响应。两目录source-tool-audit从独立DB核对来源原文/range/hash，并确认4/4与1/1输出实际进入模型工具结果。owned清理与本地账完整，旧study unknown保留。含复用C1的链路218539→104826，不可重复记新增。
+
+选择器通用启动材料94005→43807B（-53.4%），首次输入32630→18701Token（-42.7%），选材总145362→40926（-71.8%），新增总175347→61634（-64.9%）。整体有调用次数/输出/随机性混杂，只有单次同历史C候选资格，不能称正式3配对或比原生更省。最终答题器/B不改；仅Cselector私有flags替换通用指令/关闭全局记忆、缩技能目录、apps/shell，WSC冷存储不受影响。仍有约36KB通用工具说明未消除，未达最小输入。配置依据官方文档+本地schema；skip_host_skill_discovery仅本地实验特性，不能凭flag接受宣称效果。
+
+证据D:/agent-task-runs/wsc-source-tool-candidate-20261027-v1与wsc-source-tool-minimal-candidate-20261027-v1；零模型source-tool-admission-v1及selector-minimal-runtime-admission-v2/v3。两候选新增合计236981/8；3个0模型计时合8.313扣ceil9。最新封套minimal-candidate-v1/next-admission-envelope.json：25051795/456/12146秒，承接原unknown，保守扣留不是实际消耗/未知上界。v1.19为来源工具版，v1.20保存绑定/精简版与实际证据，不复制大DB/cold树。
+
+下一步登记同精简配置3次正式配对，复用已有C1/B双压缩，仅补C2和B同题后测；不混合不同变体充作重复、不删旧usage/失败、不盲增cap。原R01未知失败/R02未派发/R03旧完成草稿分别处理，不重复旧资格。先三配对报告稳定性/实际Token/恢复/时间后决定推广，长期目标active。
+
+## 历史：两轮恢复组未通过；修复JSON误拒并复用R03完成C-only 2/2
+
+[两轮恢复报告](../reviews/2026-10-27-two-boundary-recovery.md)。新case固定build-003 nonce，129旧来源第二轮无正文/span，新任务依赖旧nonce。三次0模型准入过。首次正式wsc-two-boundary-recovery-20261027-v1因quota接口网络错误0模型终止，复核恢复；quota移为账号级协调器单查，保存故障耗时。付费v2每B有2真压缩、每C第一轮完成：R01 C2搜索记忆/空目录/工具目录触发4响应cap，未完整结束→study unknown冻结；R02 C2准入拒绝未派发；R03 C2完整但request_changed误拒。原v2已知531201/17、uncertain=True，不清零。
+
+结构性修复：previous Excerpt.path tuple经JSON成list，原直接Python比较误拒；native_selection_wire.transport_value派发前冻结JSON，transport_equal严格规范JSON比较且False/0仍不同，非有限数拒绝，大整数保留。native_incremental_compile抽共享纯编译供在线/回执复用，算法/预算不改。27定向测试/6子用例过。
+
+复用R03原完成37517Token选择草稿，验证提交/完成/hash，隔离clone DB编译+stage，0新选材。模型选s6→引擎从source store恢复完整原build-003消息严格相同。wsc-recovery-reused-continuation-20261027-v1实际native导入/冷验证→C-only查询2/2，新增24049/1，清理/账目闭合。不是模型工具读manifest的成功，也不是3次正式B/C通过。该成功C链路101858Token（2选择+查询），整轮已知555250/18且unknown仍在；B后测缺失不可算成本比。
+
+最新封套reused-continuation-v1/next-admission-envelope.json：25571795/468/12294秒，承接v2未知研究；早期0模型28.797+服务复核2.563已在v1/next-time-reconciled-envelope补扣ceil32，v1网络失败20.328及v2执行93.203、C-only约12秒各封套已扣。未计时维护unknown，不能称完整研究精确用时。
+
+下一步先机械核对冷入口可发现性/别名一致性/读取契约，避免selector搜索无关目录；不盲增cap、不关键词排序、不预告标准答案。R02 C2未调用、R03草稿有效且已续接、R01真实失败都保留。不要重跑C1或B两次压缩、不要删usage绕过单边界一次策略。原生最终后测未做，正式三配对未完成。版本v1.16/17保留前置与额度修正，后续修复结果再保存。长期goal active，003/009与全冷目录O(N)边界仍开放。
+
+## 最新：按用户要求优化输入，两个案例质量保持，Token差距缩小
+
+[输入优化报告](../reviews/2026-10-27-compact-selection-input.md)。独立native_selection_wire.py做可逆元数据投影：长cold locator入hash绑定可读manifest，引用短别名/schema不枚举长ID，预算表和明确类型默认值无损编码；正文、来源顺序、417 spans、角色/时间/理解/CAS和必留规则不变。未加语义排名或摘要。用户明确允许引擎处理机械确定项，模糊语义仍模型决定；边界docs/wsc-engine-model-semantic-boundary.md，理解带sources不等于语义证实，空sources当前允许且unverified。
+
+离线三旧草稿roundtrip与Selection编译完全相同，request+schema约435→169KB（-61.2%）。authority新3次实际WSC仍6/6，旧WSC6/6/B3/6数据复用不重跑；C平均219295→100459 Token（-54.2%），C/B3.12→1.43，耗时未明显改善。版本关系holdout新3对：基线/B/C均9/9，B69290/C100127（1.445倍），均正确区分v5源码与v4测试。两组新C六次15/15，范围外正确率/多轮稳定性未证。新增总961663 Token/21响应；首组新301376/6，版本组660287/15。各账目闭合、owned清理确认，有独立compact-wire-audit和JSON/CSV/MD/SVG。
+
+API generate(...short_span_handles=True,compact_wire=True)；group runner/resume --compact-wire；真实worker条件compact_selection_wire=true（配合short_span_handles=true）。全部显式启用，原默认保留。版本v1.14保存代码/离线证据，后续结果版另存；21定向测试通过/6子用例。
+
+最新封套D:/agent-task-runs/wsc-compact-version-group-20261027-v1/next-admission-envelope.json：27471795/524/12453秒，承接compact-wire-quality-v1/next-time-reconciled-envelope（独立准入12.953秒另扣13）。代码维护/未计时检查仍unknown。不要重复本两组或旧简单资格，不恢复退休R03。
+
+下一步验证第二次压缩时旧正文隐藏后的manifest实际恢复与成本，先小规模机械/真实读验证再3配对多轮；不能把一次全新frontier的6/6、9/9当作已证明恢复或最终任意任务正确率。还没比B更省/更快，也没达到全局最小输入。003/009待验证面和001/011完整冷目录O(N)继续开放，长期goal active。
+
+## 最新：第一组真实黑盒三次配对完成，局部保真收益、成本约3.12倍
+
+[第一组报告](../reviews/2026-10-27-blackbox-authority-group.md)。authority第5事件检查点，单次真实压缩，3次并行：未压缩6/6、B原生3/6、C实际WSC6/6。B的R01约束反转、R02两题null、R03正确；C均正确。C均值219295 Token，B70317，约3.12倍，模型阶段平均多22.60秒。已有主要目标的限定行为收益信号，但仅一个小案例，正确率差经验区间[0,1]，不是长期任务或等预算优势。
+
+执行器先遇真实技能目录漂移，修为所有actor共用无业务/无推理bootstrap ancestry，原生算法不改；另遇verify_paths长参数Windows206（遗漏实际预检），先6响应294264已完成，后用独立短命令+sealed manifest+分块hash修复，提前真读，1000项回归通过。blackbox_group_resume不重做原生/基线，仅补9响应726353。全组15响应1020617、3配对，所有owned进程清理确认、同题/父源不改/收据distinct/选材无query字段独立审计通过。失败原目录保留wsc-blackbox-authority-group-20261027-v1，完整续跑wsc-blackbox-authority-resumed-20261027-v1，有JSON/CSV/MD/SVG。18框架测试通过。
+
+最新封套改用resumed-v1/next-time-reconciled-envelope.json：30171795/578/12660秒；另补扣52.124秒零模型准入（ceil53），维护及小bootstrap检查未完整计时仍unknown，旧研究unknown不重置。不要复跑第一组或简单资格探针，也不恢复旧R03。
+
+下一步先0模型审计/实现可逆选材元数据投影，再决定小额验证；R01选择输入193136/输出3394 Token，request380245B+schema54721B，cold_source累计160449B、selection_facts42562B，主成本是输入。不能凭byte宣称分项Token归因，也不能为了赢此题修改语义选材。随后版本关系组3配对，先报告再扩大。WSC热包4.9–11.7KB、持久化1.17–1.20MB，B内部context/storage未知；无等Token或长期稳定性结论。003/009未验证面、001/011完整目录O(N)仍开放，长期goal active。
+
+## 最新：修复后已续正式黑盒案例准备，0模型调用
+
+新增blackbox_matrix_cases.py与test_blackbox_matrix_cases.py：五组authority/version-relations/task-switch/long-distance/expiry-recovery；公开状态规则与私有预定义oracle分开，独立状态解析交叉复核，反例拒绝反转/过期/错关系。12项框架测试通过。计划wsc-blackbox-formal-cases-20261027-v1/matrix.json为3次重复×5组×5检查点=75个配对单元（每个三分支），状态prepared_not_executed，不是已跑75次。报告[正式案例准备](../reviews/2026-10-27-blackbox-formal-cases.md)。
+
+下一步接统一真实矩阵运行器，先0模型检查分支污染/私有答案隔离/同输入/预算/清理，再仅第一组3次正式配对报告，不直接全跑。原生必须真实压缩证明；不重跑2事实资格探针或旧退休R03。上一轮模型预算封套仍为wsc-blackbox-incremental-continuation-20261027-v1/next-admission-envelope.json，没有本轮模型花费；维护时间未完整仪表化，不称全研究耗时精确。代码20项边界见下与专项报告，003/009未验证面及全目录线性增长仍开放。
+
+## 最新：用户WSC-001～020优先修复；首批数据与修复已保存，尚未恢复Benchmark
+
+后续v1.9：否决并撤回stream_v1序列化尝试，失败版v1.8单独保存（22.32秒比旧9.03秒慢且峰值不降）。逐行诊断定位末尾check_binding时完整来源/理解副本叠加；新显式publication_policy='bounded_catalog_v1'/CLI --bounded-catalog提前释放已持久化的解码副本，完整目录/末尾校验/旧格式不变。万条同夹具新进程实测Python60.90→53.14MB，进程167.68→129.89MB，6.664→5.837秒；不是统计性能结论。102/1002/10002均测，全目录仍线性。15命名套件105通过/1跳过/13子用例。003断电、009真实symlink及001/011完整目录O(N)仍开放，不改状态机来刷绿。无新模型调用；继续零模型正式黑盒案例/矩阵准备，不重跑资格探针。
+
+用户明确按正确性/恢复→长期性能→资源→协议取舍处理20项，修完再续Benchmark。报告[20项核验与首批修复](../reviews/2026-10-27-code-issues-001-020.md)，机器表wsc-code-issues-repair-20261027-v1/audit-result.json。当前0新被测模型调用，旧研究unknown不重置。
+
+新增ResourceIO显式旁路：原子不覆盖对象发布、描述符分块I/O、发布期间固定重复对象缓存、Windows文件及祖先目录租约覆盖core.install。004证据改写和019资源os.replace前后已实测旧允许/新拒绝；009删除至open竞态恢复；真实符号链接用例因权限跳过。020普通读失败可恢复、真实子进程退出留下preparing也可status→discard→restage，未复现所称不可恢复P0；不绕过权限或覆盖坏对象。017 recovery_required经reconcile一次宿主效果恢复，008 lookup异常不改旧状态，018为单Store非全进程设计，不改状态机。
+
+prefix_index_v1旁路优化002/007/012：范围前缀校验、一次回填后SQL触发器维护presentation投影、记理解仅查引用IDs。102/1002/10002历史固定cut2实际hash均2条。ResourceIO处理006/010/013/014，8MB比较额外Python内存8.4MB→约0.137MB。全冷发布第一次分块实现变慢也保留；随后固定对象缓存10002规模约17.8秒→6.09秒，全部来源/版本保留，整体峰值约61MB未降。
+
+005/015/016经真实子进程/双流上限前后验证后并入Windows默认JsonCommandGenerator：根CREATE_SUSPENDED→附Job→Resume，超时/超限/完成杀回收后代，不泄stderr。旧legacy=True保留作对照；非Windows默认旧行为未改。共享解析抽selection_transport避免循环，导入无环过。ResourceIO和query_policy仍显式启用，CLI有--resource-io/--prefix-index/export --archive-directory；未把强资源租约默认强加到所有宿主或平台。
+
+最终14命名套件103通过/1跳过/13子用例，非全项目。结果scoped-tests-release.xml。性能三目录wsc-code-issues-profile-20261027-v1、wsc-publication-issues-profile-20261027-v1、wsc-pinned-publication-profile-20261027-v1。原始夹具DB/对象留本地，版本不复制大文件。
+
+下一步先收尾001/011全冷目录线性元数据/61MB峰值及003目录持久化边界；009符号链接实际验证仍受限，不能标全绿。不要删未选中冷证据/历史理解来刷性能，不以fsync注入或进程kill冒充Windows断电保证。之后再统一三分支黑盒正式案例/重复，不重跑旧资格探针、不恢复旧长程评测。长期goal未完成。
+
+## 最新：真实WSC增量选材→原生导入→同题续接通过；资格探针结束
+
+本轮复用前轮原生baseline/compact/post3响应不重跑。实际native_incremental_candidate.prepare + native_incremental_generation.generate(short_span_handles=True) + MODE + IndexedCheckpointAdapter，选择器不见oracle/测题。WSC新增选择21618/1响应、续接20473/1响应，完整42091；三路径同两题均2/2。总复用+新增102382/5响应，不是重复5次或语义优势。
+
+选择1整来源+1span、0新理解；原业务item335B→包1293B，极小输入未见缩减，也未证明语义折叠。使用normal worker审计原生导入后discard，不伪造HostReceipt，不声称原子core.install；冷资源已从native只读实际hash验证，模型恢复行为未测。
+
+v1零模型源未落盘的就绪错误保留（内部cleanup文件确认）；v2生成后过严比较消息ID/传输metadata拒绝，正文/工具一致。修为配置/导入/持久化阶段，复用现有bootstrap_items/import_evidence，仅枚举字段归一化。保留v2生成包、未测题父接收端，只fork补答题，未再选材。证据wsc-blackbox-incremental-admission-20261027-v1/v2与wsc-blackbox-incremental-continuation-20261027-v1。
+
+18项定向测试通过，全清理。最新next-envelope在continuation-v1，32271795/620/12837秒，保守扣250k/12分配不是实际花费、全研究unknown仍保留。实际新增阶段1.515/15.406/9.687秒，不含手工分析，非全研究精确时间。报告[真实WSC黑盒资格](../reviews/2026-10-27-true-WSC-blackbox-admission.md)。
+
+下一步结束简单资格探针，收敛统一矩阵运行器，用预登记冲突/失效/版本/干扰历史作三分支至少3正式配对；显式区分真正缩小、实际恢复和仅接口成功。先审判据/资源，避免白跑；不恢复旧长程方式，不改语义算法来迎合测试。长期目标未完成。
+
+## 最新：用户修订黑盒行为方案；真实原生小额链路通过，尚非WSC对照
+
+优先以用户黑盒规范为准：无需读/解密摘要，被测Agent输出结构化答案或执行确定性操作，程序评分，无额外裁判LLM。有证据可自行修改方案，保存旧结果版本。旧大任务退役不恢复。
+
+在线zero-call capability通过：同父兄弟分支有效历史hash相同，模型/effort同、父源不改、清理为空。wsc-blackbox-native-admission-20261027-v1。随后唯一小额native smoke：baseline答题20143、真实压缩19995、post答题20153，共3响应/完整60291 tokens/15.594秒。两支同题各2/2，compacted+同turn绑定回执+durable终态+原生terminal共同确认，无读摘要。不是难题、不是收益统计、没有WSC对照。目录wsc-blackbox-native-smoke-20261027-v1。
+
+封存后预算结转报错（诊断上限和父研究上限混用），进程exit1；真实业务已完成与清理，原result保留。blackbox_budget离线投影修复，不重跑模型；保守扣300k/10分配，next envelope32521795/632/12865秒，旧unknown保留，实际花费60291，准入零模型耗时未计入阶段账明确标注。
+
+评分器跨task事实覆盖已修（修前1fail/9pass），CLI区分执行和质量失败并支持质量失败重放；真实删除启发/合成版本两个反事实8格完成，固定旧来源负对照分别1/2错、实际read恢复后0错，不归咎正常选材。blackbox+机制共17检查过。报告[黑盒能力与修订](../reviews/2026-10-27-blackbox-benchmark-feasibility.md)。
+
+下一步把黑盒接口接现有native_incremental_candidate/native_incremental_generation真实选材/安装，再做同小历史原历史/原生/WSC三支。不以JsonCommandGenerator或固定全选替代当前算法，不把前版白盒弃判当黑盒不可评分；基线和测题应兄弟隔离，多轮主干不接受测题。当前goal未完成。
+
+## 最新：用户详细规范下的确定性Benchmark MVP已实现；未完成真实原生配对
+
+独立wsc/benchmarks/deterministic_v1，README列实际调查、接口和限制。9项定向自测过。真实core.prepare/stage/read、public-only适配输入；所有压缩完成前无oracle/评分落盘。精确结构化字段/关系评分，自由文本及加密弃判，不用关键词。固定全选/空选是机制控制，不是语义压缩算法；stage-only不伪造安装，不把identity历史当原生。
+
+paired-mechanism-v2同5轮/2噪声，两种机制10格全部完成、各10问正确；cold-v2空选热593B/10问弃判，真实read后各10问正确，I/O13/13906B→49/55434B，恢复262144B不是等热预算收益。早期full-v1两格view预算失败保留。真实B-seed-v2归档1原生边界导入，但输入不匹配paired=false。全部0新模型调用。
+
+实际原生API compact/start存在；摘要加密不可评分，内部模型/温度不可确认；本机无tiktoken/tokenizers，不用字节冒充Token，不声称等Token/实际Codex对照完成。可选generator正常接入接口未跑模型。图和逐格JSON/CSV已输出，图已查看。报告[确定性MVP](../reviews/2026-10-27-deterministic-benchmark-MVP.md)。
+
+下一步连接真实删除/版本案例与正常选材器、验证原生等价可观察协议后再选实验；不扩大矩阵、不恢复旧R03。整体任务尚未完成，原失败/unknown/成本不清空。
+
+## 最新：用户废止旧长程评测，继续修复已暴露问题；不要恢复R03
+
+用户明确停止当前评测方式，偏好不依赖模型，同时明确旧问题仍需修。原cohort/evaluation-method-retired-20261027.json记录retired_by_user、automatic_resume_allowed=false；goal继续，不是暂停目标。不重启旧v2/v3、不为补足三次继续付费。
+
+新方案见[无模型评测与修复](../reviews/2026-10-27-model-free-evaluation-and-repair-plan.md)：真实轨迹状态转换、隔离oracle、同预算反事实/变异、真实WSC接口；机制/信息充分性/真实Agent效果三层分开。加密原生语义不可判定，不拿离线历史基线冒充原生Codex，不靠关键词或来源ID评选主目标收益。
+
+三次C共6压缩边界均为加密compaction，语义不可直接审查。实际R02工具证据：680确认preload删除不存在→698压缩→709引用旧文件→712模块缺失→716重建→719成功。行为错误已证，摘要丢失因果未知；WSC只初始注入，后续无持续WSC发布。audit在D:/agent-task-runs/wsc-continuity-boundary-audit-20261027-v1。
+
+本轮修复cleanup漏最终消息：observe_final由既有显式旁路启用，绑定thread/turn、过滤final、消息ID去重、复制保存，不更改默认B或清除超额。修前实际execute_stage合成回归1失败/2通过；修后相关16通过+10子用例。另真实core删除当前资源回归正确拒绝旧live引用且保留历史摘录，未重复修已有能力；不是修好模型行为。
+
+下一步实现首批artifact删除/源码版本更换的无模型反事实案例，先验评分器能拒绝故意错误，再测当前WSC实际导出。保留修复债务及旧unknown，不再堆长程调度补丁。长期目标未完成。
+
+## 最新：第二组结算与开销离线复核完成；不放宽未知门禁
+
+wsc-R02-cost-review-20261027-v1：两边closed-native保留阶段前缀且回执逐条相同，B关闭源仍只有turn_aborted。B唯一account_turn原因是正常完成证明缺失，不是已观测到的累加缺口；不能将下界改为完整或加调度补丁绕过R03。此次0模型、未重跑验收。
+
+C普通86响应/5701837 tokens，3压缩315578（总量内）；B普通53/6095639下界。可见工具文本排除图片后B232758字符/C462825，源码读搜词法调用19/40、验证相关14/32（类别重叠，非精确归因、非全部浪费）。C三次输入95952→26516、95974→24833、93831→24074；单次输入下降未转为已证实总体收益。启动仅一次WSC包，后续均原生内部压缩，不是反复WSC主动更新的证明。
+
+下一步复用三次既有C归档，核对压缩前后当前源码/已验证状态是否被丢失并导致补读；找到具体缺口才集中修订方案，不继续堆调度补丁或新大额重复。原未知、上限和停止门禁全部保留。报告[成本与结算根因](../reviews/2026-10-27-R02-cost-and-accounting-root-review.md)。
+
+## 最新：第二组已关闭；两边17项与滚动通过，均超预算，第三组未启动
+
+execution-v3/R02：B原生53响应/已知6095639/755.218秒，interrupted、无最终回复、完整用量未知；C89响应/完整6017415/948.593秒，3次自动压缩，completed且有最终回复。两边官方11+并发失败3+图表日期键盘3及滚动均过，收窄定位诊断也过；两边仍registered_token_cap，资格均false，无经济收益或稳定优越性结论。
+
+C原completed=false是收尾观察漏更新：主循环越限先退出，随后cleanup收到completed却未同步outcome。独立native_cleanup_terminal可选旁路修复，真实execute_stage合成前后对照保留超额/用量；与计时和准入共9检查过。实际R02零模型回放仅新增独立audit，原phase/result等hash不变；B仍false，C派生true，超额不取消。证据D:/agent-task-runs/wsc-R02-terminal-review-20261027-v1/audit.json。
+
+控制器86439已exit0，无活模型，R03未启动。next-repetition-admission拒绝usage_unknown。最新封存envelope剩余32821795/642/12881秒，pair实际墙钟984.766秒；非账户余额或未知上界。当前B/C私有workspace仍为R02最终源码，未restore，不可当S2；不要重跑旧v2/v3脚本或重生成种子，也不能新建空账绕过未知。
+
+下一步离线核查预算中断后的用量结算可靠性，保留B未完成和旧未知，再复核第三组准入；此之前不新开大额重复。未来恢复须先保留R02差量、精确恢复S2、读实时额度、登记新目录。报告[第二组结果与记录修复](../reviews/2026-10-27-second-fixed-S2-BC-pair.md)。原第一组报告已交付，五任务三次未完成。
+
+## 最新：调度停止规则已修，execution-v3的第二组B/C运行中
+
+独立native_repeat_admission模块阻断服务错误/未知用量/在途或清理和来源异常后的自动下一组，纯功能失败仍为样本。4检查过；真实旧三组回放会在R01断流后停止，避免后4请求，不声称节省费用。新循环保存next-repetition-admission，不能以新envelope绕过本登记的未知。旧所有记录不改。
+
+独立源码副本定位复核：scope-locator-review-20261027-v1，hash绑定三组旧源。筛选栏内定位+直接图心值检查，旧资格C仍3过、R01B仍失败、R01C从定位阻断变3过。原官方/补充结果与资格标志不改，新增诊断不抹去C未交付/旧读数标识失败。后续原计分与诊断同时记录。
+
+用户明确“按实际实验运行时间累计，额度等待不计（推荐）”，adoption在cohort/execution-time-policy-adoption.json。native_execution_time两检查过，不按mtime扣停机/额度等待；最后封存13880秒扣实际零模型操作约13.882秒→13866秒，token44934849/响应882不变，旧失败/未知/原上限不改。启动前零模型账户读取primary17%且可用，两侧S2精确1162文件匹配。
+
+**当前活控制器：**exec会话86439，run_fixed_S2_repeated_BC.py，结果根D:/agent-task-runs/wsc-a3-fixed-S2-repeated-BC-20261026-v1/execution-v3。R02/B、R02/C已运行，之后只有准入通过才R03。原S3、两份固定状态、两侧原评分与原6M/120/2700不变，原第一组不重试。不要启动旧31262、不要重跑准备或新运行脚本，运行中不要改ROOT/src或experiments的py与固定grader/driver（pins锁定）。
+
+下一步轮询同一86439与execution-v3/R*/pair-result.json、next-repetition-admission.json、cohort-result.json，分别统计业务响应样本、完整成本样本和通过数。若观察超时先查原handle，不能重启。报告[本轮准入和定位复核](../reviews/2026-10-27-repeat-admission-and-locator-review.md)。尚无新对照结论，五任务目标未完成。
+
+## 最新：第一组无C优势；B部分验收未过，C断流未交付，后两组额度拒绝
+
+exec31262已返回exit0，controller PID7644已不存在。execution-v2/cohort-result.json行政completed_pairs=3，但有效业务样本仅第一组，不能当三次有效比较。第二、三组B/C都usageLimitExceeded，未有模型响应，已知0但完整未知，旧记录保留，不自动重跑。
+
+第一组B正常完成、完整2419391 tokens/25响应/535.156秒；官方11/11、并发失败3/3、滚动过，但成本图筛选中心仍¥1.50未按登记口径变¥1.20，图表组未过。C未正常完成，已知2163092/31响应/1376.953秒/1压缩，完整未知；官方10/11、并发失败2/3，旧读数标识缺失；C03/图表组因9模型控件匹配而阻断，不将未执行断言全部称功能错误。C实际日志responseStreamDisconnected/websocket closed before response.completed，控制器按无自动重试结束，不能归因WSC或温度。两侧同质量完整成本条件不成立，较低C已知token不是省，当前无相对原生收益证明。
+
+用户要的第一组报告：[2026-10-27第一组报告](../reviews/2026-10-27-first-fixed-S2-BC-pair.md)。R01/first-report.json/md是最初自动数据投影，人工复审报告补充了定位阻断和后两组已结束的当前状态，以人工报告为准。当前B/C源码已被控制器为后组恢复至S2，第一组实际源码在R01/preserved-final-B|C/changed-source.zip及retained-extra，不能读当前workspace当R01源码。
+
+下一步先校验定位口径、编排遇明确服务不可用后停止后续调度，保存全部失败/未知及新版本；不再启动付费调用，直到额度实际恢复且新的重复登记就绪。额度阻断不是三次有效结果，不能扩大预算或丢记录。原goal保持active，未达成；当前不是活进程等待，勿重启旧31262。
 
 ## 最新：三组固定状态B/C已登记，execution-v2第一组正在并行
 

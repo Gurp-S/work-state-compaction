@@ -32,8 +32,8 @@ def publish_object(path, payload):
         temporary.unlink(missing_ok=True)
 
 
-def export_sources(store, access, source_ids, directory):
+def export_sources(store, access, source_ids, directory, *, write_object=None):
     binding = {"format": "wsc.cold-objects/1", "session_id": store.session_id,
                "workspace": store.workspace}
     objects = Path(directory).resolve() / digest(binding)
-    return evidence.export_sources(store, access, source_ids, objects, write_object=publish_object)
+    return evidence.export_sources(store, access, source_ids, objects, write_object=write_object or publish_object)

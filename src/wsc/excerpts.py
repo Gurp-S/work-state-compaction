@@ -46,7 +46,7 @@ def text_at(payload, path):
     return value
 
 
-def resolve(selected, known, *, bind_live=True):
+def resolve(selected, known, *, bind_live=True,resource_io=None):
     resolved, keys = [], set()
     for item in selected:
         require(isinstance(item, Excerpt), "excerpt_shape_invalid")
@@ -77,11 +77,11 @@ def resolve(selected, known, *, bind_live=True):
                 "reference_binding_incomplete")
         if item.current_resource is not None and bind_live:
             resolved[-1]["current_reference"] = references.locate(selected_text, item.current_resource,
-                expected_sha256=item.current_resource_sha256)
+                expected_sha256=item.current_resource_sha256,resource_io=resource_io)
     return resolved
 
 
-def export(store, access, selected, directory):
+def export(store, access, selected, directory, *, write_object=None):
     directory = Path(directory).resolve()
     locators = {}
     for item in selected:
@@ -90,7 +90,7 @@ def export(store, access, selected, directory):
         require(sha256(raw).hexdigest() == item["text_sha256"], "excerpt_content_mismatch")
         directory.mkdir(parents=True, exist_ok=True)
         path = directory / (item["text_sha256"] + ".txt")
-        evidence.write_once(path, raw)
+        (write_object or evidence.write_once)(path, raw)
         locators[item["key"]] = {"source_id": item["source_id"], "file_path": str(path),
             "sha256": item["text_sha256"], "observed_at": item["observed_at"],
             "representation": "exact_selected_public_text", "path": item["path"],
@@ -99,9 +99,10 @@ def export(store, access, selected, directory):
     return locators
 
 
-def check(store, access, locators):
+def check(store, access, locators, *, resource_io=None):
     for locator in locators.values():
         evidence.authorize(store, access, locator["source_id"], "export")
         path = Path(locator["file_path"])
-        require(path.is_file() and sha256(path.read_bytes()).hexdigest() == locator["sha256"],
+        actual = resource_io.digest(path) if resource_io is not None else (sha256(path.read_bytes()).hexdigest() if path.is_file() else None)
+        require(actual == locator["sha256"],
                 "exported_excerpt_changed_or_missing")

@@ -5,6 +5,3 @@ build/
 dist/
 .venv/
 .local/
-
-# 每轮研究的快照 zip 只留在本地，不进仓库
-versions/*.zip

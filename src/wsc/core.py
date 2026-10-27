@@ -16,8 +16,13 @@ from .view_budget import admit_generation, mandatory_sources
 
 
 class WSC:
-    def __init__(self, store: Store, *, access: AccessCheck):
+    def __init__(self, store: Store, *, access: AccessCheck, resource_io=None,query_policy=None,publication_policy=None):
         self.store, self.access = store, access
+        self.resource_io = resource_io
+        require(query_policy in (None,'prefix_index_v1'),'query_policy_unsupported')
+        self.indexed_queries=query_policy=='prefix_index_v1'
+        require(publication_policy in (None,'bounded_catalog_v1'),'publication_policy_unsupported')
+        self.bounded_catalog=publication_policy=='bounded_catalog_v1'
 
     def ingest(self, batch: list[Event]) -> list[str]:
         with self.store.transaction() as db:
@@ -31,14 +36,18 @@ class WSC:
     def remember(self, record: Understanding, *, producer: str) -> dict:
         with self.store.transaction() as db:
             semantic_writes_allowed(db)
-            return understanding.write(db, record, producer=producer)
+            known=None
+            if self.indexed_queries:
+                from .scoped_queries import existing_sources
+                known=existing_sources(db,record.sources)
+            return understanding.write(db, record, producer=producer,allowed_sources=known)
 
     def capture(self, *, cut: int | None = None) -> Snapshot:
         with self.store.transaction() as db:
             semantic_writes_allowed(db)
             if cut is None:
                 cut = db.execute("SELECT COUNT(*) FROM events").fetchone()[0]
-            prefix = events.safe_boundary(db, cut)
+            prefix = events.safe_boundary(db, cut,indexed=self.indexed_queries)
             return Snapshot(self.store.session_id, self.store.workspace,
                             getmeta(db, "generation"), getmeta(db, "control_epoch"),
                             getmeta(db, "understanding_epoch"), cut, digest(prefix),
@@ -46,7 +55,7 @@ class WSC:
 
     def material(self, snapshot: Snapshot) -> dict:
         with self.store.transaction() as db:
-            prefix = validate_snapshot(db, self.store, snapshot)
+            prefix = validate_snapshot(db, self.store, snapshot,indexed=self.indexed_queries)
             for row in prefix:
                 evidence.authorize(self.store, self.access, row["id"])
             return {"session_id": snapshot.session_id, "source_boundary": snapshot.cut,
@@ -62,7 +71,7 @@ class WSC:
         attempt = uuid4().hex
         with self.store.transaction() as db:
             semantic_writes_allowed(db)
-            prefix = validate_snapshot(db, self.store, snapshot)
+            prefix = validate_snapshot(db, self.store, snapshot,indexed=self.indexed_queries)
             admit_generation(prefix, limits.max_view_bytes)
             if include_selection_facts:
                 from .selection_facts import describe
@@ -95,7 +104,7 @@ class WSC:
         """No implicit generation. Supplied semantic content has explicit provenance."""
         with self.store.transaction() as db:
             semantic_writes_allowed(db)
-            prefix = validate_snapshot(db, self.store, snapshot)
+            prefix = validate_snapshot(db, self.store, snapshot,indexed=self.indexed_queries)
             known = {r["id"]: r for r in prefix}
             selected = set(selection.source_ids)
             require(selected <= known.keys(), "selected_source_missing")
@@ -121,7 +130,7 @@ class WSC:
             body = {"sources": [r for r in prefix if r["id"] in selected],
                     "understandings": records, "clues": clues}
             if selection.excerpts:
-                body["excerpts"] = excerpts.resolve(selection.excerpts, known)
+                body["excerpts"] = excerpts.resolve(selection.excerpts, known,resource_io=self.resource_io)
             if source_projection is not None:
                 from .source_reference_view import project
                 body['sources']=project(body['sources'],source_projection)

@@ -76,7 +76,10 @@ def presented(db, request_id: str, source_ids: tuple[str, ...], receiver: str) -
         db.execute("INSERT INTO presentations VALUES (?,?)", (request_id, encode(data)))
 
 
-def safe_boundary(db, cut: int) -> list[dict]:
+def safe_boundary(db, cut: int, *, indexed=False) -> list[dict]:
+    if indexed:
+        from .scoped_queries import safe_boundary as scoped_boundary
+        return scoped_boundary(db,cut,read_prefix=rows)
     require(type(cut) is int and cut > 0 and cut >= getmeta(db, "cursor"), "invalid_fold_boundary")
     all_rows = rows(db)
     require(cut <= len(all_rows), "source_boundary_missing")

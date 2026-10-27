@@ -144,6 +144,22 @@ class EvidenceSelectionTests(unittest.TestCase):
         with self.assertRaisesRegex(WSCError, "reference_resource_changed"):
             check_evidence(self.core, package)
 
+    def test_deleted_runtime_artifact_invalidates_live_reference_but_preserves_history(self):
+        live = self.root / '.codex-vitest-preload.mjs'
+        live.write_text(self.text,encoding='utf-8')
+        item = replace(self.slice,current_resource=str(live),
+                       current_resource_sha256=sha256(live.read_bytes()).hexdigest())
+        view = self.core.prepare(self.core.capture(),self.selection(item),producer='model')
+        op = self.core.stage(view,directory=self.root/'exports',adapter=self.adapter)
+        package = self.core.package(op)
+        check_evidence(self.core,package)
+        live.unlink()
+        with self.assertRaisesRegex(WSCError,'reference_resource_changed'):
+            check_evidence(self.core,package)
+        archived = Path(package['excerpt_evidence']['memory']['file_path'])
+        self.assertEqual(self.text,archived.read_text(encoding='utf-8'))
+        self.assertFalse(package['current_reference_bindings'][0]['historical_observation_retimed'])
+
 
 if __name__ == "__main__":
     unittest.main()

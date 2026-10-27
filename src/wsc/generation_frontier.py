@@ -25,7 +25,7 @@ class FrontierSpanSelectionGenerator:
         self.mode, self.max_chars, self.max_material_bytes = mode, max_chars, max_material_bytes
         self.boundary_policy = boundary_policy
         with core.store.connect() as db:
-            prefix = validate_snapshot(db, core.store, snapshot)
+            prefix = validate_snapshot(db, core.store, snapshot,indexed=core.indexed_queries)
             records = understanding.all_records(db)
             require(list(snapshot.events) == prefix and list(snapshot.understandings) == records,
                     "frontier_snapshot_content_changed")
@@ -58,7 +58,7 @@ class FrontierSpanSelectionGenerator:
             expected["selection_facts"] = describe(self.snapshot.events, limit)
         require(material == expected, "frontier_generation_material_changed")
         with self.core.store.connect() as db:
-            validate_snapshot(db, self.core.store, self.snapshot)
+            validate_snapshot(db, self.core.store, self.snapshot,indexed=self.core.indexed_queries)
         full = span_material(material, max_chars=self.max_chars, boundary_policy=self.boundary_policy)
         root = self.archive_directory
         root.mkdir(parents=True, exist_ok=True)
