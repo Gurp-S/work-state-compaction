@@ -5,6 +5,7 @@ import json
 from uuid import uuid4
 from hashlib import sha256
 from contextlib import nullcontext
+from functools import partial
 
 from .contracts import HostReceipt, HostRejection, Snapshot, digest, encode, require
 from .snapshots import validate_snapshot, view_record
@@ -68,7 +69,9 @@ def stage(core, view_id, *, directory, adapter, detach, archive_directory=None):
         records = understanding.all_records(db)
     try:
         io=core.resource_io
-        with io.publication_writer() if io is not None else nullcontext(evidence.write_once) as writer:
+        default_writer = (evidence.write_once if core.evidence_sync
+                          else partial(evidence.write_once, sync=False))
+        with io.publication_writer() if io is not None else nullcontext(default_writer) as writer:
             root = Path(directory).resolve() / key
             if archive_directory is None:
                 locators = evidence.export_sources(core.store, core.access, [r["id"] for r in source], root / "sources",write_object=writer)

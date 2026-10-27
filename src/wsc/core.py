@@ -16,13 +16,16 @@ from .view_budget import admit_generation, mandatory_sources
 
 
 class WSC:
-    def __init__(self, store: Store, *, access: AccessCheck, resource_io=None,query_policy=None,publication_policy=None):
+    def __init__(self, store: Store, *, access: AccessCheck, resource_io=None,query_policy=None,publication_policy=None,
+                 evidence_sync: bool = True):
         self.store, self.access = store, access
         self.resource_io = resource_io
         require(query_policy in (None,'prefix_index_v1'),'query_policy_unsupported')
         self.indexed_queries=query_policy=='prefix_index_v1'
         require(publication_policy in (None,'bounded_catalog_v1'),'publication_policy_unsupported')
         self.bounded_catalog=publication_policy=='bounded_catalog_v1'
+        require(type(evidence_sync) is bool,'evidence_sync_policy_invalid')
+        self.evidence_sync=evidence_sync
 
     def ingest(self, batch: list[Event]) -> list[str]:
         with self.store.transaction() as db:
@@ -32,6 +35,17 @@ class WSC:
         with self.store.transaction() as db:
             require(getmeta(db, "mode") != "detached", "component_detached")
             events.presented(db, request_id, source_ids, receiver)
+
+    def presented_many(self, receipts) -> None:
+        """Record several presentation receipts in one transaction.
+
+        Each receipt is (request_id, source_ids, receiver) and carries exactly the
+        same meaning as a separate presented() call.
+        """
+        with self.store.transaction() as db:
+            require(getmeta(db, "mode") != "detached", "component_detached")
+            for request_id, source_ids, receiver in receipts:
+                events.presented(db, request_id, source_ids, receiver)
 
     def remember(self, record: Understanding, *, producer: str) -> dict:
         with self.store.transaction() as db:

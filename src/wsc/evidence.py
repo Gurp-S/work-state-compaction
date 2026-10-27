@@ -71,14 +71,19 @@ def same_bytes(path: Path, payload: bytes) -> bool:
             offset += len(chunk)
 
 
-def write_once(path: Path, payload: bytes) -> None:
-    """Never replaces an existing evidence object or follows a link leaf."""
+def write_once(path: Path, payload: bytes, *, sync: bool = True) -> None:
+    """Never replaces an existing evidence object or follows a link leaf.
+
+    sync=False skips the per-object flush; the caller then owns the durability of
+    the batch, for example one directory fsync after the last object.
+    """
     require(not link_like(path), "evidence_path_symlink")
     try:
         with path.open("xb") as stream:
             stream.write(payload)
             stream.flush()
-            os.fsync(stream.fileno())
+            if sync:
+                os.fsync(stream.fileno())
     except FileExistsError:
         # The entry appeared after the first check; it must still not be a link.
         require(not link_like(path), "evidence_path_symlink")

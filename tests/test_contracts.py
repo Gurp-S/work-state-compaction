@@ -96,6 +96,17 @@ class Contracts(unittest.TestCase):
         return WSC(Store(self.root / "wsc.db", session_id="session", workspace=str(self.root)),
                    access=lambda session, source, action: (source, action) not in self.denied)
 
+    def test_presented_many_records_the_same_receipts_as_single_calls(self):
+        root = Path(self.temp.name)
+        core = WSC(Store(root / "batch.db", session_id="batch", workspace=str(root)),
+                   access=lambda *_: True)
+        ids = core.ingest(self.batch)
+        core.presented_many([("request-a", (ids[2],), "batch_receiver")])
+        core.presented_many([("request-a", (ids[2],), "batch_receiver")])
+        with self.assertRaisesRegex(WSCError, "presentation_identity_conflict"):
+            core.presented_many([("request-a", (ids[2],), "other_receiver")])
+        core.capture()
+
     def tearDown(self):
         self.temp.cleanup()
 
