@@ -97,9 +97,18 @@ wsc --db state.db --session sample --workspace . export --view VIEW_ID --directo
 wsc --db state.db --session sample --workspace . status
 ```
 
+## 什么时候不该用 WSC
+
+- 宿主没有原子安装和持久查询能力。这种情况只能导出检查点，发布协议用不起来。
+- 需要透明替换原生压缩。当前适配器只做显式检查点导出与恢复，不做原位替换。
+- 多租户服务。CLI 走本机文件权限，必须自己接 SDK 的授权回调。
+- 目标是省 token 或省费用。组件按字节管预算，不承诺 token 数或账单下降。
+
+设计与取舍记录在 [`reviews/`](reviews/)，逐轮的验证材料在 [`validation/`](validation/)。
+
 ## 状态
 
-仍在逐步实验中，暂不建议直接接生产链路。
+接口还在演进，不保证向后兼容。仍在逐步实验中，暂不建议直接接生产链路。
 
 ## License
 
