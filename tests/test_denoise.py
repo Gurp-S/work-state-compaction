@@ -5,9 +5,16 @@ import sys
 import unittest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from wsc.denoise import RULES, apply_rules, recover, summarize, verify
+from wsc.denoise import DenoisePolicy, RULES, apply_rules, recover, summarize, verify
 from wsc.denoise.registry import row_size
 from wsc.contracts import WSCError
+
+
+ENABLED = DenoisePolicy(enabled=True)
+
+
+def run(rows, rule_ids=None):
+    return apply_rules(rows, rule_ids, policy=ENABLED)
 
 
 def row(seq, kind, payload, text=None, role=None, call_id=None, control=False):
@@ -19,13 +26,13 @@ class DenoiseTests(unittest.TestCase):
     def test_control_rows_pass_through_every_rule(self):
         rows = [row(1, "message", {"text": "task"}, "task", role="user", control=True),
                 row(2, "result", {"output": "x" * 9000}, "x" * 9000, call_id="c1")]
-        result, _ = apply_rules(rows, None)
+        result, _ = run(rows, None)
         self.assertEqual(rows[0], result[0])
 
     def test_identity_fields_are_preserved(self):
         rows = [row(1, "result", {"path": "a.py", "content": "old"}, "old", call_id="c1"),
                 row(2, "result", {"path": "a.py", "content": "new"}, "new", call_id="c2")]
-        result, _ = apply_rules(rows, ["dedupe_reads"])
+        result, _ = run(rows, ["dedupe_reads"])
         self.assertEqual([(r["id"], r["kind"], r["call_id"]) for r in rows],
                          [(r["id"], r["kind"], r["call_id"]) for r in result])
 
@@ -33,7 +40,7 @@ class DenoiseTests(unittest.TestCase):
         text = "same output " * 40
         rows = [row(1, "result", {"output": text}, text, call_id="c1"),
                 row(2, "result", {"output": text}, text, call_id="c2")]
-        result, actions = apply_rules(rows, ["dedupe_identical"])
+        result, actions = run(rows, ["dedupe_identical"])
         self.assertEqual(1, len(actions))
         self.assertEqual(rows[0]["id"], actions[0].pointer["same_as"])
         self.assertLess(row_size(result[1]), row_size(rows[1]))
@@ -41,7 +48,7 @@ class DenoiseTests(unittest.TestCase):
     def test_dedupe_never_grows_a_row(self):
         rows = [row(1, "result", {"output": "a"}, "a", call_id="c1"),
                 row(2, "result", {"output": "a"}, "a", call_id="c2")]
-        result, actions = apply_rules(rows, ["dedupe_identical"])
+        result, actions = run(rows, ["dedupe_identical"])
         self.assertEqual([], actions)
         self.assertEqual(rows, result)
 
@@ -49,7 +56,7 @@ class DenoiseTests(unittest.TestCase):
         old, new = "v1\n" * 40, "v2\n" * 40
         rows = [row(1, "result", {"path": "a.py", "content": old}, old, call_id="c1"),
                 row(2, "result", {"path": "a.py", "content": new}, new, call_id="c2")]
-        result, actions = apply_rules(rows, ["dedupe_reads"])
+        result, actions = run(rows, ["dedupe_reads"])
         self.assertEqual(rows[1]["id"], result[1]["id"])
         self.assertEqual(new, result[1]["text"])
         self.assertEqual(rows[1]["id"], actions[0].pointer["superseded_by"])
@@ -57,7 +64,7 @@ class DenoiseTests(unittest.TestCase):
     def test_truncation_keeps_head_and_tail(self):
         text = "H" * 3000 + "M" * 5000 + "T" * 2000
         rows = [row(1, "result", {"output": text}, text, call_id="c1")]
-        result, actions = apply_rules(rows, ["truncate_head_tail"])
+        result, actions = run(rows, ["truncate_head_tail"])
         trimmed = result[0]["text"]
         self.assertTrue(trimmed.startswith("H" * 100))
         self.assertTrue(trimmed.endswith("T" * 100))
@@ -67,20 +74,26 @@ class DenoiseTests(unittest.TestCase):
     def test_outline_json_is_smaller_and_keeps_a_pointer(self):
         payload = {"items": [{"id": f"i{n}", "body": "x" * 100} for n in range(60)]}
         rows = [row(1, "result", payload, None, call_id="c1")]
-        result, actions = apply_rules(rows, ["outline_json"])
+        result, actions = run(rows, ["outline_json"])
         self.assertLess(row_size(result[0]), row_size(rows[0]))
         self.assertEqual("source_read", actions[0].pointer["recover"])
 
     def test_report_totals_match_actions(self):
         rows = [row(1, "result", {"output": "x" * 9000}, "x" * 9000, call_id="c1")]
-        result, actions = apply_rules(rows, ["truncate_head_tail"])
+        result, actions = run(rows, ["truncate_head_tail"])
         report = summarize(actions, len(rows), len(result))
         self.assertEqual(actions[0].saved, report["saved_bytes"])
         self.assertEqual(1.0, report["recoverable_ratio"])
 
     def test_unknown_rule_is_rejected(self):
         with self.assertRaisesRegex(WSCError, "denoise_rule_unknown"):
-            apply_rules([], ["nope"])
+            run([], ["nope"])
+
+    def test_denoise_is_disabled_by_default(self):
+        with self.assertRaisesRegex(WSCError, "denoise_disabled"):
+            apply_rules([row(1, "result", {"output": "x" * 9000}, "x" * 9000, call_id="c1")], None)
+        with self.assertRaisesRegex(WSCError, "denoise_disabled"):
+            apply_rules([], None, policy=DenoisePolicy())
 
     def test_every_registered_rule_declares_reversibility(self):
         for name, module in RULES().items():
@@ -119,7 +132,7 @@ class DenoiseGuaranteeTests(unittest.TestCase):
     def test_verify_passes_for_every_rule_and_for_all_rules(self):
         rows = noisy_rows()
         for name in list(RULES()) + [None]:
-            result, actions = apply_rules(rows, [name] if name else None)
+            result, actions = run(rows, [name] if name else None)
             summary = verify(rows, result, actions)
             self.assertEqual(len(rows), summary["rows"])
             self.assertTrue(summary["control_unchanged"])
@@ -127,7 +140,7 @@ class DenoiseGuaranteeTests(unittest.TestCase):
 
     def test_recover_returns_the_original_row_for_every_action(self):
         rows = noisy_rows()
-        result, actions = apply_rules(rows, None)
+        result, actions = run(rows, None)
         self.assertGreater(len(actions), 0)
         restored = recover(actions, rows)
         self.assertEqual(len({action.source_id for action in actions}), len(restored))
@@ -136,15 +149,15 @@ class DenoiseGuaranteeTests(unittest.TestCase):
 
     def test_denoise_is_idempotent(self):
         rows = noisy_rows()
-        once, _ = apply_rules(rows, None)
-        twice, second = apply_rules(once, None)
+        once, _ = run(rows, None)
+        twice, second = run(once, None)
         self.assertEqual(once, twice)
         self.assertEqual([], second)
 
     def test_verify_rejects_identity_change(self):
         rows = noisy_rows()
         before = deepcopy(rows)
-        result, actions = apply_rules(rows, None)
+        result, actions = run(rows, None)
         result[1]["call_id"] = "tampered"
         with self.assertRaisesRegex(WSCError, "denoise_identity_changed"):
             verify(before, result, actions)
@@ -152,7 +165,7 @@ class DenoiseGuaranteeTests(unittest.TestCase):
     def test_verify_rejects_a_change_without_an_action(self):
         rows = noisy_rows()
         before = deepcopy(rows)
-        result, actions = apply_rules(rows, None)
+        result, actions = run(rows, None)
         untouched = [index for index, row in enumerate(result) if row == before[index]
                      and not (row.get("control") or row.get("role") in {"system", "developer", "user"})]
         self.assertTrue(untouched)
@@ -162,7 +175,7 @@ class DenoiseGuaranteeTests(unittest.TestCase):
 
     def test_verify_rejects_a_pointer_hash_mismatch(self):
         rows = noisy_rows()
-        result, actions = apply_rules(rows, None)
+        result, actions = run(rows, None)
         self.assertGreater(len(actions), 0)
         actions[0].pointer["content_sha256"] = "0" * 64
         with self.assertRaisesRegex(WSCError, "denoise_pointer_hash_mismatch"):

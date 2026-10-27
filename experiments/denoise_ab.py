@@ -11,7 +11,7 @@ import tempfile
 import time
 from pathlib import Path
 
-from wsc.denoise import RULES, apply_rules, recover, summarize, verify
+from wsc.denoise import DenoisePolicy, RULES, apply_rules, recover, summarize, verify
 from wsc.denoise.registry import is_control, row_size
 
 
@@ -89,7 +89,7 @@ def total_bytes(rows):
 
 def run_arm(rows, rule_ids):
     start_wall, start_cpu = time.perf_counter(), time.process_time()
-    result, actions = apply_rules(rows, rule_ids)
+    result, actions = apply_rules(rows, rule_ids, policy=DenoisePolicy(enabled=True))
     wall = time.perf_counter() - start_wall
     cpu = time.process_time() - start_cpu
     control_ok = all(is_control(before) == is_control(after)
