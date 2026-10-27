@@ -1,5 +1,5 @@
 """Replace a large payload with a skeleton: key paths, types and lengths."""
-from .registry import Action, encode, is_control, pointer_for, replace, row_size, size
+from .registry import Action, encode, already_denoised, is_control, pointer_for, replace, row_size, size
 
 ID = "outline_json"
 REVERSIBLE = "exact"
@@ -29,7 +29,7 @@ def apply(rows):
     result, actions = [], []
     for row in rows:
         payload = row.get("payload")
-        if is_control(row) or not isinstance(payload, dict) or size(payload) < MIN_BYTES:
+        if is_control(row) or already_denoised(row) or not isinstance(payload, dict) or size(payload) < MIN_BYTES:
             result.append(row)
             continue
         before = row_size(row)

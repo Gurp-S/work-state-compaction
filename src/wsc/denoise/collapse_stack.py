@@ -1,5 +1,5 @@
 """Collapse runs of identical lines, which is what a repeating traceback looks like."""
-from .registry import Action, is_control, pointer_for, replace, row_size
+from .registry import Action, already_denoised, is_control, pointer_for, replace, row_size
 
 ID = "collapse_stack"
 REVERSIBLE = "exact"
@@ -27,7 +27,7 @@ def apply(rows):
     result, actions = [], []
     for row in rows:
         text = row.get("text")
-        if is_control(row) or not isinstance(text, str):
+        if is_control(row) or already_denoised(row) or not isinstance(text, str):
             result.append(row)
             continue
         collapsed = collapse(text)

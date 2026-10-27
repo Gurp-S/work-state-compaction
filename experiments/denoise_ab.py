@@ -11,7 +11,7 @@ import tempfile
 import time
 from pathlib import Path
 
-from wsc.denoise import RULES, apply_rules, summarize
+from wsc.denoise import RULES, apply_rules, recover, summarize, verify
 from wsc.denoise.registry import is_control, row_size
 
 
@@ -96,7 +96,11 @@ def run_arm(rows, rule_ids):
                      and before["id"] == after["id"] and before["kind"] == after["kind"]
                      and before.get("call_id") == after.get("call_id")
                      for before, after in zip(rows, result))
+    checked = verify(rows, result, actions)
+    restored = recover(actions, rows)
     report = summarize(actions, len(rows), len(result))
+    report["verified"] = True
+    report["recovered_sources"] = len(restored)
     report.update({"wall": round(wall, 4), "cpu": round(cpu, 4), "control_preserved": control_ok,
                    "bytes_before": total_bytes(rows), "bytes_after": total_bytes(result)})
     report["saved_ratio_total"] = round(
@@ -121,6 +125,8 @@ def main():
             "recoverable_ratio": samples[0]["recoverable_ratio"],
             "cpu_ms": round(statistics.median([s["cpu"] for s in samples]) * 1000, 2),
             "control_preserved": all(s["control_preserved"] for s in samples),
+            "verified": all(s["verified"] for s in samples),
+            "recovered_sources": samples[0]["recovered_sources"],
         }
     combined = run_arm(rows, None)
     result = {"format": "wsc.denoise_ab/1", "rows": len(rows),

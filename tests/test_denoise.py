@@ -1,10 +1,11 @@
 """Denoise rules keep identity and control rows, and report what they removed."""
+from copy import deepcopy
 from pathlib import Path
 import sys
 import unittest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from wsc.denoise import RULES, apply_rules, summarize
+from wsc.denoise import RULES, apply_rules, recover, summarize, verify
 from wsc.denoise.registry import row_size
 from wsc.contracts import WSCError
 
@@ -84,6 +85,95 @@ class DenoiseTests(unittest.TestCase):
     def test_every_registered_rule_declares_reversibility(self):
         for name, module in RULES().items():
             self.assertIn(module.REVERSIBLE, {"exact", "pointer", "lossy"}, name)
+
+
+def noisy_rows():
+    rows = []
+    seq = 0
+
+    def add(kind, payload, text=None, role=None, call_id=None, control=False):
+        nonlocal seq
+        seq += 1
+        rows.append({"seq": seq, "id": f"s{seq}", "kind": kind, "payload": payload,
+                     "text": text, "role": role, "call_id": call_id, "control": control})
+
+    add("message", {"text": "task"}, "task", role="user", control=True)
+    log = "\n".join(["PASSED test_a", "." * 40, "progress 10%\rprogress 20%"] + ["line"] * 40)
+    for index in range(4):
+        add("result", {"output": log}, log, call_id=f"c{index}")
+    dup = "same output " * 60
+    for index in range(3):
+        add("result", {"output": dup}, dup, call_id=f"d{index}")
+    for version in range(2):
+        content = f"v{version}\n" * 50
+        add("result", {"path": "a.py", "content": content}, content, call_id=f"r{version}")
+    big = {"items": [{"id": f"i{n}", "body": "x" * 120} for n in range(80)]}
+    add("result", big, None, call_id="big")
+    diff = "\n".join(["diff --git a/x b/x", "--- a/x", "+++ b/x", "@@ -1,5 +1,5 @@"]
+                     + [f"-old {n}" for n in range(15)] + [f"+new {n}" for n in range(15)])
+    add("result", {"output": diff}, diff, call_id="diff")
+    return rows
+
+
+class DenoiseGuaranteeTests(unittest.TestCase):
+    def test_verify_passes_for_every_rule_and_for_all_rules(self):
+        rows = noisy_rows()
+        for name in list(RULES()) + [None]:
+            result, actions = apply_rules(rows, [name] if name else None)
+            summary = verify(rows, result, actions)
+            self.assertEqual(len(rows), summary["rows"])
+            self.assertTrue(summary["control_unchanged"])
+            self.assertEqual(len(actions), summary["changed"])
+
+    def test_recover_returns_the_original_row_for_every_action(self):
+        rows = noisy_rows()
+        result, actions = apply_rules(rows, None)
+        self.assertGreater(len(actions), 0)
+        restored = recover(actions, rows)
+        self.assertEqual(len({action.source_id for action in actions}), len(restored))
+        for source_id, original in restored.items():
+            self.assertEqual(source_id, original["id"])
+
+    def test_denoise_is_idempotent(self):
+        rows = noisy_rows()
+        once, _ = apply_rules(rows, None)
+        twice, second = apply_rules(once, None)
+        self.assertEqual(once, twice)
+        self.assertEqual([], second)
+
+    def test_verify_rejects_identity_change(self):
+        rows = noisy_rows()
+        before = deepcopy(rows)
+        result, actions = apply_rules(rows, None)
+        result[1]["call_id"] = "tampered"
+        with self.assertRaisesRegex(WSCError, "denoise_identity_changed"):
+            verify(before, result, actions)
+
+    def test_verify_rejects_a_change_without_an_action(self):
+        rows = noisy_rows()
+        before = deepcopy(rows)
+        result, actions = apply_rules(rows, None)
+        untouched = [index for index, row in enumerate(result) if row == before[index]
+                     and not (row.get("control") or row.get("role") in {"system", "developer", "user"})]
+        self.assertTrue(untouched)
+        result[untouched[0]]["text"] = "silently rewritten"
+        with self.assertRaisesRegex(WSCError, "denoise_action_row_mismatch"):
+            verify(before, result, actions)
+
+    def test_verify_rejects_a_pointer_hash_mismatch(self):
+        rows = noisy_rows()
+        result, actions = apply_rules(rows, None)
+        self.assertGreater(len(actions), 0)
+        actions[0].pointer["content_sha256"] = "0" * 64
+        with self.assertRaisesRegex(WSCError, "denoise_pointer_hash_mismatch"):
+            verify(rows, result, actions)
+
+    def test_verify_rejects_a_control_row_change(self):
+        rows = noisy_rows()
+        result = [dict(row) for row in rows]
+        result[0]["text"] = "changed control"
+        with self.assertRaisesRegex(WSCError, "denoise_control_row_changed"):
+            verify(rows, result, [])
 
 
 if __name__ == "__main__":

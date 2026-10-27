@@ -1,7 +1,7 @@
 """Keep the head and tail of a long text; the middle becomes a hash and a length."""
 from hashlib import sha256
 
-from .registry import Action, is_control, pointer_for, replace, row_size
+from .registry import Action, already_denoised, is_control, pointer_for, replace, row_size
 
 ID = "truncate_head_tail"
 REVERSIBLE = "exact"

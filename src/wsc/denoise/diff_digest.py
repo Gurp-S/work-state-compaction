@@ -1,5 +1,5 @@
 """Reduce a unified diff to its shape: file headers, hunk headers, line counts."""
-from .registry import Action, is_control, pointer_for, replace, row_size
+from .registry import Action, already_denoised, is_control, pointer_for, replace, row_size
 
 ID = "diff_digest"
 REVERSIBLE = "exact"
@@ -26,7 +26,7 @@ def apply(rows):
     result, actions = [], []
     for row in rows:
         text = row.get("text")
-        if is_control(row) or not isinstance(text, str):
+        if is_control(row) or already_denoised(row) or not isinstance(text, str):
             result.append(row)
             continue
         reduced = digest(text)

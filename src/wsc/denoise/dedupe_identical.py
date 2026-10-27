@@ -1,5 +1,5 @@
 """Replace a byte-identical repeat with a pointer to the first occurrence."""
-from .registry import (Action, content_sha256, is_control, pointer_for, replace,
+from .registry import (Action, content_sha256, already_denoised, is_control, pointer_for, replace,
                        row_size)
 
 ID = "dedupe_identical"
@@ -10,7 +10,7 @@ def apply(rows):
     seen: dict[str, str] = {}
     result, actions = [], []
     for row in rows:
-        if is_control(row):
+        if is_control(row) or already_denoised(row):
             result.append(row)
             continue
         key = content_sha256(row)

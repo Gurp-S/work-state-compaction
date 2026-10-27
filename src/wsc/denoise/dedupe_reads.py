@@ -3,7 +3,7 @@
 This is the V1/V2 case: an old read of a file that has since changed is worse
 than useless, because it still looks like current evidence.
 """
-from .registry import Action, is_control, pointer_for, replace, row_size
+from .registry import Action, already_denoised, is_control, pointer_for, replace, row_size
 
 ID = "dedupe_reads"
 REVERSIBLE = "pointer"
@@ -35,7 +35,7 @@ def apply(rows):
             newest[path] = (seq, row["id"])
     result, actions = [], []
     for row in rows:
-        path = None if is_control(row) else resource_of(row)
+        path = None if is_control(row) or already_denoised(row) else resource_of(row)
         if path is None or newest[path][1] == row["id"]:
             result.append(row)
             continue

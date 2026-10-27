@@ -5,7 +5,7 @@ pytest progress dots, and runs of blank lines. Nothing is inferred.
 """
 import re
 
-from .registry import Action, is_control, pointer_for, replace, row_size
+from .registry import Action, already_denoised, is_control, pointer_for, replace, row_size
 
 ID = "strip_noise_lines"
 REVERSIBLE = "exact"
@@ -31,13 +31,16 @@ def apply(rows):
     result, actions = [], []
     for row in rows:
         text = row.get("text")
-        if is_control(row) or not isinstance(text, str):
+        if is_control(row) or already_denoised(row) or not isinstance(text, str):
             result.append(row)
             continue
         cleaned = clean(text)
         if cleaned == text:
             result.append(row)
             continue
+        removed = text.count("\n") - cleaned.count("\n")
+        if removed:
+            cleaned = f"{cleaned}\n[denoise: strip_noise_lines removed {removed} lines]"
         before = row_size(row)
         updated = replace(row, text=cleaned)
         actions.append(Action(ID, row["id"], before, row_size(updated), pointer_for(row, ID)))

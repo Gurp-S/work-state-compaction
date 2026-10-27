@@ -4,7 +4,7 @@ A rule is a module exposing ID, REVERSIBLE and apply(rows) -> (rows, actions).
 Rules never touch control rows (role user/system/developer or control=True) and
 never change id, kind, call_id or role; they only rewrite payload and text.
 """
-from dataclasses import dataclass
+from dataclasses import dataclass, replace as dataclass_replace
 from hashlib import sha256
 import importlib
 
@@ -43,6 +43,12 @@ def is_control(row: dict) -> bool:
     return row.get("control") is True or row.get("role") in {"system", "developer", "user"}
 
 
+def already_denoised(row: dict) -> bool:
+    """A row that already carries a denoise record is left alone, so passes are idempotent."""
+    payload = row.get("payload")
+    return isinstance(payload, dict) and "denoise" in payload
+
+
 def pointer_for(row: dict, rule: str) -> dict:
     return {"rule": rule, "source_id": row["id"], "content_sha256": content_sha256(row),
             "recover": "source_read"}
@@ -77,11 +83,17 @@ def apply_rules(rows, rule_ids=None, *, rules=None) -> tuple[list[dict], list[Ac
     table = rules if rules is not None else RULES()
     requested = list(rule_ids) if rule_ids is not None else list(RULE_ORDER)
     require(all(name in table for name in requested), "denoise_rule_unknown")
+    originals = {row["id"]: content_sha256(row) for row in rows}
     current = list(rows)
     actions: list[Action] = []
     for name in RULE_ORDER:
         if name not in requested:
             continue
         current, produced = table[name].apply(current)
-        actions.extend(produced)
+        for action in produced:
+            # A row may pass several rules; the pointer must always describe the
+            # original content, not the intermediate form an earlier rule left.
+            pointer = dict(action.pointer or {})
+            pointer["content_sha256"] = originals[action.source_id]
+            actions.append(dataclass_replace(action, pointer=pointer))
     return current, actions
