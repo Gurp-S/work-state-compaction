@@ -1,0 +1,14 @@
+{
+  "path": "D:\\lea\\XenYon code\\wsc\\versions\\runtime-tool-results-v1.68-delta.zip",
+  "bytes": 150683,
+  "sha256": "cfd93ab425d6d168cf65b95464618805b0bb305d7db62d89169a7cfc7e487687",
+  "files": 30,
+  "base": "linux-native-closed-mounts-v1.67-delta.zip",
+  "checks_passed": 22,
+  "model_calls": 0,
+  "native_interception_enabled": false,
+  "research_goal_paused": true,
+  "original_demo_text_bytes": 835417,
+  "demo_complete_view_bytes": 1160,
+  "actual_token_savings": null
+}

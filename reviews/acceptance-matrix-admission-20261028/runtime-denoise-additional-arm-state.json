@@ -1,0 +1,31 @@
+{
+  "status": "deferred_no_paid_admission_low_signal_and_unqualified_native_boundary",
+  "original_queue": "D:\\lea\\XenYon code\\wsc\\reviews\\acceptance-matrix-admission-20261028\\runtime-denoise-additional-arm-queue.json",
+  "old_controls_rerun": false,
+  "parent_configuration": "Indexed C, three complete current-version pairs",
+  "hot_projection_promoted": false,
+  "dependencies": {
+    "hot_continuation": "closed_2_complete_1_provider_limit_interruption",
+    "runtime_result_transform": "ordinary_text_verified_code_mode_does_not_replace_script_output",
+    "raw_recovery": "actual_spill_file_roundtrip_verified_model_recovery_unqualified",
+    "failure_status": "absent_from_observed_hook_payload",
+    "dsh_callback": "sidecar_checks_pass_framework_stubbed_not_live_host",
+    "trusted_output_classification": "not_available_for_generic_shell",
+    "crash_durability": "unqualified"
+  },
+  "provider_observation": "Actual tested session returned usageLimitExceeded; no automatic retry; unrelated to primary agent tool availability.",
+  "current_new_model_calls": 0,
+  "next_action": "Audit repeated engine-validated metadata in actual WSC recovery outputs before proposing another input reduction candidate; no new denoise patches or paid calls.",
+  "official_source": "https://learn.chatgpt.com/docs/hooks",
+  "offline_audit": "D:/agent-task-runs/wsc-runtime-denoise-admission-20261029-v1/real-output-audit-v3.json",
+  "new_unit_checks_passed": 7,
+  "actual_token_savings": null,
+  "paid_dispatch_admitted": false,
+  "native_protocol_qualification": "D:/agent-task-runs/wsc-runtime-denoise-admission-20261029-v1/native-hook-qualification.json",
+  "native_protocol_llm_calls": 0,
+  "dsh_qualification": "D:/agent-task-runs/wsc-dsh-denoise-qualification-20261029-v1/callback-sidecar-bounded-qualification.json",
+  "old_c_custom_exec_calls": 16,
+  "old_c_direct_tool_calls": 0,
+  "xeyo_replay": "D:/agent-task-runs/wsc-xeyo-terminal-replay-20261029-v2/results.json",
+  "decision": "Do not spend three runs on this candidate under existing T1 evidence; retain queued request and old results."
+}

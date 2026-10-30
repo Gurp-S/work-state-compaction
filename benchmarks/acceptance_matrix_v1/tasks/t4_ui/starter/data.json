@@ -1,0 +1,1 @@
+{"kind":"ready","rows":[{"id":"first","provider":"alpha","model":"same","tokens":0,"cost_cny":0,"price_state":"priced"},{"id":"second","provider":"beta","model":"same","tokens":8,"cost_cny":null,"price_state":"missing"},{"id":"third","provider":"alpha","model":"other","tokens":4,"cost_cny":null,"price_state":"unpriced"}]}

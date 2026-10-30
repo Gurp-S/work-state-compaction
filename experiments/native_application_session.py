@@ -34,8 +34,16 @@ class NativeApplicationSession:
         self.closed = False
         self.phases = []
 
+    def workspace_path(self):
+        return Path(self.registration['workspace']).resolve()
+
+    def rollout_path(self):
+        return Path(self.opened['thread']['path'])
+
     def source_manifest(self):
-        root = Path(self.registration['workspace']).resolve()
+        # Goes through the method so a mapped session can point the manifest at
+        # its own workspace instead of the guest path in the registration.
+        root = self.workspace_path()
         excluded = self.registration.get('manifest_excludes')
         if not excluded:
             return manifest(root)
@@ -84,7 +92,7 @@ class NativeApplicationSession:
                 'execution_mode': 'workspace_write' if sandbox == 'workspace-write' else 'read_only'}, ensure_ascii=False, sort_keys=True)}]}
             self.server.call('thread/inject_items', {'threadId': self.opened['thread']['id'], 'items': [fact]})
             save(self.destination / 'execution-fact.json', fact)
-            path = Path(self.opened['thread']['path'])
+            path = self.rollout_path()
             deadline = time.monotonic() + 3
             while not path.exists() and time.monotonic() < deadline:
                 time.sleep(.05)
@@ -109,7 +117,7 @@ class NativeApplicationSession:
         area = Path(destination)
         area.mkdir(parents=True, exist_ok=False)
         tid = self.opened['thread']['id']
-        path = Path(self.opened['thread']['path'])
+        path = self.rollout_path()
         before = path.read_bytes()
         inherited = None
         if hasattr(self, 'fork_binding'):

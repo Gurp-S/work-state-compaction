@@ -1,0 +1,59 @@
+test_call_identity_is_scoped_to_thread_and_turn (test_source_tool_turn_scope.SourceTurnScopeChecks.test_call_identity_is_scoped_to_thread_and_turn) ... ERROR
+test_new_turn_checks_permission_instead_of_replaying_old_reply (test_source_tool_turn_scope.SourceTurnScopeChecks.test_new_turn_checks_permission_instead_of_replaying_old_reply) ... ERROR
+test_new_turn_does_not_reset_total_callback_budget (test_source_tool_turn_scope.SourceTurnScopeChecks.test_new_turn_does_not_reset_total_callback_budget) ... ERROR
+
+======================================================================
+ERROR: test_call_identity_is_scoped_to_thread_and_turn (test_source_tool_turn_scope.SourceTurnScopeChecks.test_call_identity_is_scoped_to_thread_and_turn)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_source_tool_turn_scope.py", line 34, in test_call_identity_is_scoped_to_thread_and_turn
+    reply = self.handler.handle(event, thread_id='t', turn_id=turn)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\lea\XenYon code\wsc\experiments\native_source_tool_budget.py", line 13, in handle
+    return super().handle(event,thread_id=thread_id,turn_id=turn_id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\lea\XenYon code\wsc\experiments\native_source_tool.py", line 43, in handle
+    previous,reply=self.seen[call];require(previous==fingerprint,'source_tool_call_identity_conflict')
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\lea\XenYon code\wsc\src\wsc\contracts.py", line 25, in require
+    raise WSCError(reason)
+wsc.contracts.WSCError: source_tool_call_identity_conflict
+
+======================================================================
+ERROR: test_new_turn_checks_permission_instead_of_replaying_old_reply (test_source_tool_turn_scope.SourceTurnScopeChecks.test_new_turn_checks_permission_instead_of_replaying_old_reply)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_source_tool_turn_scope.py", line 43, in test_new_turn_checks_permission_instead_of_replaying_old_reply
+    reply = self.handler.handle(self.event('u2'), thread_id='t', turn_id='u2')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\lea\XenYon code\wsc\experiments\native_source_tool_budget.py", line 13, in handle
+    return super().handle(event,thread_id=thread_id,turn_id=turn_id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\lea\XenYon code\wsc\experiments\native_source_tool.py", line 43, in handle
+    previous,reply=self.seen[call];require(previous==fingerprint,'source_tool_call_identity_conflict')
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\lea\XenYon code\wsc\src\wsc\contracts.py", line 25, in require
+    raise WSCError(reason)
+wsc.contracts.WSCError: source_tool_call_identity_conflict
+
+======================================================================
+ERROR: test_new_turn_does_not_reset_total_callback_budget (test_source_tool_turn_scope.SourceTurnScopeChecks.test_new_turn_does_not_reset_total_callback_budget)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_source_tool_turn_scope.py", line 50, in test_new_turn_does_not_reset_total_callback_budget
+    reply = self.handler.handle(self.event(turn), thread_id='t', turn_id=turn)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\lea\XenYon code\wsc\experiments\native_source_tool_budget.py", line 13, in handle
+    return super().handle(event,thread_id=thread_id,turn_id=turn_id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\lea\XenYon code\wsc\experiments\native_source_tool.py", line 43, in handle
+    previous,reply=self.seen[call];require(previous==fingerprint,'source_tool_call_identity_conflict')
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\lea\XenYon code\wsc\src\wsc\contracts.py", line 25, in require
+    raise WSCError(reason)
+wsc.contracts.WSCError: source_tool_call_identity_conflict
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.127s
+
+FAILED (errors=3)

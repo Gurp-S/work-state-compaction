@@ -1,8 +1,336 @@
 # 独立 WSC 本地续接：当前交接
 
-更新：2026-10-27。当前代理直接完成，不使用子代理。长期目标未达成。用户确认额度恢复，明确采用实际实验运行时间累计、额度等待不计；旧消耗、失败、未知及原上限不变。以下历史段落不覆盖本节。
+## 最新：Bprime原线程适配器与共用冻结产物验收实现；会话选择待答复
 
-## 最新：既有计时日志分解完成；未重跑实验
+2026-10-30，0模型/0native启动。native_chain_adapter接工厂锁thread/model/effort/cwd/工作区/日志/server/profile；初始与各轮注入核对旧前缀和实际新增原字段，只允许原生附加元数据；错序/改写拒绝。压缩调已有真实V2证据入口，续接实际execute_stage后有界封存代码、work_state、原公开测试，ResourceIO句柄校验+二次hash，非全局原子/后台静止证明。chain_artifacts共用验收独立hash→代码/状态/引用→验后hash，行为过但import写自身仍失败，公开测试看登记hash，不信适配器布尔。5适配器+4产物检查过，仅脚本RPC/私有正确参考；real_dispatch_qualified仍False，实际共同factory/验收隔离与超时未全部接通，不冒称真实实验。报告reviews/native-chain-adapter-and-artifact-evaluator.md，证据wsc-native-chain-adapter-20261030-v1。C逻辑任务换聊天/严格原聊天异步选择仍待用户答复；不移除MappedCheckpointHost fresh守卫。下一步共同运行时工厂及隔离验收接协调器；C在选定语义后接真实选择发布。根可用10920468/52/2004无新claim，预算三重复缺口保留。
+
+## 最新：九阶段六轮协调器校准通过；会话语义已询问待答复
+
+2026-10-30，0新模型。chain_coordinator独立模块：持久reserve/bind后open/释放当轮/compress，2/4/6续接后才把私有oracle交evaluator；压缩证据未确认/模型阶段未完成/缺回执停止，已知回执保留、不重跑，脚本qualification_only绝不作实验结果。5检查过；初版空完整usage被原预算器拒绝，未放宽，脚本仅用显式synthetic回执校准，账本测试值不计campaign。新增native_chain_compaction调用实际阶段+原blackbox证据，32MiB有界读，无摘要解密；复用旧真实native18587Token材料回放确认过，不新计费/不新原生启动。关键限制：MappedCheckpointHost install要求无token_usage且bootstrap-only新receiver，不能直接用于同native线程六轮；已发异步选择逻辑任务可换C聊天（推荐系统比较）或严格原聊天先解决替换，答复前不作依赖性真实执行。报告reviews/six-round-coordinator-v1.md；证据wsc-chain-coordinator-20261030-v1。真实适配器工厂/正常C选择发布/两臂任务代码副本验收还未完成，别把协议接口和脚本通过说成完成真实实验。根可用仍10920468/52/2004无新claim。下一步依据会话选择接真实两臂，登记足够预算，不缩难度、不抹失败或把单组当三重复。
+
+## 最新：六轮任务流与代码/状态/适用性验收实现；0模型自校准过
+
+2026-10-30。chain_dataset/chain_evaluation独立模块，复用T1封存46与T3封存47条初始事件精确一致、原starter，不带旧完成代码。六轮revision3..8；T1额外重试408→502→425/502→409/425→408→无（保留429/503），T3全版本/归档标题码点上限48/16/32/12/24/64，状态active/paused/active/complete/active/complete；每轮新注册/状态/低优先级相反假设与2日志。第2/4/6代码12项（原检查+新行为）、work_state.json与当前/round1引用分别验。相同complete但错epoch字节值都对仍判适用性错。GT有有效轮次/优先级/依赖，不评分自由文本；未来schedule与oracles都协调器私有，逐轮release，不进actor全文件。7框架检查过；封存材料上6正确参考各12项过、6旧轮参考全被新增行为拒绝，引用/状态正控过，非模型质量。证据wsc-six-round-material-20261030-v1，报告reviews/six-round-chain-dataset-v1.md。history_dependency_qualified仍false，未压缩/清空历史新共同宿主对照未做，禁止以旧资格代替。下一步统一长程协调器接逐轮事件、真实两压缩入口、检查点代码执行/状态/引用、完整计时和available预算。没有正式派发；根10920468/52/2004仍不足三重复全矩阵，不缩任务/不默加额。
+
+## 最新：计时接原生Python阶段入口；查询单位开关跨快照保持
+
+2026-10-30，0模型/0原生二进制启动。native_measured_chain独立旁路包装工厂/session.execute_stage/恢复回调/close及provider回调，参数、bytes、回执和对象身份不改；读写删除会话属性转发原对象，防fork_binding只落包装。4检查含实际MappedContextSession.execute_stage+脚本RPC，缺回执仍unknown，不冒称真实模型验证。ContextReceiver.advance原会丢infer_json_pointer_units，现保留开关且open_context_receiver显式支持；7检查过，预算不重置。候选完整声明925→1030字节+105，输入总代价未知，不默认开。报告reviews/measured-native-entry-and-coordinate-lifecycle.md，证据wsc-measured-native-entry-20261030-v1。当前规范task_specs仅一次r1/r2，Cell单压缩，不是已完成六轮协调器；下一步六轮事件/第2/4/6实际代码任务验收，再统一接本模块、最外层计时、available和两压缩入口。不要把已完成任务重复六次或字段题当长期能力；原native/回查准入不付费重复。根可用10920468/52/2004，三重复仍不足，无新派发，主目标未完成。
+
+## 最新：用户批准严格结算；补全续用图后只释放根未分配残余
+
+2026-10-30，0模型。用户已明确允许追加严格结算规则，不增加总上限、不改旧claim、未知冻结。发现前audit仅识别next-runtime-group漏掉hot/controls/paired多级claim：第三批名义25中24已预留hot诊断且其用量未知，不能释放。现递归所有*.claim.json并拒环/重复child，7根+5后续节点；旧审计留档已更正。原生日志回执重新account_turn、phase唯一精确、SHA/前缀/账本ID总数/Token及所有reserved-settled核对：第三批根残余67260/1/112与真实原生V2残余61413/0/137已追加结算，原文件不改；当前可用10920468/52/2004。第二次恢复格式不满足严格phase匹配暂拒，其他未知冻结。重复执行同值不重加额，available(parent)复验所有来源与子claim集，原旧运行器仍保守扣全额，新协调器需显式接入。3图+4算术+5原始回执门槛检查通过；首次WindowsSQLite未close的检查失败已治本closing重跑通过。报告reviews/strict-campaign-settlement-v1.md，证据wsc-strict-settlement-20261030-v1及wsc-claim-audit-20261030-v1/audit-v3.json。下一步实际长程协调器的分段计时/可用额/查询契约接线，保留困难任务与六轮检查点；52仍小于三重复乐观72，不擅自加额度，不将一组当重复证据，无新付费派发。
+
+## 最新：根分配只读审计与宿主分段计时；结算规则待用户选择
+
+2026-10-30，0模型，无新派发。7根claim与1嵌套续用登记摘要核对匹配，根未分配仍10791795/51/1755。第二批父账本未知保留且原有续用已使用，不能重复释放；首次恢复/T3未知冻结；第一批原规则明确整笔扣减。第三批完整关闭账本31/56响应，算术未用25、967260Token、1012秒；已发异步选择询问是否允许追加严格结算规则，未获答复不实施，不增加原总上限。不把closed当完整账单或自动退款许可。审计v1误用恢复注册文件导致hash false，v2规范live-registration匹配，旧结果留档。新增独立PhaseTiming宿主采集器，嵌套/并发区间不相加，异常传播、未测区间未知、线程CPU不含子进程远端；4检查通过。40KB真实本地WSC链含setup/record/capture/material/prepare/stage/install/recovery/cleanup完整测得约0.216秒，仅接线验证无性能结论。报告reviews/campaign-settlement-and-chain-timing.md；证据wsc-claim-audit-20261030-v1。下一步等待结算选择并准备同宿主长程执行接线，最外层包含初始化及选材，HTTP单独嵌套；不重复协议准入、不派发无预算保证的六轮三重复，不缩任务凑数。
+
+## 最新：JSON Pointer 无歧义单位旁路兼容；长程三重复预算不足
+
+2026-10-30，0模型。ContextQuery 新增 infer_json_pointer_units=False；显式 True 仅补 result/json_pointer 缺失的 units，显式错误/null及字符/字节/行范围不猜测，权限、绑定和预算照旧。模型可见描述仅陈述事实。根因是重复元数据校验，不是语义理解；此前序数题目歧义已另修，不重复。4新检查+14现有检查过。程序前后回放旧接口拒绝再补字段2次、旁路1次，成功完整对象精确一致，不能冒称已省模型Token。报告 reviews/query-coordinate-policy-and-chain-budget.md；证据 wsc-query-coordinate-policy-20261030-v1。当前根未分配51响应；T1/T3六轮Bprime/C三次重复，即使C零模型压缩，原生36+检查点36仍至少72；C每轮模型一次则108，均未计工具往返。不得缩短难任务、自动退款或追加。下一步审计既有完整账本的合法结算规则，再接完整链分段计时与执行登记；原失败/未知冻结，原生不改，无新付费派发。
+
+## 最新：共同 HTTP 宿主的真实原生 V2 压缩完成，完整用量已留档
+
+2026-10-30。限额一次真实请求，无重试。未修改原生二进制，显式 remote_compaction=v2；发送前结构化 trigger 核对，完成后 durable compacted、response ID、同线程轮次 Token 回执、任务完成及 turn/completed 对应，最终一个 opaque compaction 项。未查看或解密摘要。复用旧 T1 的 46 条历史逐项核对通过，不带旧完成代码或私有答案。输入17024（缓存9088、未缓存7936），输出1563，总18587，1完整回执；原生阶段33.531秒，HTTP33.318秒，预留活动42.844秒，区间嵌套不能相加。请求86765字节，SSE135333字节不是压缩后上下文；内部实际模型/压缩后Token未知。新上限80000/1/180，完整关闭无超限；根未分配10791795/51/1755，未用差额不自动回收，旧失败和未知用量保留。WSL清理成功。报告 reviews/real-native-v2-compaction-admission.md，证据 wsc-real-native-compaction-20261030-v1。共同HTTP与默认WS仍有传输差异；只通过真实压缩接入，不证明WSC收益。下一步准备同宿主长程Bprime/C：查询坐标契约、从外置/选材开始的分段计时、六轮及重复预算审计；不再付费重复字段/协议准入，不缩短困难任务来凑预算。尚未授权新的自动付费派发。
+
+## 最新：恢复后工具可分派；发现新提供方默认压缩模式不等价，新增显式V2准入
+
+2026-10-30。真实模型0。克隆旧原生持久记录不改原证据，恢复后请求WSCContext声明与真实成功回查时声明精确相等，固定响应tools.WSCContext触发原生动态回调，不重传dynamicTools。新版本工具在input.additional_tools/functions.exec描述，内置额外web不能要求整套描述相等；WS预热generate=false与增量previous_response_id需区分。实际默认自定义HTTP压缩无compaction_trigger，显式remote_compaction=v2 HTTP及内置OpenAI WS均有trigger，路径均/responses，路径不能代替模式。内置探针仅本地无权限占位key、不用真实凭据；未证明ChatGPT配置完全等价。新native_compaction_profile独立模块：--compaction-v2显式启用，Gate require_compaction_v2默认关闭、用于压缩阶段发送前核对kind+单个结构化trigger；本地真实捕获4条核对正确，11针对性检查过。内置默认WS与共同HTTP性能不等价，新候选标为原生remoteV2+共同HTTP系统对照。所有压缩响应为明确本地错误，没伪造opaque/摘要，没真实压缩没B/C结果。v1工具位置/v3 HTTP不能处理WS/v5能力未暴露/v6预热/v7整套工具断言问题均留档，v2/v4/v8有效的对应协议检查留档。报告reviews/resumed-tools-and-native-compaction-profile.md；证据wsc-resumed-native-routes-20261030-v1至v8、wsc-compaction-profile-checks-20261030-v1。WSL清理。下一步共同宿主显式V2接线与限额一次真实原生压缩资格，确认真实事件/opaque类型/完整成本，再长程矩阵；不重做无外置暴露旧组。
+
+## 最新：新映射宿主实际安装与重开对账通过，0模型复用旧草稿
+
+2026-10-30。新增MappedCheckpointHost独立宿主日志，原WSC状态机不改。只读旧T1第一草稿及46条原事件，逐条hash且新source_digest等旧发布，旧DB前后hash不变；原选择25567Token历史成本不抹。核心stage后实际原生注入，核对日志成功但故障钩子在宿主receipt保存前抛错，cursor保持0；追加原生尾部后正常关闭/重启原生并thread/resume同聊天，重开WSC/宿主日志仅lookup重建回执，确认generation1/cursor46，检查点RPC只注入一次。后来尾部仍在；撤销来源权限不重新否认已提交事实，未来查询拒绝，恢复权限后s45原文精确。6针对性检查过，实际协议验证过，0模型。不是SIGKILL/掉电或跨库通用原子性证明，调用方须串行化接收线程变更；没有原生压缩或turn/start。恢复后模型请求工具schema仍未验，不能拿handler存在代替。报告reviews/mapped-native-checkpoint-qualification.md；证据wsc-mapped-checkpoint-20261030-v1。实际方法allowlist与清理回执留档。下一步0模型核对恢复后的工具注册、原生压缩HTTP路由，再准备同宿主长程对照；不重开字段取值、不付费重跑无大结果暴露的旧外置臂。
+
+## 最新：旧基线复用审计完成，当前旧任务不触发大结果外置
+
+2026-10-30。0模型。T1封存前缀/完整inputs原文件/公开任务/后续基线绑定5项摘要核对通过；五任务原历史最大单条1088/747/1094/30000/1016字节，T1六条续接最大2493/5170/2554/5157/5761/6647，均不超过默认32768阈值，不付费重做无外置暴露的旧组，不为制造命中改阈值。字符串及显式文本块均计入，图片不转文本，块数组合计不冒称可替换；上游截断前正文和嵌套恢复身份未必可观测。旧history/starter/oracle/三份草稿可复用为数据，Windows可执行/Python3.11.9/旧拒读缺口/旧请求python.exe/默认传输缓存/旧适配器及工作区绑定与新Linux不等价，旧模型成绩不能直接充作新控制。三份原草稿25567/26378/26733Token仍计完整重建代价。v1审计器原文件摘要核对误用对象seal且漏文本块，保留；v2修正全过。报告reviews/runtime-result-baseline-reuse-audit.md，证据wsc-runtime-baseline-reuse-20261030-v1/v2。下一步映射宿主真实检查点安装/回执/恢复资格，优先已有草稿零模型；然后机制暴露与同宿主控制准入，不继续字段取值、不直接大B/C。
+
+## 最新：真实模型已准确回查并使用原文，原验收索引错位不改分
+
+2026-10-30。先本地原生错误回传0.166秒通过（0模型），再新登记r2恢复准入100000/4/180，旧r1未知冻结。实际3份完整回执34617Token（输入34337/缓存0/输出280），2次WSCContext：首次缺units中性拒绝，补units=json_pointer后精确返回/records/3499/token，最终JSON值及result:r1匹配原文且该值不在首请求。公开题“第3500项”而oracle索引3500，模型3499符合序数；原success=false保留，另存posthoc-coordinate-audit，仅作真实恢复链路证据，不改主验收分。后续题目统一TARGET_INDEX生成公开JSON Pointer及oracle，明确0起索引；5项检查过，无重跑。原文628903→完整概览1125字节，完整请求58564/59496/62144字节。预算活动21.516秒含提供方11.670秒，但外置/概览在预留前未计时，所以不称完整链时间或全是WSC开销。原生压缩/语义选材均未运行，无B/C收益。三次原始text/plain均为结构有效SSE，先留存再调整媒体类型，旧r1缺失正文仍未知。源as-run/原始请求响应/回调/账本/旧失败保留。根分配余10871795/52/1935，不自动回收。报告reviews/real-context-recovery-second-admission.md。WSL终止，无后台实验。下一步回既定矩阵核对旧基线输入/权限/运行时/缓存是否可复用，不继续堆字段准入，不拼不同条件的旧数据。
+
+## 最新：首次真实提供方请求因接入拒绝失败，原文缺失与预算冻结保留
+
+2026-10-30。第一方GET models200、10模型含gpt-6.1-sol。登记单次真实外置恢复准入100000/4/180，根分配余10971795/56/2115；原未知不变。首次POST200、102429字节、text/plain，被连接器拒绝且正文未留存，原生未收到输出，0回查；实际Token未知，不能写成本0或WSC答错，原分配冻结、不重试。预算活动129.922秒，HTTP仅3.014秒，原生等错误约120秒（嵌套不能相加）；根因宿主异常未返回传输帧。已旁路修复：原始/部分正文先留存，合法SSE按结构调整媒体类型且字节不改，其他正文拒绝但留证；dispatch异常立即JSON502。19相关检查通过，合法SSE先红后绿；没有真实重跑。原响应究竟何种内容无法恢复，不假称合法SSE。报告reviews/real-context-recovery-first-admission.md；证据wsc-real-provider-catalog-20261030-v1、wsc-live-context-recovery-20261030-v1、wsc-provider-capture-fix-20261030-v1。源码as-run/冻结账本/旧失败保留，凭据不归档，WSL已清理。下一步本地原生错误快速回传验证；后续模型准入新登记，不替换此失败，不直接大B/C。
+
+## 最新：专用socket通信与原生双请求恢复闭环通过，接收方仍为脚本
+
+2026-10-30。新增native_provider_frames/worker/actor/gate旁路。闭网内仅本轮Unix socket→宿主stdio，固定Responses路由/模型/次数/体积，凭据不加载，失败不重试；原文件隔离/UID/PID/网络保留。6项针对性检查通过。实际同版原生v4：第一次请求带964字节概览，原文89944字节，原生实际动态回调读取WSCContext，第二次请求带回精确值；完整请求JSON58032/58597字节。实际私有core/result库和proc变体拒读、第三次HTTP429，0真实模型调用。脚本usage0不算模型计量；缓冲式通道不保留SSE首字时序，monotonic短间隔0不是无开销。v1空快照拒绝/v2首次日志未落盘失败留档，按已有启动注入+等日志顺序修正；v3闭环过，v4新增边界过。报告reviews/native-provider-bridge-v1.md，证据wsc-native-provider-bridge-20261030-v1/v2/v3/v4。WSL清理成功。只检查默认ChatGPT认证字段存在，未打印/复制凭据，不代表已登录有效或额度不足。下一步真实提供方回调、限额一次模型准入与分段耗时；无paid准入，不重跑旧B/C。
+
+## 最新：Python任务运行时通过实际原生工具验证
+
+2026-10-30。上游Astral20261026 CPython3.11.18 musl stripped包29,417,739字节，SHA256核对；保留解释器/lib 1831常规文件77,388,838字节，符号别名/share/头文件不提取。独立只读/opt/python挂载保留原unshare-all和UID65534；5项挂载构造检查通过。实际同版Codex command/exec运行3项SQLite事务/迁移、UTF8/JSON、私有canary/链接拒读和运行时只读检查全过，模型调用0。原生v1默认只读无法建库，源码/错误留档；v2显式仅/work/actor可写、无网络后通过。下载90s超时后Range续传且整包hash一致，Windows Eterm/eterm碰撞后收紧提取范围，失败保留。WSL终止成功。自动审批拒绝删除生成的重复解包及下载包，两者保留且不入版本归档。报告reviews/linux-python-runtime-qualification.md；证据wsc-linux-python-provision-20261030-v1、wsc-linux-python-native-20261030-v1/v2。下一步限定提供方通信通道，尚无实际模型呈现/补证、Token收益或新B/C结果。
+
+## 最新：Linux阶段执行路径映射修复，真实提供方仍待接入
+
+2026-10-30。Goal续接后工具状态active；下文paused描述属于先前暂停时点，不代表本次已开付费实验。新增MappedContextSession与默认不变的workspace_path/rollout_path钩子，修复宿主把/work原生日志当Windows路径的问题。保留客体元数据，显式映射来源清单/日志/记账；线程、服务、模型、工作区、日志变化或链接拒绝，外部所有者清理失败可重试。25通过、1符号链接权限跳过，0模型；旧类同夹具在请求前FileNotFoundError，新类原阶段循环通过，未知用量仍未知。证据wsc-context-stage-mapping-20261030-v1，报告reviews/context-stage-mapping-v1.md。本机隔离Linux仅nc/busybox，缺Python/Node/socat，网络仍关闭。下一步受控提供方通道和任务运行时；无paid准入，无旧B/C重跑，不把模拟传输当模型闭环。
+
+更新：2026-10-28。当前代理直接完成，不使用子代理。长期目标未达成。用户确认额度恢复，明确采用实际实验运行时间累计、额度等待不计；旧消耗、失败、未知及原上限不变。以下历史段落不覆盖本节。
+
+## 最新：统一引用/授权、连续检查点及原生宿主回调旁路已接通
+
+2026-10-30。用户确认整体方向后实施，原Goal研究仍paused，未重开付费实验。见reviews/context-lifecycle-v1.md。新增ContextRuntime、ContextReferences、ContextQuery、context_source_refs_v1和ContextCheckpointAdapter；原文/概览/模型理解分离。单个WSCContext支持source:sN与result:rN，显式Unicode字符/UTF8字节/行/JSON指针，source:*字面检索。外置r逐条绑定原调用、事件序号/摘要、文本hash、会话/工作区/源DB/结果根，源与对象权限同时校验，不得同时注册绕过源授权的旧owner接口。
+
+observe→record_tool_result→宿主显式presented→capture/material→调用方选材→prepare/stage/install/reconcile。返回不自动视为呈现；控制不自动过期；stage不推进cursor；丢回执对账不重发；理解继续CAS。material对已绑定大结果提供明确projection及原文入口，不使用旧core.generate假装模型输入已投影。原事件仍完整留在WSC DB，外置文本另存，因此未证明存储最优；关联查询流式校验事件TEXT仍有全事件I/O，不假装免费。
+
+新增native_context_recovery原生回调工厂仅注册WSCContext，保留原容量/系统准入；ContextWorkspace以真实随机标记读回+cwd证明宿主actor-root/actor与Linux/work/actor对应，不改Store工作区；换线程/cwd/标记/进程即拒绝。查询预算跨advance不重置，回调精确重放不重复读源，缓存/trace有界。
+
+58项相关检查通过：上下文14、宿主契约6、外置23、旧投影3、Indexed3、旧恢复9。六次折叠为已有SQLite故障注入宿主下的程序契约验证，不是原生安装/模型长期任务证明。发现旧外置库重复正文调用重投prior=None导致view变化，先红后绿修复为绑定首次提交前的前驱，后来的调用不影响回放。
+
+实际同版Linux0模型v1验证器误拒原生传输附加字段，失败/源码/原轨迹保留；复用import_evidence后v2通过。最终源码变动后v3冻结全部独立包源码及新接入模块，真实WSCContext注册/工作区映射/command执行/原生历史视图/私有库拒读通过，68890字节→1875字节视图。恢复callback是手工脚本事件，presented是offline fixture授权，明确非真实模型请求或模型自发回查；原生原子检查点安装未验。无turn/start或compact，无模型用量，所有WSL已清理Stopped。
+
+证据D:/agent-task-runs/wsc-context-lifecycle-checks-20261030-v1及wsc-native-context-port-20261030-v1/v2/v3。下一步真实请求呈现/恢复、任务Python运行时、受控提供方连接资格；不启用多层模型摘要，不自动退役控制历史，不把本次字节或fixture成绩算B/C收益。旧已知5080960/141和未知保留，paid_dispatch=false。
+
+## 最新：用户暂停原研究；大工具结果外置和七类概览旁路已实现
+
+2026-10-30。用户先暂停原任务并确认策略后要求先实现功能；Goal工具已返回paused，未自行恢复模型研究。见reviews/runtime-tool-results-v1.md。新增src/wsc/tool_results独立包，RuntimeResults.call/acall包装工具执行一次，原文UTF8外置、完整JSON预算、七类受类型约束策略、短结果ID、read/read_lines/find/json_pointer和WSCResult查询定义；查询TypedToolText.recovery不二次摘要。CLI独立wsc-results，不改原wsc CLI和原生/DSH/XEYO默认工具链；宿主需显式接入，不能称原生代码模式透明替换已解决。
+
+默认32KiB触发/完整视图2KiB，原文对象128MiB、已登记对象逻辑量512MiB；8MiB整段处理/JSON上限，超大输入只做受限预览，16MiB搜索页。旧结果不自动GC；同正文共享对象但各调用状态/时间/版本独立，新读取版本不覆盖旧版本。写入、重读校验及索引提交后才发布引用；错误/磁盘满/损坏保留事实状态及原正文，不能形成更小有界视图不强换。资源限制不等于物理磁盘或上游进程RAM硬上限。
+
+22项针对性检查通过，含角色及恢复豁免、旧版本、Unicode/CRLF、权限撤销、身份冲突、元数据冻结、JSON严格解析、跨块搜索和行页、损坏与写盘失败、孤儿对象对账、链接后损坏的先红后绿回归。实际本地生产者执行一次：835417字节JSON→1160字节完整概览反馈，JSON路径2048字段与CLI准确，原文件hash匹配。另72000字节CRLF对照旧规则丢成2字节，新预览正文保留、原文分页精确复原。不是Token/任务收益或B/C实验，旧成绩和研究未知不改。
+
+证据D:/agent-task-runs/wsc-runtime-tool-results-20261030-v1及wsc-runtime-tool-results-demo-20261030-v1；开发失败/阶段通过/最终源码SHA保留。下一步接入选定宿主真实结果链并观察实际输入和查询成本；恢复原研究前接续前节Linux工作区映射/正常回查/运行时资格，不自动重跑旧组。原Goal仍paused，功能不依赖额外摘要模型。
+
+## 最新：同版本Linux原生与闭集挂载通过；下一步工作区映射及正常回查
+
+更新2026-10-30，实验目录沿用20261029命名。见reviews/linux-native-closed-mounts-qualification.md。官方安装脚本下载超时未执行；官方npm精确版0.165.0-alpha.1.2-linux-x64可用，166011963字节包SHA512匹配，提取5个非语音运行文件392694279字节，存wsc-tools一次，原生字节不改。当前5文件SHA复核通过；多余下载tgz校验后删除，释放166MB，版本不含二进制。
+
+Docker本轮启动45s口径超时，后台退出，失败留档不重试。已安装docker-desktop WSL可直接跑同版本原生：initialize、gpt-6.1-sol/max/no fallback thread/start、WSCSource schema注册、inject_items物理rollout、command/exec通过，0模型。复用包自带bwrap旁路linux_closed_mounts_v1，只挂只读/usr /bin /lib和原生目录、独占actor-root到/work，UID65534、独立PID/网络命名空间、清空环境。实际原生协议仍通过；完整旧31份宿主存在材料绑定SHA，64个直接/进程根目录变体及socket路径实际读取失败，原Windows可读旧A已覆盖。4项挂载守卫局部检查通过。不是联网/通用安全或任务成功证明。
+
+目录：D:/agent-task-runs/wsc-linux-runtime-admission-20261029-v1、wsc-linux-native-protocol-20261029-v1、wsc-linux-native-envelope-20261029-v1/v2。实际方法allowlist无turn/start/compact；源码快照是post-run，不假称付费预注册。WSL只由本轮从停止状态启动，清理terminate成功，最终Stopped、无Docker后台进程。研究5080960/141下界和所有未知不变，paid_dispatch=false。
+
+下一步显式宿主/客体工作区映射。旧TaskReceiver在宿主Path.resolve不能直接代表Linux/work/actor；不得放松workspace/source/cut/epoch校验。普通WSC恢复、Python/SQLite任务运行时、提供方连接还未接入，offline协议注册不等于模型补证。通过这些条件后才从已有预算登记有独立信息的新最小对照；不重开旧T1/T3账本、不换模型、不将Windows旧结果冒充Linux同条件。长期目标未达成。
+
+## 最新：全部结果汇总交付；干净容器WSC核心准入通过，原生与联网未过
+
+2026-10-29。用户要求先给所有结果再继续。总览reviews/2026-10-29-all-results-summary.md、all-results-20261029/review-index.md及JSON索引现存报告与版本回执；当前T1压缩器原始CSV和旧12条原始CSV均提供。T1三组任务持平、总Token-9.4%但未缓存+86.4%，旧恢复案例6/6对3/6但全链Token+25.6%；热投影不稳定、去噪未准入、T3控制未知及隔离失败保留。不是全项目或总体胜出证明。
+
+继续发现Docker本机已有大量旧镜像；启动现有后台，只读旧WSC镜像没有Node/Linux Codex。使用已有python:3.11-slim完整ID、只读挂载当前62份源码、UID65534/无网/capdrop/no-new-privileges/256MiB/1CPU/16MiB临时工作区，实际核心capture/prepare/stage、冷文件精确往返及DB重开通过，导出未当安装，源SHA不变，容器删除成功。证据D:/agent-task-runs/wsc-clean-container-admission-20261029-v1；只执行一次核心资格，0模型，无pull/build。详见reviews/clean-container-core-admission-20261029.md。
+
+Python3.11.16/SQLite3.46.1/Linux与旧Windows/Python3.11.9不同，不能用旧结果冒充同条件。原生CLI未接、模型恢复未测、networknone不能证明联网后的边界，paid_dispatch=false。Docker启动自动恢复已有Neo4j，没改数据/配置；检查后正常停止Docker，恢复初始停止状态，不留后台占用。下一步核对Linux原生运行时版本及明确提供方连接/私有文件/正常WSC恢复准入，再登记最小新控制，不重开旧实验。研究已知下界5080960/141及所有未知不变，目标仍未完成。
+
+## 最新：停机原文核实，私有材料实际拒读失败；停止权限参数重试
+
+2026-10-29。见reviews/t3-private-material-and-stop-audit.md。原no-history事件1096为interrupted，rollout为turn_aborted，379884超过350000，不能改记正常完成。新增private_material清单旁路（4项局部检查通过），绑定实际产物、报告和来源，未改默认模型执行。两次无模型native command/exec各31路径，均30拒读，旧T3 v7/A/migrate.py仍可读；第二次含明确文件deny也失败。不是只漏目录，不能继续参数盲试；ACL继承Allow/Deny并存是待查解释，未定位原生/OS具体根因，不手改ACL或原生算法。
+
+实际目录D:/wsc-public-workspaces/wsc-t3-private-material-admission-20261029-v1和v2，命令/权限/原执行源码SHA/清理及closure-audit保留；两次组empty_confirmed，根进程已退出。没有turn/start/compact，model_requests_issued=0；初始化没有物理rollout，不伪造零回执轨迹。源码末次仅处理该缺文件分支，未再跑native。旧比较加公平性限制，不声称旧模型读过答案、不删除旧结果。已知下界5080960/141及未知不变，paid_dispatch=false，T3历史资格false、去噪仍未准入。
+
+本机有Docker/WSL命令，但Docker Linux engine不可连接、未能列出镜像；没有下载/安装/启动服务。下一步先核对并资格化独立干净执行环境：私有评分、旧答案和对臂产物在环境外，原生版本固定、两臂条件一致，实际拒读及WSC正常恢复通过后再登记最小新控制。不重开旧账本、不扩大预算，不继续同用户权限补丁。长期目标未达成。
+
+## 最新：T3评分器旁路完成，离线27项通过；原控制仍不具资格
+
+2026-10-29。见reviews/t3-evaluator-v2-offline-audit.md。implementation_neutral_t3_v2不限定临时表名或异常类型，保持状态/无关数据/调用方事务的断言；bound_model_response_item_v1按原rollout、自身turn和工具调用来源识别final。显式null记未知、额外status不做语义评分，不可判定不算正确或错误。原注册A9/10、last-state-only2/10不动；统一离线重评A10/10、last-state-only2/10、参考10/10、骨架1/10。A答案及来源5/5；仅最后状态3项精确不匹配、2项未知，不能说五项全假。27项局部检查通过，原6份T1 Bprime/C对应指标一致，22保留文件及3评分源码SHA复核无漂移。
+
+新策略仅显式登记生效，原acceptors.py不改。控制脚本冻结新策略及oracle/源码，只有语法和路由验证，未再运行原生模型；旧claim/账本不重开。审计D:/agent-task-runs/wsc-t3-evaluator-v2-audit-20261029-v1。新增模型调用0，研究已知下界5080960/141、旧未知及费用保留，T3 history-qualified仍false、paid_dispatch=false。下一步离线核对停机/用量证据和新增评分/审计材料的私有读边界，再考虑新的最小控制登记，不自动补跑。去噪新增项仍未准入，旧结果复用；不得绕过最终输出替换与恢复资格，或将字节变化当Token收益。长期目标未达成。
+
+## 最新：沙箱启动准入恢复，T3首组结束；先修评分器与最终消息分类
+
+2026-10-29。见reviews/t3-first-controls-and-startup-resolution.md。日志缓存命中/插件完成，MCP和skip_host_skill诊断均无效不推广；活体进程采样4个fs-helper及Windows sandbox setup，单个21.7CPU秒。v7继承已合格T1明确拒绝目录并补T3真实答案/私有状态，去掉整仓库/整Dagent宽泛拒绝，两原生命令资格通过：runtime/实际oracle与验收源码拒读/历史导入/空历史/清理；不泛化全部外部工具安全。启动问题与模型额度无因果证据。
+
+T3两臂首次新模型控制并行，各350k/14/600，总700k/28/1200，从原根新claim未重置。A原分9/10，阶段正常完成usage完整，293411/7/359.109s，契约与源5/5；仅最后状态原分2/10，registered_token_cap，379884已知/10/275.235s、usage不完整。总673295/17，活动369.781，研究已知下界5080960/141旧未知保留。账本因peer未知两runfalse，不能说A模型调用中断。根剩余算术11071795/60/2295，本组未用冻结。history-qualified=false，不开始B/C/六轮。
+
+A唯一失败是私有评分器固定projects_migrating+DatabaseError，公开契约没固定名称/异常；A用projects_new，独立SQLite authorizer反例证明既有表keep行保留/版本3/调用方事务保留，原9/10不改、不补分。仅最后状态收集final2条，其中一条ID=原request_user_input_async工具callID，是展示消息；原始rollout只有1条真实模型final。不能把当前0/5当模型五条全答错；预算中断未知仍成立。下步修这两类评分边界，用现有产物离线正反例验证，之后才考虑预算/控制续接。全部原始注册/费用/失败保留，无旧T1/B/C重跑，长期目标未达成。
+
+## 最新：T3入口完成、进程清理死锁修复；原生thread/start仍超时，停试参数
+
+2026-10-29。见reviews/t3-task-entry-and-startup-report.md。新增task_cell显式T3→migrate.py/accept_t3，默认T1不变；Baseline预算/finish用run_id修正命名空间遗漏。4组13项局部检查通过，T3旧10项校准未重跑。发现OwnedNativeRPC.close先关stdout会等持管道子进程，实际进程回归旧2s失败、新约0.073s通过；改先owner.close再rpc.close，v2/v4/v5/v6超时后均有empty-confirmed清理。v1精确Python根进程终止并留现场，不声称捕获其栈。资格v1/v2启动超时；v3路径枚举超Windows命令行；v4公共目录移出Dagent拒绝根仍超时；v5显式60秒仍超；v6单次关node_repl仍超，非根因结论/未推广。未发模型turn/compact、旧B/C不重跑，T3私有文件拒绝与历史导入尚未执行，不能报隔离通过。新工作区D:/wsc-public-workspaces，旧失败D:/agent-task-runs，注册均保留；无新付费claim，原生算法不改。下一步只查现有启动日志定位等待点，不继续参数试跑。全目标未完成。
+
+## 最新：回查元数据只有局部空间，不能修首次输入；停止零散裁剪，核对T3准入
+
+2026-10-29。见reviews/recovery-metadata-audit-decision.md。旧3完整C共10回查（9read/1find）：紧凑JSON11942字节；隐藏计数10927（−8.5%）；再隐藏原ID及SHA6793（−43.1%）。正文3914字节，未动协议/工具/源码选材，无LLM。隐藏字段不是无损，且回查发生在首次请求之后，不能解决C首次输入+5%左右的差距，不添加详情接口和新付费候选。旧readiness的next_step仍要登记已结束热投影，已保留快照并纠正当前scope/状态/下界4407665/124/证据指纹；未知仍保留，paid_dispatch=false。下一步核对已有T3任务/历史依赖/验收器准入，补真正跨轮状态覆盖证据；T1合格3组不重跑，原生不改，不重新开启关闭的探针。全目标未达成。
+
+## 最新：XEYO真实21回执只有CRLF命中，恢复标记反增；去噪新增组不准入
+
+2026-10-29。见reviews/runtime-denoise-xeyo-replay-decision.md。复用旧3完整C，21结构化shell输出（含4非零）中18仅CRLF归一：20599→20248正文少351，但完整恢复视图23002，反增2403（11.67%）。18原文文件重读SHA通过，3不变内联；v1误把未落盘都记恢复true，v2改null并保留旧回执，正文数不变，不能当独立重复样本。当前源码SHA绑定，规则0.225ms合计、prepare含IO61.763ms、导入115.775ms单独，非延迟分布或WSC/native速度因果。无LLM、无旧B/C重跑，未知真实Token/任务差。现有typed shell_terminal是传输类型，不是语义log分类；BashTool确实将view写进最终ToolResult.content，但原生Codex不走它。当前T1没有足够去噪空间，不继续给此接口补丁或花3次模型调用，用户新增项保留未准入。下一步回WSC主链，先盘点真实回查结果里引擎已校验的重复元数据占用，证据足够才提新旁路。长期目标未达成。
+
+## 最新：DSH回调复现三风险，安全旁路通过，真实分类/最终返回边界未过
+
+2026-10-29。见reviews/runtime-denoise-dsh-boundary-qualification.md。从本机ASAR只提28个相关源码文件644722字节；实际WSC监听器＋真实spill存储，框架替身，无LLM。复现CRLF丢正文、exitCode1/isErrorfalse仍被去噪、原文read重复折叠。新增dsh_runtime_denoise_boundary旁路使用明确状态与可信log分类、恢复/源码/未知旁路、持久保存重读校验后提交状态、指针计入、身份缓存128。正反例及缓存淘汰通过，合成2000→260字节不是真实Token收益。未改默认引擎，无真实宿主分类或模型恢复证明；DSH PTC只改content仍会把原value返回脚本，必须核对最终可见边界。旧C三份16次全custom exec，无普通直接调用，不能靠关代码模式或换DSH冒充纯去噪对照。新增付费不派发；下一步XEYO现有typed终端视图的真实回执覆盖/恢复代价盘点，不再补无效钩子。目标未达成。
+
+## 最新：原生钩子确实运行，但代码模式下一请求仍含原文；去噪付费门槛不通过
+
+2026-10-29。见reviews/runtime-denoise-native-hook-qualification.md。新增十个本地脚本Responses协议夹具，无LLM、旧B/C不重跑。v1至v7失败保留；Windows commandWindows加PowerShell调用操作符后，v8 SessionStart/PostToolUse均实际执行，原文落盘fsync重读成功。v8代码模式promise返回原结构和正文，脚本输出后下一请求仍含原文；v9普通工具下一请求成功替换；v10退出1的命令也被替换。hook payload只有文本，没有exit_code；嵌套tool_use_id不等于外层exec call_id。不能以钩子执行证明省Token，也不能无视失败状态。summarize_native_post_tool_hook逐字段断言通过，但派发门槛fail。夹具私有HOME/fallback元数据/danger-full-access，不是旧模型权限基线。下一步已有DSH结果边界的离线安全与恢复资格；若换宿主/工具，明确登记系统级多变量配置，不当纯去噪对照。目标未达成。
+
+## 最新：真实去噪回执发现CRLF丢正文，旁路修复完成，原生接入口仍待资格
+
+2026-10-29。见reviews/runtime-denoise-real-output-audit.md。旧完整C三份51块，结构化shell21块中6份命中，恰为每组三份unittest日志与源码读取。现有规则13175→1153字节并非收益：五份正文被CRLF处理错误清成5字节；源码同样受损。新增runtime_denoise_view旁路仅接受明确log且成功、非恢复结果，先归一化CRLF；未知/源码/错误/恢复旁路。7项检查通过，原DSH规则和默认主链未改。审计v1漏并行包装，v2修正，v3加换行对照，全部保留。新模型调用0、实际Token收益unknown，下一步原生替换与持久恢复资格后才登记新增臂；不重跑旧B/C。
+
+## 最新：热投影同稿续接已结束，代码3/3、完整2/3；去噪进入接口资格，参照仍用旧Indexed C
+
+2026-10-29。见reviews/hot-projection-continuation-report.md。D:/agent-task-runs/wsc-hot-continuation-probe-20261029-v3已closed，exec9400已返回exit0，不重开。仅新增3热投影续接，旧C/B和选择器未重跑。新native_recorded_choice核验原模型rollout、draft规范化、46来源字节、原manifest scope和记录身份后复用，不改scope/CAS；4项正反例通过。v1准备拦住冷导出位置差异，v2仅准备，v3唯一执行；实际比较头部减archive＋逐字正文/其他消息，冷对象由新操作独立封存，不丢语义差异。
+
+首次输入旧27881/28349/28124→新26806/27095/29555，前2少3.9%/4.4%，第3反增5.1%。三个代码11/11、约束0；前2最终契约和来源5/5、完整成功；第3被测服务明确usageLimitExceeded、willRetry=false，代码通过但无最终交付、usage_complete=false，不能算成功或压缩丢事实。新增已知662268/19响应、活动403.235s，累计已知下界4407665/124，旧未知不改，当前unknown也保留；当前子批算术差额237732/5/496冻结不自动再派。root预算未增加。热投影不默认启用。
+
+新旧normalized bootstrap developer/user块长度和SHA不同，见bootstrap-shape-audit-v2.json；完整请求首Token差不能全归投影，也不能拿自有字节节省当收益。前2新续接292539/194968 vs旧199339/199646（+46.8%/−2.3%），第3仅下界174761不用于节省比较。保留所有失败/中断，不补跑替换。
+
+当前测试全收齐，用户去噪新增项可以开始资格。保持旧完整3组Indexed C为参照，不重跑。已用openai-docs技能查阅并打开官方https://learn.chatgpt.com/docs/hooks：PostToolUse反馈替换模型结果有文档路径；continue:false与decision:block在code-mode promise语义不同，updatedMCPToolOutput不支持。文档不是本机成功证明；下一步本机无模型接口/原文恢复及输出命中盘点，再登记新臂。不安装/改动全局hooks，不在未知或未登记时派发；外部限额不阻止本地可做工作。长期目标仍未达成。
+
+## 历史用户追加：所有当前结果收齐后，新增运行时去噪臂；不重跑旧组
+
+用户要求在旧/新投影续接结果出来后追加“当前WSC＋运行时工具结果去噪”，和有效旧结果比较，节省额度。先继续原投影续接任务，不被新增项替换；新臂尚未派发、未认领预算。见reviews/runtime-denoise-additional-arm-plan.md及reviews/acceptance-matrix-admission-20261028/runtime-denoise-additional-arm-queue.json。
+
+已核实：wsc/src/wsc/denoise有七条旁路规则但未接主链；图中dsh-wsc/engine.js有tools/post-execute真实运行时钩子，lib/denoise.js有runtimeDenoise，并spill保存原文。python/tools/bash_tool/output_view.py又是XEYO自己的shell显示流水线。三者不能混称为Codex当前已启用功能。旧50%数据是合成字节，不是Token/任务收益。
+
+当前NativeForkSession只处理item/tool/call自定义回调，普通commandExecution结果是通知；本机CLI已生成含experimental的schema（D:/agent-task-runs/wsc-runtime-denoise-admission-20261029-v1/schema），确有pre/postToolUse元数据，但没有据此证明可替换内置结果。下一阶段先资格化真正的请求前去噪及原文恢复；不能改rollout假装runtime，不能换到DSH后冒充与旧Codex同条件。无需/不得为了此调查重跑旧有效三组。
+
+新臂拟同任务3次、最多2worker，具体额度登记前不派发。保持压缩/投影/模型/原始历史/预算其余条件；明确错误、未知类型、源码读取和原文恢复豁免，防止恢复循环。JSON骨架/截断可能影响即时信息，不能由可回查保证正确。以现有11代码断言、5契约/来源及约束衡量，记录所有Token、指针、恢复和存储成本。若真实任务无噪声命中，报告无收益，不造噪声。旧结果源哈希、实现和当前CLI协议指纹已登记；新增模型调用0。
+
+## 历史：身份校验元数据旁路已实现；三稿精确等价、72别名及零模型原生发布通过，未默认启用
+
+2026-10-29，见reviews/hot-projection-sidecar-qualification.md。新experiments/native_hot_checkpoint.py策略engine_identity_sidecar_v1；从模型头部移走长source_id及archive私有路径/哈希，全部语义文字/选择/版本/范围/observed_at（含null）保留。元数据继续由projection_evidence封存；重建旧头部后旧解码器验证所有字节，再按独立SnapshotSourceAccess校验别名。缺失、改写、错误来源、路径不一致均拒绝，不修补。格式wsc.hot_sections/1；旧默认Indexed不变。Cell只在显式actor_projection_policy下用新adapter，Host按封存policy做新校验，未知policy报事实错误。
+
+新7项检查通过，旧Host2项通过。三份实际选材稿原7448/8150/7733B→3838/4531/4114B；所有原items精确还原，每稿24个别名由原DB隔离副本独立读取核对，原DB哈希不变。额外复现Python字典相等会将scope revision=1与true视为相同的原型漏洞，改为规范头部文本精确比较，类型改写不静默修回。最终D:/agent-task-runs/wsc-hot-projection-qualification-20261029-v3/results.json绑定当前源码哈希；小夹具原生实际fresh注入/core.install确认generation1、through2、进程关闭。v2初步成功凭据也保留。模型调用0，不宣称新任务11/11或Token/缓存收益。v1缺少拒读peer目录的夹具失败保留，修夹具不改权限；最初测试publication_pending通过既有discard解决，不改状态机。
+
+适用边界仅当前SnapshotSourceAccess实验宿主，私有archive路径不作为模型正常文件恢复入口；其他宿主和无恢复模式未资格化。当前模型调用总量未增加，已知研究下界仍3745397/105，旧unknown不变。下一步在现有预算内登记同稿旧/新投影的有限续接诊断，先核验选材稿source_manifest/适用范围能精确匹配再复用，不猜测修补；验证实际输入、缓存和功能，再决定是否正式3次B/C。长期目标未达成。
+
+## 历史：当前T1三组有效对照完成；C总Token合计少9.4%，未缓存多86.4%，下一步审计并瘦身引擎身份元数据
+
+2026-10-29，见reviews/acceptance-matrix-three-pair-report.md。D:/agent-task-runs/wsc-matrix-two-repetitions-20261029-v1已closed，exec55999返回exit0，不重开。r2/r3并行C后并行B，四臂完整成功；与第一组共3组，同模型/CLI/原历史/策略/每臂500k/14/800。唯一actor改动为Cell可选ledger_id，规范名称、模型文本及压缩核心不变，默认/命名空间2检查过。复用已有A11/11和无历史3/11，没有再跑基线。
+
+三组C/B′均11/11、约束0、契约/来源5/5、回执完整。C总224906/226024/268723；B′256199/274863/263130。C两胜一负（第三组多2.1%），合计719653 vs794192（少9.4%），每成功任务239884.3 vs264730.7。但未缓存C175482 vsB94162（多86.4%）；cached514816 vs662656；output29355 vs37374。首次续接C27881/28349/28124 > B26497/26855/26696（大5.2%—5.6%）。不能说上下文更小、实际账单更低或稳定超越。配对差t探索区间跨0，符号检验p1；n3 bootstrap区间虽低于1但偏窄且相关性未控制，不据此宣称显著。
+
+新两组1032740Token/31响应/活动并集587.079秒，本地完整。累计已知下界3745397/105，旧r2未知仍在。第三批差额967260/25/1012不自动派发；根预算余量分配仍11771795/88/3495，未提高上限。10个Job清理全empty。保留原失败和旧版本，不拿其凑当前三组。
+
+额外0模型字节审计：C热文本7448/8150/7733B，每份source_aliases长身份映射3666B、archive私有路径/校验引用573—582B，占用了模型注意力但引擎已有绑定。不是Token收益结论。下一步不改语义选择，先设计旁路将引擎身份/校验元数据留在执行层，保留模型文本、选择、适用范围及非空时间事实；用同一三份选材稿做精确还原、错源/失效负例，再小规模验证实际输入/费用结构。尚未实现/启用新的热投影。多任务/弱档/6轮和归因仍未完成，长期目标未达成。
+
+## 历史：第一组有效B′/C结束，两臂完整通过，C总Token少12.2%但未缓存输入更多
+
+2026-10-29。见reviews/acceptance-matrix-first-valid-pair-report.md。D:/agent-task-runs/wsc-matrix-runtime-followup-20261029-v1已closed，exec78034已返回exit0，不重开。当前08d187884f2330d1 CLI，同gpt-6.1-sol/max、同历史、同运行时和B′/C各500k/14/800。新版本A11/11、无历史3/11，两者完整执行，因此T1历史依赖有效。C和B′都完整通过11/11、约束0、契约值及来源对应5/5、usage完整。原生压缩confirmed=true，未读解密摘要。有效配对1组，非三重复。
+
+C选材25567 Token/51.844秒，续接199339/162.688，总224906/7响应、宿主230.048秒；B′压缩32617/37.047、续接223582/373.891，总256199/8响应、宿主416.171秒。总Token本组C少31293（12.2%），墙钟少44.7%，但不能宣称账单省：C未缓存61926/cache154368/output8612；B′未缓存23928/cache220160/output12111。C首次续接输入27881>B26497（+5.2%），平均32103>B30455（+5.4%），总量优势伴随少一次模型响应，不能说导出实际上下文已更小。温度/seed未固定、顺序/缓存及远端等待未排除；不基于一组继续改算法。
+
+C恢复4次，读s45/s1/s3/s46，1586字节/4来源，拒绝0；4动态工具上报总7ms，6普通命令总2.430s；B8普通命令总3.940s。工具时间可能重叠，不是CPU；C原生214.532对宿主230.048差15.516s，B410.938对416.171差5.233s。不能把全部续接耗时归WSC I/O或推理。
+
+本组1075022Token/31响应/活动并集936.406秒，本地已结清。累计已知下界2712657/74，旧r2未知继续保留。续接差额662478/27/1267仅对账，不自动派发，原根预算未新增。observable-metrics.json/time-diagnostic.json/closure/structured-evidence及两臂原始回执已保存。下一步固定当前配置和各臂预算，补两组有效配对，先在原研究上限内登记所需剩余分配；当前不扩展无收益信息的新设计，不把旧CLI/失败样本凑入三重复。长期目标和六轮链、五任务两档模型仍未完成。
+
+## 历史：公共环境组A产物通过，但空历史接线失败；已修复并零模型验证
+
+2026-10-29续接。见reviews/acceptance-matrix-runtime-controlled-findings.md。实际组D:/agent-task-runs/wsc-matrix-runtime-controlled-20261028-v1已closed，旧exec句柄90841不存在，不重启。A原生完整完成、usage_complete=true，独立11/11，262500 Token（input255480/cached225408/output7020）、6响应、186.187秒；组活动195.047秒。last-state-only新增BaselineCell误调inject_items([])，原生拒绝，模型未派发；组失败保留，C/B都未启动。per-run-reconciliation派生本组本地用量完整，不改原ledger未知/原失败。上批中断unknown仍在。当前累计已知下界1637635/43，第二批算术差额1737500/58/2204仅对账，不自动派发。
+
+结构性修复：新baseline_material把空历史作为核验bootstrap的no-op，非空仍调用原生import。三个单元检查过；runtime准入现在在预算claim/任何模型派发前同时预检两类材料路径。真实零模型D:/agent-task-runs/wsc-matrix-material-admission-20261029-v2完整/空历史都过，进程树空。
+
+A最终断言用id+点分field_path，原评分器仅收assertion_id+数组导致0/5。新格式适配只允许无歧义标识符/路径，不推断值；6项正反例过。原structured-evidence不改，派生逐字段5/5正确和5/5来源对应，不能把原方言0分说成模型信息丢失。
+
+本机CLI已更新：旧2993767bd1dfb009文件消失，v1零模型资格在启动前因路径不存在退出，目录保留。实际新08d187884f2330d1/codex.exe SHA5c1b55966bf9f757dcbf00065c9a6cb862ead55d34b015f1be1939ff18e43943。v2零模型验证在新CLI上完成；旧A不能冒充新版本严格基线。下一步在第二批剩余分配内登记新版本一致条件并预检，不重开旧ledger、不增加原总上限、不把跨修复/版本样本说成3次有效重复。长期目标仍未达成。
+
+## 历史：公共Python运行时已接入，两臂零模型准入通过
+
+见reviews/acceptance-matrix-shared-runtime-report.md。新workspace_runtime旁路模块把已验证本机资产按同一manifest复制到Bprime/C/.runtime，逐文件哈希及隔离搜索路径校验。run_matrix_pair新增--runtime，登记前绑定相同资产及事实性工具描述，执行前/预算认领前做两臂command/exec准入。没有改变原生压缩算法、任务历史或WSC选材；新执行条件必须单独登记，旧hash不符登记不得复跑。
+
+真实零模型检查D:/agent-task-runs/wsc-matrix-shared-runtime-20261028-v1：两臂Python3.11.9/unittest/sqlite可用、private_denied=true，两个Job empty_confirmed=true。5项正反例检查通过；源清单相同，每臂23933950字节。本轮没有新模型压缩/续接，不能声称成本或正确率收益。旧首批unknown及冻结差额不变。旧A/no-history只证明旧环境，不冒充新条件基线。下一步核清新批次预算保留旧unknown，登记共同条件及基线后再派发；不自动重开r1/r2、不重置预算、不凑跨修复重复。完整目标仍未达成。
+
+## 历史：C压缩后代码11/11，但预算中断；已定位并修复短名错源
+
+见 reviews/acceptance-matrix-first-C-findings.md，机器记录first-pair-results.json。r1（first-pair-20261028-v1）C选择器extra列表被selector configure赋值覆盖host权限，启动失败；B同组安全冻结，0模型，两个失败不删。组合测试先1失败后5过，改extend，实际selector+profile零推理过。无派发对账单独派生确认0模型，原closed未知账本不改。
+
+r2（D:/agent-task-runs/wsc-matrix-first-pair-20261028-r2-v2）C first。真实选材23217Token/71.453秒，续接已知616229Token/337.609秒，共639446/15计费回执/外层425.422秒；原每臂632155，响应边界超7291后中断。代码验收11/11、约束0，task_success=true；run_success=false，最终交付未完，不能假称预算内完整成功。以前合并success的口径已拆开，旧原始结果不改。B′没启动，仍无有效B/C比较。续接usage_complete=false；关闭后本地回执一致不等于无远端未回传费用，不能擅自改complete。
+
+确定根因：IndexedCheckpointAdapter展示s0/s1/s2按本次保留顺序，SourceAccess恢复s1/s2按固定seq；实际s0无绑定，展示s2是新policy/r2却合法读到seq2旧调用参数。新native_snapshot_aliases独立policy A/B后默认新导出固定s<seq>，与选择/恢复统一；旧dense仅复现/旧导出解码，4项AB/兼容、3索引还原、2宿主检查过。NativeCheckpointHost在导入前校验展示与恢复映射，旧歧义包不自动修复。未付费重新验证收益，不宣称已省多少回调/Token。
+
+环境问题已0模型验证：本机Python路径在Windows原生限制环境不能执行，read授权也无效；模型多次猜路径/下载失败。复用本机Python+stdlib到工作区后在同类权限下3.11.9/unittest/sqlite/hashlib可用，私有canary仍拒读。原始D:/agent-task-runs/wsc-matrix-python-admission-20261028-v1..v4全部保留。v4运行时约23.9MB，版本只存hash，尚未接入新B/C试验。多余无效read授权API已撤回。
+
+耗时去噪：本次C两个原生区间409.062秒，外层宿主差16.360秒；6源工具上报合计1.265秒（含重叠，不是墙钟），本机重放6.991ms，不把数百秒全归源I/O或全归模型。初次C输入34302 vsA27836，虽items9299B<原历史28911B也不能宣称Token更小。
+
+首批已知下界1375135Token/37已记录响应，current usage incomplete。差额624865Token/27响应/2932秒冻结，不能当可分配；不是账户额度不足，不追加原上限。下一步接入已验证公共运行时并核清后续分配/unknown保留，再登记修复后一致条件；不要自动重开r1/r2，也不把跨修复样本说成3次有效重复。完整目标未达成。
+
+## 历史：首次真实T1控制完成，历史依赖成立；尚无B/C收益结果
+
+见 reviews/acceptance-matrix-first-controls-report.md。强gpt-6.1-sol/max，A完整46条历史11/11验收、无历史3/11（8失败、4约束类别）。两臂实际改代码，关闭进程后协调器验收，不靠引用/枚举/模型自评。无压缩，无WSC。单次任务准入证明，不是三重复或WSC收益。
+
+先前工具探测原判据失败仍false：模型删除已声明禁读路径，只执行工作区读写；并非压缩/能力问题，不重跑。发现真实exec使用custom_tool_call_output，读取器已支持，4项正反例过；修后也不改原false。执行修订v1.2在T1开始前保存：同配置程序负向拒读＋实际模型正常工作区工具证据，不要求模型主动违反限制。metadata-v5新增原生sessions/archives/memories拒读，防止无历史从别臂会话日志补历史；13路径中12外部拒读，公开读写仍过。
+
+原始probe D:/agent-task-runs/wsc-matrix-first-slice-20261028-v2（44059 Token/2响应/28.891秒）；控制 D:/agent-task-runs/wsc-matrix-first-controls-20261028-v1（691630 Token/20响应/204.891并行活动秒）。A367023/11响应/外层199.391秒，控制324607/9响应/外层204.891秒，全部usage_complete，Job关闭empty=true。首批累计735689/22/233.782，保守剩余1264311 Token/42响应/3366秒；没有新增总预算或重置旧unknown。两个closed账本独占父/续接claim记录，不可自动重开。运行源码已保存并按登记SHA逐字节核对。
+
+下一步剩余额度内B′/C首对：接既有选材/发布/恢复及原生compact接口，不重造。闭合第一对再补后续，不能承诺当前余量必然够3重复；未执行不算失败，不删已执行失败、不追加成本上限。机器指标在准入目录first-controls-results.json；原始压缩器指标本轮不适用/null而非0收益证明。
+
+## 历史：真实命名权限会话与工具历史导入已验证，预算桥已有定向检查
+
+见 reviews/acceptance-matrix-native-boundary-integration.md。当前 D:/agent-task-runs/wsc-matrix-native-boundary-20261028-v4：gpt-6.1-sol/max实际activePermissionProfile绑定，46条T1公开记录全字段导入一致；12路径探测中公开可读写，11外部路径（当前/旧私有夹具、参考/评分源码、旧zip、其他臂）全部拒读；owned Job关闭empty=true。没有再拒整个历史根目录，没有turn/start/模型调用。模型全部工具边界仍未验证，不把command/exec结果外推。
+
+旧外围import_evidence只允许message附加传输id/metadata，误拒function_call/output。新增3项检查先1失败，再只对实测三类记录允许同两项附加字段；call_id/args/output/已有id/顺序仍严格，3项及原9项证据回归过，实际v4导入过。所有失败版本v1/v2/v3保留，原生压缩核心未改。fresh新增显式host_permissions参数，不传仍原read-only，4项检查过。
+
+新native_dispatch.py把持久化预算接到现成execute_stage，先预留后开会话，检查请求/模型/工作区/历史，准备扣原时限，清理完成后结算，无自动重试；5项检查过，尚无真实模型回执结算。下一步首批协调器/父封套绑定→子预算内canary真实工具路径→T1 A/最后状态控制→B′/C首对及3重复；不要把尚未冻结的6轮链扩大成单次控制的额外前置。C选择恢复及B′压缩预算全链仍待接，paid_dispatch=false。
+
+## 历史：预算派发边界已补持久化，尚未接入真实矩阵
+
+补充实际隔离探测：reviews/acceptance-matrix-read-boundary.md。原生command/exec readOnly可读外部私有/另一臂canary（v2）；named精确拒读目录使二者EPERM且工作区可写（v6）。权限helper benchmarks/acceptance_matrix_v1/permissions.py仅每进程flags；没有改全局配置。扩到整个历史根目录的v5超时并清理卡住，身份核实后终止本次Python持有者，私有Job关闭后代；失败保留，不准外推窄范围成功。脚本改为先终止私有Job再关管道，v6正常清理。没有捕获v5调用栈，不宣称具体阻塞栈已证实。6个目录都保留；全部0 thread/start/turn/start/模型推理。下一步明确私有/评分/参考/跨臂目录清单与实际线程/工具覆盖验证，不再次盲目扩大到整个历史根目录。
+
+见 reviews/acceptance-matrix-dispatch-budget.md；新旁路 benchmarks/acceptance_matrix_v1/dispatch_budget.py 复用 StudyBudget，不改核心/原生。先提交唯一run/phase、绑定SHA、预留再返回许可；既有账本仅可只读查看，不能重置或自动重放。运行间失败与独立重复分开、全局/跨重复臂/单运行限额、未知冻结但在途仍结算、损坏回执已知用量保留、空闲等待排除/并发计时取并集、宿主准备扣原阶段时限。调用方须把完整宿主工作纳入预留区间，不将WSC外部耗时漏算。
+
+10项定向检查过，0模型；首轮Windows只读连接未关闭的5项清理错误已用closing治本修复，错误日志保留，未清理旧受限路径。账本单协调进程、多线程；拒绝已有账本重开，不提供自动崩溃恢复，不宣称供应商硬Token上限/断电持久性。还未接入真实矩阵和父总账，paid_dispatch仍false。下一步隔离负向验证、会话接线、压缩确认/恢复计数及6轮细则；不是重写既有传输或预算算法。
+
+## 历史：五任务验收器已校准，尚未开始模型对照
+
+见 reviews/acceptance-matrix-five-task-preparation.md。T1/T3 沿用 v1.45 具名校准；新增 T2=13、T4=13、T5=11 项，五参考实现共58项通过。T2旧实现编译失败，12运行项未执行；T4旧实现12失败/1通过。新增T2/T5自测9、T4自测4、五任务历史检查5通过。T4评测器曾混淆output隐式status与显式状态提示，v1失败保留，v2修复通过，非WSC核心改动。
+
+T2/T5夹具D:/agent-task-runs/wsc-matrix-t2-t5-admission-20261028-v1；T4当前D:/agent-task-runs/wsc-matrix-t4-admission-20261028-v2。真实Chromium截图保存，大JSON配置为公开历史；不做美观评分。统一准备脚本validation/prepare_matrix_tasks.py，旧T1/T3入口委托它；依赖复用未安装。源码/工具指纹在准入目录。0模型/0付费；registration仍draft_not_dispatchable，五验收器校准不等于任务历史依赖和运行权限隔离已合格。
+
+下一步：共享运行器权限/真实历史接收/压缩确认/回查计数/预算执行准入，以及6轮链细则；然后直接按已授权首批强T1控制→B′/C第一对→补3重复。首批2M/64/3600秒、并行最多2，不重置旧消耗/失败/unknown。触发和两档模型已经用户确认，不再等待答复。
+
+## 历史：T1/T3任务验收已校准；用户已固定触发/模型
+
+用户确认同历史检查点＋事后实际Token，系统黑盒，不标70%；弱gpt-6-luna/max，强按目录选gpt-6.1-sol/max。原矩阵不改，执行修订v1.1保存。首批strong/T1：完整历史A/最后状态控制，再B′/C各3重复，最多2臂并发，总子上限2M Token/64响应/3600秒，不追加旧研究总额、不重置失败/unknown。registration.draft仍不可派发，模型/触发固定不代表全部闸门已过。
+
+[T1/T3准备报告](D:/lea/XenYon%20code/wsc/reviews/acceptance-matrix-t1-t3-preparation.md)：真实starter失败、参考通过21项程序断言；9项验收器校准含6错误实现检出，5项历史/配对/私有答案分离检查过。v1缺初始任务目标已在模型运行前改成v2另存，两版均0模型。当前fixture D:/agent-task-runs/wsc-matrix-task-admission-20261028-v2；source/manifest封存，参考/私有oracle不复制给actor。
+
+仍未做真实历史依赖控制、原生导入/隔离/预算执行准入，T2/T4/T5和6轮更新未完成。不能靠引用缺失证明历史依赖；v1.45仅保存任务代码/校准/记录，未跑付费任务、无B/C结论。下一步完成剩余三任务和共享运行器准入，满足后直接执行已授权最小单元，不重复索要开跑许可。
+
+## 历史：用户已重新授权按2026-10-28验收矩阵实验；控制成本
+
+用户已答复固定同历史检查点＋事后实际Token（系统黑盒），不保留未实测的70%说法；弱档gpt-6-luna/max，强档按目录选gpt-6.1-sol/max。原矩阵未改，修订记录reviews/2026-10-28-acceptance-matrix-execution-v1.1.md。触发/模型不再待确认；仍须完成五任务与总预算等准入。
+
+用户最新明确可进行实验，但必须按reviews/2026-10-28-acceptance-matrix.md执行并控制成本。此前禁止实验约束已在该范围内撤销；计划中的goal blocked尚未提交，不能继续提交或沿用旧禁实验阻塞。原始目标仍未完成，原生B保持不改，B′+r为矩阵明确授权的独立消融臂，不能冒充B。
+
+先冻结原矩阵版本、验收器/约束/模型/触发及预算，再最小单元开跑，不能直接派发90运行。真实70%触发的预计量入口缺失，已向用户询问保留严格70%还是改用相同密封历史检查点并事后报告实际Token；强弱模型也待冻结。等待时只做模型目录/既有预算/无模型准入，不发付费turn。
+
+旧消耗、失败和unknown不重置，原剩余封套17771795Token/272响应/11095秒作为保守参考，不等于账户额度；新矩阵单臂15M等上限不会自动追加总研究预算。首批须单独登记逐运行/臂/全局闸门，阶段结束先报告，再扩大。
+
+## 历史：当前原生协议核实完成；曾计划收尾后提交blocked（已撤销）
+
+[原生协议与阻塞审计](D:/lea/XenYon%20code/wsc/reviews/native-capacity-protocol-audit.md)：本机CLI SHA与历史登记一致，执行的仅help/静态generate-json-schema --experimental，458文件/175公开方法，5关键Schema与旧副本字节同。无token count/tokenize方法，turn/start无直接输出Token上限字段；其他配置/私有能力仍unknown。不启动服务会话/模型/续接/性能/B/C实验，不伪造准确计量。
+
+精确预发计数不是用户系统黑盒比较的新硬前提；未知仍可披露。但当前普通任务真实续接/总体收益缺证且用户禁止新实验，已在v1.41/v1.42/v1.43至少三连续目标轮次存在；期间完成必要源码修复，本轮公开接口核实后不再新增未验证机制或重复静态报告。收尾归档v1.44后提交goal blocked，原始目标未完成；实际状态以工具返回为准。不是quota问题、不是等待存活进程、不自动重试。恢复条件为新真实运行证据/可信能力，或真实验证条件恢复。
+
+v1.42的14项代码检查、v1.43的16项模拟宿主检查均保留，候选不启用、B不改、旧成本/失败/unknown不变。静态导出版本只存关键Schema/hash，不复制exe/DB/cold大树。
+
+## 历史：普通任务来源工具最小旁路已实现，原生运行/容量仍未验证
+
+[实现报告](D:/lea/XenYon%20code/wsc/reviews/task-recovery-port-implementation-report.md)：新增experiments/native_task_recovery，复用fresh风格工厂与既有handler/reader/session关闭。注册+分派同源、固定owner/workspace、普通runtime不套selector精简、跨回合额度累计。无容量回调或未明确准入时不执行；只提供宿主准入钩子，原生完整输入计量/输出预留仍缺，不能恒真代替。
+
+必要修正：SourceToolHandler的seen由call_id改为(thread,turn,call)，同回合回执兼容、新回合重授权、总限额不重置、trace真ID不改。3项前测均身份冲突错误，后测3过；新旁路假session/工厂契约9过；既有工具4过，共16项定向单元检查。没有真实原生进程/模型/续接/性能/B/C实验；原生服务器实际注册和收益未验证，旧6/6不能套用。
+
+既有运行器不导入新模块，候选不启用，B不改；v1.43小增量保留源码/前后凭据，旧费用/unknown不变。统一缺口清单已更新；下一步仅处理真实容量准入证据，未完成前不启动旁路真实续接，不新造压缩格式/恢复模型，长期目标未完成。
+
+## 历史：旧view完整性缺口已复现并修复；仅定向代码回归
+
+[修复报告](D:/lea/XenYon%20code/wsc/reviews/previous-view-integrity-fix-report.md)：frontier原SELECT/json绕过body digest现改复用snapshots.view_record；保留旧missing错误码、原绑定/ref/片段检查，有效material/offered完整序列化与旧loader一致。独立实验入口旁路修复，核心算法/原生B/提示词/schema/预算不变，不启用新策略。
+
+6项代码前测4失败/2通过（旧代码接受clue/来源/同key excerpt正文变化，且能进入本地测试回调），后测6通过；相邻8项通过。无模型、任务续接、性能或B/C实验，只有限定单元回归；完整旧源码与失败日志保留。digest是同库存储一致性，不是恶意DB写入者的防伪签名；不宣称14项检查证明全项目/当前模型收益。
+
+v1.42小增量保存改动/测试/报告/凭据，历史成本与unknown不变。统一goal-delivery-gap-audit已更新此项状态；下一步恢复端口与容量职责最小接入，实验继续禁止，长期目标未完成。
+
+## 历史：目标八项与候选/代码问题已对齐，未达成
+
+[目标交付核对](D:/lea/XenYon%20code/wsc/reviews/goal-delivery-gap-audit.md)为后续单一缺口入口：八项验收逐条区分单案例行为收益、基础机制和未交付证据；三重复不是三任务，两次压缩不是长期稳定，75单元计划仍prepared_not_executed。C有局部真实收益，但整体贵25.57%、慢，不能称超原生。
+
+原20问题继续保留001/011线性目录、003目录断电、009真实链接分支等开放面；Windows定向修复不外推全平台或当前全部源码。另旧frontier body digest缺口仍在，检查旁路没有修复原路径。顺序收敛为旧view完整性→已有恢复/容量职责最小接入→最终续接/成本验证；用户禁实验期间不启动验证。不再新造格式/恢复模型/状态机，不重复开发现有部件。
+
+本轮仅静态源码/目标/历史凭据核对，无模型/测试/实验；v1.41小增量保存清单与指纹。候选不启用、原生B不变、旧失败和unknown保留，长期目标继续未完成。
+
+## 历史：容量字段可观察，预发准入仍未交付；复用现有生命周期
+
+[容量/生命周期核对](D:/lea/XenYon%20code/wsc/reviews/capacity-and-lifecycle-source-audit.md)。19阶段30条旧thread/tokenUsage通知均报告modelContextWindow=258400；不是完全看不到窗口。缺的是下一完整请求准确计量/输出预留和receiver接入。原生压缩通知last.inputTokens=0而计费B1=58212、B2=18435/18341/18328，不拿0当空Context/免费压缩，旧原始指标不改。selector窗口/输入不冒充receiver预发证明。
+
+当前python主链路已有request_measure/context_input/output_limit及组装后准入可参考，含估算/特定提供方预测，不冒充原生计数器，不直接耦合独立wsc。native session已有closed/close及真实thread/turn分派，可复用，不新造生命周期状态机；普通receiver专用工具注册/handler分派/跨回合资源绑定仍未接通。
+
+本轮只静态读源码和旧事件提取，零实时查询/模型/测试/实验。v1.40小增量保存报告/字段/指纹。下一步整理现有候选与长期目标的源码/证据缺口，不新增未验证机制；候选不启用，实验继续禁止，长期目标未完成。
+
+## 历史：C2工作清单核对；收敛为正常任务按需恢复
+
+[工作清单与方向](D:/lea/XenYon%20code/wsc/reviews/second-selection-work-and-converged-direction.md)。只读三成功链DB/回执/实际request，前后DBhash同；新增历史选择仅s540原文227B，旧选择[1,640,641]→[1,540,642,643]，尾部642/643完整spans已在输入。7次读取中4次精确返回范围已内联（非语义冗余判断），不能引擎禁止重读。R03旧M@1被模型取消选择，机械延续不能仿照自动删改。
+
+收敛方向：正常任务沿用有效旧帧＋完整尾部并拥有既有恢复工具；真实容量不足或明确重选才走语义选择，机械绑定失败先拒绝/恢复。无新格式/恢复模型/冷层，不再堆未验证包装器。C2均值75135.7Token不当确定节省，跳C2的正确率/Token/时间全部null，旧6/6不套用。v1.39只归档离线清单/报告；没有模型、测试或实验。下一步仅确认真实容量入口及端口生命周期是否已有实现，缺失记未交付。
+
+## 历史：既有计时日志分解完成；未重跑实验
 
 [耗时报告](D:/lea/XenYon%20code/wsc/reviews/existing-continuation-latency-report.md)与existing-continuation-latency-v2的JSON/CSV：复用旧分析器，19阶段/7时间线全部保留，源hash绑定，无新模型/会话/测试/性能实验。成功C的7个恢复回调本地合4.564ms，服务工具区间81ms；每链C/B阶段56.885/30.162秒，其中非工具服务区间55.414/29.543秒。纯推理/排队/网络仍unknown，不能因该拆分归因温度或纯模型计算。
 

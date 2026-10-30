@@ -1,0 +1,562 @@
+{
+  "scope": "Historical event extraction only; no new model calls, host queries, tests, or experiments.",
+  "phases": [
+    {
+      "name": "C/R01/C1-selection",
+      "root": "D:\\agent-task-runs\\wsc-c1-columns-qualification-20261027-v1\\R01\\C1-selection",
+      "thread_id": "01a17d07-e809-7242-9e35-8918aa89bce1",
+      "turn_id": "01a17d08-04c2-7e40-aab3-7514e261c9f0",
+      "completed": true,
+      "usage_complete": true,
+      "failure": null,
+      "observations": [
+        {
+          "line": 135,
+          "emitted_at_ms": 1793099060616,
+          "reported_model_context_window": 258400,
+          "reported_last_input_tokens": 61299,
+          "reported_cumulative_input_tokens": 61299
+        }
+      ],
+      "unrelated_updates_excluded": 0,
+      "billed_input_tokens": 61299,
+      "next_request_input_tokens": null,
+      "next_request_output_reserve_tokens": null,
+      "next_request_capacity_verified": false
+    },
+    {
+      "name": "C/R01/C2-selection",
+      "root": "D:\\agent-task-runs\\wsc-c1-columns-qualification-20261027-v1\\R01\\C2-selection",
+      "thread_id": "01a17d08-7261-7e93-8af2-637da6d3b492",
+      "turn_id": "01a17d08-8d92-7782-ac03-f30c0b6d7ba7",
+      "completed": true,
+      "usage_complete": true,
+      "failure": null,
+      "observations": [
+        {
+          "line": 21,
+          "emitted_at_ms": 1793099083661,
+          "reported_model_context_window": 258400,
+          "reported_last_input_tokens": 30209,
+          "reported_cumulative_input_tokens": 30209
+        },
+        {
+          "line": 239,
+          "emitted_at_ms": 1793099099479,
+          "reported_model_context_window": 258400,
+          "reported_last_input_tokens": 31341,
+          "reported_cumulative_input_tokens": 61550
+        }
+      ],
+      "unrelated_updates_excluded": 0,
+      "billed_input_tokens": 61550,
+      "next_request_input_tokens": null,
+      "next_request_output_reserve_tokens": null,
+      "next_request_capacity_verified": false
+    },
+    {
+      "name": "C/R01/wsc-probe",
+      "root": "D:\\agent-task-runs\\wsc-c1-columns-qualification-20261027-v1\\R01\\wsc-probe",
+      "thread_id": "01a17d08-f567-7ef0-a73d-03337f81bd38",
+      "turn_id": "01a17d08-f848-74a1-aefa-bc86cf02ffa0",
+      "completed": true,
+      "usage_complete": true,
+      "failure": null,
+      "observations": [
+        {
+          "line": 56,
+          "emitted_at_ms": 1793099113641,
+          "reported_model_context_window": 258400,
+          "reported_last_input_tokens": 18710,
+          "reported_cumulative_input_tokens": 18710
+        }
+      ],
+      "unrelated_updates_excluded": 0,
+      "billed_input_tokens": 18710,
+      "next_request_input_tokens": null,
+      "next_request_output_reserve_tokens": null,
+      "next_request_capacity_verified": false
+    },
+    {
+      "name": "C/R02/C1-selection",
+      "root": "D:\\agent-task-runs\\wsc-c1-columns-repeats-20261027-v1\\R02\\R01\\C1-selection",
+      "thread_id": "01a17d17-0b28-78b1-af02-b159eb1e89d5",
+      "turn_id": "01a17d17-346c-78b1-8959-05a4801b0e8c",
+      "completed": true,
+      "usage_complete": true,
+      "failure": null,
+      "observations": [
+        {
+          "line": 111,
+          "emitted_at_ms": 1793100056117,
+          "reported_model_context_window": 258400,
+          "reported_last_input_tokens": 61320,
+          "reported_cumulative_input_tokens": 61320
+        }
+      ],
+      "unrelated_updates_excluded": 0,
+      "billed_input_tokens": 61320,
+      "next_request_input_tokens": null,
+      "next_request_output_reserve_tokens": null,
+      "next_request_capacity_verified": false
+    },
+    {
+      "name": "C/R02/C2-selection",
+      "root": "D:\\agent-task-runs\\wsc-c1-columns-repeats-20261027-v1\\R02\\R01\\C2-selection",
+      "thread_id": "01a17d17-a620-75d1-bc33-e6553b850122",
+      "turn_id": "01a17d17-bd8b-70c1-9c70-7c23d6f62495",
+      "completed": true,
+      "usage_complete": true,
+      "failure": null,
+      "observations": [
+        {
+          "line": 19,
+          "emitted_at_ms": 1793100077969,
+          "reported_model_context_window": 258400,
+          "reported_last_input_tokens": 30199,
+          "reported_cumulative_input_tokens": 30199
+        },
+        {
+          "line": 32,
+          "emitted_at_ms": 1793100087507,
+          "reported_model_context_window": 258400,
+          "reported_last_input_tokens": 31057,
+          "reported_cumulative_input_tokens": 61256
+        },
+        {
+          "line": 192,
+          "emitted_at_ms": 1793100098193,
+          "reported_model_context_window": 258400,
+          "reported_last_input_tokens": 32708,
+          "reported_cumulative_input_tokens": 93964
+        }
+      ],
+      "unrelated_updates_excluded": 0,
+      "billed_input_tokens": 93964,
+      "next_request_input_tokens": null,
+      "next_request_output_reserve_tokens": null,
+      "next_request_capacity_verified": false
+    },
+    {
+      "name": "C/R02/wsc-probe",
+      "root": "D:\\agent-task-runs\\wsc-c1-columns-repeats-20261027-v1\\R02\\R01\\wsc-probe",
+      "thread_id": "01a17d18-328c-7473-9c9f-4da99b08254c",
+      "turn_id": "01a17d18-358e-78f1-bb21-d6f694169e0c",
+      "completed": true,
+      "usage_complete": true,
+      "failure": null,
+      "observations": [
+        {
+          "line": 57,
+          "emitted_at_ms": 1793100117482,
+          "reported_model_context_window": 258400,
+          "reported_last_input_tokens": 21934,
+          "reported_cumulative_input_tokens": 21934
+        }
+      ],
+      "unrelated_updates_excluded": 0,
+      "billed_input_tokens": 21934,
+      "next_request_input_tokens": null,
+      "next_request_output_reserve_tokens": null,
+      "next_request_capacity_verified": false
+    },
+    {
+      "name": "C/R03/C1-selection",
+      "root": "D:\\agent-task-runs\\wsc-c1-columns-repeats-20261027-v1\\R03\\R01\\C1-selection",
+      "thread_id": "01a17d17-03fd-73c1-9267-468f390bc18b",
+      "turn_id": "01a17d17-3385-74e1-9c89-74b46c50bff5",
+      "completed": true,
+      "usage_complete": true,
+      "failure": null,
+      "observations": [
+        {
+          "line": 202,
+          "emitted_at_ms": 1793100050211,
+          "reported_model_context_window": 258400,
+          "reported_last_input_tokens": 61322,
+          "reported_cumulative_input_tokens": 61322
+        }
+      ],
+      "unrelated_updates_excluded": 0,
+      "billed_input_tokens": 61322,
+      "next_request_input_tokens": null,
+      "next_request_output_reserve_tokens": null,
+      "next_request_capacity_verified": false
+    },
+    {
+      "name": "C/R03/C2-selection",
+      "root": "D:\\agent-task-runs\\wsc-c1-columns-repeats-20261027-v1\\R03\\R01\\C2-selection",
+      "thread_id": "01a17d17-8e87-7f42-9058-c0dce3fcadfe",
+      "turn_id": "01a17d17-aec8-7161-9fba-3805136f0fb9",
+      "completed": true,
+      "usage_complete": true,
+      "failure": null,
+      "observations": [
+        {
+          "line": 27,
+          "emitted_at_ms": 1793100076518,
+          "reported_model_context_window": 258400,
+          "reported_last_input_tokens": 30379,
+          "reported_cumulative_input_tokens": 30379
+        },
+        {
+          "line": 203,
+          "emitted_at_ms": 1793100094397,
+          "reported_model_context_window": 258400,
+          "reported_last_input_tokens": 32337,
+          "reported_cumulative_input_tokens": 62716
+        }
+      ],
+      "unrelated_updates_excluded": 0,
+      "billed_input_tokens": 62716,
+      "next_request_input_tokens": null,
+      "next_request_output_reserve_tokens": null,
+      "next_request_capacity_verified": false
+    },
+    {
+      "name": "C/R03/wsc-probe",
+      "root": "D:\\agent-task-runs\\wsc-c1-columns-repeats-20261027-v1\\R03\\R01\\wsc-probe",
+      "thread_id": "01a17d18-23cd-7c23-b4fe-e0228b6d2d38",
+      "turn_id": "01a17d18-294c-7602-bd70-ec0fcc4384a9",
+      "completed": true,
+      "usage_complete": true,
+      "failure": null,
+      "observations": [
+        {
+          "line": 55,
+          "emitted_at_ms": 1793100103290,
+          "reported_model_context_window": 258400,
+          "reported_last_input_tokens": 21802,
+          "reported_cumulative_input_tokens": 21802
+        }
+      ],
+      "unrelated_updates_excluded": 0,
+      "billed_input_tokens": 21802,
+      "next_request_input_tokens": null,
+      "next_request_output_reserve_tokens": null,
+      "next_request_capacity_verified": false
+    },
+    {
+      "name": "B/R01/B1-compression",
+      "root": "D:\\agent-task-runs\\wsc-late-native-counterpart-20261027-v1\\B\\B1-compression",
+      "thread_id": "01a17ce3-3315-7090-b5b6-bd88a8c4420a",
+      "turn_id": "01a17ce3-4972-7143-9601-3d18f7007dd4",
+      "completed": true,
+      "usage_complete": true,
+      "failure": null,
+      "observations": [
+        {
+          "line": 12,
+          "emitted_at_ms": 1793096641024,
+          "reported_model_context_window": 258400,
+          "reported_last_input_tokens": 0,
+          "reported_cumulative_input_tokens": 0
+        }
+      ],
+      "unrelated_updates_excluded": 0,
+      "billed_input_tokens": 58212,
+      "next_request_input_tokens": null,
+      "next_request_output_reserve_tokens": null,
+      "next_request_capacity_verified": false
+    },
+    {
+      "name": "B/R01/B2-compression",
+      "root": "D:\\agent-task-runs\\wsc-late-native-counterpart-20261027-v1\\B\\B2-compression",
+      "thread_id": "01a17ce3-3315-7090-b5b6-bd88a8c4420a",
+      "turn_id": "01a17ce3-6afe-74f3-ae3f-8201e56c96c1",
+      "completed": true,
+      "usage_complete": true,
+      "failure": null,
+      "observations": [
+        {
+          "line": 4,
+          "emitted_at_ms": 1793096647708,
+          "reported_model_context_window": 258400,
+          "reported_last_input_tokens": 0,
+          "reported_cumulative_input_tokens": 0
+        }
+      ],
+      "unrelated_updates_excluded": 0,
+      "billed_input_tokens": 18435,
+      "next_request_input_tokens": null,
+      "next_request_output_reserve_tokens": null,
+      "next_request_capacity_verified": false
+    },
+    {
+      "name": "B/R01/query",
+      "root": "D:\\agent-task-runs\\wsc-late-native-counterpart-20261027-v1\\B\\query",
+      "thread_id": "01a17ce3-8719-7940-9e3c-181a5787ad23",
+      "turn_id": "01a17ce3-89fc-7a53-85b7-5d55ff219e1c",
+      "completed": true,
+      "usage_complete": true,
+      "failure": null,
+      "observations": [
+        {
+          "line": 43,
+          "emitted_at_ms": 1793096658109,
+          "reported_model_context_window": 258400,
+          "reported_last_input_tokens": 21410,
+          "reported_cumulative_input_tokens": 21410
+        },
+        {
+          "line": 50,
+          "emitted_at_ms": 1793096662523,
+          "reported_model_context_window": 258400,
+          "reported_last_input_tokens": 22330,
+          "reported_cumulative_input_tokens": 43740
+        },
+        {
+          "line": 88,
+          "emitted_at_ms": 1793096672835,
+          "reported_model_context_window": 258400,
+          "reported_last_input_tokens": 22634,
+          "reported_cumulative_input_tokens": 66374
+        }
+      ],
+      "unrelated_updates_excluded": 0,
+      "billed_input_tokens": 66374,
+      "next_request_input_tokens": null,
+      "next_request_output_reserve_tokens": null,
+      "next_request_capacity_verified": false
+    },
+    {
+      "name": "B/R02/B1-compression",
+      "root": "D:\\agent-task-runs\\wsc-late-remaining-pairs-20261027-v1\\R02\\B\\B1-compression",
+      "thread_id": "01a17ce7-9dc0-7a42-bba4-1694d3f0f387",
+      "turn_id": "01a17ce7-ab03-73f2-ae49-c859c30af26a",
+      "completed": true,
+      "usage_complete": true,
+      "failure": null,
+      "observations": [
+        {
+          "line": 12,
+          "emitted_at_ms": 1793096928055,
+          "reported_model_context_window": 258400,
+          "reported_last_input_tokens": 0,
+          "reported_cumulative_input_tokens": 0
+        }
+      ],
+      "unrelated_updates_excluded": 0,
+      "billed_input_tokens": 58212,
+      "next_request_input_tokens": null,
+      "next_request_output_reserve_tokens": null,
+      "next_request_capacity_verified": false
+    },
+    {
+      "name": "B/R02/B2-compression",
+      "root": "D:\\agent-task-runs\\wsc-late-remaining-pairs-20261027-v1\\R02\\B\\B2-compression",
+      "thread_id": "01a17ce7-9dc0-7a42-bba4-1694d3f0f387",
+      "turn_id": "01a17ce7-cc3b-7dd2-a5c3-5a57fb34bdc0",
+      "completed": true,
+      "usage_complete": true,
+      "failure": null,
+      "observations": [
+        {
+          "line": 4,
+          "emitted_at_ms": 1793096935368,
+          "reported_model_context_window": 258400,
+          "reported_last_input_tokens": 0,
+          "reported_cumulative_input_tokens": 0
+        }
+      ],
+      "unrelated_updates_excluded": 0,
+      "billed_input_tokens": 18341,
+      "next_request_input_tokens": null,
+      "next_request_output_reserve_tokens": null,
+      "next_request_capacity_verified": false
+    },
+    {
+      "name": "B/R02/query",
+      "root": "D:\\agent-task-runs\\wsc-late-remaining-pairs-20261027-v1\\R02\\B\\query",
+      "thread_id": "01a17ce7-eacd-7610-b585-c278bfcf3150",
+      "turn_id": "01a17ce7-f0ad-79e2-b56f-3d9be7cc0df4",
+      "completed": true,
+      "usage_complete": true,
+      "failure": null,
+      "observations": [
+        {
+          "line": 57,
+          "emitted_at_ms": 1793096946104,
+          "reported_model_context_window": 258400,
+          "reported_last_input_tokens": 18466,
+          "reported_cumulative_input_tokens": 18466
+        },
+        {
+          "line": 64,
+          "emitted_at_ms": 1793096950453,
+          "reported_model_context_window": 258400,
+          "reported_last_input_tokens": 19004,
+          "reported_cumulative_input_tokens": 37470
+        },
+        {
+          "line": 94,
+          "emitted_at_ms": 1793096952321,
+          "reported_model_context_window": 258400,
+          "reported_last_input_tokens": 19414,
+          "reported_cumulative_input_tokens": 56884
+        }
+      ],
+      "unrelated_updates_excluded": 0,
+      "billed_input_tokens": 56884,
+      "next_request_input_tokens": null,
+      "next_request_output_reserve_tokens": null,
+      "next_request_capacity_verified": false
+    },
+    {
+      "name": "B/R03/B1-compression",
+      "root": "D:\\agent-task-runs\\wsc-late-remaining-pairs-20261027-v1\\R03\\B\\B1-compression",
+      "thread_id": "01a17ce8-ab3e-7fa0-b9d0-dec86291fbb3",
+      "turn_id": "01a17ce8-c2d1-7d32-b469-3d5a7aa3f798",
+      "completed": true,
+      "usage_complete": true,
+      "failure": null,
+      "observations": [
+        {
+          "line": 12,
+          "emitted_at_ms": 1793096999045,
+          "reported_model_context_window": 258400,
+          "reported_last_input_tokens": 0,
+          "reported_cumulative_input_tokens": 0
+        }
+      ],
+      "unrelated_updates_excluded": 0,
+      "billed_input_tokens": 58212,
+      "next_request_input_tokens": null,
+      "next_request_output_reserve_tokens": null,
+      "next_request_capacity_verified": false
+    },
+    {
+      "name": "B/R03/B2-compression",
+      "root": "D:\\agent-task-runs\\wsc-late-remaining-pairs-20261027-v1\\R03\\B\\B2-compression",
+      "thread_id": "01a17ce8-ab3e-7fa0-b9d0-dec86291fbb3",
+      "turn_id": "01a17ce8-e160-7fd0-9151-6be758a5e5e8",
+      "completed": true,
+      "usage_complete": true,
+      "failure": null,
+      "observations": [
+        {
+          "line": 4,
+          "emitted_at_ms": 1793097006673,
+          "reported_model_context_window": 258400,
+          "reported_last_input_tokens": 0,
+          "reported_cumulative_input_tokens": 0
+        }
+      ],
+      "unrelated_updates_excluded": 0,
+      "billed_input_tokens": 18328,
+      "next_request_input_tokens": null,
+      "next_request_output_reserve_tokens": null,
+      "next_request_capacity_verified": false
+    },
+    {
+      "name": "B/R03/query",
+      "root": "D:\\agent-task-runs\\wsc-late-remaining-pairs-20261027-v1\\R03\\B\\query",
+      "thread_id": "01a17ce9-0148-7d52-a533-c953ddddae50",
+      "turn_id": "01a17ce9-0445-7be0-bedd-3cc5bbfd4bab",
+      "completed": true,
+      "usage_complete": true,
+      "failure": null,
+      "observations": [
+        {
+          "line": 41,
+          "emitted_at_ms": 1793097014513,
+          "reported_model_context_window": 258400,
+          "reported_last_input_tokens": 21312,
+          "reported_cumulative_input_tokens": 21312
+        }
+      ],
+      "unrelated_updates_excluded": 0,
+      "billed_input_tokens": 21312,
+      "next_request_input_tokens": null,
+      "next_request_output_reserve_tokens": null,
+      "next_request_capacity_verified": false
+    },
+    {
+      "name": "failed/deferred_catalog/selection",
+      "root": "D:\\agent-task-runs\\wsc-deferred-catalog-qualification-20261027-v1\\candidate\\selection",
+      "thread_id": "01a17d35-21bb-7822-9e8f-454a6cfd0df8",
+      "turn_id": "01a17d35-377d-7260-a653-d51f6bb64e47",
+      "completed": false,
+      "usage_complete": false,
+      "failure": "registered_response_cap",
+      "observations": [
+        {
+          "line": 19,
+          "emitted_at_ms": 1793102008620,
+          "reported_model_context_window": 258400,
+          "reported_last_input_tokens": 12974,
+          "reported_cumulative_input_tokens": 12974
+        },
+        {
+          "line": 27,
+          "emitted_at_ms": 1793102010976,
+          "reported_model_context_window": 258400,
+          "reported_last_input_tokens": 16580,
+          "reported_cumulative_input_tokens": 29554
+        },
+        {
+          "line": 35,
+          "emitted_at_ms": 1793102018486,
+          "reported_model_context_window": 258400,
+          "reported_last_input_tokens": 17383,
+          "reported_cumulative_input_tokens": 46937
+        },
+        {
+          "line": 49,
+          "emitted_at_ms": 1793102040096,
+          "reported_model_context_window": 258400,
+          "reported_last_input_tokens": 18356,
+          "reported_cumulative_input_tokens": 65293
+        }
+      ],
+      "unrelated_updates_excluded": 0,
+      "billed_input_tokens": 65293,
+      "next_request_input_tokens": null,
+      "next_request_output_reserve_tokens": null,
+      "next_request_capacity_verified": false
+    }
+  ],
+  "input_sha256": {
+    "D:\\lea\\XenYon code\\wsc\\reviews\\existing-continuation-latency-v2\\analysis.json": "1e16c652bfbbc89d7a747c3828eea1b352172c98966373ea1e164bad91bc97b6",
+    "D:\\agent-task-runs\\wsc-c1-columns-qualification-20261027-v1\\R01\\C1-selection\\phase-outcome.json": "0c1cc890a7993e24c93c9a374671630a56fa07048b7ee746c6115d17748bdc22",
+    "D:\\agent-task-runs\\wsc-c1-columns-qualification-20261027-v1\\R01\\C1-selection\\events.jsonl": "6afe2719f122d2baf7ba71726bbbd68a2d72ba1dcd78c699fe7882298463efe1",
+    "D:\\agent-task-runs\\wsc-c1-columns-qualification-20261027-v1\\R01\\C2-selection\\phase-outcome.json": "36f60076dbf577ca857bb6dabe31527300cffe72aa476d23d796b2fe2995da54",
+    "D:\\agent-task-runs\\wsc-c1-columns-qualification-20261027-v1\\R01\\C2-selection\\events.jsonl": "4253ec2257c03607bf5c473800fc4835d5c80b54bd62d1771941dd503414dd96",
+    "D:\\agent-task-runs\\wsc-c1-columns-qualification-20261027-v1\\R01\\wsc-probe\\phase-outcome.json": "45be26105170846945099e13346a8404263da799cd3d387a10c2871800fd551a",
+    "D:\\agent-task-runs\\wsc-c1-columns-qualification-20261027-v1\\R01\\wsc-probe\\events.jsonl": "bfe77ecde0cc4a7b3bb76db16abefd1b32d24197e9215fa316939aa6a72eddc0",
+    "D:\\agent-task-runs\\wsc-c1-columns-repeats-20261027-v1\\R02\\R01\\C1-selection\\phase-outcome.json": "0bbacc7a33fa0ddb1b784135e1ac9611bb12861b1a1e756b18f61ec4374c47de",
+    "D:\\agent-task-runs\\wsc-c1-columns-repeats-20261027-v1\\R02\\R01\\C1-selection\\events.jsonl": "53a5b14903a36a6c1a758742a748d8c42c562d954dc75d2a27296c02ae4d9829",
+    "D:\\agent-task-runs\\wsc-c1-columns-repeats-20261027-v1\\R02\\R01\\C2-selection\\phase-outcome.json": "2847e857cb32b481216bb661e5130c3f39adaa240ff8e682c41e32411478a831",
+    "D:\\agent-task-runs\\wsc-c1-columns-repeats-20261027-v1\\R02\\R01\\C2-selection\\events.jsonl": "05172e065ce5b999d685125c47d6c9dbe7806a57ad4f6bd5910609b22572c3d4",
+    "D:\\agent-task-runs\\wsc-c1-columns-repeats-20261027-v1\\R02\\R01\\wsc-probe\\phase-outcome.json": "cc170c9f8b1d27865e4cbc3499a56ccc65c354fa6ac4286c19699c4a47de4885",
+    "D:\\agent-task-runs\\wsc-c1-columns-repeats-20261027-v1\\R02\\R01\\wsc-probe\\events.jsonl": "a39b89648c70185ff04a5e3831aa6e855a84590dcdab2f22b499d9f4892cec5c",
+    "D:\\agent-task-runs\\wsc-c1-columns-repeats-20261027-v1\\R03\\R01\\C1-selection\\phase-outcome.json": "e3851f4f51b230893dbf775e6f4f1d3e500beec5c1ffe4523fb9ce76fe990caf",
+    "D:\\agent-task-runs\\wsc-c1-columns-repeats-20261027-v1\\R03\\R01\\C1-selection\\events.jsonl": "ffa155ebf3b9b93d657ed43a94f57a87c94fad08fcb232e2a4b7d6bfc50eadae",
+    "D:\\agent-task-runs\\wsc-c1-columns-repeats-20261027-v1\\R03\\R01\\C2-selection\\phase-outcome.json": "fd84e639f8249b3dad3bb6fc7b03b3b9cdead9634ec4f19e5ce3722ff7849c37",
+    "D:\\agent-task-runs\\wsc-c1-columns-repeats-20261027-v1\\R03\\R01\\C2-selection\\events.jsonl": "4365d9687e6774a62e4eac640defbc81351a9dbe003f6832332ec725a78d1be4",
+    "D:\\agent-task-runs\\wsc-c1-columns-repeats-20261027-v1\\R03\\R01\\wsc-probe\\phase-outcome.json": "d71362f83c25274bd256b5bbde8254554f74081c06f98779cb98ebcb39808d74",
+    "D:\\agent-task-runs\\wsc-c1-columns-repeats-20261027-v1\\R03\\R01\\wsc-probe\\events.jsonl": "bcfe4b2fd4254dcec367ab91226436de671a91b86ccb31809fffa6178807d373",
+    "D:\\agent-task-runs\\wsc-late-native-counterpart-20261027-v1\\B\\B1-compression\\phase-outcome.json": "aed63ba662d08fbf6f12df7da045f60f1d269b95952dae4be32c8e66ab0b6530",
+    "D:\\agent-task-runs\\wsc-late-native-counterpart-20261027-v1\\B\\B1-compression\\events.jsonl": "78efddfe513c4b8fa78839b37456941cb49c1993b9c57f29ec1517f15b61dbd7",
+    "D:\\agent-task-runs\\wsc-late-native-counterpart-20261027-v1\\B\\B2-compression\\phase-outcome.json": "a38487798a0149472d788fa3d69f5f5a5231253cc678ba9791d0dc06766a5b6a",
+    "D:\\agent-task-runs\\wsc-late-native-counterpart-20261027-v1\\B\\B2-compression\\events.jsonl": "4765857b419d857791c9ac05f28be3d0812a4c3ca8797086b0a21e23667ab509",
+    "D:\\agent-task-runs\\wsc-late-native-counterpart-20261027-v1\\B\\query\\phase-outcome.json": "9deaa46d29424d5a8c02ec881268d327711b45fd9e27e55c909b6ea0823e1bdc",
+    "D:\\agent-task-runs\\wsc-late-native-counterpart-20261027-v1\\B\\query\\events.jsonl": "632bc0d132a3d46321fdf008fecce4096cf1dc2aaf1296fcd6ca75e391fdfc8c",
+    "D:\\agent-task-runs\\wsc-late-remaining-pairs-20261027-v1\\R02\\B\\B1-compression\\phase-outcome.json": "86629641fa4c802f2debdc9b4e94e88523a21d6a7bcef34117165253ecbec012",
+    "D:\\agent-task-runs\\wsc-late-remaining-pairs-20261027-v1\\R02\\B\\B1-compression\\events.jsonl": "5b2427530ff07d56e09a364e2aa7a4a378b44603e942cacda564f3e4a89a70f5",
+    "D:\\agent-task-runs\\wsc-late-remaining-pairs-20261027-v1\\R02\\B\\B2-compression\\phase-outcome.json": "adba1448e8127825d83b135035031ff5ef69d9921567b2f1ea8ea5305d638a75",
+    "D:\\agent-task-runs\\wsc-late-remaining-pairs-20261027-v1\\R02\\B\\B2-compression\\events.jsonl": "688a6e497fde825d822ffb19166cee71e1c0fdd3d9ec9136af0fbf3b11964e3b",
+    "D:\\agent-task-runs\\wsc-late-remaining-pairs-20261027-v1\\R02\\B\\query\\phase-outcome.json": "526d60ecf7c08341763f97862608088579413794fb9ba7ed01aa2702b74236cd",
+    "D:\\agent-task-runs\\wsc-late-remaining-pairs-20261027-v1\\R02\\B\\query\\events.jsonl": "eb2380a8e9d596990919592a70316b70f7f8dfe6ec0f95793e2f00f73fd4d995",
+    "D:\\agent-task-runs\\wsc-late-remaining-pairs-20261027-v1\\R03\\B\\B1-compression\\phase-outcome.json": "9fc01f49b91a1c51570c87adf3056b4eb46c411a5908b01978ee832f5cbb225f",
+    "D:\\agent-task-runs\\wsc-late-remaining-pairs-20261027-v1\\R03\\B\\B1-compression\\events.jsonl": "bce01722ca2dfe884c011e2ed56f32621336f3ffbc741431d5dc5214655f31c1",
+    "D:\\agent-task-runs\\wsc-late-remaining-pairs-20261027-v1\\R03\\B\\B2-compression\\phase-outcome.json": "56a0c1e1f66fc1d0e9c2c7f856c792deee44f936c4ffccdb2df3bbcb770c4888",
+    "D:\\agent-task-runs\\wsc-late-remaining-pairs-20261027-v1\\R03\\B\\B2-compression\\events.jsonl": "af7ab801c7eb1b0f2925521cf3fe4cd28d44c03fdbe96d9a88310c854feb7175",
+    "D:\\agent-task-runs\\wsc-late-remaining-pairs-20261027-v1\\R03\\B\\query\\phase-outcome.json": "4b3ce4aaa0f632c0494e1be86a19e58d72c3b4bcfaeb57dd42578d92d4b90713",
+    "D:\\agent-task-runs\\wsc-late-remaining-pairs-20261027-v1\\R03\\B\\query\\events.jsonl": "7211b8100870cb32ce793d2c229b689183758802d90d6c7c88428646f9b66dbe",
+    "D:\\agent-task-runs\\wsc-deferred-catalog-qualification-20261027-v1\\candidate\\selection\\phase-outcome.json": "d9ad2f34d642aa32a7c284373eece4fb48eb2eff56993d1cbdaa8ac385748566",
+    "D:\\agent-task-runs\\wsc-deferred-catalog-qualification-20261027-v1\\candidate\\selection\\events.jsonl": "9855dcae5fa2937fdaed59f64b3d25a8f37d0a4cd79e73dc4d13386235cc7fdf",
+    "D:\\lea\\XenYon code\\wsc\\validation\\report_existing_capacity_observations.py": "e870c2cea9d1f75e5b7c9638e953431fe0179425f9272f7f3cc49dd2a145ed7c"
+  },
+  "interpretation": "Reported window is response-time telemetry for the bound thread/turn, not a preflight guarantee. Last and cumulative usage are distinct; neither is compressed-context size or the next request forecast."
+}

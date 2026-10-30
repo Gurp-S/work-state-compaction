@@ -1,0 +1,26 @@
+{
+  "scope": "Host-contract and callback correctness unit checks only; mock sessions/factories, real bounded reader; no live native process, model, continuation, performance or B/C run.",
+  "model_calls": 0,
+  "real_native_processes_started": 0,
+  "benchmark_runs": 0,
+  "callback_before": {
+    "tests": 3,
+    "errors": 3
+  },
+  "callback_after": {
+    "tests": 3,
+    "passed": 3
+  },
+  "new_port": {
+    "tests": 9,
+    "passed": 9
+  },
+  "compatibility": {
+    "tests": 4,
+    "passed": 4
+  },
+  "real_native_registration_verified": false,
+  "native_capacity_preflight_implemented": false,
+  "whole_goal_achieved": false,
+  "candidate_enabled_in_existing_runners": false
+}

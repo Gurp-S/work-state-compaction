@@ -1,0 +1,9 @@
+{
+  "path": "D:\\lea\\XenYon code\\wsc\\versions\\context-stage-mapping-v1.70-delta.zip",
+  "bytes": 112806,
+  "sha256": "814db996c88d0fd25a6e8aaa9cd80bd0142fb72185a5052e8e81b4509bd8b6ea",
+  "base": "context-lifecycle-host-port-v1.69-delta.zip",
+  "checks_passed": 25,
+  "checks_skipped": 1,
+  "model_calls": 0
+}

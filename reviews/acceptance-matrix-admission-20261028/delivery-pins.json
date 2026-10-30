@@ -1,0 +1,27 @@
+{
+  "scope": "Static native protocol evidence and matrix pre-registration preparation; no paid model inference, task run or B/C trial.",
+  "matrix_unchanged": true,
+  "evaluator_checks_passed": 9,
+  "goal_complete": false,
+  "files": {
+    "wsc/benchmarks/acceptance_matrix_v1/__init__.py": "8a9e8d7e0f584dd4347cbd76d9fe886bd5f0436301384a3acff5242d12c451d9",
+    "wsc/benchmarks/acceptance_matrix_v1/evidence.py": "ebb6810c269c51dedf0f5b01954d4124e076bcc22d833526d2f925ce3c405ffa",
+    "wsc/tests/test_acceptance_matrix_evidence.py": "c33b9197109454b450ddf4734dc2beddf0db011c6e1937cc659f9b823ae95d6a",
+    "wsc/reviews/native-capacity-protocol-audit.md": "cb4b2f6711487c5d14bd1a807675eac8d8c17c44205d175ab7c7b08f3819984c",
+    "wsc/reviews/native-capacity-protocol/audit.json": "99c65872c30873ca1f39e4da7aa4a2a2d80d495d5008dc705d48c56c2d4b1da2",
+    "wsc/reviews/goal-delivery-gap-audit.md": "f84352c2bd0fc745efe2919dd4df58655bb759d541e688c188910f48f50c1649",
+    "wsc/experiments/NATIVE-LOCAL-HANDOFF.md": "e23d567aeef3db23a2dc4008d7d3bb245af6d7b579d241d03fbca145fec3a3bb",
+    "wsc/reviews/acceptance-matrix-admission-20261028/acceptance-matrix.original.md": "52777a6f7620624ff5c133d16dc775b93c65d5aede34221d303f15df5a690abc",
+    "wsc/reviews/acceptance-matrix-admission-20261028/admission-notes.md": "7e008d18c8ae45de920181f94e8809fe158601d711b726b2a75147df856ddb96",
+    "wsc/reviews/acceptance-matrix-admission-20261028/evidence-evaluator-tests.txt": "326c1a909c5f309a814d4708dda6309b9a4bddeab97d7ac9bfa39845052d44a4",
+    "wsc/reviews/acceptance-matrix-admission-20261028/model-catalog-cleanup.json": "58e93db77c4951e6bed439d883391844b79832959ac226e3490c9189367fadb9",
+    "wsc/reviews/acceptance-matrix-admission-20261028/model-catalog-stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "wsc/reviews/acceptance-matrix-admission-20261028/model-catalog.json": "b05ef9c899e4e0223696a7683a5c0d6dfec3b465cf83a63b038071346907d3a2",
+    "wsc/reviews/acceptance-matrix-admission-20261028/readiness.json": "75ce159e6d75d466208e48079dede8090cf1e589cec2aa5042741ae14e48a791",
+    "wsc/reviews/native-capacity-protocol/schema/ClientRequest.json": "503d09a12ae36fca152e044877d22e93b0094c2d08c3a53ed731f3c8cf33b9ce",
+    "wsc/reviews/native-capacity-protocol/schema/v2/TurnStartParams.json": "f671d01c24995e99fcc110862ff3251c26d334fba212c7dc12857fb939506e47",
+    "wsc/reviews/native-capacity-protocol/schema/v2/ModelListResponse.json": "2fb387a2ed258fc74258828ea342d68f89ce4e8e22cd0329ca59d2b423f9108b",
+    "wsc/reviews/native-capacity-protocol/schema/v2/ThreadReadResponse.json": "1bfe56f686a9810f9e28ff7e025b2d30662866f140f7430d606a03638e01c5a8",
+    "wsc/reviews/native-capacity-protocol/schema/v2/ThreadTokenUsageUpdatedNotification.json": "aba4f6c7e4a19b2b842c08ee793b57000c07dafd57b922ad0d8e7c76609108c2"
+  }
+}

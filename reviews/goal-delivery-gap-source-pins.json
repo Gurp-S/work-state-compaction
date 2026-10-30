@@ -1,0 +1,29 @@
+{
+  "scope": "Static requirement/source/historical-evidence audit, not a new verification run.",
+  "whole_goal_achieved": false,
+  "full_current_source_verified": false,
+  "experiments_allowed": false,
+  "files": {
+    "wsc/reviews/goal-delivery-gap-audit.md": "94ec381e7d5202721dd061780e32efe67ae0d652109b651f34f28ce0737a3398",
+    "wsc/experiments/NATIVE-LOCAL-HANDOFF.md": "66e9d0f5e8dd56f36e614b64786555ff79410a7fa7c7577385defdd425f4036d",
+    "wsc/src/wsc/core.py": "a8dfd4e2c9179e03614de0a6ea82ff6ff03b1322cf9126a0c2652c475e3c957e",
+    "wsc/src/wsc/publication.py": "75cca279b91a13bd11af68396e065bf06010164fcd0ba6012f4bf5fd5465be96",
+    "wsc/src/wsc/snapshots.py": "d48738fbf16e39e7461d8e9307499babb04dee46904bec706a606aa6f40b54d8",
+    "wsc/src/wsc/continuation_inspection.py": "1ab20a1898b888fe7548efe9aa2d8e1799237d6e06fa9c054aa21f00966a9328",
+    "wsc/src/wsc/generation.py": "849c9e7223b5bf9d1f50bee34a39e56166832de946b0b66b963f680183da0b26",
+    "wsc/src/wsc/settlement.py": "ed9b7dfe729388a8858a7a6ab05d71d75f5cadbb4b429cc5ae3c161237ba43de",
+    "wsc/experiments/native_incremental_candidate.py": "26411c47f59e0ee7d3fcc333ca93038ebe013e8ad0c7bd6ff3ada089f426130c",
+    "wsc/experiments/native_incremental_generation.py": "dc50055ce380b54f8803377f9369f7edde3416eaf4ca91ad8273413e86893224",
+    "wsc/reviews/2026-10-27-code-issues-001-020.md": "0456616aabf0f1c28021970767b8c8e19c2db8eb47cc43f475b77676e033498d",
+    "wsc/reviews/2026-10-27-blackbox-formal-cases.md": "014fd1a8fcf5a018431acbd3ddd3141fde6d8cc3d98d0d48e6e43c9a48993f5c",
+    "wsc/reviews/2026-10-27-c1-three-full-chains.md": "476ab9da1139f705a3841154f7d4df47e03dfe52d792fdd6b747dc7fa836eb1a",
+    "wsc/reviews/2026-10-27-current-wsc-metrics-report.md": "3cf26cdf6a74afa96b321bed213aa4530e13aa76a66b9b3001f34e5cc83adb64",
+    "wsc/reviews/second-selection-work-and-converged-direction.md": "ce6fb170d367e94045df344568155cfb30786f7db355654ea6621b8cc6c33609",
+    "wsc/reviews/capacity-and-lifecycle-source-audit.md": "92cdf1b0861bd6b008ce404737dc3a70c247b977af6ba2c4ce36f3bc3c9a9a56"
+  },
+  "external": {
+    "C:\\快捷方式\\临时文件\\`12.md": "18c50a86a3c1e3087852a114736c81ce00150f71a8e985fbc9e4d09b9bc04f64",
+    "D:\\agent-task-runs\\wsc-code-issues-repair-20261027-v1\\audit-result.json": "5c90f50a62343427d73a0670ee379c8605facca1dc3b6872d15477ff2ac4e8b7",
+    "D:\\agent-task-runs\\wsc-blackbox-formal-cases-20261027-v1\\matrix.json": "4ea1f987c2d453135feadacdcb918f299867009cb6b06c8ac4b84dbf4f5bbd52"
+  }
+}

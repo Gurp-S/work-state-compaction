@@ -1,0 +1,12 @@
+{
+  "scope": "Named thread and metadata admission, not model task results.",
+  "files": {
+    "wsc/benchmarks/deterministic_v1/native_blackbox_sessions.py": "1818437682de114d4b6ff067b53ae82f7a1efa235da096a254c89c12f3a007e4",
+    "wsc/experiments/native_evidence.py": "c9eaaaf260f5355f01fb16aad04fa789973115eb649d01ea82cf768388cac31a",
+    "wsc/benchmarks/acceptance_matrix_v1/native_dispatch.py": "3b29c4dd507bdb8d4a3ced6d6c8ef34e006c1ec133f5107571bb875e332432cc",
+    "wsc/validation/qualify_matrix_native_boundary.py": "0c8b7ee58ae395118032bad6759e171b2e5583e53459757037832ff447d12d1b",
+    "wsc/tests/test_matrix_native_permissions.py": "3770ca7f2e0140d9b56ac7a062677de0d1405820988913ae362eeaf06107eb1a",
+    "wsc/tests/test_native_tool_import_additions.py": "cbc2920015f07a4c95b338474c7f0a9733de843f7642b5844c11046f799ea82f",
+    "wsc/tests/test_matrix_native_dispatch.py": "c3ad1c6020310145b76d1d09244ffbe4d99293543cb4d3f8e63781318e404748"
+  }
+}

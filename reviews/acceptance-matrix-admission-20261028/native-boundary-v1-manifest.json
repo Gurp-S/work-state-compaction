@@ -1,0 +1,10 @@
+{
+  "root": "D:\\agent-task-runs\\wsc-matrix-native-boundary-20261028-v1",
+  "files": {
+    "coordinator-private/canary.txt": "733cd343e6b2cb99448a92b3dd69c0f3173d0ab6823892c0b3c89e735facb90b",
+    "other-arm/canary.txt": "4a53fae015c6018b125e8b0e67eb3cc50a96e5264255a70a90f8424955474a04",
+    "public-workspace/canary.txt": "62b545005d77a0e31e865d36432b88c7866f2d4f5ee57c4bb06da5c5b29147e4",
+    "public-workspace/retry_client.py": "4f860f68b55d8513fa21ae0ad1678a2de3ef9cc53c3ba74926dc62eda0901570",
+    "public-workspace/test_smoke.py": "407d59664538c9a4e97327a70c73d7bf35532df79c832ff5badd10c7fe7629c7"
+  }
+}

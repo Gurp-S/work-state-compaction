@@ -9,32 +9,57 @@ from native_host_controls import bootstrap_items
 from native_rollout_snapshot import capture_rollout,parse_rollout
 
 
-def fresh(reg,destination,*,dynamic_tools=(),selector_runtime=None):
+def fresh(reg,destination,*,dynamic_tools=(),selector_runtime=None,host_permissions=None,startup_timeout=20):
+    if type(startup_timeout) is not int or not 0<startup_timeout<=60:
+        raise ValueError('receiver_startup_timeout_invalid')
+    if host_permissions is not None and (not isinstance(host_permissions,dict)
+            or set(host_permissions)!={'profile','startup_flags'}
+            or type(host_permissions['profile']) is not str or not host_permissions['profile']
+            or not isinstance(host_permissions['startup_flags'],list)
+            or not all(type(v) is str for v in host_permissions['startup_flags'])):
+        raise ValueError('receiver_permission_binding_invalid')
     if file_hash(reg['executable'])!=reg['executable_sha256']:raise ValueError('registered_cli_changed')
     session=NativeForkSession(reg,destination)
     extra=[]
+    if host_permissions is not None:
+        extra.extend(host_permissions['startup_flags'])
+        save(Path(destination)/'host-permissions.json',host_permissions)
     if selector_runtime is not None:
         from native_selector_runtime import configure
-        extra=configure(Path(destination)/'selector-runtime',selector_runtime)
+        extra.extend(configure(Path(destination)/'selector-runtime',selector_runtime))
         save(Path(destination)/'selector-runtime-registration.json',dict(profile=selector_runtime,settings=extra,
             scope='Private C selector only; native control and continuation actor unchanged.'))
     session.server=OwnedNativeRPC(reg['executable'],cwd=reg['workspace'],stderr_path=Path(destination)/'stderr.txt',settings=settings(reg)+extra)
     try:
         save(Path(destination)/'initialized.json',session.server.call('initialize',dict(clientInfo=dict(name='blackbox_receiver',version='1'),capabilities=dict(experimentalApi=True))))
         session.server.send(dict(method='initialized'))
-        session.opened=session.server.call('thread/start',dict(cwd=reg['workspace'],model=reg['model'],
-            allowProviderModelFallback=False,approvalPolicy='never',sandbox='read-only',
-            runtimeWorkspaceRoots=[reg['workspace']],ephemeral=False,dynamicTools=list(dynamic_tools)))
+        params=dict(cwd=reg['workspace'],model=reg['model'],
+            allowProviderModelFallback=False,approvalPolicy='never',
+            runtimeWorkspaceRoots=[reg['workspace']],ephemeral=False,dynamicTools=list(dynamic_tools))
+        params.update({'sandbox':'read-only'} if host_permissions is None else {'permissions':host_permissions['profile']})
+        session.opened=session.server.call('thread/start',params,timeout=startup_timeout)
         save(Path(destination)/'opened.json',session.opened)
         if session.opened['model']!=reg['model'] or session.opened['reasoningEffort']!=reg['effort']:
             raise ValueError('receiver_model_or_effort_changed')
+        if host_permissions is not None and session.opened.get('activePermissionProfile',{}).get('id')!=host_permissions['profile']:
+            raise ValueError('receiver_permission_profile_changed')
         snapshot=capture_rollout(session.opened['thread']['path'])
         if snapshot.metadata['exists'] and (not snapshot.metadata['parse_complete'] or any(r['type']=='token_usage_record' for r in snapshot.rows)):
             raise ValueError('fresh_receiver_inference_or_source_unknown')
         save(Path(destination)/'history-readiness.json',dict(physical_history_exists=snapshot.metadata['exists'],
             import_required_before_execution=True,phase='configured_not_yet_import_verified'))
         return session
-    except BaseException:
+    except BaseException as error:
+        try:
+            with session.server.queue.mutex:queued=list(session.server.queue.queue)
+            pending=list(session.server.pending)+queued
+            save(Path(destination)/'startup-error.json',dict(type=type(error).__name__,error=str(error),
+                startup_timeout_seconds=startup_timeout,
+                pending=[dict(method=item.get('method'),id=item.get('id'),
+                    keys=sorted(item),param_keys=sorted(item.get('params',{})) if isinstance(item.get('params'),dict) else None)
+                    for item in pending]))
+        except Exception:
+            pass
         session.close();raise
 
 

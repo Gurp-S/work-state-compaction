@@ -1,0 +1,16 @@
+{
+  "node": "E:\\nodejs\\node.exe",
+  "nodeVersion": "v24.14.0",
+  "playwright": "1.62.1",
+  "browser": "C:\\Users\\48522\\AppData\\Local\\ms-playwright\\chromium-1234\\chrome-win64\\chrome.exe",
+  "typescript": "5.9.3",
+  "sha256": {
+    "E:\\nodejs\\node.exe": "63c259c81e5d472b5f11c8d506070130cb04a1ecf84b80377a34ed6ec9048088",
+    "C:\\Users\\48522\\AppData\\Local\\ms-playwright\\chromium-1234\\chrome-win64\\chrome.exe": "409805a16d6416087e6b2f778df1cf8f7bbb267d6b99f6b5bb0a618eace234f2",
+    "gui\\node_modules\\typescript\\lib\\_tsc.js": "e8f349eabd48486bdb2bf9dc1a00c89d58297270c54b745838879e2859194419",
+    "gui\\package-lock.json": "417dc95d510efed2be9e74363f38a230ade4163afd39dc92c833f544fcc0c12a"
+  },
+  "browserVersion": "151.0.7922.34",
+  "dependency_installations": 0,
+  "model_calls": 0
+}

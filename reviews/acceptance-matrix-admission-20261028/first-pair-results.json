@@ -1,0 +1,66 @@
+{
+  "scope": "r1 environment failures retained; r2 C-first artifact accepted but run interrupted; Bprime not started.",
+  "original_result_unmodified": true,
+  "task_success": true,
+  "run_success": false,
+  "task_checks": 11,
+  "task_checks_passed": 11,
+  "budget_compliant": false,
+  "phases": [
+    {
+      "phase": "selection",
+      "input_tokens": 20958,
+      "cached_input_tokens": 0,
+      "uncached_input_tokens": 20958,
+      "output_tokens": 2259,
+      "reasoning_output_tokens_included": 1887,
+      "known_total_tokens": 23217,
+      "known_response_receipts": 1,
+      "native_stage_seconds": 71.45300000000134,
+      "completed": true,
+      "usage_complete": true,
+      "failure": null
+    },
+    {
+      "phase": "continuation",
+      "input_tokens": 603424,
+      "cached_input_tokens": 558720,
+      "uncached_input_tokens": 44704,
+      "output_tokens": 12805,
+      "reasoning_output_tokens_included": 5931,
+      "known_total_tokens": 616229,
+      "known_response_receipts": 14,
+      "native_stage_seconds": 337.60899999999674,
+      "completed": false,
+      "usage_complete": false,
+      "failure": "registered_token_cap"
+    }
+  ],
+  "known_C_tokens": 639446,
+  "known_C_responses": 15,
+  "current_usage_complete": false,
+  "first_batch_known_tokens_lower_bound": 1375135,
+  "first_batch_known_response_receipts": 37,
+  "frozen_arithmetic_remaining": {
+    "max_total_tokens": 624865,
+    "max_responses": 27,
+    "max_seconds": 2932
+  },
+  "remaining_dispatchable": false,
+  "source_tool_calls": 6,
+  "source_tool_reported_duration_ms": [
+    0,
+    1,
+    13,
+    21,
+    616,
+    614
+  ],
+  "source_tool_reported_duration_sum_ms": 1265,
+  "C_outer_seconds": 425.42199999999866,
+  "C_native_intervals_seconds": 409.0619999999981,
+  "C_host_outside_native_intervals_seconds": 16.360000000000582,
+  "native_B_compressions_executed": 0,
+  "valid_BC_comparisons": 0,
+  "old_failures_and_unknowns_preserved": true
+}

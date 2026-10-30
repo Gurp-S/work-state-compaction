@@ -1,0 +1,17 @@
+{
+  "version": "1.49",
+  "bytes": 735152,
+  "sha256": "f9cf259e2b457cd36d856fe1ef508edbc9c7ac7f3c9bdad696f25f0b1dbae9e2",
+  "files": 160,
+  "archive_verified": true,
+  "known_first_batch_tokens": 735689,
+  "known_first_batch_responses": 22,
+  "remaining_first_batch_limits": {
+    "max_total_tokens": 1264311,
+    "max_responses": 42,
+    "max_seconds": 3366
+  },
+  "T1_history_dependency_qualified": true,
+  "formal_bc_runs": 0,
+  "goal_achieved": false
+}

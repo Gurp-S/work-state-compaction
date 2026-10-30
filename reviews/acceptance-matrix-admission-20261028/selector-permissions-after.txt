@@ -1,0 +1,10 @@
+test_default_caller_keeps_original_read_only_parameters (test_matrix_native_permissions.NativePermissionChecks.test_default_caller_keeps_original_read_only_parameters) ... ok
+test_explicit_profile_is_bound_without_conflicting_legacy_sandbox (test_matrix_native_permissions.NativePermissionChecks.test_explicit_profile_is_bound_without_conflicting_legacy_sandbox) ... ok
+test_invalid_binding_cannot_open_process (test_matrix_native_permissions.NativePermissionChecks.test_invalid_binding_cannot_open_process) ... ok
+test_profile_mismatch_closes_receiver (test_matrix_native_permissions.NativePermissionChecks.test_profile_mismatch_closes_receiver) ... ok
+test_selector_runtime_does_not_replace_permission_flags (test_matrix_native_permissions.NativePermissionChecks.test_selector_runtime_does_not_replace_permission_flags) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.014s
+
+OK

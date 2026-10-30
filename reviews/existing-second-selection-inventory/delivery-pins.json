@@ -1,0 +1,10 @@
+{
+  "scope": "Read-only historical work inventory; no sessions, models, tests, experiments, or active-path changes.",
+  "original_inputs_rechecked": 19,
+  "files": {
+    "wsc/validation/inventory_existing_second_selection.py": "42f5d18bc37d75c288f3d6513975ef824b5e3d0e5d34f6aa53657ab1de8d1613",
+    "wsc/reviews/existing-second-selection-inventory/inventory.json": "b113b94eedfab3e4e3682638bc00c7feb4ab44783b338f9657f1174091e713a1",
+    "wsc/reviews/second-selection-work-and-converged-direction.md": "ce6fb170d367e94045df344568155cfb30786f7db355654ea6621b8cc6c33609",
+    "wsc/experiments/NATIVE-LOCAL-HANDOFF.md": "d37d60397e81cbe07b27dfd24436d2d25c2e42558e0d0dd64390ea7553f6fa9c"
+  }
+}

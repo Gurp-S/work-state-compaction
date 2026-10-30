@@ -1,0 +1,161 @@
+{
+  "schema": "wsc.acceptance.matrix_registration_draft/1",
+  "status": "draft_not_dispatchable",
+  "original_matrix_sha256": "52777a6f7620624ff5c133d16dc775b93c65d5aede34221d303f15df5a690abc",
+  "execution_revision": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-28-acceptance-matrix-execution-v1.1.md",
+  "execution_revision_sha256": "df6a40e164207a35c80986c13778a3cf534a7bb0c1c8f682fb74362c2d6279bb",
+  "models": {
+    "strong": {
+      "model": "gpt-6.1-sol",
+      "effort": "max"
+    },
+    "weak": {
+      "model": "gpt-6-luna",
+      "effort": "max"
+    }
+  },
+  "model_fallback_allowed": false,
+  "subagents_allowed": false,
+  "comparison": "system_blackbox",
+  "trigger": {
+    "mode": "common_sealed_history_checkpoint",
+    "actual_call_tokens_recorded_afterward": true,
+    "claimed_threshold_ratio": null,
+    "user_confirmed": true
+  },
+  "arms": {
+    "A": {
+      "material": "uncompressed",
+      "trigger": "none",
+      "recovery": false
+    },
+    "B": {
+      "material": "native",
+      "trigger": "native_default",
+      "recovery": false
+    },
+    "Bprime": {
+      "material": "native",
+      "trigger": "common_checkpoint",
+      "recovery": false
+    },
+    "Bprime+r": {
+      "material": "native",
+      "trigger": "common_checkpoint",
+      "recovery": true
+    },
+    "C-r": {
+      "material": "wsc",
+      "trigger": "common_checkpoint",
+      "recovery": false
+    },
+    "C": {
+      "material": "wsc",
+      "trigger": "common_checkpoint",
+      "recovery": true
+    }
+  },
+  "repetitions": 3,
+  "weak_arms": [
+    "Bprime",
+    "C"
+  ],
+  "tasks": {
+    "T1": {
+      "status": "calibrated_draft",
+      "fixture_root": "D:\\agent-task-runs\\wsc-matrix-task-admission-20261028-v2\\T1",
+      "public_sha256": "d7be0f5e88934258272f9dccb8b1aaa18ae7710e389d9ee5e9bc819e6867aba8",
+      "prefix_items": 46,
+      "programmatic_checks": 11,
+      "starter_checks_failed": 11,
+      "starter_runtime_checks_not_run": 0,
+      "history_dependency_model_control_run": true,
+      "paid_dispatch_admitted": false,
+      "history_dependency_qualified": true,
+      "history_control_receipt": "D:\\agent-task-runs\\wsc-matrix-first-controls-20261028-v1\\closure.json",
+      "history_control_receipt_sha256": "f16e8727ee7dfaa257af1ce23b68c3e38694991662e4042d1967fc79bfbaeb49"
+    },
+    "T2": {
+      "status": "calibrated_draft",
+      "fixture_root": "D:\\agent-task-runs\\wsc-matrix-t2-t5-admission-20261028-v1\\T2",
+      "public_sha256": "cffccafe440cc86db054e18d40e944799198c840ccd59a4bd30604eb41afa791",
+      "prefix_items": 50,
+      "programmatic_checks": 13,
+      "starter_checks_failed": 1,
+      "starter_runtime_checks_not_run": 12,
+      "history_dependency_model_control_run": false,
+      "paid_dispatch_admitted": false
+    },
+    "T3": {
+      "status": "calibrated_draft",
+      "fixture_root": "D:\\agent-task-runs\\wsc-matrix-task-admission-20261028-v2\\T3",
+      "public_sha256": "1481215f5313ea70264b3a1f55806a0e3dc31bbbf499d91788607df97b6914ef",
+      "prefix_items": 46,
+      "programmatic_checks": 10,
+      "starter_checks_failed": 10,
+      "starter_runtime_checks_not_run": 0,
+      "history_dependency_model_control_run": false,
+      "paid_dispatch_admitted": false
+    },
+    "T4": {
+      "status": "calibrated_draft",
+      "fixture_root": "D:\\agent-task-runs\\wsc-matrix-t4-admission-20261028-v2\\T4",
+      "public_sha256": "81d981676279e4d9d1415ff0fd681cf7830ef7d834608af3652ecd4158464565",
+      "prefix_items": 50,
+      "programmatic_checks": 13,
+      "starter_checks_failed": 12,
+      "starter_runtime_checks_not_run": 0,
+      "history_dependency_model_control_run": false,
+      "paid_dispatch_admitted": false
+    },
+    "T5": {
+      "status": "calibrated_draft",
+      "fixture_root": "D:\\agent-task-runs\\wsc-matrix-t2-t5-admission-20261028-v1\\T5",
+      "public_sha256": "481b62f2ac600c370e027b665757d192a0eaff9cb9458d7f106aac56b64dc258",
+      "prefix_items": 48,
+      "programmatic_checks": 11,
+      "starter_checks_failed": 11,
+      "starter_runtime_checks_not_run": 0,
+      "history_dependency_model_control_run": false,
+      "paid_dispatch_admitted": false
+    }
+  },
+  "first_batch": {
+    "model_tier": "strong",
+    "task": "T1",
+    "sequence": [
+      "A/r1",
+      "last-state-only/control",
+      "Bprime+C/r1",
+      "Bprime+C/r2",
+      "Bprime+C/r3"
+    ],
+    "parallelism": 2,
+    "limits": {
+      "max_total_tokens": 2000000,
+      "max_responses": 64,
+      "max_seconds": 3600
+    },
+    "requires_all_five_task_acceptors_before_dispatch": true,
+    "task_run_limits": {
+      "max_total_tokens": 3000000,
+      "max_responses": 120,
+      "max_seconds": 1800
+    },
+    "batch_limits_are_additional_tighter_caps": true
+  },
+  "arm_total_token_ceiling": 15000000,
+  "old_usage_unknowns_and_failures_preserved": true,
+  "history_dependency_scored_by": "independent_task_acceptor_only_not_citation_or_enum_recall",
+  "unfinished": [
+    "actual history-dependence controls",
+    "enumerated private/source/peer read boundary plus actual native tool/thread admission",
+    "dispatch budget sidecar wiring and campaign binding",
+    "native compaction confirmation and recovery count wiring",
+    "six-round event updates and checkpoint denominator definitions"
+  ],
+  "model_inference_calls": 22,
+  "paid_runs_started": 3,
+  "all_five_acceptors_calibrated": true,
+  "formal_bc_runs_started": 0
+}

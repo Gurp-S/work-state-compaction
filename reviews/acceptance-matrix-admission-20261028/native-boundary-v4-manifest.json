@@ -1,0 +1,25 @@
+{
+  "root": "D:\\agent-task-runs\\wsc-matrix-native-boundary-20261028-v4",
+  "files": {
+    "cleanup.json": "7ed9a493b858f78fcf913ac055d8e6d448b3c1de21024c81f901bb01b967e6df",
+    "command-response.json": "034859adbfa0f5adc4a183dd25f858b2e45f4dc1c645e3676b3451e6d3dc1d3a",
+    "owned-cleanup.json": "7ed9a493b858f78fcf913ac055d8e6d448b3c1de21024c81f901bb01b967e6df",
+    "registration.json": "ed8310f82ebd913405db8362d746e01e9280dbefacbab445ab73753d0d05e9f8",
+    "result.json": "a30feb986b563cd822f50b83864944cadf6333df078d982258c82e5c3d85b648",
+    "coordinator-private/canary.txt": "733cd343e6b2cb99448a92b3dd69c0f3173d0ab6823892c0b3c89e735facb90b",
+    "coordinator-private/native/after-import.jsonl": "6a42f1c3ba6a1c9db83b16481313e7c8a48ce383761a5309b675b6b89c0a9cec",
+    "coordinator-private/native/bootstrap.jsonl": "ce10c78ef7e66735566a469822bd2fbe4a7f1e9b7dba36ad932f6bc77479a6b6",
+    "coordinator-private/native/history-readiness.json": "b4f626a3c449c0475138a6596cc1df20c4d6fcaf99d40e234df40b57e5a8f833",
+    "coordinator-private/native/host-permissions.json": "f042450afa57edd4a49ae5a8291f53828e3dc6f58b2ab300506e8fe4fb1b32f1",
+    "coordinator-private/native/initialized.json": "0f376d0057d385e35b2fc60dbf73b267e97b01da6fef9250880b674db052cf6f",
+    "coordinator-private/native/native-import.json": "8782b003e90b25c7fb66f7b94fd76fbb4cf69400bceb942fd1565956abfe545c",
+    "coordinator-private/native/opened.json": "3ef7c65e802c51e93c13b31cac8997b8f8a405257dbb2acfc6aa209faa015dcf",
+    "coordinator-private/native/process-cleanup.json": "7ed9a493b858f78fcf913ac055d8e6d448b3c1de21024c81f901bb01b967e6df",
+    "coordinator-private/native/stderr.txt": "f7a3105986bc6498807e321e7c49f1b8f15b357aa105e230440516f4a4c51255",
+    "other-arm/canary.txt": "4a53fae015c6018b125e8b0e67eb3cc50a96e5264255a70a90f8424955474a04",
+    "public-workspace/canary.txt": "62b545005d77a0e31e865d36432b88c7866f2d4f5ee57c4bb06da5c5b29147e4",
+    "public-workspace/retry_client.py": "4f860f68b55d8513fa21ae0ad1678a2de3ef9cc53c3ba74926dc62eda0901570",
+    "public-workspace/test_smoke.py": "407d59664538c9a4e97327a70c73d7bf35532df79c832ff5badd10c7fe7629c7",
+    "public-workspace/write-probe.txt": "5a973dacca8f89f5bcf880d2029c77357fcce0e1db8a0c52b2797f306dfa54e3"
+  }
+}

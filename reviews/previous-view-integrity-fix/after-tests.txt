@@ -1,0 +1,11 @@
+test_changed_clue_is_rejected_before_archive_export (test_incremental_previous_integrity.PreviousViewIntegrityChecks.test_changed_clue_is_rejected_before_archive_export) ... ok
+test_changed_excerpt_with_same_key_is_rejected (test_incremental_previous_integrity.PreviousViewIntegrityChecks.test_changed_excerpt_with_same_key_is_rejected) ... ok
+test_changed_selected_source_is_rejected (test_incremental_previous_integrity.PreviousViewIntegrityChecks.test_changed_selected_source_is_rejected) ... ok
+test_invalid_previous_never_calls_generator_or_starts_usage (test_incremental_previous_integrity.PreviousViewIntegrityChecks.test_invalid_previous_never_calls_generator_or_starts_usage) ... ok
+test_missing_view_keeps_existing_error_code (test_incremental_previous_integrity.PreviousViewIntegrityChecks.test_missing_view_keeps_existing_error_code) ... ok
+test_valid_material_is_identical_to_legacy_loader (test_incremental_previous_integrity.PreviousViewIntegrityChecks.test_valid_material_is_identical_to_legacy_loader) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.267s
+
+OK

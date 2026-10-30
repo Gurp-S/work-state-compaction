@@ -13,7 +13,9 @@ from wsc.source_reference_view import MODE
 
 
 class IndexedCheckpointAdapter(RecordedCodexCheckpointAdapter):
-    def __init__(self):self.projection=None
+    def __init__(self,*,source_alias_policy='snapshot_event_seq_v1'):
+        require(source_alias_policy in {'legacy_dense_v1','snapshot_event_seq_v1'},'indexed_alias_policy_unknown')
+        self.projection=None;self.source_alias_policy=source_alias_policy
     def capabilities(self):
         return {**super().capabilities(),'adapter':'codex_indexed_sections_v1','source_projection':MODE,
             **({'projection_evidence':self.projection} if self.projection else {})}
@@ -26,10 +28,14 @@ class IndexedCheckpointAdapter(RecordedCodexCheckpointAdapter):
         template=deepcopy(facts)
         aliases={}
         spine={}
+        canonical=None
+        if self.source_alias_policy=='snapshot_event_seq_v1':
+            from native_snapshot_aliases import SourceAliases
+            canonical=SourceAliases.from_facts(source,facts)
         def alias(value):
             identity=value['source_id']
             if identity not in aliases:
-                key='s'+str(len(aliases))
+                key=canonical.get(identity) if canonical is not None else 's'+str(len(aliases))
                 aliases[identity]=key
                 spine[key]=dict(source_id=identity,observed_at=value.get('observed_at'))
             return aliases[identity]
@@ -61,6 +67,7 @@ class IndexedCheckpointAdapter(RecordedCodexCheckpointAdapter):
             if 'current_reference' in row:entry['current_reference']=row['current_reference']
             compact['observations'].append(entry)
         compact['source_aliases']=spine
+        compact['source_alias_policy']=self.source_alias_policy
         compact['archive']=deepcopy(facts['archive'])
         metadata=dict(format='wsc.indexed_sections/1',fact_template=template,header=deepcopy(compact),
             sections=[{k:v for k,v in section.items() if k!='text'} for section in sections])

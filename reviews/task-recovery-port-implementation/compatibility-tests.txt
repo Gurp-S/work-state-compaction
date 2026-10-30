@@ -1,0 +1,9 @@
+test_bound_read_is_idempotent_and_no_extra_permission (test_native_source_tool.SourceToolTests.test_bound_read_is_idempotent_and_no_extra_permission) ... ok
+test_cross_turn_and_extra_path_never_read (test_native_source_tool.SourceToolTests.test_cross_turn_and_extra_path_never_read) ... ok
+test_wrong_snapshot_descriptor_never_reaches_model (test_native_source_tool.SourceToolTests.test_wrong_snapshot_descriptor_never_reaches_model) ... ok
+test_before_after_limit_retains_access_boundary (test_native_source_tool_budget.BudgetResultTests.test_before_after_limit_retains_access_boundary) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.244s
+
+OK

@@ -1,0 +1,100 @@
+{
+  "scope": "One strong-model uncompressed history qualification; not WSC-vs-native comparison.",
+  "runs": [
+    {
+      "run": "tool-probe",
+      "task_success": null,
+      "passed_checks": 0,
+      "checks": 0,
+      "constraint_violations": null,
+      "tokens": {
+        "input_tokens": 43572,
+        "cached_input_tokens": 24832,
+        "output_tokens": 487,
+        "total_tokens": 44059,
+        "uncached_input_tokens": 18740
+      },
+      "responses": 2,
+      "usage_complete": true,
+      "native_stage_seconds": 21.875,
+      "outer_seconds": 28.89100000000326,
+      "raw": "D:\\agent-task-runs\\wsc-matrix-first-slice-20261028-v2\\coordinator-private\\tool-probe-phase\\phase-outcome.json",
+      "currency_cost": null,
+      "compression_calls": 0,
+      "compression_input_tokens": null,
+      "compression_output_tokens": null,
+      "compression_seconds": null,
+      "kind": "qualification",
+      "qualification_success": false,
+      "excluded_from_task_success_denominator": true
+    },
+    {
+      "run": "A",
+      "task_success": true,
+      "passed_checks": 11,
+      "checks": 11,
+      "constraint_violations": [],
+      "tokens": {
+        "input_tokens": 359192,
+        "cached_input_tokens": 336896,
+        "output_tokens": 7831,
+        "total_tokens": 367023,
+        "uncached_input_tokens": 22296
+      },
+      "responses": 11,
+      "usage_complete": true,
+      "native_stage_seconds": 191.65600000000268,
+      "outer_seconds": 199.39099999999598,
+      "raw": "D:\\agent-task-runs\\wsc-matrix-first-controls-20261028-v1\\coordinator-private\\A-phase\\phase-outcome.json",
+      "currency_cost": null,
+      "compression_calls": 0,
+      "compression_input_tokens": null,
+      "compression_output_tokens": null,
+      "compression_seconds": null,
+      "kind": "task_history_control"
+    },
+    {
+      "run": "last-state-only",
+      "task_success": false,
+      "passed_checks": 3,
+      "checks": 11,
+      "constraint_violations": [
+        "no-partial-invalid-batch",
+        "request-integrity",
+        "retry-boundary",
+        "tenant-identity"
+      ],
+      "tokens": {
+        "input_tokens": 318787,
+        "cached_input_tokens": 292608,
+        "output_tokens": 5820,
+        "total_tokens": 324607,
+        "uncached_input_tokens": 26179
+      },
+      "responses": 9,
+      "usage_complete": true,
+      "native_stage_seconds": 197.59399999999732,
+      "outer_seconds": 204.89099999999598,
+      "raw": "D:\\agent-task-runs\\wsc-matrix-first-controls-20261028-v1\\coordinator-private\\last-state-only-phase\\phase-outcome.json",
+      "currency_cost": null,
+      "compression_calls": 0,
+      "compression_input_tokens": null,
+      "compression_output_tokens": null,
+      "compression_seconds": null,
+      "kind": "task_history_control"
+    }
+  ],
+  "history_dependency_qualified": true,
+  "fixture": "T1 current v2",
+  "total_known_tokens": 735689,
+  "total_responses": 22,
+  "activity_union_seconds": 233.78199999999924,
+  "remaining_first_batch_limits": {
+    "max_total_tokens": 1264311,
+    "max_responses": 42,
+    "max_seconds": 3366
+  },
+  "whole_campaign_usage_complete": false,
+  "old_failures_unknowns_preserved": true,
+  "original_probe_result_still_failed": true
+}

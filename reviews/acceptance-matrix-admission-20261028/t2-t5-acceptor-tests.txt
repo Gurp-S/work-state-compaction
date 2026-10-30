@@ -1,0 +1,14 @@
+test_exporting_first_page_only_is_detected (test_matrix_t2_t5_acceptors.ApiPipelineAcceptorChecks.test_exporting_first_page_only_is_detected) ... ok
+test_float_cents_and_replacement_decoding_are_detected (test_matrix_t2_t5_acceptors.ApiPipelineAcceptorChecks.test_float_cents_and_replacement_decoding_are_detected) ... ok
+test_name_only_provider_filter_is_detected (test_matrix_t2_t5_acceptors.ApiPipelineAcceptorChecks.test_name_only_provider_filter_is_detected) ... ok
+test_pipeline_reference_passes_all_stages (test_matrix_t2_t5_acceptors.ApiPipelineAcceptorChecks.test_pipeline_reference_passes_all_stages) ... ok
+test_pipeline_starter_does_not_pass_format_or_lineage (test_matrix_t2_t5_acceptors.ApiPipelineAcceptorChecks.test_pipeline_starter_does_not_pass_format_or_lineage) ... ok
+test_typescript_reference_passes_type_and_all_callers (test_matrix_t2_t5_acceptors.ApiPipelineAcceptorChecks.test_typescript_reference_passes_type_and_all_callers) ... ok
+test_typescript_starter_fails_real_type_contract (test_matrix_t2_t5_acceptors.ApiPipelineAcceptorChecks.test_typescript_starter_fails_real_type_contract) ... ok
+test_updating_only_api_does_not_pass_callers (test_matrix_t2_t5_acceptors.ApiPipelineAcceptorChecks.test_updating_only_api_does_not_pass_callers) ... ok
+test_wrong_stage_relationship_is_detected (test_matrix_t2_t5_acceptors.ApiPipelineAcceptorChecks.test_wrong_stage_relationship_is_detected) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 2.571s
+
+OK

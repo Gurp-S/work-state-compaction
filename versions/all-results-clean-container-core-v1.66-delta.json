@@ -1,0 +1,14 @@
+{
+  "path": "D:\\lea\\XenYon code\\wsc\\versions\\all-results-clean-container-core-v1.66-delta.zip",
+  "bytes": 136571,
+  "sha256": "6100203d32b719746eae58bfa124c81bf58c72f88c43878801e774e7485f42d5",
+  "files": 17,
+  "base": "t3-private-material-failed-admission-v1.65-delta.zip",
+  "model_requests_issued": 0,
+  "runtime_images_duplicated": false,
+  "core_container_admitted": true,
+  "native_codex_admitted": false,
+  "paid_dispatch_admitted": false,
+  "known_campaign_tokens_lower_bound": 5080960,
+  "unknown_usage_retained": true
+}

@@ -1,0 +1,14 @@
+test_bool_is_not_integer_and_duplicate_claims_are_invalid (test_acceptance_matrix_evidence.MatrixEvidenceChecks.test_bool_is_not_integer_and_duplicate_claims_are_invalid) ... ok
+test_changed_source_catalog_is_rejected (test_acceptance_matrix_evidence.MatrixEvidenceChecks.test_changed_source_catalog_is_rejected) ... ok
+test_constraint_inversion_does_not_pass (test_acceptance_matrix_evidence.MatrixEvidenceChecks.test_constraint_inversion_does_not_pass) ... ok
+test_correct_answer_and_exact_citation (test_acceptance_matrix_evidence.MatrixEvidenceChecks.test_correct_answer_and_exact_citation) ... ok
+test_correct_without_citation_has_zero_citation_coverage (test_acceptance_matrix_evidence.MatrixEvidenceChecks.test_correct_without_citation_has_zero_citation_coverage) ... ok
+test_omitting_required_assertion_cannot_shrink_denominator (test_acceptance_matrix_evidence.MatrixEvidenceChecks.test_omitting_required_assertion_cannot_shrink_denominator) ... ok
+test_stale_value_with_real_citation_is_still_wrong_current_answer (test_acceptance_matrix_evidence.MatrixEvidenceChecks.test_stale_value_with_real_citation_is_still_wrong_current_answer) ... ok
+test_unknown_source_and_wrong_path_fail_citation (test_acceptance_matrix_evidence.MatrixEvidenceChecks.test_unknown_source_and_wrong_path_fail_citation) ... ok
+test_wrong_relation_field_does_not_pass (test_acceptance_matrix_evidence.MatrixEvidenceChecks.test_wrong_relation_field_does_not_pass) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.002s
+
+OK

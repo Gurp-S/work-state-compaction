@@ -1,0 +1,24 @@
+{
+  "files": {
+    "wsc/experiments/native_task_recovery.py": "84fe9f9be42178067cb092ba7edcb93caa87a8f7493b5e740c44c3bd272563f0",
+    "wsc/experiments/native_source_tool.py": "86c06a6e7f2f06874eceb38849c85fce23e14306a19da7e1bf99b867d2b17776",
+    "wsc/tests/test_source_tool_turn_scope.py": "ebab1c74e0744b776598943c794e405f78cec85c615d6c1f04679f54d20fd91a",
+    "wsc/tests/test_native_task_recovery.py": "8fb444335f845b329a7f996aa448545c18d8f84239e95f12de451b9c69102517",
+    "wsc/reviews/task-recovery-port-implementation-report.md": "d5df2d6388804fc74ff048509b25480f260443e339ee6e4964002874d4c97c06",
+    "wsc/reviews/task-recovery-port-contract.md": "23fb08f74bdf411c68f4d149ec2367d513807582ca4b53fb1df16e02ffc5dd7c",
+    "wsc/reviews/goal-delivery-gap-audit.md": "e95dd0e4874822053df5a085006074d28e5fe64ad2728011094d4962c14a4183",
+    "wsc/experiments/NATIVE-LOCAL-HANDOFF.md": "77ea64b89347441b8679ccf1d790c0b7db908de9e98c0ec40d0df2d1cc154be2",
+    "wsc/reviews/task-recovery-port-implementation/after-turn-tests.txt": "3b4524b615edb83f3d0ea83f1434da2b321e39c45f80e2429daac28dcf89a9a6",
+    "wsc/reviews/task-recovery-port-implementation/before-turn-tests.txt": "4286f872768ca176fd10352eb431130101a67f24ebe9831faab61088f6c072dd",
+    "wsc/reviews/task-recovery-port-implementation/compatibility-tests.txt": "defbe1d61673a2594ef47a83a5d6382257b84a11b44f1126e46c15b3a74c4ce5",
+    "wsc/reviews/task-recovery-port-implementation/native_source_tool.before.py": "838b6c4389e98c9b70b04a10aeda6d507b10067f31dd28424779ca888d435bc2",
+    "wsc/reviews/task-recovery-port-implementation/port-tests.txt": "3e78ddf33ce4870804a0fca90ba2022d003f424ded3f57c9065543d6bafc7425",
+    "wsc/reviews/task-recovery-port-implementation/result.json": "b1b6f9f02459a39a88d0ec9ad28aa1360c0e7c91df50f588527e675860c83303",
+    "wsc/reviews/task-recovery-port-implementation/source-turn-scope.patch": "e87b05fe3ec628b27db2a509944fff2e7fa31ad0e6e2bc00a25f47bfaae3a35f",
+    "wsc/experiments/native_source_tool_budget.py": "d258e9b4b6e041579d108ec432aa47669b9db8fbb7660c70a040353ee878b990",
+    "wsc/src/wsc/source_access.py": "f59f03cb45840a53abc1046937f26c3e0167cda1f550ea0274abb34904ffc3e7",
+    "wsc/src/wsc/snapshot_literal_access.py": "66e61a3a57889376f67db8bdf34ee10dfb974de3e9c36f8e5d16717751159b72",
+    "wsc/experiments/native_application_session.py": "d1b85307bc71ff742469febaafff31f9162114d08a6f253bf2526e4f50b427d9",
+    "wsc/benchmarks/deterministic_v1/native_blackbox_sessions.py": "84f465fbec55bbe463e3613d921b6b515a140bf6770c9026860903fa0371c9a4"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "scope": "Task fixture/reference and evaluator calibration only; no inference or paid experiment.",
+  "original_matrix_unchanged": true,
+  "history_dependency_model_qualified": false,
+  "all_five_tasks_ready": false,
+  "files": {
+    "wsc/benchmarks/acceptance_matrix_v1/acceptors.py": "d3fbfbcad48324fd5e09c014feea6e70eee2ebc7bb01d76ccfe5ceaa01eda581",
+    "wsc/benchmarks/acceptance_matrix_v1/task_specs.py": "89eeaf76c026fdc2c6fa05594b9ec0c97154010307b8c6a8cd4eaef828db212f",
+    "wsc/tests/test_matrix_t1_t3_acceptors.py": "b32c6efd1391d6d2f720833b304602b5d3a1264922a563b66597b48e7cdd4175",
+    "wsc/tests/test_matrix_task_histories.py": "8b73e054f7618b0f871e46e109d41dfb3f06dbbe8f9286ba484d923eb1e2bad6",
+    "wsc/validation/prepare_matrix_t1_t3.py": "a52a7d354d77236ef58f4c4011eb0bfd6b6af6a23a0326298b57233defd504cd",
+    "wsc/reviews/2026-10-28-acceptance-matrix-execution-v1.1.md": "df6a40e164207a35c80986c13778a3cf534a7bb0c1c8f682fb74362c2d6279bb",
+    "wsc/reviews/acceptance-matrix-t1-t3-preparation.md": "b594f5902cbca44c57b386c0251dd23e72f9b5d7ca092cf2305c3191c5d8ba94",
+    "wsc/experiments/NATIVE-LOCAL-HANDOFF.md": "e7b424248d6b5184aa8843339324e48e3181fb1f53b9de8bca969a6ead97e451",
+    "wsc/benchmarks/acceptance_matrix_v1/tasks/t1_retry/starter/retry_client.py": "4f860f68b55d8513fa21ae0ad1678a2de3ef9cc53c3ba74926dc62eda0901570",
+    "wsc/benchmarks/acceptance_matrix_v1/tasks/t1_retry/starter/test_smoke.py": "407d59664538c9a4e97327a70c73d7bf35532df79c832ff5badd10c7fe7629c7",
+    "wsc/benchmarks/acceptance_matrix_v1/tasks/t3_migration/starter/migrate.py": "f7e91b63b8e40ba1f94d329188e1b70864114af5b36a927e0967d5be9a2680e5",
+    "wsc/benchmarks/acceptance_matrix_v1/tasks/t3_migration/starter/test_smoke.py": "b5010fae722da000b6cb389e83b467a99626801147d690390f97fe38bed64cc7",
+    "wsc/benchmarks/acceptance_matrix_v1/calibration/migration_reference.py": "231068172d01c31d8a7d772accb6cbe6d87f692a02f54749cf97b0b43d7d80ac",
+    "wsc/benchmarks/acceptance_matrix_v1/calibration/retry_reference.py": "019c60a871e30115656951d4079a93bb67492f3b6b05764322850da0f2cb57d9",
+    "wsc/reviews/acceptance-matrix-admission-20261028/readiness.json": "75f0884954a141997296c2205bdf55372fdec413143ed2efc392c18bb530b72a",
+    "wsc/reviews/acceptance-matrix-admission-20261028/registration.draft.json": "1f194814f1b345978a31c5feff506084352696c7139e6ed09d645edc31cfd354",
+    "wsc/reviews/acceptance-matrix-admission-20261028/admission-notes.md": "bd10deb2c5a23c6bcac357807130414d650dbec0fca0382c550462da3358d2b8",
+    "wsc/reviews/acceptance-matrix-admission-20261028/t1-t3-acceptor-tests.txt": "02253659fe9b3a6d821fe667aa6015852353d8f4db196bad97f969851105c404",
+    "wsc/reviews/acceptance-matrix-admission-20261028/task-history-tests.txt": "7f9e043ed230ac0e817aae3da27f5eff8f58d0cd9fc148135fbdc8f6d706f828",
+    "wsc/reviews/acceptance-matrix-admission-20261028/task-history-v2-tests.txt": "d23f74501553f260a9902556aa76e0ea2a787c019ec982a7556595c8a800aa69"
+  },
+  "fixture_manifest_sha256": {
+    "D:\\agent-task-runs\\wsc-matrix-task-admission-20261028-v2\\T1\\fixture-manifest.json": "4f2508777a0e9178157554eb86a299f3013ada6f3874fbe85a277064bf7da56f",
+    "D:\\agent-task-runs\\wsc-matrix-task-admission-20261028-v2\\T3\\fixture-manifest.json": "e90eeb92dd4b8d19ea3b6bfb9fcd486758fa9f55509c02d539ec1986c9735184"
+  }
+}

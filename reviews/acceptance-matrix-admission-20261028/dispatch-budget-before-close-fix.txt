@@ -1,0 +1,144 @@
+test_arm_cap_counts_other_repetitions_and_held_tokens (test_matrix_dispatch_budget.MatrixDispatchBudgetChecks.test_arm_cap_counts_other_repetitions_and_held_tokens) ... ok
+test_concurrent_reservations_share_global_cap_and_are_durable (test_matrix_dispatch_budget.MatrixDispatchBudgetChecks.test_concurrent_reservations_share_global_cap_and_are_durable) ... ERROR
+test_failed_journal_commit_returns_no_dispatch_grant (test_matrix_dispatch_budget.MatrixDispatchBudgetChecks.test_failed_journal_commit_returns_no_dispatch_grant) ... ERROR
+test_failed_run_is_not_success_and_next_planned_repetition_is_allowed (test_matrix_dispatch_budget.MatrixDispatchBudgetChecks.test_failed_run_is_not_success_and_next_planned_repetition_is_allowed) ... ok
+test_idle_is_excluded_and_parallel_time_is_union (test_matrix_dispatch_budget.MatrixDispatchBudgetChecks.test_idle_is_excluded_and_parallel_time_is_union) ... ok
+test_malformed_receipts_keep_valid_spend_and_do_not_drop_peer (test_matrix_dispatch_budget.MatrixDispatchBudgetChecks.test_malformed_receipts_keep_valid_spend_and_do_not_drop_peer) ... ERROR
+test_restart_cannot_reset_budget_or_retry_inflight_work (test_matrix_dispatch_budget.MatrixDispatchBudgetChecks.test_restart_cannot_reset_budget_or_retry_inflight_work) ... ERROR
+test_run_and_phase_cannot_be_replayed (test_matrix_dispatch_budget.MatrixDispatchBudgetChecks.test_run_and_phase_cannot_be_replayed) ... ERROR
+test_unknown_freezes_dispatch_but_peer_usage_still_settles (test_matrix_dispatch_budget.MatrixDispatchBudgetChecks.test_unknown_freezes_dispatch_but_peer_usage_still_settles) ... ok
+
+======================================================================
+ERROR: test_concurrent_reservations_share_global_cap_and_are_durable (test_matrix_dispatch_budget.MatrixDispatchBudgetChecks.test_concurrent_reservations_share_global_cap_and_are_durable)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\shutil.py", line 632, in _rmtree_unsafe
+    os.unlink(fullname)
+PermissionError: [WinError 32] 另一个程序正在使用此文件，进程无法访问。: 'C:\\Users\\48522\\AppData\\Local\\Temp\\tmpmqih4ubt\\ledger.db'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_matrix_dispatch_budget.py", line 38, in tearDown
+    self.temp.cleanup()
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\tempfile.py", line 947, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\tempfile.py", line 929, in _rmtree
+    _shutil.rmtree(name, onerror=onerror)
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\shutil.py", line 787, in rmtree
+    return _rmtree_unsafe(path, onerror)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\shutil.py", line 634, in _rmtree_unsafe
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\tempfile.py", line 893, in onerror
+    _os.unlink(path)
+PermissionError: [WinError 32] 另一个程序正在使用此文件，进程无法访问。: 'C:\\Users\\48522\\AppData\\Local\\Temp\\tmpmqih4ubt\\ledger.db'
+
+======================================================================
+ERROR: test_failed_journal_commit_returns_no_dispatch_grant (test_matrix_dispatch_budget.MatrixDispatchBudgetChecks.test_failed_journal_commit_returns_no_dispatch_grant)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\shutil.py", line 632, in _rmtree_unsafe
+    os.unlink(fullname)
+PermissionError: [WinError 32] 另一个程序正在使用此文件，进程无法访问。: 'C:\\Users\\48522\\AppData\\Local\\Temp\\tmpxrt0aj_q\\ledger.db'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_matrix_dispatch_budget.py", line 38, in tearDown
+    self.temp.cleanup()
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\tempfile.py", line 947, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\tempfile.py", line 929, in _rmtree
+    _shutil.rmtree(name, onerror=onerror)
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\shutil.py", line 787, in rmtree
+    return _rmtree_unsafe(path, onerror)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\shutil.py", line 634, in _rmtree_unsafe
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\tempfile.py", line 893, in onerror
+    _os.unlink(path)
+PermissionError: [WinError 32] 另一个程序正在使用此文件，进程无法访问。: 'C:\\Users\\48522\\AppData\\Local\\Temp\\tmpxrt0aj_q\\ledger.db'
+
+======================================================================
+ERROR: test_malformed_receipts_keep_valid_spend_and_do_not_drop_peer (test_matrix_dispatch_budget.MatrixDispatchBudgetChecks.test_malformed_receipts_keep_valid_spend_and_do_not_drop_peer)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\shutil.py", line 632, in _rmtree_unsafe
+    os.unlink(fullname)
+PermissionError: [WinError 32] 另一个程序正在使用此文件，进程无法访问。: 'C:\\Users\\48522\\AppData\\Local\\Temp\\tmp3c8c9za6\\ledger.db'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_matrix_dispatch_budget.py", line 38, in tearDown
+    self.temp.cleanup()
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\tempfile.py", line 947, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\tempfile.py", line 929, in _rmtree
+    _shutil.rmtree(name, onerror=onerror)
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\shutil.py", line 787, in rmtree
+    return _rmtree_unsafe(path, onerror)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\shutil.py", line 634, in _rmtree_unsafe
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\tempfile.py", line 893, in onerror
+    _os.unlink(path)
+PermissionError: [WinError 32] 另一个程序正在使用此文件，进程无法访问。: 'C:\\Users\\48522\\AppData\\Local\\Temp\\tmp3c8c9za6\\ledger.db'
+
+======================================================================
+ERROR: test_restart_cannot_reset_budget_or_retry_inflight_work (test_matrix_dispatch_budget.MatrixDispatchBudgetChecks.test_restart_cannot_reset_budget_or_retry_inflight_work)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\shutil.py", line 632, in _rmtree_unsafe
+    os.unlink(fullname)
+PermissionError: [WinError 32] 另一个程序正在使用此文件，进程无法访问。: 'C:\\Users\\48522\\AppData\\Local\\Temp\\tmpavuiy3j2\\ledger.db'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_matrix_dispatch_budget.py", line 38, in tearDown
+    self.temp.cleanup()
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\tempfile.py", line 947, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\tempfile.py", line 929, in _rmtree
+    _shutil.rmtree(name, onerror=onerror)
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\shutil.py", line 787, in rmtree
+    return _rmtree_unsafe(path, onerror)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\shutil.py", line 634, in _rmtree_unsafe
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\tempfile.py", line 893, in onerror
+    _os.unlink(path)
+PermissionError: [WinError 32] 另一个程序正在使用此文件，进程无法访问。: 'C:\\Users\\48522\\AppData\\Local\\Temp\\tmpavuiy3j2\\ledger.db'
+
+======================================================================
+ERROR: test_run_and_phase_cannot_be_replayed (test_matrix_dispatch_budget.MatrixDispatchBudgetChecks.test_run_and_phase_cannot_be_replayed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\shutil.py", line 632, in _rmtree_unsafe
+    os.unlink(fullname)
+PermissionError: [WinError 32] 另一个程序正在使用此文件，进程无法访问。: 'C:\\Users\\48522\\AppData\\Local\\Temp\\tmp3h3m3fi8\\ledger.db'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_matrix_dispatch_budget.py", line 38, in tearDown
+    self.temp.cleanup()
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\tempfile.py", line 947, in cleanup
+    self._rmtree(self.name, ignore_errors=self._ignore_cleanup_errors)
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\tempfile.py", line 929, in _rmtree
+    _shutil.rmtree(name, onerror=onerror)
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\shutil.py", line 787, in rmtree
+    return _rmtree_unsafe(path, onerror)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\shutil.py", line 634, in _rmtree_unsafe
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "C:\Users\48522\AppData\Local\Programs\Python\Python311\Lib\tempfile.py", line 893, in onerror
+    _os.unlink(path)
+PermissionError: [WinError 32] 另一个程序正在使用此文件，进程无法访问。: 'C:\\Users\\48522\\AppData\\Local\\Temp\\tmp3h3m3fi8\\ledger.db'
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.443s
+
+FAILED (errors=5)

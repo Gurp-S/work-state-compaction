@@ -1,0 +1,8 @@
+test_default_format_unchanged_and_projected_view_requires_capability (test_native_indexed_checkpoint.IndexedCheckpointChecks.test_default_format_unchanged_and_projected_view_requires_capability) ... ok
+test_literal_sections_restore_identical_facts_and_reject_tampering (test_native_indexed_checkpoint.IndexedCheckpointChecks.test_literal_sections_restore_identical_facts_and_reject_tampering) ... ok
+test_projection_roundtrip_binds_every_source_field (test_native_indexed_checkpoint.IndexedCheckpointChecks.test_projection_roundtrip_binds_every_source_field) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.397s
+
+OK

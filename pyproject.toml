@@ -12,6 +12,7 @@ dependencies = []
 
 [project.scripts]
 wsc = "wsc.cli:main"
+wsc-results = "wsc.tool_results.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

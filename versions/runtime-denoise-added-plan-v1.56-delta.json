@@ -1,0 +1,8 @@
+{
+  "path": "D:\\lea\\XenYon code\\wsc\\versions\\runtime-denoise-added-plan-v1.56-delta.zip",
+  "bytes": 147942,
+  "sha256": "0a8ffe3987aba3037741bb2afb6f294aa6672d42fefe87a56a01af0a1b6929a1",
+  "base": "hot-projection-sidecar-v1.55-delta.zip",
+  "model_calls": 0,
+  "old_arms_rerun": false
+}

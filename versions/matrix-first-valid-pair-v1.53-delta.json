@@ -1,0 +1,8 @@
+{
+  "path": "D:\\lea\\XenYon code\\wsc\\versions\\matrix-first-valid-pair-v1.53-delta.zip",
+  "bytes": 2199950,
+  "sha256": "33c4a1cbae27092302c9647b96775de07b16706fb1a75581b1e13ab6f57cd47d",
+  "files": 561,
+  "base": "matrix-runtime-controlled-v1.52-delta.zip",
+  "runtime_binaries_duplicated": false
+}

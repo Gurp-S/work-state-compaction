@@ -12,13 +12,14 @@ from pathlib import Path
 import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'src'))
-from wsc.contracts import Limits, Usage, digest, encode, require
+from wsc.contracts import Limits, Usage, WSCError, digest, encode, require
 from wsc.content_archive import publish_object
 from wsc.excerpts import Excerpt
 from wsc.quote_selection import SelectionDraft
 from wsc.span_selection import span_material, compile_spans
 from wsc.selection_facts import describe
 from wsc.view_budget import admit_generation
+from wsc.snapshots import view_record
 
 POLICY = dict(id='incremental_recorded_spans_v2', max_material_bytes=2097152,
     max_view_body_bytes=131072, max_rendered_bytes=49152, max_chars_per_span=1024,
@@ -72,9 +73,12 @@ def frontier(core, snapshot, previous, archive, *, projection_facts=False):
     previous_selection = {'source_ids': [], 'clues': []}
     if previous:
         with core.store.connect() as db:
-            saved = db.execute('SELECT data FROM views WHERE id=?', (previous.get('view_id'),)).fetchone()
-        require(saved is not None, 'incremental_previous_view_missing')
-        saved = json.loads(saved[0])
+            try:
+                saved = view_record(db, previous.get('view_id'))
+            except WSCError as error:
+                if str(error) == 'view_unavailable':
+                    raise WSCError('incremental_previous_view_missing') from None
+                raise
         require(saved['binding']['cut'] == cut and saved['binding']['source_digest'] == previous['source_digest'],
                 'incremental_previous_view_binding_changed')
         body = saved['body']

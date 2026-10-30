@@ -1,0 +1,14 @@
+test_conflicting_receipt_rejected (test_native_experiment_evidence.NativeEvidenceTests.test_conflicting_receipt_rejected) ... ok
+test_duplicate_receipts_count_once_and_compaction_is_charged (test_native_experiment_evidence.NativeEvidenceTests.test_duplicate_receipts_count_once_and_compaction_is_charged) ... ok
+test_import_must_preserve_role_content_envelope_and_order (test_native_experiment_evidence.NativeEvidenceTests.test_import_must_preserve_role_content_envelope_and_order) ... ok
+test_normalization_cannot_change_existing_identity_or_content (test_native_experiment_evidence.NativeEvidenceTests.test_normalization_cannot_change_existing_identity_or_content) ... ok
+test_observed_native_additions_keep_all_supplied_fields (test_native_experiment_evidence.NativeEvidenceTests.test_observed_native_additions_keep_all_supplied_fields) ... ok
+test_other_thread_receipt_rejected (test_native_experiment_evidence.NativeEvidenceTests.test_other_thread_receipt_rejected) ... ok
+test_partial_last_receipt_not_used (test_native_experiment_evidence.NativeEvidenceTests.test_partial_last_receipt_not_used) ... ok
+test_unbound_compaction_rejected (test_native_experiment_evidence.NativeEvidenceTests.test_unbound_compaction_rejected) ... ok
+test_unknown_usage_does_not_become_zero (test_native_experiment_evidence.NativeEvidenceTests.test_unknown_usage_does_not_become_zero) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.004s
+
+OK

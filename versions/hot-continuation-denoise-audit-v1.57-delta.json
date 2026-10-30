@@ -1,0 +1,9 @@
+{
+  "path": "D:\\lea\\XenYon code\\wsc\\versions\\hot-continuation-denoise-audit-v1.57-delta.zip",
+  "bytes": 3608387,
+  "sha256": "4fc43e155d2a090c85f43655e4fe14d823be0d130e97e9693ac74eab40cb8ee0",
+  "files": 1803,
+  "base": "runtime-denoise-added-plan-v1.56-delta.zip",
+  "runtime_binaries_duplicated": false,
+  "new_denoise_model_calls": 0
+}

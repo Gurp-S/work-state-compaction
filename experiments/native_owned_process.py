@@ -142,11 +142,13 @@ class OwnedNativeRPC:
         if self.closed:
             return self.owner.receipt
         try:
-            # First normal native shutdown; the job then removes remaining tools.
+            # A descendant may retain stdout after the root exits. Terminate the
+            # owned tree before closing pipe handles, whose reader lock can wait
+            # indefinitely for that descendant's EOF.
+            return_value = self.owner.close()
             self.rpc.close()
         finally:
             self.closed = True
-            return_value = self.owner.close()
         return return_value
 
     def __enter__(self):

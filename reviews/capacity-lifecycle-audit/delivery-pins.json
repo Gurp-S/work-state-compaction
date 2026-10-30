@@ -1,0 +1,25 @@
+{
+  "scope": "Static source audit and historical telemetry extraction only; no live calls, tests, or experiments.",
+  "historical_inputs_rechecked": 40,
+  "files": {
+    "wsc/validation/report_existing_capacity_observations.py": "e870c2cea9d1f75e5b7c9638e953431fe0179425f9272f7f3cc49dd2a145ed7c",
+    "wsc/reviews/capacity-lifecycle-audit/observations.json": "40e1e08b30825a1095a7b836483f57c3086192bca553745b0cc053870aacb82f",
+    "wsc/reviews/capacity-and-lifecycle-source-audit.md": "92cdf1b0861bd6b008ce404737dc3a70c247b977af6ba2c4ce36f3bc3c9a9a56",
+    "wsc/reviews/2026-10-27-current-wsc-metrics-report.md": "3cf26cdf6a74afa96b321bed213aa4530e13aa76a66b9b3001f34e5cc83adb64",
+    "wsc/experiments/NATIVE-LOCAL-HANDOFF.md": "929dbdfef65664610147ea86af9d950afb9e09443c7971ab677f549e2c4d637c",
+    "wsc/src/wsc/adapters/codex.py": "b1745491e15be9ec2615e5371ec7546a8df9f3116085c8d0133612374c821db4",
+    "wsc/src/wsc/continuation_inspection.py": "1ab20a1898b888fe7548efe9aa2d8e1799237d6e06fa9c054aa21f00966a9328",
+    "wsc/experiments/native_application_session.py": "d1b85307bc71ff742469febaafff31f9162114d08a6f253bf2526e4f50b427d9",
+    "wsc/experiments/native_source_tool.py": "838b6c4389e98c9b70b04a10aeda6d507b10067f31dd28424779ca888d435bc2",
+    "wsc/experiments/native_source_tool_budget.py": "d258e9b4b6e041579d108ec432aa47669b9db8fbb7660c70a040353ee878b990",
+    "wsc/benchmarks/deterministic_v1/native_blackbox_sessions.py": "84f465fbec55bbe463e3613d921b6b515a140bf6770c9026860903fa0371c9a4",
+    "python/memory/wsc_request_timing.py": "69caf0a509f8583fbc5b643441751fc9b6f45238c03e65e45e13417146ac37f8",
+    "python/memory/wsc_timing.py": "112c23c5411948445981523e640a609cb0ccfe76456cb5d511b41b99a0012ef0",
+    "python/model/context_capacity.py": "fd4e5c26253d1054c959172922038a433eb5c2aa434d3d9bba23611bdc818b49",
+    "python/model/openai_compat.py": "cba8b9501e8bca96d88eef5d41453eef16adc5e495794902626e6b76dcdd73aa",
+    "python/model/deepseek.py": "6cb58b0a4fb24dfa6ed934a1fa82d1a3feb51cf6fe3bc311089ef990635e018b",
+    "python/model/deepseek_count.py": "4481c61202141a54671f64c3d5cd144de46e4c264652016053fee9bc1aad6213",
+    "python/model/anthropic_count.py": "f3ab68da52a42be01e3d51460b5bacd3f716135128bfbc002dce880256f32fa3",
+    "python/engine/query_loop.py": "96e3916b44d2b988235ec00541cc9949a3e048557f7e84c770aa5eb197cce05a"
+  }
+}

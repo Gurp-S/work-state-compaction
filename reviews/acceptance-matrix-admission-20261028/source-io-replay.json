@@ -1,0 +1,65 @@
+{
+  "scope": "Local replay of six recorded read-only operations; not original callback or model/server timings.",
+  "operations": [
+    {
+      "arguments": {
+        "operation": "read",
+        "source": "s0",
+        "offset": 0,
+        "limit": 8192
+      },
+      "status": "error",
+      "milliseconds": 0.0241
+    },
+    {
+      "arguments": {
+        "operation": "read",
+        "source": "s2",
+        "offset": 0,
+        "limit": 8192
+      },
+      "status": "ok",
+      "milliseconds": 0.5115
+    },
+    {
+      "arguments": {
+        "operation": "find",
+        "literal": "contract.registry/1",
+        "limit": 8
+      },
+      "status": "ok",
+      "milliseconds": 2.7844
+    },
+    {
+      "arguments": {
+        "operation": "find",
+        "literal": "assertions",
+        "limit": 8
+      },
+      "status": "ok",
+      "milliseconds": 2.6819
+    },
+    {
+      "arguments": {
+        "operation": "read",
+        "source": "s1",
+        "offset": 0,
+        "limit": 8192
+      },
+      "status": "ok",
+      "milliseconds": 0.4827
+    },
+    {
+      "arguments": {
+        "operation": "read",
+        "source": "s45",
+        "offset": 0,
+        "limit": 8192
+      },
+      "status": "ok",
+      "milliseconds": 0.5065
+    }
+  ],
+  "total_milliseconds": 6.991100000000001,
+  "model_calls": 0
+}

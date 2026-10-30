@@ -6,6 +6,9 @@ MODE='native_source_refs_v1'
 
 
 def project(rows,mode):
+    if mode=='context_source_refs_v1':
+        from .context_projection import project as project_context
+        return project_context(rows)
     require(mode==MODE,'view_source_projection_unsupported')
     result=[]
     for row in rows:
@@ -21,6 +24,9 @@ def hydrate(body,source):
     mode=body.get('source_projection')
     if mode is None:
         return body
+    if mode=='context_source_refs_v1':
+        from .context_projection import hydrate as hydrate_context
+        return hydrate_context(body,source)
     require(mode==MODE,'view_source_projection_unsupported')
     known={row['id']:row for row in source}
     result=deepcopy(body)

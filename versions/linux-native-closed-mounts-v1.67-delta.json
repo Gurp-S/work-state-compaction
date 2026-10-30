@@ -1,0 +1,17 @@
+{
+  "path": "D:\\lea\\XenYon code\\wsc\\versions\\linux-native-closed-mounts-v1.67-delta.zip",
+  "bytes": 240328,
+  "sha256": "ebb401b410a349f850f4cec33caa82ff8fc2161e66d16bedf4d7eca1a0cefa9a",
+  "files": 58,
+  "base": "all-results-clean-container-core-v1.66-delta.zip",
+  "model_requests_issued": 0,
+  "runtime_binaries_duplicated": false,
+  "native_protocol_qualified": true,
+  "declared_private_files": 31,
+  "private_path_forms": 64,
+  "guard_checks_passed": 4,
+  "paid_dispatch_admitted": false,
+  "live_WSC_recovery_qualified": false,
+  "known_campaign_tokens_lower_bound": 5080960,
+  "unknown_usage_retained": true
+}

@@ -94,7 +94,7 @@ def import_evidence(actual, expected):
     """Allow only observed native additions; supplied fields remain immutable.
 
     Native serialization adds content:null to opaque reasoning, and transport
-    identity/metadata to messages without those fields. Opaque bytes are never
+    identity/metadata to messages and paired function records without those fields. Opaque bytes are never
     decoded or interpreted, and supplied identity fields must still match.
     """
     for start in range(len(actual) - len(expected) + 1):
@@ -103,7 +103,8 @@ def import_evidence(actual, expected):
             if any(k not in observed or observed[k] != v for k, v in supplied.items()):
                 break
             extra = set(observed) - set(supplied)
-            allowed = {"id", "internal_chat_message_metadata_passthrough"} if supplied.get("type") == "message" else set()
+            allowed = {"id", "internal_chat_message_metadata_passthrough"} if supplied.get("type") in {
+                "message", "function_call", "function_call_output"} else set()
             if supplied.get("type") == "reasoning" and observed.get("content") is None:
                 allowed.add("content")
             if not extra <= allowed:

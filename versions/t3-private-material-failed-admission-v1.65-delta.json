@@ -1,0 +1,13 @@
+{
+  "path": "D:\\lea\\XenYon code\\wsc\\versions\\t3-private-material-failed-admission-v1.65-delta.zip",
+  "bytes": 130297,
+  "sha256": "18e7e2f0212201e46dc5d583b118d038fac02164c499575ea630672eccd52a30",
+  "files": 41,
+  "base": "t3-evaluator-v2-offline-audit-v1.64-delta.zip",
+  "model_requests_issued": 0,
+  "known_campaign_tokens_lower_bound": 5080960,
+  "known_campaign_response_receipts": 141,
+  "unknown_usage_retained": true,
+  "native_denial_qualified": false,
+  "runtime_binaries_duplicated": false
+}

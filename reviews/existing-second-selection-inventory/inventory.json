@@ -1,0 +1,311 @@
+{
+  "scope": "Existing selections and tool outputs only; not a new compression or continuation run.",
+  "runs": [
+    {
+      "root": "D:\\agent-task-runs\\wsc-c1-columns-qualification-20261027-v1",
+      "previous_cut": 641,
+      "current_cut": 643,
+      "selected_sources_before": [
+        1,
+        640,
+        641
+      ],
+      "selected_sources_after": [
+        1,
+        540,
+        642,
+        643
+      ],
+      "retained_old_sources": [
+        1
+      ],
+      "removed_old_selected_sources": [
+        640,
+        641
+      ],
+      "newly_selected_historical_sources": [
+        540
+      ],
+      "raw_tail_sources": [
+        642,
+        643
+      ],
+      "selected_tail_sources": [
+        642,
+        643
+      ],
+      "understanding_refs_before": [],
+      "understanding_refs_after": [],
+      "removed_understanding_refs": [],
+      "clues_before": 1,
+      "clues_after": 3,
+      "exact_unchanged_clues": 0,
+      "excerpt_keys_before": [
+        "s1:0:236:e1b9f94901148914cbbb918bd942efba3ab949bd4b8a44ed0e1c7f03bf13dea7",
+        "s640:0:227:3db62bc9cec5998f58c02de3679c4bb85c9f63d2145a192007b89620ba91371d",
+        "s641:0:120:bedffb76e0babf7bac1342ad57c0ea130e1de6c4a55f9cf959eb27d7f17bb09a"
+      ],
+      "excerpt_keys_after": [
+        "s642:0:227:477dc5ffa808bfe5c2afc9c5e13e34fe3f2024316a64fba6d072d3dced5b6736",
+        "s643:0:172:a5373dfb69e636f396f9ac6c582e5f4cbba06b9b8eccceb5a3db211ee823487d",
+        "s1:0:236:e1b9f94901148914cbbb918bd942efba3ab949bd4b8a44ed0e1c7f03bf13dea7"
+      ],
+      "inline_full_tail_sources": [
+        642,
+        643
+      ],
+      "calls": [
+        {
+          "call_id": "exec-91354e64-babe-4bf2-9b31-90d16df31dd0",
+          "arguments": {
+            "operation": "read",
+            "source": "s540",
+            "offset": 0,
+            "limit": 8192
+          },
+          "result_bytes": 966,
+          "exact_returned_range_already_inline": false,
+          "seq": 540,
+          "returned_text_bytes": 227,
+          "source_after_previous_cut": false
+        }
+      ],
+      "responses": 2,
+      "recorded_total_tokens": 64061,
+      "phase_seconds": 24.546999999991385,
+      "source_database_unchanged": true
+    },
+    {
+      "root": "D:\\agent-task-runs\\wsc-c1-columns-repeats-20261027-v1\\R02",
+      "previous_cut": 641,
+      "current_cut": 643,
+      "selected_sources_before": [
+        1,
+        640,
+        641
+      ],
+      "selected_sources_after": [
+        1,
+        540,
+        642,
+        643
+      ],
+      "retained_old_sources": [
+        1
+      ],
+      "removed_old_selected_sources": [
+        640,
+        641
+      ],
+      "newly_selected_historical_sources": [
+        540
+      ],
+      "raw_tail_sources": [
+        642,
+        643
+      ],
+      "selected_tail_sources": [
+        642,
+        643
+      ],
+      "understanding_refs_before": [],
+      "understanding_refs_after": [],
+      "removed_understanding_refs": [],
+      "clues_before": 1,
+      "clues_after": 3,
+      "exact_unchanged_clues": 0,
+      "excerpt_keys_before": [
+        "s1:0:236:8d24db25d9d7fd99dc262bb036d7fc6d2d27b719519f37b51afc1c1341232965",
+        "s640:0:227:1bbe6267b1a338daec1612d1d0ced79372d2a816434eb31657fd308d7dfcd09c",
+        "s641:0:120:8fc3fc33b2ac703d89cc82c1c556f6bf76dedb0e4fb2fee07d4777d6d159746a"
+      ],
+      "excerpt_keys_after": [
+        "s642:0:227:4ac7f6111cb6a7b06bfad56fea0289b907f9f0ddaec2ad81de1a300cd2da025d",
+        "s643:0:172:5343c79af5c1f57006ca406c9e35b371c4372fa9dbb10558ebb94c0a6dce74c4"
+      ],
+      "inline_full_tail_sources": [
+        642,
+        643
+      ],
+      "calls": [
+        {
+          "call_id": "exec-4ae3c1d2-77ce-4c99-99e1-8b697f375983",
+          "arguments": {
+            "operation": "read",
+            "source": "s540",
+            "offset": 0,
+            "limit": 8192
+          },
+          "result_bytes": 966,
+          "exact_returned_range_already_inline": false,
+          "seq": 540,
+          "returned_text_bytes": 227,
+          "source_after_previous_cut": false
+        },
+        {
+          "call_id": "exec-e18c6b2e-9dbd-497f-b11f-b703209b0d7c",
+          "arguments": {
+            "operation": "read",
+            "source": "s1",
+            "offset": 0,
+            "limit": 8192
+          },
+          "result_bytes": 954,
+          "exact_returned_range_already_inline": true,
+          "seq": 1,
+          "returned_text_bytes": 236,
+          "source_after_previous_cut": false
+        },
+        {
+          "call_id": "exec-d40f84b5-14bf-45e0-a7f6-803e7de2265f",
+          "arguments": {
+            "operation": "read",
+            "source": "s642",
+            "offset": 0,
+            "limit": 8192
+          },
+          "result_bytes": 966,
+          "exact_returned_range_already_inline": true,
+          "seq": 642,
+          "returned_text_bytes": 227,
+          "source_after_previous_cut": true
+        }
+      ],
+      "responses": 3,
+      "recorded_total_tokens": 96285,
+      "phase_seconds": 27.922000000005937,
+      "source_database_unchanged": true
+    },
+    {
+      "root": "D:\\agent-task-runs\\wsc-c1-columns-repeats-20261027-v1\\R03",
+      "previous_cut": 641,
+      "current_cut": 643,
+      "selected_sources_before": [
+        1,
+        640,
+        641
+      ],
+      "selected_sources_after": [
+        1,
+        540,
+        642,
+        643
+      ],
+      "retained_old_sources": [
+        1
+      ],
+      "removed_old_selected_sources": [
+        640,
+        641
+      ],
+      "newly_selected_historical_sources": [
+        540
+      ],
+      "raw_tail_sources": [
+        642,
+        643
+      ],
+      "selected_tail_sources": [
+        642,
+        643
+      ],
+      "understanding_refs_before": [
+        "e6c660e4fe754aa5bcd9aa02641206de@1"
+      ],
+      "understanding_refs_after": [],
+      "removed_understanding_refs": [
+        "e6c660e4fe754aa5bcd9aa02641206de@1"
+      ],
+      "clues_before": 1,
+      "clues_after": 1,
+      "exact_unchanged_clues": 0,
+      "excerpt_keys_before": [
+        "s1:0:236:56dd9c9211ee1943591fdf4c4d07dafae78dd653e3ffafd993000dbebfd82078",
+        "s640:0:227:16327c87f06f68d280072a53b73d8817e03d6f62135298ef1d72160954be4434",
+        "s641:0:120:2fa2d88ec4a2465e5d37367ff8a1ff2cd7e102fad92a3a6df80493456e93d23c"
+      ],
+      "excerpt_keys_after": [
+        "s642:0:227:e463637be3944d5178b1bb985032c84dbc72f09de5e9e568ecde983fca0a754e",
+        "s643:0:172:2144e78b770b66b28f970bc07f2c24f3d5bbfb89b93605027e1894c3fbc823d2",
+        "s1:0:236:56dd9c9211ee1943591fdf4c4d07dafae78dd653e3ffafd993000dbebfd82078"
+      ],
+      "inline_full_tail_sources": [
+        642,
+        643
+      ],
+      "calls": [
+        {
+          "call_id": "exec-4ed8fc6c-e6e2-4594-917b-197fbef6278f",
+          "arguments": {
+            "operation": "read",
+            "source": "s540",
+            "offset": 0,
+            "limit": 8192
+          },
+          "result_bytes": 966,
+          "exact_returned_range_already_inline": false,
+          "seq": 540,
+          "returned_text_bytes": 227,
+          "source_after_previous_cut": false
+        },
+        {
+          "call_id": "exec-93912c84-0b23-41ef-b75c-2187111579a2",
+          "arguments": {
+            "operation": "read",
+            "source": "s642",
+            "offset": 0,
+            "limit": 8192
+          },
+          "result_bytes": 966,
+          "exact_returned_range_already_inline": true,
+          "seq": 642,
+          "returned_text_bytes": 227,
+          "source_after_previous_cut": true
+        },
+        {
+          "call_id": "exec-0e4107da-25fe-4239-8a29-9401a299670f",
+          "arguments": {
+            "operation": "read",
+            "source": "s643",
+            "offset": 0,
+            "limit": 8192
+          },
+          "result_bytes": 890,
+          "exact_returned_range_already_inline": true,
+          "seq": 643,
+          "returned_text_bytes": 172,
+          "source_after_previous_cut": true
+        }
+      ],
+      "responses": 2,
+      "recorded_total_tokens": 65061,
+      "phase_seconds": 27.906000000002678,
+      "source_database_unchanged": true
+    }
+  ],
+  "input_sha256": {
+    "D:\\agent-task-runs\\wsc-c1-columns-qualification-20261027-v1\\R01\\C1-continuation.json": "81c2db88b8dbc1f8e2119ff7f6af8df3edc2367cd6087a0096a84a52a47fd38a",
+    "D:\\agent-task-runs\\wsc-c1-columns-qualification-20261027-v1\\R01\\C2-continuation.json": "0ae6d6ff23ea657fc71ffba855ef7954e89060c3e0a119c73b43be93fcb54021",
+    "D:\\agent-task-runs\\wsc-c1-columns-qualification-20261027-v1\\R01\\C2-generation\\request.json": "03b757d96fc53c8bee609b5cdda37a31efb0c23a71b3532ef115d1ca61de6fe0",
+    "D:\\agent-task-runs\\wsc-c1-columns-qualification-20261027-v1\\R01\\C2-tool-trace.json": "93f29d55b7d426d8da87f624c4fc38f3b89c4139760894ae908d082f575c5a52",
+    "D:\\agent-task-runs\\wsc-c1-columns-qualification-20261027-v1\\R01\\C2-selection\\phase-outcome.json": "36f60076dbf577ca857bb6dabe31527300cffe72aa476d23d796b2fe2995da54",
+    "D:\\agent-task-runs\\wsc-c1-columns-qualification-20261027-v1\\R01\\state.db": "a7e4821cf16eebf0a387e845f1f4d8dd7d18dd02f344243912a1b0663d409f0c",
+    "D:\\agent-task-runs\\wsc-c1-columns-repeats-20261027-v1\\R02\\R01\\C1-continuation.json": "035f5f1b0380df8a8121ea51831fe04c9cdbee0a2287ff83621f653f69d6ad2a",
+    "D:\\agent-task-runs\\wsc-c1-columns-repeats-20261027-v1\\R02\\R01\\C2-continuation.json": "8077b28c637d083d258a9c820a7736d575315b79042724c8e06853eef22938d2",
+    "D:\\agent-task-runs\\wsc-c1-columns-repeats-20261027-v1\\R02\\R01\\C2-generation\\request.json": "1a71f57ddafa0352522f6cda913634a1c9d7e7362b61ed018854d87311c212f8",
+    "D:\\agent-task-runs\\wsc-c1-columns-repeats-20261027-v1\\R02\\R01\\C2-tool-trace.json": "99be50d0c95722813c61f102119070c0728accf1a3efe5e03df42eabcb9ff8e8",
+    "D:\\agent-task-runs\\wsc-c1-columns-repeats-20261027-v1\\R02\\R01\\C2-selection\\phase-outcome.json": "2847e857cb32b481216bb661e5130c3f39adaa240ff8e682c41e32411478a831",
+    "D:\\agent-task-runs\\wsc-c1-columns-repeats-20261027-v1\\R02\\R01\\state.db": "204b637cef1427ea77b54662b8556197b9efb0910c239dc8cd10ec2d48ea708b",
+    "D:\\agent-task-runs\\wsc-c1-columns-repeats-20261027-v1\\R03\\R01\\C1-continuation.json": "92b7d1b55f5686c92fd555533742aaadb50be972771cafabf768a62afd318305",
+    "D:\\agent-task-runs\\wsc-c1-columns-repeats-20261027-v1\\R03\\R01\\C2-continuation.json": "0cb111d189080b96ba001acbbf754c9643c500246bf3ba8358c1e7b3bbef2678",
+    "D:\\agent-task-runs\\wsc-c1-columns-repeats-20261027-v1\\R03\\R01\\C2-generation\\request.json": "32d57cd51e9ba4efbf6861f686f9663d0131f47066196b18542c29cb362216a7",
+    "D:\\agent-task-runs\\wsc-c1-columns-repeats-20261027-v1\\R03\\R01\\C2-tool-trace.json": "663e24f1b9e19e5ddbdd4ecaea79dfc045fcf1751cb947f0f8406ae7b4640bcd",
+    "D:\\agent-task-runs\\wsc-c1-columns-repeats-20261027-v1\\R03\\R01\\C2-selection\\phase-outcome.json": "fd84e639f8249b3dad3bb6fc7b03b3b9cdead9634ec4f19e5ce3722ff7849c37",
+    "D:\\agent-task-runs\\wsc-c1-columns-repeats-20261027-v1\\R03\\R01\\state.db": "db584585dfab9faf75d7e67f81405f9b32edc4c36bf43651c02aac119236045f",
+    "D:\\lea\\XenYon code\\wsc\\validation\\inventory_existing_second_selection.py": "42f5d18bc37d75c288f3d6513975ef824b5e3d0e5d34f6aa53657ab1de8d1613"
+  },
+  "exact_overlap_note": "Source identity and character ranges only; not semantic correctness, usefulness, or an instruction to suppress reads.",
+  "skip_C2_correctness": null,
+  "skip_C2_tokens": null,
+  "skip_C2_seconds": null
+}

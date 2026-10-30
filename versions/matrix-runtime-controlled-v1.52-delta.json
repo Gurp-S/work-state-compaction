@@ -1,0 +1,8 @@
+{
+  "path": "D:\\lea\\XenYon code\\wsc\\versions\\matrix-runtime-controlled-v1.52-delta.zip",
+  "bytes": 1176555,
+  "sha256": "efcc3907d9d8c665bbea54a141ea76907aad8cf6063a066c293771cf522e4179",
+  "files": 367,
+  "base": "matrix-shared-runtime-v1.51-delta.zip",
+  "runtime_binaries_duplicated": false
+}

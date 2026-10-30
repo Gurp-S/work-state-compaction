@@ -1,0 +1,13 @@
+test_ambiguous_displayed_identity_is_rejected_before_model_call (test_native_incremental_candidate.IncrementalCandidateChecks.test_ambiguous_displayed_identity_is_rejected_before_model_call) ... ok
+test_cross_lane_previous_state_is_rejected_before_generation (test_native_incremental_candidate.IncrementalCandidateChecks.test_cross_lane_previous_state_is_rejected_before_generation) ... ok
+test_displayed_full_identity_and_short_alias_choose_identical_source (test_native_incremental_candidate.IncrementalCandidateChecks.test_displayed_full_identity_and_short_alias_choose_identical_source) ... ok
+test_failed_selection_keeps_known_generation_usage_and_no_retry (test_native_incremental_candidate.IncrementalCandidateChecks.test_failed_selection_keeps_known_generation_usage_and_no_retry) ... ok
+test_old_record_can_be_revised_without_relabeling_old_observation (test_native_incremental_candidate.IncrementalCandidateChecks.test_old_record_can_be_revised_without_relabeling_old_observation) ... ok
+test_previous_clues_and_source_choices_are_visible_without_auto_carry (test_native_incremental_candidate.IncrementalCandidateChecks.test_previous_clues_and_source_choices_are_visible_without_auto_carry) ... ok
+test_previous_excerpt_hash_change_is_rejected (test_native_incremental_candidate.IncrementalCandidateChecks.test_previous_excerpt_hash_change_is_rejected) ... ok
+test_three_exports_reuse_exact_evidence_without_nested_messages (test_native_incremental_candidate.IncrementalCandidateChecks.test_three_exports_reuse_exact_evidence_without_nested_messages) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 2.900s
+
+OK

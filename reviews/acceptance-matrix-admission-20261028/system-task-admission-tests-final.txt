@@ -1,0 +1,9 @@
+test_budget_and_modes_are_not_implicit (test_native_system_task_admission.SystemTaskAdmissionChecks.test_budget_and_modes_are_not_implicit) ... ok
+test_changed_request_or_thread_is_rejected_without_source_io (test_native_system_task_admission.SystemTaskAdmissionChecks.test_changed_request_or_thread_is_rejected_without_source_io) ... ok
+test_constant_true_is_not_a_blackbox_admission (test_native_system_task_admission.SystemTaskAdmissionChecks.test_constant_true_is_not_a_blackbox_admission) ... ok
+test_unknown_capacity_is_explicit_and_does_not_skip_owner_binding (test_native_system_task_admission.SystemTaskAdmissionChecks.test_unknown_capacity_is_explicit_and_does_not_skip_owner_binding) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.090s
+
+OK

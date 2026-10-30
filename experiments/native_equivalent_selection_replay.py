@@ -21,7 +21,11 @@ def replay(source_database, previous, source_registration, target_database, targ
     source_database, target_database = Path(source_database), Path(target_database)
     if target_database.exists():
         raise ValueError('selection_replay_target_exists')
-    measured = NativeApplicationSession.source_manifest(SimpleNamespace(registration=target_registration))
+    # source_manifest reads the workspace through workspace_path() so a mapped
+    # session can redirect it; this stand-in has to answer that method too.
+    measured = NativeApplicationSession.source_manifest(SimpleNamespace(
+        registration=target_registration,
+        workspace_path=lambda: Path(target_registration['workspace']).resolve()))
     if measured != source_registration['initial_manifest'] or measured != target_registration['initial_manifest']:
         raise ValueError('selection_replay_source_not_equivalent')
     before_hash = file_hash(source_database)

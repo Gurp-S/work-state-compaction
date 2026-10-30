@@ -1,0 +1,1063 @@
+{
+  "date": "2026-10-29",
+  "scope": "Report snapshot before v1.66 sealing; not blanket validation or success scoring",
+  "model_calls": 0,
+  "reports": [
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-accounting-revision.md",
+      "bytes": 2008,
+      "sha256": "d7584fb69537557661e6a1dab7a3f3740a4da29ce86b8703ac15342b38c049d3",
+      "title": "原生实验用量边界修订"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-action-rationale-diagnostic.md",
+      "bytes": 3403,
+      "sha256": "793f9fd9ac34ddafd6ba1740655ceb6065182367400ce8c3c2d39c2549f6236c",
+      "title": "原会话行动理由诊断"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-bounded-command-C-results.md",
+      "bytes": 3933,
+      "sha256": "f6812457f9297c6aec280dff369ef34fb262c1f7c09e741c5ff870ffffc41766",
+      "title": "新连续任务 C：完整交付与当前结论"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-content-archive-revision.md",
+      "bytes": 2755,
+      "sha256": "f483bae164907b503af48897ca4ae5d79cb1942f0ad2570ff83bbd4bf0e4bba9",
+      "title": "完整冷档的可选内容复用"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-control-continuation.md",
+      "bytes": 6563,
+      "sha256": "f6139010bbbdf06aaf43671c131802044551d2fed4424c6b4aa002f032c20984",
+      "title": "新连续任务：原生首阶段中断与 Python 环境根因"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-control-retention.md",
+      "bytes": 4032,
+      "sha256": "f886a508cad511505360a2f08c8481b142add6e6eedda028712548e9c9e832c6",
+      "title": "显式控制来源：失效规则与保留规则统一"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-covered-C-plan.md",
+      "bytes": 2574,
+      "sha256": "2f651fc5d943214750445ac87ef52b9140add041ca74d61767e135d1cb6ab978",
+      "title": "自动生成材料的覆盖呈现与独立C验证"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-cursor-context-reference.md",
+      "bytes": 5653,
+      "sha256": "331acc8869835e990311f1079508ff2fc99a116a80a7ed89d7d39abe0490bc36",
+      "title": "Cursor 上下文机制对照：可借鉴部分与当前 WSC 差距"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-execution-boundaries-revision.md",
+      "bytes": 2299,
+      "sha256": "13686b6f0b423e96f0650a00998e43c832716d8cbfde39d576f08ffb31b1b20c",
+      "title": "执行前绑定、日志缺口与数据库错误清理"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-factual-view-proposal.md",
+      "bytes": 2665,
+      "sha256": "ef96bfe61619b6857ab59229352ddada0817a55ce8b046748a5fb8790e5c1622",
+      "title": "工作视图候选：同一证据、当前执行位置、分离证明数据"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-fork-admission-and-accounting.md",
+      "bytes": 4352,
+      "sha256": "c848a35a7a10e5761aa544148e80b55d9ad5fad5cad7e406713c47beb1633634",
+      "title": "原生分叉准入与新增用量结算"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-frontier-generation-plan.md",
+      "bytes": 3854,
+      "sha256": "0c029640f1e4b68e84351ab5c4e8b6a21c6237e4d80e46877429274f680b42c7",
+      "title": "工作状态增量生成候选：实施前登记"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-frontier-generation-results.md",
+      "bytes": 6000,
+      "sha256": "6fa109d3aab7368ec32aacea1a2552ca1347f1c927d5ea4b895223cba2e269fd",
+      "title": "增量生成候选：本轮没有取得合格收益结论"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-generation-boundary-and-cost.md",
+      "bytes": 7788,
+      "sha256": "45aac7479af8233d3fde55191c972e5a88798e2c7565e520ab8075784246d3f9",
+      "title": "生成边界修复与已有自动 C 成本复核"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-generation-scope-repair.md",
+      "bytes": 2299,
+      "sha256": "22c1c51f4d1dd1a206b378dd9a4fa6521120027982377f9d5d692f30b829e804",
+      "title": "生成目录与历史执行目录的身份修复"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-handoff-report-probe.md",
+      "bytes": 6007,
+      "sha256": "ea73341df30f90227f6bc6ce5ef2981bd4e756ec8d0dc6e87e3e71ec966f8314",
+      "title": "有缺陷交接的下游交付观察"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-host-context-boundary.md",
+      "bytes": 3637,
+      "sha256": "583a55c616391b4fe02ce18c8d07189142884b42d05f8d9e8a690f0fe9e3d60c",
+      "title": "宿主上下文重复进入检查点：实际证据与零推理演练"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-host-publication.md",
+      "bytes": 3982,
+      "sha256": "52c3d311d9e3f8b94bea6c5da097d8789d9382795fa482b51c1036d94f843dff",
+      "title": "宿主上下文边界：真实发布链路实施"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-ingest-lookup-decision.md",
+      "bytes": 2475,
+      "sha256": "0e6f7dd19e4332db89a02b611d9597e5fc71bc28e3106b3bfc49002334b851a5",
+      "title": "不合入事务内批量查询复用候选"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-interrupted-recovery.md",
+      "bytes": 5288,
+      "sha256": "80782627659353bb2764522ef3aaed9910ac76d22d74dcc4aadff9e19759747f",
+      "title": "中断材料恢复资格：生成完成，选材超出视图预算"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-message-checkpoint.md",
+      "bytes": 7448,
+      "sha256": "6d6dc51dfe51506c1606456fb5176b2ea97a424c0fd1b141ce37bd53a43c0150",
+      "title": "取消额外选材生成的原消息检查点候选"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-native-continuity.md",
+      "bytes": 6368,
+      "sha256": "fe8108cd315edd57651fd6298be645c73202a117438d9da56e34864b48e01a88",
+      "title": "原生连续任务入口：固定阶段与证据边界"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-native-repeat-results.md",
+      "bytes": 5575,
+      "sha256": "536fa2e732f3d1814ab4821a9e402c429afa3054e89c31089fed05879dbf50bf",
+      "title": "原生续接重复对照结果"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-native-state-supplement-proposal.md",
+      "bytes": 5136,
+      "sha256": "3aecaa96ca26df1df82e87ef63658f58f6e984af96c12ba1343466c8a20c9c08",
+      "title": "下一轮整体假设：保留原生压缩状态，WSC 只补来源与变化事实"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-native-transport-and-history-projection.md",
+      "bytes": 5180,
+      "sha256": "1e44884a3ab22a7582a7477bf39bdc36e07d30a3e6a6ec0e400ebfe92b6ab651",
+      "title": "新线程接入审计与历史重建修复"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-native-workspace-revision.md",
+      "bytes": 2033,
+      "sha256": "3c63d9d95336f33140eddd1580ad454575d9eb275b43f2667e221a9e0c600d12",
+      "title": "原生状态的工作区边界"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-next-evaluation-boundary.md",
+      "bytes": 4249,
+      "sha256": "f331b5a5eeb4274cb80e4daeac87888089802d55d83f503840f090417e62d51d",
+      "title": "下一阶段评价边界：连续任务中的适用性与完整成本"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-phase-budget-and-command-task.md",
+      "bytes": 3496,
+      "sha256": "ebbfe2bce50b12cf36092df3fbee64fefd9ce21b1a05c6475218f0fe1bfe7270",
+      "title": "显式阶段预算与新连续任务"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-progress-report.md",
+      "bytes": 3896,
+      "sha256": "83a2f87181abcde83a6c682cec65898b436c8f56ba8a55c89a613d6250c43942",
+      "title": "WSC 当前进展报告"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-projection-revision.md",
+      "bytes": 2010,
+      "sha256": "e30e6d66e59c52087f7958a2ec2b7fa1dcfd8f42faaa33fda6558d96b4eead16",
+      "title": "去除准备过程中的全历史重复构造"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-public-contract-and-design-review.md",
+      "bytes": 4860,
+      "sha256": "a77f6918c9769e099411897381eaafec8eeb5cd72813b61a954c088e5e94df50",
+      "title": "公开验收合同与当前方案复核"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-quote-selection-revision.md",
+      "bytes": 7510,
+      "sha256": "951e71cce5e8aa9fae6e98e85d3d1b4df44811fa528c6f383f30943b78e608e7",
+      "title": "自动选择入口候选与一次失败生成的复核"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-receipt-identity-fix.md",
+      "bytes": 2565,
+      "sha256": "80fb0ce2d99729f2e9d5aa384294374c73ccbf7fd2e21e84f9cf91c5db5470f8",
+      "title": "回执身份旁路修复与离线对照"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-recorded-understanding-candidate.md",
+      "bytes": 5442,
+      "sha256": "252b1ad9132fba14b5d5430e25c3daa696b0b7f5babf30dff1cb716ff676ee56",
+      "title": "模型记录身份与原始观察的呈现候选"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-scope-observation.md",
+      "bytes": 4428,
+      "sha256": "7c42da560a0ba7462d3c3012620b268b33d6e200d5bdbf2b1161b958a84a926c",
+      "title": "执行范围事实进入既有来源体系"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-selection-facts-plan.md",
+      "bytes": 3907,
+      "sha256": "35f8bed5896e34ab788353ccd3d6f40ccf6e87d39ad8bd01d7d94eef5e8b9737",
+      "title": "选择事实契约：一次生成准入计划"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-selection-facts-results.md",
+      "bytes": 4963,
+      "sha256": "b8357e1343566a4aa49ffee54d4a61acddbd8cd2bc17f3c071d19a09b9d47838",
+      "title": "选择事实与片段选择：已跑通生成，尚未证明续接收益"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-settlement-revision.md",
+      "bytes": 2587,
+      "sha256": "15f3954dfc845dc753dbd921076826e3da6af247dcac8721a6d12d15f3da54a2",
+      "title": "发布结算修订：准入与已提交事实分离"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-source-audit.md",
+      "bytes": 19686,
+      "sha256": "f6ed4742336270e57e86e8d88cbe4839d864b377c5ae3f36fc4372712f695045",
+      "title": "WSC 源码复审与本机版本核对"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-source-plan.md",
+      "bytes": 4681,
+      "sha256": "967810624856da33c0e93cef19b2b920d7b8f1df2a2e2ef3f53b10f5e44c9fa1",
+      "title": "每来源互斥选材旁路"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-span-boundary.md",
+      "bytes": 5648,
+      "sha256": "0dea4fae6f381fbdeedaa3b9679cb493d893bed08e11dcace52bc052f2723247",
+      "title": "精确值跨片段边界：根因候选与固定对照"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-span-schema.md",
+      "bytes": 6217,
+      "sha256": "d2cec8b2bdc5a5c0581eae38923002f70a597798dbce4b15ccebbfc3480cf843",
+      "title": "片段引用格式：实施前收益依据与对照边界"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-stable-workspace-proposal.md",
+      "bytes": 3120,
+      "sha256": "a8ef22415398827b2bf08118f4a147388092962a5dff53d8308a231f7b62f1bf",
+      "title": "单一研究工作区：原生状态与执行身份同域"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-status-and-B-admission.md",
+      "bytes": 7188,
+      "sha256": "02f1fbaed2828486786c4b92d667382d91733ef150de5a8f9a89e8e4de9f00d2",
+      "title": "WSC 进展报告：C 完成交付，B 在零推理准入停止"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-strict-jsonl-acceptance-audit.md",
+      "bytes": 3063,
+      "sha256": "e15fdb190d4faf98a8b0a325741271c1a9f3add404af3644f34362fcd418109f",
+      "title": "严格 JSONL 登记验收覆盖审查"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-strict-jsonl-pair-results.md",
+      "bytes": 5008,
+      "sha256": "413f93af9d077f68d41da54343e6d3fd07fcf685b17575adea4fb94714e219e2",
+      "title": "严格 JSONL 两次压缩边界：结果与资格更正"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-successor-checkpoint.md",
+      "bytes": 4744,
+      "sha256": "21b179c1e2cdf3c93b67f5e05a346c49d52ace0967062b0a31a874a8ba888e9e",
+      "title": "连续 WSC 检查点：宿主来源与当前阶段分离"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-turn-accounting.md",
+      "bytes": 4651,
+      "sha256": "3708a223925a9d078875edbeb562c4744faac1e698c6858315bd25a810468854",
+      "title": "连续任务的分回合原生计费边界"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-23-understanding-identity.md",
+      "bytes": 3090,
+      "sha256": "c5c4eb64e783e5f367d06b8b68bc682ba4cfa8e8fd785ac24bfaf3da0bc95b8e",
+      "title": "理解记录写入身份：真实缺陷修复与连续任务素材"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-25-a3-qualification.md",
+      "bytes": 7977,
+      "sha256": "42d467eb80e45c9b9114b60c2d40ccbe071ea2d8d88d0cfc3859fe2719f8c641",
+      "title": "A3 单组成对准入验证"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-25-application-study-freeze.md",
+      "bytes": 2344,
+      "sha256": "70bb0f7bc7208377387bbef8e1bffdcdefc956a65ba509934e2ff47f20a70be3",
+      "title": "五任务研究条件冻结记录"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-25-native-application-execution.md",
+      "bytes": 1979,
+      "sha256": "4e17640cbe22664589b731a07348aab5b4673347a756afaec38b4038d5d8e762",
+      "title": "当前原生运行接入记录（2026-10-25）"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-25-native-matrix-runtime.md",
+      "bytes": 9092,
+      "sha256": "eced23440e86d711ded3c9b93dd9405671c3ee0d7839addc8b4bcd6e0f016090",
+      "title": "五任务 B/C 原生执行接线与首轮记录"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-25-shared-s2-compression.md",
+      "bytes": 4781,
+      "sha256": "e9a812972b19205ba71618aa87613fe31931a61553aff510aeadf5c547d77b18",
+      "title": "同一 S2 分叉：首轮结果与 C 表示修复"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-26-auto-compacting-C-S3-result.md",
+      "bytes": 4700,
+      "sha256": "522db91f01715248687af084a5f351fac0029da86bc9015c4d1417671a3362ef",
+      "title": "C真实S2→S3续接通过：两次压缩后正常交付与17项验收"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-26-c-closeout.md",
+      "bytes": 5959,
+      "sha256": "c2694b3f6919727c0d42bb77dde258d6eff30c730e87785572653fc936b54c64",
+      "title": "测试宿主接入与 C 收口验证"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-26-c-s3-continuation.md",
+      "bytes": 5039,
+      "sha256": "468eefb417e3b1d251c353f1dc0ef63a88771cf888e4902c7ec665a956cd8857",
+      "title": "C 从共同 S2 续接 S3：功能通过，整轮准入未通过"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-26-calibrated-c-s3-result.md",
+      "bytes": 4308,
+      "sha256": "8304f0656aa97c29e90fe1fe6d5a5726617f5f1cbb91e6f2614ffc371a2e221f",
+      "title": "校准后的C/S3仍超限：功能通过，正常交付未完成"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-26-calibrated-incremental-selection.md",
+      "bytes": 4879,
+      "sha256": "d81d1bd844ed159fa644a7f960568bd624d38a4e2ae30677812e917d9377aac7",
+      "title": "复用已有理解后的增量选材：旧失败解释进入理解，真实使用仍待开发验证"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-26-capsule-fact-delivery.md",
+      "bytes": 3558,
+      "sha256": "c2d5e80ab4bf43d2f494e09c7200199559295e8715ed3a5185d18f2664483832",
+      "title": "必要事实接入：一次真实模型交付通过"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-26-controlled-boundary-guards.md",
+      "bytes": 4025,
+      "sha256": "a58f4215bb426dc6d79b3abf57d493cfcc3f72e0e3a346c172dcd518f0981b5b",
+      "title": "受控停止与接收准入旁路：局部实现与验证"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-26-controlled-checkpoint-design-v0.2.md",
+      "bytes": 4601,
+      "sha256": "8fc87f0bc402d090b2b479f745ae60e4ce9486aabac720f7f2ff446e924215d4",
+      "title": "受控检查点 v0.2：显式交接替代活动回合原地压缩（设计，未实施）"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-26-controlled-stop-real-result.md",
+      "bytes": 3000,
+      "sha256": "880d73c4ef57e410b066bf5da4699b4923487f41bfa8d8b4f3fb13673991006c",
+      "title": "真实受控停止尝试：过度拒绝，停止未执行"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-26-controlled-teardown-design-v0.4.md",
+      "bytes": 3829,
+      "sha256": "02ce29e73b25e20a47d19cb7b72f8fb6e88f2012e16fe3416a665978db21cdf6",
+      "title": "受控交接v0.4候选：终止自有执行后封存（未实施）"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-26-evaluation-context-calibration.md",
+      "bytes": 4649,
+      "sha256": "cbf6d2b8e8b9dbf2c7578722ebb47514d70baf3fc42eb96a82ead94da2eb4bc6",
+      "title": "实验上下文校准：同源码不再等于同适用环境"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-26-incremental-c-development.md",
+      "bytes": 5595,
+      "sha256": "5bba0d21fd45c1b61e37491a638b430b03b08491276cee7fe57091cdd251d5d1",
+      "title": "增量状态后的 C/S3 实际续接：功能通过，完整续接未过，发现两项实验基线问题"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-26-incremental-visual-selection.md",
+      "bytes": 3957,
+      "sha256": "fde7bfa7607005ce65ed904182e3b17ba5c7d2a37891496d60b732b47e25b66f",
+      "title": "一次增量修订：裁切证据已进入续接状态"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-26-native-auto-compaction-result.md",
+      "bytes": 4249,
+      "sha256": "b793b5d139743a56a99d45a2c468d9e11deb5f1584aa2713b04560ca5dd1e467",
+      "title": "原生阶段内自动压缩：真实触发、正常继续；工具访问尚缺跨界证据"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-26-native-held-boundary-capability.md",
+      "bytes": 3986,
+      "sha256": "4d1e2a4dcdc6270999e1f657e3a788e7e9eebc04dbb814b8e9a3d9c1e33909d4",
+      "title": "原生动态工具等待点：存在候选边界，直接活动压缩不是安全续接"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-26-paired-evaluation-integration.md",
+      "bytes": 5230,
+      "sha256": "3bad506a588ea5a2bb5e150a09c5df47b3e0b9518605618dbd2de8cf242c78ba",
+      "title": "成对评测接入：同一S2事实、同一执行宿主，原生压缩保持不变"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-26-post-compaction-access-and-C-policy.md",
+      "bytes": 4191,
+      "sha256": "cfb4673d3942ee57d625e9a0fe1ac9603fbcb708d79847b7ecd4678b63526280",
+      "title": "跨压缩工具访问通过；C专用自动压缩旁路已接入"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-26-real-development-admission.md",
+      "bytes": 6908,
+      "sha256": "ccd0cc7f6ee15cf988270748ba1102a52aa54069fde4a385d5165855258eb175",
+      "title": "真实 S2→S3 准入、共享时间结果与选材事实错误"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-26-scoped-selection.md",
+      "bytes": 5497,
+      "sha256": "b1ee0e5dc941a9873a230ecb07816ce60eb7eeea296449891f7ad04bbd98b1ae",
+      "title": "一次阶段感知选材：绑定与阶段纠正，关键视觉观察仍待增量修订"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-26-stage-compaction-feasibility-v0.5.md",
+      "bytes": 4714,
+      "sha256": "cb55f2aacdbe79f687b7d4a865d44bec8ad08d0a3e150f08cd993925cfc38100",
+      "title": "阶段内压缩可行性复审v0.5：先核验原生内部调度"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-26-stage-context-redesign-proposal.md",
+      "bytes": 4664,
+      "sha256": "481d7646483e356f45758f0493ece9e8ad8d8091f9908deca828c1f7e928b607",
+      "title": "阶段内上下文控制：下一轮结构性方案提案（未实施）"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-26-writable-pair-and-component-baseline.md",
+      "bytes": 5139,
+      "sha256": "a9ad89c1e85468a7c345f0d0757099d4237eaf602b6dc7da48f1576cf1639ebf",
+      "title": "可写成对环境准入与九个既有组件失败的定位校准"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-27-blackbox-authority-group.md",
+      "bytes": 5364,
+      "sha256": "e6c59b2dd10b04be00011a2699c68a32ef9aff35cfa63cb0a1513a49648102a2",
+      "title": "第一组正式黑盒配对：有局部保真收益，成本明显更高"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-27-blackbox-benchmark-feasibility.md",
+      "bytes": 6531,
+      "sha256": "192f4939a421dfff16cc747abb10d59b1493cea1bd0814b05f6bd713b13adc1f",
+      "title": "黑盒行为评测：技术路径已通过小额真实验证"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-27-blackbox-formal-cases.md",
+      "bytes": 3175,
+      "sha256": "014fd1a8fcf5a018431acbd3ddd3141fde6d8cc3d98d0d48e6e43c9a48993f5c",
+      "title": "黑盒正式案例准备：尚未执行比较"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-27-c1-event-columns-qualified.md",
+      "bytes": 8239,
+      "sha256": "1b7b2c7fb5022a5c2c22478ae986b25b1f24c0a9dc314a700d41e66ddcae6533",
+      "title": "首轮事件表示优化：新整链 146346 Token、2/2"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-27-c1-three-full-chains.md",
+      "bytes": 7711,
+      "sha256": "476ab9da1139f705a3841154f7d4df47e03dfe52d792fdd6b747dc7fa836eb1a",
+      "title": "C1 新表示：三条独立完整 C 链完成"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-27-code-issues-001-020.md",
+      "bytes": 12307,
+      "sha256": "0456616aabf0f1c28021970767b8c8e19c2db8eb47cc43f475b77676e033498d",
+      "title": "WSC-001～020：首轮复现、修复与复杂度测量"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-27-code-level-optimization.md",
+      "bytes": 3375,
+      "sha256": "d20a379846a5d3733611d0c5e0b72c9d510734e01b9a0c8454478d4f27f236ea",
+      "title": "代码层优化：先查通用做法，再逐项验证"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-27-compact-selection-input.md",
+      "bytes": 5506,
+      "sha256": "ba9d9f46e3d0fe77f5b4431b26e1551d7454535d75d0382b28410e1584252089",
+      "title": "选择输入优化：成本下降，两个案例正确率保持"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-27-current-wsc-metrics-report.md",
+      "bytes": 13130,
+      "sha256": "3cf26cdf6a74afa96b321bed213aa4530e13aa76a66b9b3001f34e5cc83adb64",
+      "title": "当前 WSC 指标报告"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-27-denoise-tools-plan.md",
+      "bytes": 5064,
+      "sha256": "fb2f57d998bb2f523fc5c0be9c62c43712e5971c9ac405f5ed09f248917b813f",
+      "title": "WSC 配套去噪工具：XEYO 现状与可加的东西"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-27-deterministic-benchmark-MVP.md",
+      "bytes": 5433,
+      "sha256": "77a24e3bc16fd13457966b6ff29afd0fe90bcae3d4e6cab53e7cce8cc298a065",
+      "title": "确定性 Benchmark 首版：框架可运行，真实原生配对尚未完成"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-27-event-table-qualified.md",
+      "bytes": 7261,
+      "sha256": "4183e0579e6affcef40ac674bdcfab96777c3fc26330cb26ab99e1bc14ceb7b1",
+      "title": "可逆旧事件行表：实际续接保持 2/2，后续调用 Token 减少 31.3%"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-27-export-strategies.md",
+      "bytes": 3014,
+      "sha256": "c2eafefdc1996f6b19ed64f989b4b883efc57d2ebf0ee78a34ab48abe81899e0",
+      "title": "导出策略旁路对比：五种写法的实测"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-27-first-fixed-S2-BC-pair.md",
+      "bytes": 3243,
+      "sha256": "9799fd61a782fc57426eff475302308281e55a300e5b395ef13e91ca82cc41c9",
+      "title": "第一组固定S2状态B/C报告"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-27-late-first-pair.md",
+      "bytes": 5660,
+      "sha256": "546dddaad24f7b21d2fbb419aaba985082eda11f4947f02117eadddb92b1ec04",
+      "title": "晚位旧信息恢复：第一组 B/C 与未压缩基线"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-27-late-recovery-qualification.md",
+      "bytes": 7400,
+      "sha256": "28f10bacd2359c4271eb879f82f33829378eb0cfe1253b5a333e4e28c713e20f",
+      "title": "晚位旧证据真实续接资格：C 通过，尚无本案例 B 对比"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-27-late-source-reachability.md",
+      "bytes": 7709,
+      "sha256": "0d4b02aa086219877cd8193bd82bc23bc8e03c36c635cddb0c3d40e27c4ec255",
+      "title": "大历史后部证据：零模型可达性检查与可选旁路"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-27-late-three-pairs.md",
+      "bytes": 7838,
+      "sha256": "e7552ba44485818347b6c4efe2506090c6ff981fc16f2b5530ff1cdef8123515",
+      "title": "晚位恢复三组系统对照：正确性收益与成本"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-27-latency-attribution-and-performance.md",
+      "bytes": 6836,
+      "sha256": "68d74d9b276303c6dba48c0745cccbffb4c9be96ce5efc4e1d1f139d62ebb686",
+      "title": "WSC 耗时归因与等行为性能优化（2026-10-27）"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-27-metadata-columns-qualified.md",
+      "bytes": 7033,
+      "sha256": "cc5b9b372913337299525786e1569faad7e86581fdf8faa04c31627f2ecacffe",
+      "title": "可逆元数据列：输入下降，单次总耗时未改善"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-27-minimal-recovery-pairs.md",
+      "bytes": 8225,
+      "sha256": "2c6ffdc93f6d4123458d38248443fde33329bf5570bd64887fbe81e7dd8dab7c",
+      "title": "精简选择器三配对续跑：部分结果与评测修正"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-27-model-free-evaluation-and-repair-plan.md",
+      "bytes": 8515,
+      "sha256": "36f09356d111da3d3b7ef98fb3991fb9e68e900bb9a6264a97fb97d6179905a4",
+      "title": "废止旧长程评测；改用状态转换重放与反事实验收"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-27-pipeline-latency.md",
+      "bytes": 3136,
+      "sha256": "13fb83236814ea0e6296f0f8678fca4018a51367bf918f607a6e7192f1783626",
+      "title": "流水线耗时归因与两项优化"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-27-projected-budget-interface.md",
+      "bytes": 5152,
+      "sha256": "bf916bcf48a015a7aecc90c6fd263a3932cbe543e45dd7de54e6eddc89622bf5",
+      "title": "预算接口复审：修正投影计量，拒绝无依据删除读取"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-27-R02-cost-and-accounting-root-review.md",
+      "bytes": 4488,
+      "sha256": "6f6239cd0ddf72c60628462daa08c633ff813ce0bd7cbb5c875eb7585e8e20f3",
+      "title": "第二组成本与结算根因：停止用调度修补替代 WSC 收益验证"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-27-remaining-optimization-options.md",
+      "bytes": 4343,
+      "sha256": "5110abe25ab72ee98127c227cc1d479dd69903798d5fa7123320b92957f37a95",
+      "title": "剩余优化空间：实测占比与方案"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-27-repeat-admission-and-locator-review.md",
+      "bytes": 4240,
+      "sha256": "9b2248a9ad00a25e40e336931a7d08e9529f2b15c27723287d02df879d765039",
+      "title": "重复试验准入修复、定位复核与额度恢复后的剩余两组"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-27-second-fixed-S2-BC-pair.md",
+      "bytes": 3923,
+      "sha256": "21bac3af126eb838d90f4d2ad486d628ff3751cf9c8f5ac0da4ebb17376ea568",
+      "title": "固定 S2 第二组 B/C：界面通过，预算均未通过"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-27-source-access-port.md",
+      "bytes": 8621,
+      "sha256": "c39ef69a6cdbce82d26235f808cd122f1cfb3e475a978086d90362c47503fc86",
+      "title": "WSC 输入优化：来源读取端口与精简选择器"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-27-true-WSC-blackbox-admission.md",
+      "bytes": 5231,
+      "sha256": "f8d44bc353acdda66c40d2cc3f8b23778d90989b29dd64c7a0ac3a6acfab5212",
+      "title": "真实 WSC 增量路径黑盒续接资格：三路径同题，未证明压缩收益"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-27-two-boundary-mixed-results.md",
+      "bytes": 9098,
+      "sha256": "c3079923973bde16b61f972900fd86d9bc1c0d47e3763ae10743b1baf1116a76",
+      "title": "两轮压缩后的旧信息恢复：三对系统观测完成"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-27-two-boundary-recovery.md",
+      "bytes": 5713,
+      "sha256": "9e38401c468c21fa08a1baaf45f4d2676b21802c1ca9adfb4555773e0b8a1a9c",
+      "title": "第二次压缩恢复验证：发现并修复传输误拒，单条C续接通过"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-27-write-path-ab.md",
+      "bytes": 2542,
+      "sha256": "9ac43fdb2ec8254dcf8734e7ff86f2c2896a608a40492c037aa8a4afde05a194",
+      "title": "写入路径 A/B：是否把默认写入切到 ResourceIO"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-28-acceptance-matrix-execution-v1.1.md",
+      "bytes": 2294,
+      "sha256": "df6a40e164207a35c80986c13778a3cf534a7bb0c1c8f682fb74362c2d6279bb",
+      "title": "验收矩阵执行修订 v1.1（开跑前）"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-28-acceptance-matrix-execution-v1.2.md",
+      "bytes": 1925,
+      "sha256": "2c5a66b3c939c5d8a6c5798dd8a8d01b149ac26d25daf142fd4204eedb75bd19",
+      "title": "执行修订 v1.2：工具探测不要求模型尝试禁读"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-28-acceptance-matrix-execution-v1.3.md",
+      "bytes": 2721,
+      "sha256": "f773e2124b6956910d8a4d78a1b05419ce0359e56d2bb00b546fc26c4981d1a9",
+      "title": "执行修订v1.3：首对B′/C接线冻结"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-28-acceptance-matrix-execution-v1.4.md",
+      "bytes": 1749,
+      "sha256": "27bef7649e8ac03d7bc739708a0577334a53b61dc8c56f3db3c14d1962888478",
+      "title": "执行修订v1.4：保留r1环境失败，转入预登记r2"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-28-acceptance-matrix-execution-v1.5.md",
+      "bytes": 2592,
+      "sha256": "5622758d453785a94da1c3f89676fee4ff2e2f2fa06131809b7e8512c5c733b6",
+      "title": "执行修订v1.5：修复引用与环境后的共同条件准入"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-28-acceptance-matrix.md",
+      "bytes": 7329,
+      "sha256": "52777a6f7620624ff5c133d16dc775b93c65d5aede34221d303f15df5a690abc",
+      "title": "WSC 验收矩阵（预注册草案）"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-28-denoise-ab.md",
+      "bytes": 2937,
+      "sha256": "0bec69cad5dd0df582d3b76d66954d6783a7c753027260b2f3a6abb2de5f0938",
+      "title": "去噪规则 A/B：每条单独跑一遍"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-28-denoise-guarantees.md",
+      "bytes": 4242,
+      "sha256": "02031ea30385089b8122c5d22567567f6c42caa57bf64c6fede3859ccb76fd89",
+      "title": "去噪的正确性保证：不静默丢东西"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-29-acceptance-matrix-execution-v1.6.md",
+      "bytes": 2025,
+      "sha256": "eb6d2143543f592d7bf89e6643dc34b52faad67607f67653dde5793a699ba274",
+      "title": "执行修订v1.6：同一新CLI下的剩余分配续接"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-29-acceptance-matrix-execution-v1.7.md",
+      "bytes": 2184,
+      "sha256": "138b4d840dcbce3353e43ae865a23f1000b3a670c864a1af17f0c376a96bb7fa",
+      "title": "执行修订v1.7：T1当前策略补两组重复"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-29-all-results-summary.md",
+      "bytes": 10416,
+      "sha256": "d08a5b67ed9c45125ef1c6440ab85dfcb093ce26a3bd7fab5641f1408a43e4aa",
+      "title": "WSC 当前及历史结果总览"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\2026-10-29-hot-continuation-probe-v1.md",
+      "bytes": 2434,
+      "sha256": "bd7e50c81587675f4592770c41aaf09ef92b333707eb6821731a216be92d5bf2",
+      "title": "新投影同稿续接诊断：只跑新增C，不重跑旧组"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\acceptance-matrix-admission-20261028\\acceptance-matrix.original.md",
+      "bytes": 7329,
+      "sha256": "52777a6f7620624ff5c133d16dc775b93c65d5aede34221d303f15df5a690abc",
+      "title": "WSC 验收矩阵（预注册草案）"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\acceptance-matrix-admission-20261028\\admission-notes.md",
+      "bytes": 5716,
+      "sha256": "07354717768c447dd3ffb19b130661d49a581d16ff38d30191c18710e839015b",
+      "title": "新验收矩阵：开跑前准入记录"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\acceptance-matrix-admission-20261028\\runner-reuse-audit.md",
+      "bytes": 1861,
+      "sha256": "a7d1b9e6945b2d2459890c5a631bc5c42fe53c77e111188bac0887a9a65138d6",
+      "title": "共享运行器复用检查"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\acceptance-matrix-dispatch-budget.md",
+      "bytes": 3983,
+      "sha256": "cb25d109ff5a2ab9752a692c76720bb16b48fef826d316c100c3244993085b69",
+      "title": "矩阵运行预算：持久化派发边界"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\acceptance-matrix-first-C-findings.md",
+      "bytes": 6673,
+      "sha256": "ee02dfb2703cfcd92f8305cb9b2bd11efeb7a7eb10d5b7da3ab5c39cbaa2e888",
+      "title": "首轮C真实续接：产物通过，预算闭环失败，定位两项具体问题"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\acceptance-matrix-first-controls-report.md",
+      "bytes": 4963,
+      "sha256": "72f7b46fe12d771a58d748ce5b4978ff8f09fc118676145af808a0b3b72cd08d",
+      "title": "首次真实T1历史依赖对照"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\acceptance-matrix-first-valid-pair-report.md",
+      "bytes": 6738,
+      "sha256": "10c58a53651ecc4219aaf3d4eb76fac3895d67950bc9c8bc920ee08e88a7ac87",
+      "title": "第一组有效原生B′/WSC C对照"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\acceptance-matrix-five-task-preparation.md",
+      "bytes": 4946,
+      "sha256": "23c447c01849826f7eba4721789dc80feffe26935d140272eee0e6624f2634c8",
+      "title": "五任务程序验收校准（尚非 B/C 结果）"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\acceptance-matrix-native-boundary-integration.md",
+      "bytes": 4288,
+      "sha256": "9bc6989443f78da7643329548b0243f7d3513b081577646c5a35a10bcefd1602",
+      "title": "原生会话权限、导入和预算接线"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\acceptance-matrix-read-boundary.md",
+      "bytes": 3500,
+      "sha256": "dd635e402365fd16dd4764fb4c3d67ad16921821b70fcf0a0c585f3690234556",
+      "title": "原生执行层读取隔离探测"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\acceptance-matrix-runtime-controlled-findings.md",
+      "bytes": 4798,
+      "sha256": "cb79bff8ec9c3458777769ba4bad1c150ebf2c9fe220b09a79569dbab95fc7f6",
+      "title": "公共环境首组：A通过，空历史接线失败；尚无B/C对照"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\acceptance-matrix-shared-runtime-report.md",
+      "bytes": 3481,
+      "sha256": "5f19daf2e6bef87970dcbd83dc68166b76f660bede35d00618d65a0a4116deca",
+      "title": "公共执行环境接入：零模型验证"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\acceptance-matrix-t1-t3-preparation.md",
+      "bytes": 4063,
+      "sha256": "b594f5902cbca44c57b386c0251dd23e72f9b5d7ca092cf2305c3191c5d8ba94",
+      "title": "T1/T3任务验收准备与校准"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\acceptance-matrix-three-pair-report.md",
+      "bytes": 6802,
+      "sha256": "7bb0bdca5cde9b6a04de64c02c5d5a70899fa340fc7e3357c5d019cefd8d640b",
+      "title": "T1三组B′/C：任务连续性通过，总Token均值较低，费用优势未证实"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\capacity-and-lifecycle-source-audit.md",
+      "bytes": 6251,
+      "sha256": "92cdf1b0861bd6b008ce404737dc3a70c247b977af6ba2c4ce36f3bc3c9a9a56",
+      "title": "容量入口与恢复生命周期：当前源码核对"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\clean-container-core-admission-20261029.md",
+      "bytes": 3800,
+      "sha256": "023623600e506542cd63cd19664b68f47142f1b13ec897e4bc2d76b2dbd3b502",
+      "title": "干净容器中的 WSC 核心准入：无模型通过，原生 Codex 尚未接入"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\continuation-host-interface-review.md",
+      "bytes": 5168,
+      "sha256": "eb2029fb9378e263850d21b2e3b3b510dd888d596edabbbb1fcf229bcdad505b",
+      "title": "续接呈现与恢复接口：静态审查"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\continuation-inspection-implementation.md",
+      "bytes": 3924,
+      "sha256": "7734f94744b6e3ec9b713a257a8e0ae090f0bac9854fa389e8fdc45826080df7",
+      "title": "旧选择机械续接检查：独立候选实现"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\existing-continuation-latency-report.md",
+      "bytes": 6666,
+      "sha256": "c7470f6b1547ee8a20ca474613547f434c9e1ff75a4ece29b418250cd5088927",
+      "title": "既有 B/C 日志的耗时拆分"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\goal-delivery-gap-audit.md",
+      "bytes": 7897,
+      "sha256": "f84352c2bd0fc745efe2919dd4df58655bb759d541e688c188910f48f50c1649",
+      "title": "WSC 目标与交付缺口核对"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\hot-projection-continuation-report.md",
+      "bytes": 5326,
+      "sha256": "61cffcde8d96b1cc8c277ec89c64797811b41943cda99efd589b95ee5940f3a0",
+      "title": "热投影同稿续接：代码3/3通过，整轮2/3；输入缩小未稳定"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\hot-projection-sidecar-qualification.md",
+      "bytes": 5388,
+      "sha256": "732a26128410204f2b37c40babe112fe97f8502259c3844eef66871848146841",
+      "title": "引擎身份旁路投影：等价与原生导入已验证，实际模型收益待测"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\native-capacity-protocol-audit.md",
+      "bytes": 5138,
+      "sha256": "cb4b2f6711487c5d14bd1a807675eac8d8c17c44205d175ab7c7b08f3819984c",
+      "title": "原生容量预发接口：静态协议核实与收尾"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\previous-view-integrity-fix-report.md",
+      "bytes": 3738,
+      "sha256": "2d55f5dbad192588a52212e8fea6306d098d6cfdc7e77dba80ab07b162f0169d",
+      "title": "增量选材旧 view 完整性修复"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\recovery-metadata-audit-decision.md",
+      "bytes": 4723,
+      "sha256": "07a05cd2786a1d329d63553cd198c43e85c598c8e7d0ef3aa53b902eec11f2e2",
+      "title": "回查元数据盘点：存在局部空间，不能解决首次输入差距"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\reselection-necessity-static-review.md",
+      "bytes": 8204,
+      "sha256": "8b66e317a37ca41fd3d35b6df6ca4eef59629d90f4116d317a003f3cfa861759",
+      "title": "第二次选材何时必要：静态审查结论"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\runtime-denoise-additional-arm-plan.md",
+      "bytes": 6016,
+      "sha256": "4a32fd96aa2282ee4049537e3d892a5eeb86e92a4aac9f72d0230ea19fc02432",
+      "title": "新增排队方案：当前WSC＋运行时工具结果去噪"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\runtime-denoise-dsh-boundary-qualification.md",
+      "bytes": 4750,
+      "sha256": "93830dbe70da4d3310ff3884499f0ec77a103a6484fa1ca636b344088570998d",
+      "title": "DSH 去噪边界：三项风险复现，旁路修正通过，真实收益仍待验证"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\runtime-denoise-native-hook-qualification.md",
+      "bytes": 4386,
+      "sha256": "65dd868dab5e37987ca4c861a8298cd72252ddc0c16e5e75349ab1a7200deabf",
+      "title": "原生运行时去噪接入口资格：普通文本可替换，当前代码模式不通过"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\runtime-denoise-real-output-audit.md",
+      "bytes": 3634,
+      "sha256": "f93d0b39157412c0e0716e1abcc02156b93b045171816739f9898072b6343a54",
+      "title": "运行时去噪：真实回执盘点及旁路修复"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\runtime-denoise-xeyo-replay-decision.md",
+      "bytes": 4783,
+      "sha256": "36a02cc1b70f9778229e05fd0615e007cc5b6fd77da3d499bd8afc357d98d475",
+      "title": "真实回执上的 XEYO 终端去噪：当前样本无付费新增组准入依据"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\second-selection-work-and-converged-direction.md",
+      "bytes": 6596,
+      "sha256": "ce6fb170d367e94045df344568155cfb30786f7db355654ea6621b8cc6c33609",
+      "title": "C2 实际工作清单与收敛方向"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\t3-evaluator-v2-offline-audit.md",
+      "bytes": 5214,
+      "sha256": "52016bd32877dc7f96c9dd4e1ae321559064595fde99d025feaa3853ff2c6e72",
+      "title": "T3 评分器旁路修复与现有产物离线复核"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\t3-first-controls-and-startup-resolution.md",
+      "bytes": 6076,
+      "sha256": "5309534af16ae0b90923380b85543c29cefaf2e5a8c2194f9809156e9e9a23d3",
+      "title": "T3首组报告：启动资格恢复，历史依赖仍未确认"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\t3-private-material-and-stop-audit.md",
+      "bytes": 4665,
+      "sha256": "54591587145025cd3d7872127d46a6fbba03f45847b33c691045866905fa9a8f",
+      "title": "T3 停机核对与私有材料隔离：当前不可开跑"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\t3-task-entry-and-startup-report.md",
+      "bytes": 5030,
+      "sha256": "0a8449152405d74bf4da0fca30c01d14be095a6435209de6058e0cecb710e139",
+      "title": "T3入口已接入；修复清理卡死；原生启动资格尚未通过"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\task-recovery-port-contract.md",
+      "bytes": 5967,
+      "sha256": "23fb08f74bdf411c68f4d149ec2367d513807582ca4b53fb1df16e02ffc5dd7c",
+      "title": "普通任务恢复端口：最小接入契约（未接入）"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\reviews\\task-recovery-port-implementation-report.md",
+      "bytes": 4431,
+      "sha256": "d5df2d6388804fc74ff048509b25480f260443e339ee6e4964002874d4c97c06",
+      "title": "普通任务恢复：最小旁路接入实现"
+    }
+  ],
+  "version_receipts": [
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\versions\\dsh-denoise-boundary-qualification-v1.59-delta.json",
+      "bytes": 311,
+      "sha256": "160bf46040bcdaabe0bb9ef0e0eac90f185e305e7c023f498a365956221419b5"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\versions\\hot-continuation-denoise-audit-v1.57-delta.json",
+      "bytes": 354,
+      "sha256": "94e61b7c17f354b4a48fe8d0f78b50315e82b1c80b1e05c201432d2e3fafd006"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\versions\\hot-projection-sidecar-v1.55-delta.json",
+      "bytes": 302,
+      "sha256": "a5d8b62e7bb242dcc1620611dc9e23396bb031e7b13e7d6c7aa923edaa46b2de"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\versions\\matrix-budget-and-read-boundary-v1.47-delta.json",
+      "bytes": 267,
+      "sha256": "6b7bdbb918b5b5f16f9fb537a6dd6b46e2a139f0690b72786bfda405c3f2f6ca"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\versions\\matrix-first-C-findings-v1.50-delta.json",
+      "bytes": 323,
+      "sha256": "509e78ca8b7a1f6aa28f997e59a609e944d022a65f59c68fc9ba38c28959b5b1"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\versions\\matrix-first-real-controls-v1.49-delta.json",
+      "bytes": 474,
+      "sha256": "ac71d594e2b4fc51d27d26016a622144b940ca019a691ff5e17f3a39917fcaad"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\versions\\matrix-first-valid-pair-v1.53-delta.json",
+      "bytes": 312,
+      "sha256": "5ffb19b9670a091491663d9828999fc013ab1a5745fd2e77ca6a82952c687b9c"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\versions\\matrix-five-task-calibration-v1.46-delta.json",
+      "bytes": 362,
+      "sha256": "408169ab42e1f19b51fd6fbef14d2454503f55c843b4b071b2c6613581dc8a0f"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\versions\\matrix-native-boundary-integration-v1.48-delta.json",
+      "bytes": 268,
+      "sha256": "5b00473d39102a574294006145b08e43009dd431288750e790b744cbbff9187a"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\versions\\matrix-runtime-controlled-v1.52-delta.json",
+      "bytes": 310,
+      "sha256": "2b83b32a792de36840fcc8ddf805f4c9842e9dce390ec6e6e032f880078c30c3"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\versions\\matrix-shared-runtime-v1.51-delta.json",
+      "bytes": 305,
+      "sha256": "a8e538d4d3699bf49e0ff67a67531d9c38733936c045f8122d0b282626c2926a"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\versions\\matrix-three-pairs-v1.54-delta.json",
+      "bytes": 305,
+      "sha256": "4cb973664311590589f98524c42c31b2b673115ec2c65f13e53dfb0bf631965f"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\versions\\native-hook-interface-qualification-v1.58-delta.json",
+      "bytes": 308,
+      "sha256": "5555b35e1a1d72fd950a84584765e68d86d0b573cfc95dcf26e2a2fbe64dffdd"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\versions\\recovery-metadata-audit-t3-prerequisites-v1.61-delta.json",
+      "bytes": 311,
+      "sha256": "e2e640f8ab870d85083c78555038ebdc8cb64e3d2d1ee6897fc74f503f0ef953"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\versions\\runtime-denoise-added-plan-v1.56-delta.json",
+      "bytes": 302,
+      "sha256": "89786304f3b40fe57b796b938b1f9c7646512d90c0de237a8c31a19cafdd1706"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\versions\\t3-entry-owned-cleanup-startup-admission-v1.62-delta.json",
+      "bytes": 404,
+      "sha256": "ae67afed11820c76045f8961f30a3a6b275ca0c8a820211a7e5f556166e6ebb3"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\versions\\t3-evaluator-v2-offline-audit-v1.64-delta.json",
+      "bytes": 526,
+      "sha256": "59be87c13c2641dff5dc7fced36f4cb1c21f2a9a660d081ca7d9a432c934a180"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\versions\\t3-first-controls-startup-scoring-findings-v1.63-delta.json",
+      "bytes": 457,
+      "sha256": "2c8303329c4ceae872b60368522131f85ba95f4b214cb3b372ca23d5b9897a94"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\versions\\t3-private-material-failed-admission-v1.65-delta.json",
+      "bytes": 521,
+      "sha256": "759d0dab7a893f75c113264738c02546c17fbf74ea31844fe1f6b1123b5e9046"
+    },
+    {
+      "path": "D:\\lea\\XenYon code\\wsc\\versions\\xeyo-terminal-replay-decision-v1.60-delta.json",
+      "bytes": 305,
+      "sha256": "4afe87f7c6b55316fbd7b97b1aa8e7b575b2b863b1d59bde0dbefba4f24b5f35"
+    }
+  ]
+}

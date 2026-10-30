@@ -1,0 +1,10 @@
+test_changed_request_never_opens_or_reserves (test_matrix_native_dispatch.NativeDispatchChecks.test_changed_request_never_opens_or_reserves) ... ok
+test_duplicate_callback_retains_known_spend_once_and_freezes (test_matrix_native_dispatch.NativeDispatchChecks.test_duplicate_callback_retains_known_spend_once_and_freezes) ... ok
+test_failed_open_is_unknown_and_never_retried (test_matrix_native_dispatch.NativeDispatchChecks.test_failed_open_is_unknown_and_never_retried) ... ok
+test_persisted_grant_precedes_open_and_cleanup_time_is_charged (test_matrix_native_dispatch.NativeDispatchChecks.test_persisted_grant_precedes_open_and_cleanup_time_is_charged) ... ok
+test_wrong_import_seal_is_closed_without_model_execution (test_matrix_native_dispatch.NativeDispatchChecks.test_wrong_import_seal_is_closed_without_model_execution) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.181s
+
+OK

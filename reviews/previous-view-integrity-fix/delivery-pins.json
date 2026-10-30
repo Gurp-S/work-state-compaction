@@ -1,0 +1,18 @@
+{
+  "files": {
+    "wsc/experiments/native_incremental_candidate.py": "d7a17b4d8c2b2586b3bce3ce04616316832d42b0a45448decfbffbdc5433b013",
+    "wsc/tests/test_incremental_previous_integrity.py": "9e3e2e7f5826d1ddf9cfaaa1ddb4fd13a85bc046235fa37c731d3734f131cc9b",
+    "wsc/tests/test_native_incremental_candidate.py": "47d74d90092832eed336cc1b54964a41d6ed6bd746943b4c175323af8118e756",
+    "wsc/src/wsc/snapshots.py": "d48738fbf16e39e7461d8e9307499babb04dee46904bec706a606aa6f40b54d8",
+    "wsc/reviews/previous-view-integrity-fix-report.md": "2d55f5dbad192588a52212e8fea6306d098d6cfdc7e77dba80ab07b162f0169d",
+    "wsc/reviews/goal-delivery-gap-audit.md": "c7fbaddb22ff629f848f7e0214c453d0532930724b18c1e1f30518918908370e",
+    "wsc/experiments/NATIVE-LOCAL-HANDOFF.md": "3056df74d28e08c0ce129df0f11f3a4485306afae30e18bd10e46db22e6ee063",
+    "wsc/reviews/previous-view-integrity-fix/adjacent-tests.txt": "3b425da51a034b7016efd571d4247473286923cc384ba53d28d08b4a32c779fb",
+    "wsc/reviews/previous-view-integrity-fix/after-tests.txt": "b16129635e22bacc65d9610193366974aab38164bebc26bc7eb13220c66ae54e",
+    "wsc/reviews/previous-view-integrity-fix/before-source.json": "9e6cc09fa1dd6ae41c9edf4020cbefee7b5314dc2e88e8bbcda6fe87453bb75b",
+    "wsc/reviews/previous-view-integrity-fix/before-tests.txt": "8f08b6fb23a13d17b4c9a598ca0c7f5e66bbe33674883ae005c4876d6d4b8eca",
+    "wsc/reviews/previous-view-integrity-fix/fix.patch": "c045ff7b20c1cd81942827a5e0a0dea011040ae1f910a8db030d1dd9d1e07806",
+    "wsc/reviews/previous-view-integrity-fix/native_incremental_candidate.before.py": "26411c47f59e0ee7d3fcc333ca93038ebe013e8ad0c7bd6ff3ada089f426130c",
+    "wsc/reviews/previous-view-integrity-fix/result.json": "8fcaedf830477909324344a7f53509074271e5a917536d180d05d88dc3d385fb"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "scope": "Targeted correctness regression only; no model, native-host session, performance, continuation, or B/C experiment.",
+  "model_calls": 0,
+  "benchmark_runs": 0,
+  "before": {
+    "tests": 6,
+    "passed": 2,
+    "failed": 4
+  },
+  "after": {
+    "tests": 6,
+    "passed": 6,
+    "failed": 0
+  },
+  "adjacent": {
+    "tests": 8,
+    "passed": 8,
+    "failed": 0
+  },
+  "default_wsc_enabled": false,
+  "whole_goal_achieved": false,
+  "performance_improvement_proven": false,
+  "before_sha256": "26411c47f59e0ee7d3fcc333ca93038ebe013e8ad0c7bd6ff3ada089f426130c",
+  "after_sha256": "d7a17b4d8c2b2586b3bce3ce04616316832d42b0a45448decfbffbdc5433b013"
+}

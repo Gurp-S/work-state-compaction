@@ -1,0 +1,18 @@
+test_default_caller_keeps_original_read_only_parameters (test_matrix_native_permissions.NativePermissionChecks.test_default_caller_keeps_original_read_only_parameters) ... ok
+test_explicit_profile_is_bound_without_conflicting_legacy_sandbox (test_matrix_native_permissions.NativePermissionChecks.test_explicit_profile_is_bound_without_conflicting_legacy_sandbox) ... ok
+test_invalid_binding_cannot_open_process (test_matrix_native_permissions.NativePermissionChecks.test_invalid_binding_cannot_open_process) ... ok
+test_profile_mismatch_closes_receiver (test_matrix_native_permissions.NativePermissionChecks.test_profile_mismatch_closes_receiver) ... ok
+test_selector_runtime_does_not_replace_permission_flags (test_matrix_native_permissions.NativePermissionChecks.test_selector_runtime_does_not_replace_permission_flags) ... FAIL
+
+======================================================================
+FAIL: test_selector_runtime_does_not_replace_permission_flags (test_matrix_native_permissions.NativePermissionChecks.test_selector_runtime_does_not_replace_permission_flags)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_matrix_native_permissions.py", line 82, in test_selector_runtime_does_not_replace_permission_flags
+    self.assertIn('permissions.matrix-test.network.enabled=false',session.server.settings)
+AssertionError: 'permissions.matrix-test.network.enabled=false' not found in ['features.multi_agent=false', 'model_reasoning_effort="max"', 'features.shell_tool=false']
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.013s
+
+FAILED (failures=1)

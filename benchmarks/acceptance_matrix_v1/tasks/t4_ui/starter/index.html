@@ -1,0 +1,3 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Usage desk</title><link rel="stylesheet" href="style.css"><main id="app"></main><script src="app.js"></script><script>
+Promise.all([fetch('config.json').then(r=>r.json()),fetch('data.json').then(r=>r.json())]).then(([config,data])=>window.mountUsage(document.getElementById('app'),config,data,()=>fetch('data.json').then(r=>r.json())));
+</script></html>

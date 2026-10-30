@@ -1,0 +1,13 @@
+{
+  "path": "D:\\agent-task-runs\\wsc-matrix-read-boundary-20261028-v5",
+  "files": {
+    "error.json": "8fc79ca11c1f561e10dfc5afcce3c4f3e97f688b8922adeca06058172fbe6475",
+    "initialize.json": "e41f5f2a5042e6fe5397137e0c0ed52a6e982550ce8e2f382168fb3e3e292ca3",
+    "registration.json": "45e64b470c73bec7162d9b7110f353e8b82275a59e09cb8a0528e9e217e183d5",
+    "stderr.txt": "0222e3f11284402a1d9f1bb8903b96c99ceb8338d6bbc493991399ce01ae08fc",
+    "stuck-owner.json": "e7a8b6b78d44a1663993c95c40102746d1501904a140df69c167bd0ef283ff9d",
+    "coordinator-private/canary.txt": "733cd343e6b2cb99448a92b3dd69c0f3173d0ab6823892c0b3c89e735facb90b",
+    "other-arm/canary.txt": "4a53fae015c6018b125e8b0e67eb3cc50a96e5264255a70a90f8424955474a04",
+    "public-workspace/canary.txt": "62b545005d77a0e31e865d36432b88c7866f2d4f5ee57c4bb06da5c5b29147e4"
+  }
+}

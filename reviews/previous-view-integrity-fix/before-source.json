@@ -1,0 +1,5 @@
+{
+  "source": "wsc\\experiments\\native_incremental_candidate.py",
+  "sha256": "26411c47f59e0ee7d3fcc333ca93038ebe013e8ad0c7bd6ff3ada089f426130c",
+  "scope": "Pre-fix source snapshot only; no model or benchmark execution."
+}

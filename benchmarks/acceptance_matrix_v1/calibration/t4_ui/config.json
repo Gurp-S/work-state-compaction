@@ -1,0 +1,1 @@
+{"revision":2,"currency":"CNY","model_identity":["provider","model"],"filter_scope":"loaded_rows_only","missing_cost":"Unknown","refresh_failure":"retain_rows_mark_stale","request_race":"latest_request_wins"}

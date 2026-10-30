@@ -1,0 +1,54 @@
+test_changed_clue_is_rejected_before_archive_export (test_incremental_previous_integrity.PreviousViewIntegrityChecks.test_changed_clue_is_rejected_before_archive_export) ... FAIL
+test_changed_excerpt_with_same_key_is_rejected (test_incremental_previous_integrity.PreviousViewIntegrityChecks.test_changed_excerpt_with_same_key_is_rejected) ... FAIL
+test_changed_selected_source_is_rejected (test_incremental_previous_integrity.PreviousViewIntegrityChecks.test_changed_selected_source_is_rejected) ... FAIL
+test_invalid_previous_never_calls_generator_or_starts_usage (test_incremental_previous_integrity.PreviousViewIntegrityChecks.test_invalid_previous_never_calls_generator_or_starts_usage) ... FAIL
+test_missing_view_keeps_existing_error_code (test_incremental_previous_integrity.PreviousViewIntegrityChecks.test_missing_view_keeps_existing_error_code) ... ok
+test_valid_material_is_identical_to_legacy_loader (test_incremental_previous_integrity.PreviousViewIntegrityChecks.test_valid_material_is_identical_to_legacy_loader) ... ok
+
+======================================================================
+FAIL: test_changed_clue_is_rejected_before_archive_export (test_incremental_previous_integrity.PreviousViewIntegrityChecks.test_changed_clue_is_rejected_before_archive_export)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_incremental_previous_integrity.py", line 58, in test_changed_clue_is_rejected_before_archive_export
+    self.reject_changed_body(lambda body: body['clues'][0].update(text='changed interpretation'))
+  File "D:\lea\XenYon code\wsc\tests\test_incremental_previous_integrity.py", line 53, in reject_changed_body
+    with self.assertRaisesRegex(ValueError, '^view_integrity_mismatch$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_changed_excerpt_with_same_key_is_rejected (test_incremental_previous_integrity.PreviousViewIntegrityChecks.test_changed_excerpt_with_same_key_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_incremental_previous_integrity.py", line 64, in test_changed_excerpt_with_same_key_is_rejected
+    self.reject_changed_body(lambda body: body['excerpts'][0].update(text='changed slice'))
+  File "D:\lea\XenYon code\wsc\tests\test_incremental_previous_integrity.py", line 53, in reject_changed_body
+    with self.assertRaisesRegex(ValueError, '^view_integrity_mismatch$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_changed_selected_source_is_rejected (test_incremental_previous_integrity.PreviousViewIntegrityChecks.test_changed_selected_source_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_incremental_previous_integrity.py", line 61, in test_changed_selected_source_is_rejected
+    self.reject_changed_body(lambda body: body['sources'][-1].update(text='changed receipt'))
+  File "D:\lea\XenYon code\wsc\tests\test_incremental_previous_integrity.py", line 53, in reject_changed_body
+    with self.assertRaisesRegex(ValueError, '^view_integrity_mismatch$'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_invalid_previous_never_calls_generator_or_starts_usage (test_incremental_previous_integrity.PreviousViewIntegrityChecks.test_invalid_previous_never_calls_generator_or_starts_usage)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_incremental_previous_integrity.py", line 73, in test_invalid_previous_never_calls_generator_or_starts_usage
+    candidate.prepare(self.core, self.snapshot, self.previous, self.archive, generate)
+  File "D:\lea\XenYon code\wsc\experiments\native_incremental_candidate.py", line 139, in prepare
+    draft = generate(offered)
+            ^^^^^^^^^^^^^^^^^
+  File "D:\lea\XenYon code\wsc\tests\test_incremental_previous_integrity.py", line 71, in generate
+    raise AssertionError('generator reached with changed stored view')
+AssertionError: generator reached with changed stored view
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.335s
+
+FAILED (failures=4)

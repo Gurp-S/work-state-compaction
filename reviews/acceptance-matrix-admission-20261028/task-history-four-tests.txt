@@ -1,0 +1,10 @@
+test_later_assistant_hypothesis_does_not_change_private_policy (test_matrix_task_histories.MatrixHistoryChecks.test_later_assistant_hypothesis_does_not_change_private_policy) ... ok
+test_local_source_import_requires_real_presentation_receipts (test_matrix_task_histories.MatrixHistoryChecks.test_local_source_import_requires_real_presentation_receipts) ... ok
+test_private_answer_map_is_separate_and_source_bound (test_matrix_task_histories.MatrixHistoryChecks.test_private_answer_map_is_separate_and_source_bound) ... ok
+test_same_explicit_input_is_reproducible (test_matrix_task_histories.MatrixHistoryChecks.test_same_explicit_input_is_reproducible) ... ok
+test_unimplemented_task_and_invalid_size_are_not_silently_substituted (test_matrix_task_histories.MatrixHistoryChecks.test_unimplemented_task_and_invalid_size_are_not_silently_substituted) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.124s
+
+OK

@@ -1,0 +1,22 @@
+--- native_source_tool.before.py
++++ wsc/experiments/native_source_tool.py
+@@ -39,8 +39,9 @@
+             and params.get('tool')==SOURCE_TOOL['name'] and params.get('namespace') is None
+             and type(call) is str and bool(call),'source_tool_callback_binding_invalid')
+         fingerprint=digest({'id':event['id'],'params':params})
+-        if call in self.seen:
+-            previous,reply=self.seen[call];require(previous==fingerprint,'source_tool_call_identity_conflict')
++        key=(thread_id,turn_id,call)
++        if key in self.seen:
++            previous,reply=self.seen[key];require(previous==fingerprint,'source_tool_call_identity_conflict')
+             return deepcopy(reply)
+         require(len(self.seen)<self.reader.limits.max_calls,'source_tool_callback_budget_exhausted')
+         args=params.get('arguments')
+@@ -49,6 +50,6 @@
+             ok=True
+         except WSCError as error:value={'status':'error','code':str(error)};ok=False
+         reply={'id':event['id'],'result':{'contentItems':[{'type':'inputText','text':encode(value)}],'success':ok}}
+-        self.seen[call]=(fingerprint,deepcopy(reply))
++        self.seen[key]=(fingerprint,deepcopy(reply))
+         self.trace.append({'thread_id':thread_id,'turn_id':turn_id,'call_id':call,'arguments':deepcopy(args),'output':value})
+         return reply

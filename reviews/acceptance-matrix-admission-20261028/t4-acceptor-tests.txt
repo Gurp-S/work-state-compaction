@@ -1,0 +1,9 @@
+test_old_request_completion_cannot_replace_latest_result (test_matrix_t4_acceptor.BrowserAcceptorChecks.test_old_request_completion_cannot_replace_latest_result) ... ok
+test_pending_request_after_destroy_is_detected (test_matrix_t4_acceptor.BrowserAcceptorChecks.test_pending_request_after_destroy_is_detected) ... ok
+test_provider_alias_collapse_is_detected (test_matrix_t4_acceptor.BrowserAcceptorChecks.test_provider_alias_collapse_is_detected) ... ok
+test_reference_status_and_output_have_separate_assertions (test_matrix_t4_acceptor.BrowserAcceptorChecks.test_reference_status_and_output_have_separate_assertions) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 10.221s
+
+OK

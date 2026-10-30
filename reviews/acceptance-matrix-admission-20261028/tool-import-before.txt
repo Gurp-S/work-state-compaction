@@ -1,0 +1,16 @@
+test_call_identity_arguments_and_output_remain_strict (test_native_tool_import_additions.NativeToolImportChecks.test_call_identity_arguments_and_output_remain_strict) ... ok
+test_observed_transport_additions_preserve_all_supplied_values (test_native_tool_import_additions.NativeToolImportChecks.test_observed_transport_additions_preserve_all_supplied_values) ... FAIL
+test_unobserved_fields_or_supplied_identity_replacement_are_rejected (test_native_tool_import_additions.NativeToolImportChecks.test_unobserved_fields_or_supplied_identity_replacement_are_rejected) ... ok
+
+======================================================================
+FAIL: test_observed_transport_additions_preserve_all_supplied_values (test_native_tool_import_additions.NativeToolImportChecks.test_observed_transport_additions_preserve_all_supplied_values)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\lea\XenYon code\wsc\tests\test_native_tool_import_additions.py", line 19, in test_observed_transport_additions_preserve_all_supplied_values
+    self.assertTrue(result['matched'])
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.001s
+
+FAILED (failures=1)

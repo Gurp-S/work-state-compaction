@@ -1,0 +1,10 @@
+{
+  "path": "D:\\lea\\XenYon code\\wsc\\versions\\t3-entry-owned-cleanup-startup-admission-v1.62-delta.zip",
+  "bytes": 211671,
+  "sha256": "1adffce1eddd949f75d42b2921cdd8c75d2a07828deda7bf9a3f950e2170a618",
+  "files": 99,
+  "base": "recovery-metadata-audit-t3-prerequisites-v1.61-delta.zip",
+  "new_model_turns": 0,
+  "native_admission_passed": false,
+  "runtime_binaries_duplicated": false
+}

@@ -1,0 +1,12 @@
+{
+  "path": "D:\\lea\\XenYon code\\wsc\\versions\\t3-first-controls-startup-scoring-findings-v1.63-delta.zip",
+  "bytes": 682936,
+  "sha256": "b6aadf3594b65d42a2c86e144985e707c5087b68833e0eaba73052d8bbc88ed2",
+  "files": 92,
+  "base": "t3-entry-owned-cleanup-startup-admission-v1.62-delta.zip",
+  "new_model_turns": 2,
+  "known_tokens": 673295,
+  "known_responses": 17,
+  "unknown_usage_retained": true,
+  "runtime_binaries_duplicated": false
+}

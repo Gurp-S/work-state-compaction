@@ -1,0 +1,14 @@
+test_committing_caller_transaction_is_detected (test_matrix_t1_t3_acceptors.TaskAcceptorChecks.test_committing_caller_transaction_is_detected) ... ok
+test_deleting_archived_rows_is_detected (test_matrix_t1_t3_acceptors.TaskAcceptorChecks.test_deleting_archived_rows_is_detected) ... ok
+test_global_identity_instead_of_tenant_identity_is_detected (test_matrix_t1_t3_acceptors.TaskAcceptorChecks.test_global_identity_instead_of_tenant_identity_is_detected) ... ok
+test_ignoring_declared_version_is_detected (test_matrix_t1_t3_acceptors.TaskAcceptorChecks.test_ignoring_declared_version_is_detected) ... ok
+test_migration_reference_passes_all_ten_cases (test_matrix_t1_t3_acceptors.TaskAcceptorChecks.test_migration_reference_passes_all_ten_cases) ... ok
+test_replay_reset_of_row_versions_is_detected (test_matrix_t1_t3_acceptors.TaskAcceptorChecks.test_replay_reset_of_row_versions_is_detected) ... ok
+test_retry_reference_passes_all_eleven_cases (test_matrix_t1_t3_acceptors.TaskAcceptorChecks.test_retry_reference_passes_all_eleven_cases) ... ok
+test_retry_status_error_is_detected (test_matrix_t1_t3_acceptors.TaskAcceptorChecks.test_retry_status_error_is_detected) ... ok
+test_starters_fail_but_every_check_still_runs (test_matrix_t1_t3_acceptors.TaskAcceptorChecks.test_starters_fail_but_every_check_still_runs) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.052s
+
+OK

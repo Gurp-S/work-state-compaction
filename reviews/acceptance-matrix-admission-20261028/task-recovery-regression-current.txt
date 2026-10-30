@@ -1,0 +1,14 @@
+test_closed_session_rejects_stage_and_callback_without_io (test_native_task_recovery.OrdinaryTaskRecoveryChecks.test_closed_session_rejects_stage_and_callback_without_io) ... ok
+test_dispatch_reuses_reader_and_cumulative_budget_across_turns (test_native_task_recovery.OrdinaryTaskRecoveryChecks.test_dispatch_reuses_reader_and_cumulative_budget_across_turns) ... ok
+test_invalid_reader_never_opens_actor (test_native_task_recovery.OrdinaryTaskRecoveryChecks.test_invalid_reader_never_opens_actor) ... ok
+test_owner_change_during_admission_rejects_before_dispatch (test_native_task_recovery.OrdinaryTaskRecoveryChecks.test_owner_change_during_admission_rejects_before_dispatch) ... ok
+test_post_open_binding_failure_closes_session (test_native_task_recovery.OrdinaryTaskRecoveryChecks.test_post_open_binding_failure_closes_session) ... ok
+test_registration_keeps_ordinary_runtime_and_original_schema (test_native_task_recovery.OrdinaryTaskRecoveryChecks.test_registration_keeps_ordinary_runtime_and_original_schema) ... ok
+test_request_schema_and_limits_are_passed_unchanged (test_native_task_recovery.OrdinaryTaskRecoveryChecks.test_request_schema_and_limits_are_passed_unchanged) ... ok
+test_unknown_or_denied_capacity_never_executes (test_native_task_recovery.OrdinaryTaskRecoveryChecks.test_unknown_or_denied_capacity_never_executes) ... ok
+test_wrong_callback_owner_is_rejected (test_native_task_recovery.OrdinaryTaskRecoveryChecks.test_wrong_callback_owner_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.253s
+
+OK

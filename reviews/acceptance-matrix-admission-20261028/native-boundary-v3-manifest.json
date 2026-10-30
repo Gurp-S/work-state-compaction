@@ -1,0 +1,22 @@
+{
+  "root": "D:\\agent-task-runs\\wsc-matrix-native-boundary-20261028-v3",
+  "files": {
+    "cleanup.json": "677e0408c6f71d9fb4f596db8ade23d918009d411a83fd3f8d496bd8be19b6bd",
+    "error.json": "8328d7eadb2823c1d62e24b71084588ce1ca0ccbe7ec403de97f69b35721ce9d",
+    "owned-cleanup.json": "677e0408c6f71d9fb4f596db8ade23d918009d411a83fd3f8d496bd8be19b6bd",
+    "registration.json": "beb32f74bf8b7e8a7e9406046b058bf53ff4fd15bae653c349e035c8d4442381",
+    "coordinator-private/canary.txt": "733cd343e6b2cb99448a92b3dd69c0f3173d0ab6823892c0b3c89e735facb90b",
+    "coordinator-private/native/after-import.jsonl": "fb9a3f61bc5d8af03ef88c1783b779982b8312776a693ded80dfd75bda2cfd5d",
+    "coordinator-private/native/bootstrap.jsonl": "cde20575f0412ce03d398d62d97aef120ed85a0a177931def048807ed339480c",
+    "coordinator-private/native/history-readiness.json": "b4f626a3c449c0475138a6596cc1df20c4d6fcaf99d40e234df40b57e5a8f833",
+    "coordinator-private/native/host-permissions.json": "ea4dc8069fc9da2afba505e3c1f22db15e997ada7d2d3a437333bafbcd32f04f",
+    "coordinator-private/native/initialized.json": "0f376d0057d385e35b2fc60dbf73b267e97b01da6fef9250880b674db052cf6f",
+    "coordinator-private/native/opened.json": "7fd32edda08c97852d1b567f08d8310ebdb0a68bdbe5c09589471386e0616644",
+    "coordinator-private/native/process-cleanup.json": "677e0408c6f71d9fb4f596db8ade23d918009d411a83fd3f8d496bd8be19b6bd",
+    "coordinator-private/native/stderr.txt": "51ea529ee59de296fce1e7201c6d7871c4fdbb66c8140446c3d9e2807010707d",
+    "other-arm/canary.txt": "4a53fae015c6018b125e8b0e67eb3cc50a96e5264255a70a90f8424955474a04",
+    "public-workspace/canary.txt": "62b545005d77a0e31e865d36432b88c7866f2d4f5ee57c4bb06da5c5b29147e4",
+    "public-workspace/retry_client.py": "4f860f68b55d8513fa21ae0ad1678a2de3ef9cc53c3ba74926dc62eda0901570",
+    "public-workspace/test_smoke.py": "407d59664538c9a4e97327a70c73d7bf35532df79c832ff5badd10c7fe7629c7"
+  }
+}

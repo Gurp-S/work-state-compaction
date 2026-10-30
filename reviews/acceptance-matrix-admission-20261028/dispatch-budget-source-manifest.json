@@ -1,0 +1,10 @@
+{
+  "scope": "Budget and permission sidecars; no actual model dispatch admission.",
+  "files": {
+    "wsc/benchmarks/acceptance_matrix_v1/dispatch_budget.py": "00dad792951eb2556366fc69ea21b3ac71c38215422d2ea5d1d6abd99eaed3b8",
+    "wsc/benchmarks/acceptance_matrix_v1/permissions.py": "d2037da76d2027d6211f6f5e0f4bab622641d678880932b5737535c5ed6bf06a",
+    "wsc/experiments/native_application_budget.py": "7044ffea3767314db2980d76f4adec92c00959a94ebff0b561b8c12a6ce68dc1",
+    "wsc/tests/test_matrix_dispatch_budget.py": "e49207ecbf99335859f0c6300236824e56912d384e1f6aa0dc27ff827b90628b",
+    "wsc/validation/probe_matrix_read_isolation.py": "bbdcc7c9aa2bd3626a4f3b76a163536b5273113a765656a4ba085beb6c1840e0"
+  }
+}

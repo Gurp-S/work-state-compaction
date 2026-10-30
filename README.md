@@ -122,6 +122,12 @@ wsc --db state.db --session sample --workspace . status
 
 接口还在演进，不保证向后兼容。仍在逐步实验中，暂不建议直接接生产链路。
 
+## 工具大结果外置（独立旁路）
+
+`wsc.tool_results` 提供完整UTF-8文本外置、七类按类型概览、精确分页查询及同步/异步工具包装器。SDK显式启用，独立CLI为 `wsc-results`；未自动替换原生Codex或其他宿主工具结果。[接入、默认限额和验证说明](reviews/runtime-tool-results-v1.md)。
+
+`wsc.context_runtime.ContextRuntime` 将原来源与外置结果绑定到统一 `WSCContext` 查询，并复用现有呈现回执、连续检查点发布及对账。原文、视图和模型理解分开，默认不自动触发模型摘要。[统一生命周期与原生宿主旁路](reviews/context-lifecycle-v1.md)。
+
 ## License
 
 MIT

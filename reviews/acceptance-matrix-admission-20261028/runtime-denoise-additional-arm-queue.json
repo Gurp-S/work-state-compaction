@@ -1,0 +1,83 @@
+{
+  "status": "queued_after_current_projection_continuation_results",
+  "additive_only": true,
+  "rerun_previous_valid_arms": false,
+  "new_model_calls": 0,
+  "new_budget_allocated": false,
+  "dispatch_admitted": false,
+  "dependencies": {
+    "current_three_Bprime_C_pairs": "complete",
+    "hot_projection_zero_model_qualification": "complete",
+    "old_new_projection_model_continuation": "pending",
+    "native_runtime_result_transform_and_raw_recovery": "unqualified"
+  },
+  "new_arm": {
+    "name": "C_parent_plus_runtime_denoise",
+    "parent": "Freeze qualified C configuration after pending continuation results, before denoise outcomes.",
+    "intended_only_difference": "Runtime tool-result denoise flag",
+    "planned_repetitions": 3,
+    "max_parallel": 2,
+    "proposed_per_run_limits": {
+      "max_total_tokens": 500000,
+      "max_responses": 14,
+      "max_seconds": 800
+    },
+    "budget_claim": null
+  },
+  "reusable_results": [
+    {
+      "root": "D:\\agent-task-runs\\wsc-matrix-runtime-followup-20261029-v1",
+      "registration_sha256": "7bf5ab83ca62444904c7ee10a35cd610e5a39793dde5f1827508846cda70fc16",
+      "closure_sha256": "4399b457ed07547a2ae857603de50d8ef181d9947f9dc12112587253c8952e51",
+      "ledger_sha256": "1ac1de17383bafbc7583f13e4619e62ae321983de7ac1cdfa2ba10c0a5134965"
+    },
+    {
+      "root": "D:\\agent-task-runs\\wsc-matrix-two-repetitions-20261029-v1",
+      "registration_sha256": "b8411cca5641763ec8daa488cb241b18af429543320d6df12ac2379fa898031e",
+      "closure_sha256": "d95f75fe231f59c3866f6101304970e285e4e7669aaaccd081d9ae21dd47f5dc",
+      "ledger_sha256": "832ac35a5190dca8766e2995eeb0df1f44c81dcd1ea395c96c4e48ff43c51aff"
+    }
+  ],
+  "implementation_sha256": {
+    "D:\\lea\\XenYon code\\wsc\\src\\wsc\\denoise\\collapse_stack.py": "3b5d7f073c04a9f44a4c3d1323411ca97eb82469f41598ad02522118b1fb1c73",
+    "D:\\lea\\XenYon code\\wsc\\src\\wsc\\denoise\\dedupe_identical.py": "a6db69863d37501275389beae095a3d68bb8e36e1f278fa1c144de2698e14e89",
+    "D:\\lea\\XenYon code\\wsc\\src\\wsc\\denoise\\dedupe_reads.py": "c319d8a49526d38cbfc23ce6fe368d639e51ba959135737edba96079342c14a7",
+    "D:\\lea\\XenYon code\\wsc\\src\\wsc\\denoise\\diff_digest.py": "a625a7e69c12912607dc976e310633ab061011a54ca0b922939302361d5f8c1c",
+    "D:\\lea\\XenYon code\\wsc\\src\\wsc\\denoise\\outline_json.py": "1afc0bc5fd79e300ba8ec592498c0fe5b7cd0d1bb98508bc5101442502949fa9",
+    "D:\\lea\\XenYon code\\wsc\\src\\wsc\\denoise\\registry.py": "6c913b561242dd6ee6818b41afa7e875d5faa6bd0521111d8155dee22412a4ad",
+    "D:\\lea\\XenYon code\\wsc\\src\\wsc\\denoise\\report.py": "2b84a58ce5371b552a0b12f37b2ec564f679e684fb19b4021587ea81e2cf67cc",
+    "D:\\lea\\XenYon code\\wsc\\src\\wsc\\denoise\\strip_noise_lines.py": "d57d5dfba50b3511d76a8d189b3404782f23fe5e9d7dc5c2fb54e6f5c2987809",
+    "D:\\lea\\XenYon code\\wsc\\src\\wsc\\denoise\\truncate_head_tail.py": "f0a3c70be9b4de9843d0861d3fdf1d712e78b8404bb6b43a8e3daff912197c6b",
+    "D:\\lea\\XenYon code\\wsc\\src\\wsc\\denoise\\verify.py": "7c2e327eb43422255725f485c39dd956a10d4c27d057fd47067990361e3ff1f6",
+    "D:\\lea\\XenYon code\\wsc\\src\\wsc\\denoise\\__init__.py": "812906a42f6b0a012ea67e1d51d6dd96dd63c8095d52b20edcd697679c7510da",
+    "D:\\lea\\XenYon code\\dsh-wsc\\engine.js": "7c05d93ab55b59b61e8a0e36429137df45e4f3d2072b6df60813ef4c08f4a388",
+    "D:\\lea\\XenYon code\\dsh-wsc\\lib\\denoise.js": "508e07bc636ffd15335695ca6e6a1f97cdd6c81016ce4274b06d5e2f24c599f8",
+    "D:\\lea\\XenYon code\\python\\tools\\bash_tool\\output_view.py": "3815272b6e7093122717e660d3b225dab5aa43d3ac39da51792b332f480e4637",
+    "D:\\lea\\XenYon code\\python\\tools\\bash_tool\\terminal_ops.py": "154580d55c65cbc6fca6933c35f29b4832a63ff02d8e57de5f68502d406281fb",
+    "D:\\lea\\XenYon code\\wsc\\reviews\\runtime-denoise-additional-arm-plan.md": "4a32fd96aa2282ee4049537e3d892a5eeb86e92a4aac9f72d0230ea19fc02432"
+  },
+  "protocol_sha256": {
+    "D:\\agent-task-runs\\wsc-runtime-denoise-admission-20261029-v1\\schema\\ClientRequest.json": "74752dc1fbc9046c3dde0707bfaa915e7bd1213266b3be49270caae3791b9e4b",
+    "D:\\agent-task-runs\\wsc-runtime-denoise-admission-20261029-v1\\schema\\DynamicToolCallResponse.json": "abb082cad67f11fcc98ba75f2eff75d7d1723af0c657655329b83ff160451a02",
+    "D:\\agent-task-runs\\wsc-runtime-denoise-admission-20261029-v1\\schema\\v2\\TurnStartParams.json": "f671d01c24995e99fcc110862ff3251c26d334fba212c7dc12857fb939506e47",
+    "D:\\agent-task-runs\\wsc-runtime-denoise-admission-20261029-v1\\schema\\v2\\HooksListResponse.json": "bdbfdff0bd38bf3fb6d8d37d1ef740cd2f60c5de5dca930da3b0640b1e644ee1",
+    "D:\\agent-task-runs\\wsc-runtime-denoise-admission-20261029-v1\\schema\\v2\\HookCompletedNotification.json": "79242f3007d469bbe6eb6e314ff1d9bb76c242ce6fb271ac7d8a4d2d4d3d7a9b"
+  },
+  "executable_sha256": "5c1b55966bf9f757dcbf00065c9a6cb862ead55d34b015f1be1939ff18e43943",
+  "acceptance": {
+    "code_checks": 11,
+    "structured_assertions": 5,
+    "no_extra_LLM_judge": true,
+    "constraints_may_not_increase": true,
+    "raw_receipts_and_call_identity_unchanged": true,
+    "full_raw_recovery_required": true,
+    "unknown_or_error_or_read_bypass": true
+  },
+  "limitations": [
+    "Existing 50 percent number is synthetic bytes, not model tokens or task success.",
+    "Current native transport does not implement an ordinary-command result transform.",
+    "Current CLI exposes hook metadata; replacement semantics and timing still need qualification.",
+    "Changing harness or tools can invalidate strict reuse; retain old results and scope comparison explicitly.",
+    "Historical replay is not a live runtime experiment."
+  ]
+}

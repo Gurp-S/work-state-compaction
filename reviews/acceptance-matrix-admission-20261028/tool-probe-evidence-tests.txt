@@ -1,0 +1,9 @@
+test_exact_actual_tool_output_is_accepted (test_matrix_tool_probe_evidence.ToolProbeEvidenceChecks.test_exact_actual_tool_output_is_accepted) ... ok
+test_missing_file_and_wrong_paths_do_not_prove_denial (test_matrix_tool_probe_evidence.ToolProbeEvidenceChecks.test_missing_file_and_wrong_paths_do_not_prove_denial) ... ok
+test_model_final_self_report_is_not_tool_evidence (test_matrix_tool_probe_evidence.ToolProbeEvidenceChecks.test_model_final_self_report_is_not_tool_evidence) ... ok
+test_native_custom_tool_result_is_accepted_too (test_matrix_tool_probe_evidence.ToolProbeEvidenceChecks.test_native_custom_tool_result_is_accepted_too) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.014s
+
+OK

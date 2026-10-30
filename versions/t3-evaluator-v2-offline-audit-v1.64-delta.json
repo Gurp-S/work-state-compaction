@@ -1,0 +1,13 @@
+{
+  "path": "D:\\lea\\XenYon code\\wsc\\versions\\t3-evaluator-v2-offline-audit-v1.64-delta.zip",
+  "bytes": 115493,
+  "sha256": "319444fbeb14fa74170cd4193c32dd0e66814f332613b9da18b70efee6ef7825",
+  "files": 15,
+  "base": "t3-first-controls-startup-scoring-findings-v1.63-delta.zip",
+  "new_model_calls": 0,
+  "known_campaign_tokens_lower_bound": 5080960,
+  "known_campaign_response_receipts": 141,
+  "unknown_usage_retained": true,
+  "history_dependency_qualified": false,
+  "runtime_binaries_duplicated": false
+}

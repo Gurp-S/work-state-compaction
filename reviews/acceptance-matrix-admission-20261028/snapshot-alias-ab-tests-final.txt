@@ -1,0 +1,9 @@
+test_every_new_displayed_handle_recovers_its_exact_source (test_native_snapshot_aliases.SnapshotAliasChecks.test_every_new_displayed_handle_recovers_its_exact_source) ... ok
+test_existing_legacy_export_still_expands_without_rewriting (test_native_snapshot_aliases.SnapshotAliasChecks.test_existing_legacy_export_still_expands_without_rewriting) ... ok
+test_old_dense_ids_reproduce_failure_and_wrong_source (test_native_snapshot_aliases.SnapshotAliasChecks.test_old_dense_ids_reproduce_failure_and_wrong_source) ... ok
+test_same_source_alias_is_stable_across_different_selections (test_native_snapshot_aliases.SnapshotAliasChecks.test_same_source_alias_is_stable_across_different_selections) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.393s
+
+OK

@@ -1,0 +1,8 @@
+test_call_identity_is_scoped_to_thread_and_turn (test_source_tool_turn_scope.SourceTurnScopeChecks.test_call_identity_is_scoped_to_thread_and_turn) ... ok
+test_new_turn_checks_permission_instead_of_replaying_old_reply (test_source_tool_turn_scope.SourceTurnScopeChecks.test_new_turn_checks_permission_instead_of_replaying_old_reply) ... ok
+test_new_turn_does_not_reset_total_callback_budget (test_source_tool_turn_scope.SourceTurnScopeChecks.test_new_turn_does_not_reset_total_callback_budget) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.058s
+
+OK

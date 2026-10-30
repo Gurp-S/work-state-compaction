@@ -1,0 +1,7 @@
+﻿pair,arm,uncached_input_tokens,cached_input_tokens,output_tokens,total_tokens,responses,seconds,usage_complete
+r1,Bprime,18485,12416,1716,32617,1,37.04699999999957,True
+r1,C,23674,0,1893,25567,1,51.84400000000005,True
+r2,Bprime,18652,12416,1907,32975,1,39.14099999999962,True
+r2,C,23841,0,2537,26378,1,75.75,True
+r3,Bprime,31068,0,1748,32816,1,37.125,True
+r3,C,23844,0,2889,26733,1,77.71899999999914,True

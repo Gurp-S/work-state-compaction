@@ -1,0 +1,14 @@
+{
+  "path": "D:\\lea\\XenYon code\\wsc\\versions\\context-lifecycle-host-port-v1.69-delta.zip",
+  "bytes": 315942,
+  "sha256": "e91f2df33ecde62522fc17e390505efde14bb8938134b7a38c84f15201c0e651",
+  "files": 69,
+  "base": "runtime-tool-results-v1.68-delta.zip",
+  "checks_passed": 58,
+  "model_calls": 0,
+  "verified_source_files": 75,
+  "native_original_bytes": 68890,
+  "native_view_bytes": 1875,
+  "actual_token_savings": null,
+  "scope": "Opt-in context lifecycle and no-model native host port; no claim of model quality or native atomic installation"
+}
