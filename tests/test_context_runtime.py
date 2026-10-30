@@ -108,8 +108,8 @@ class ContextRuntimeChecks(TestCase):
         package=self.core.package(op)
         self.assertEqual(self.items[0],package['items'][0])
         self.assertNotIn('x'*1000,encode(package['items']))
-        self.assertEqual(self.items[-1],json.loads(Path(package['evidence'][event.id]['file_path']).read_text()))
-        self.assertEqual(raw,Path(package['evidence'][event.id]['readable_path']).read_text())
+        self.assertEqual(self.items[-1],json.loads(Path(package['evidence'][event.id]['file_path']).read_text(encoding='utf-8')))
+        self.assertEqual(raw,Path(package['evidence'][event.id]['readable_path']).read_text(encoding='utf-8'))
 
     def test_tail_keeps_call_identity_and_uses_recorded_view(self):
         first,_,_=self.result();snapshot=self.ctx.capture()

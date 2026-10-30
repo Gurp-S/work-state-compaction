@@ -41,7 +41,28 @@ class SnapshotSourceAccess:
                 self.aliases[key]=alias
             self.bound[alias]=identity;self.order.append(alias);self.seals[alias]=digest(row)
         self.calls=0;self.rows_verified=0;self.text_bytes_examined=0
+        self.ledger_key=snapshot.session_id
         self.lock=RLock()
+    def reset(self):
+        """Zero per-query counters so a reused reader keeps per-query budgets."""
+        with self.lock:
+            self._account()
+            self.calls=self.rows_verified=self.text_bytes_examined=0
+    def _account(self):
+        """Persist a finished query's spend, outside any read transaction.
+
+        Accounting runs after the read is over (reset is the query boundary), so
+        it never upgrades or nests the reader's transaction; a failure to record
+        spend cannot fail a read that already succeeded.
+        """
+        if not (self.calls or self.rows_verified or self.text_bytes_examined):return
+        from . import query_ledger
+        try:
+            with self.store.transaction() as db:
+                query_ledger.spend(db,self.ledger_key,calls=self.calls,
+                                   rows=self.rows_verified,text_bytes=self.text_bytes_examined)
+        except Exception:
+            pass
     def describe(self):
         return dict(operations=['read','find'],source_aliases='s<event seq>; original IDs also accepted',
             representation='Original producer public text; interpretation and current applicability remain unverified.',
@@ -49,7 +70,20 @@ class SnapshotSourceAccess:
             find='Case-sensitive exact literal; one first match per source; source order without ranking.',
             limits=vars(self.limits),snapshot_sources=len(self.order))
     def _begin(self):
-        require(self.calls<self.limits.max_calls,'source_access_call_budget_exhausted');self.calls+=1
+        require(self.calls<self.limits.max_calls,'source_access_call_budget_exhausted')
+        self._require_persisted()
+        self.calls+=1
+    def _require_persisted(self):
+        """A restart must not refill the cumulative budget."""
+        from . import query_ledger
+        try:
+            with self.store.transaction() as db:
+                seen=query_ledger.totals(db,self.ledger_key)
+        except Exception:
+            return
+        require(seen['calls']<self.limits.max_calls,'source_access_call_budget_exhausted')
+        require(seen['rows']<=self.limits.max_rows_total,'source_access_row_budget_exhausted')
+        require(seen['text_bytes']<=self.limits.max_text_bytes_total,'source_access_text_budget_exhausted')
     def _row(self,db,alias):
         require(self.rows_verified<self.limits.max_rows_total,'source_access_row_budget_exhausted')
         identity=self.bound[alias];authorize(self.store,self.access,identity)

@@ -146,6 +146,31 @@ class ResultStore:
         require(end==row[2],'tool_result_index_invalid')
         return dict(id=result_id,hash=row[0],meta=json.loads(row[1]),size=row[2],chunks=chunks,call_id=row[5])
 
+    def prior(self, call_id, digest_hex, meta):
+        """Read-only preview of capture(): same predecessor, no blob and no row."""
+        require(type(call_id) is str and 0 < len(call_id) <= 256, 'tool_result_call_invalid')
+        encoded = encode(meta); require(len(encoded.encode()) <= 16384, 'tool_result_metadata_limit')
+        with self.connect() as db:
+            old = db.execute('SELECT id,hash,meta FROM results WHERE call_id=?', (call_id,)).fetchone()
+            if old:
+                require(old[1:] == (digest_hex, encoded), 'tool_result_call_identity_conflict')
+                row = db.execute('SELECT id,meta FROM results WHERE hash=? AND id<? ORDER BY id DESC LIMIT 1',
+                                 (digest_hex, old[0])).fetchone()
+                return 'r' + str(old[0]), (dict(id='r' + str(row[0]), meta=json.loads(row[1])) if row else None)
+            row = db.execute('SELECT id,meta FROM results WHERE hash=? ORDER BY id DESC LIMIT 1',
+                             (digest_hex,)).fetchone()
+            nxt = db.execute('SELECT COALESCE(MAX(id),0)+1 FROM results').fetchone()[0]
+            return 'r' + str(nxt), (dict(id='r' + str(row[0]), meta=json.loads(row[1])) if row else None)
+
+    def find(self, call_id):
+        """Derived-index lookup by call identity; None when the row is absent."""
+        with self.connect() as db:
+            row = db.execute('SELECT id FROM results WHERE call_id=?', (call_id,)).fetchone()
+        return None if row is None else 'r' + str(row[0])
+
+    def text(self, record):
+        return b''.join(block for _, block in self.blocks(record)).decode('utf-8')
+
     def blocks(self, record, *, start=0, end=None):
         self._authorize(record['id']);end=record['size'] if end is None else end
         with self._file(record['hash'],record['size']) as f:

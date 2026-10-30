@@ -25,27 +25,33 @@ class ContextReferences:
               'result_id TEXT NOT NULL,data TEXT NOT NULL,seal TEXT NOT NULL,UNIQUE(store_binding,result_id))')
 
     def bind(self,source_id,result_id,view):
+        with self.core.store.transaction() as db:
+            return self.bind_in(db,source_id,result_id,view)
+
+    def bind_in(self,db,source_id,result_id,view):
+        """Binding inside a caller-owned transaction: event, binding and delivery
+        commit together, so a crash cannot leave a bound reference without its
+        source row."""
         record=self.results.store.record(result_id)
         require(view.get('external') is True and view.get('result_id')==result_id,'context_view_binding_mismatch')
         require(all(view.get(k)==v for k,v in record['meta'].items()),'context_result_metadata_changed')
         for _ in self.results.store.blocks(record):pass
-        with self.core.store.transaction() as db:
-            row=source_row(db,source_id);authorize(self.core.store,self.core.access,source_id)
-            require(row['kind']=='result' and row['call_id']==record['call_id'],'context_call_binding_mismatch')
-            require(not is_control_source(row),'context_control_projection_unavailable')
-            text=row['text'];require(isinstance(text,str),'context_source_text_unavailable')
-            h=sha256()
-            for i in range(0,len(text),16384):h.update(text[i:i+16384].encode('utf-8'))
-            require(h.hexdigest()==record['hash'],'context_original_text_mismatch')
-            raw=db.execute('SELECT digest FROM events WHERE id=?',(source_id,)).fetchone()[0]
-            value=dict(source_id=source_id,source_seq=row['seq'],source_seal=digest(row),event_digest=raw,call_id=row['call_id'],
-                       result_id=result_id,store_binding=self.store_binding,object_sha256=record['hash'],
-                       result_meta_digest=digest(record['meta']),visible_view=view)
-            value=json.loads(encode(value));encoded=encode(value)
-            old=db.execute('SELECT data FROM wsc_context_results_v1 WHERE source_id=?',(source_id,)).fetchone()
-            require(old is None or old[0]==encoded,'context_reference_identity_conflict')
-            if old is None:db.execute('INSERT INTO wsc_context_results_v1 VALUES (?,?,?,?,?)',
-                         (source_id,self.store_binding,result_id,encoded,digest(value)))
+        row=source_row(db,source_id);authorize(self.core.store,self.core.access,source_id)
+        require(row['kind']=='result' and row['call_id']==record['call_id'],'context_call_binding_mismatch')
+        require(not is_control_source(row),'context_control_projection_unavailable')
+        text=row['text'];require(isinstance(text,str),'context_source_text_unavailable')
+        h=sha256()
+        for i in range(0,len(text),16384):h.update(text[i:i+16384].encode('utf-8'))
+        require(h.hexdigest()==record['hash'],'context_original_text_mismatch')
+        raw=db.execute('SELECT digest FROM events WHERE id=?',(source_id,)).fetchone()[0]
+        value=dict(source_id=source_id,source_seq=row['seq'],source_seal=digest(row),event_digest=raw,call_id=row['call_id'],
+                   result_id=result_id,store_binding=self.store_binding,object_sha256=record['hash'],
+                   result_meta_digest=digest(record['meta']),visible_view=view)
+        value=json.loads(encode(value));encoded=encode(value)
+        old=db.execute('SELECT data FROM wsc_context_results_v1 WHERE source_id=?',(source_id,)).fetchone()
+        require(old is None or old[0]==encoded,'context_reference_identity_conflict')
+        if old is None:db.execute('INSERT INTO wsc_context_results_v1 VALUES (?,?,?,?,?)',
+                     (source_id,self.store_binding,result_id,encoded,digest(value)))
         return value
 
     def get(self,*,source_id=None,result_id=None):

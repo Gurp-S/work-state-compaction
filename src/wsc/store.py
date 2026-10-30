@@ -36,6 +36,22 @@ def getmeta(db: sqlite3.Connection, key: str):
     return json.loads(row[0]) if row else None
 
 
+def getmetas(db: sqlite3.Connection, keys) -> dict:
+    """Read several meta values in one statement instead of one query per key.
+
+    `status` used to issue five `getmeta` calls; the values live in one indexed
+    table, so one `IN` statement returns the same mapping without five round
+    trips through the connection.
+    """
+    keys = tuple(keys)
+    if not keys:
+        return {}
+    marks = ",".join("?" * len(keys))
+    rows = db.execute(f"SELECT key,value FROM meta WHERE key IN ({marks})", keys)
+    found = {key: json.loads(value) for key, value in rows}
+    return {key: found.get(key) for key in keys}
+
+
 def setmeta(db: sqlite3.Connection, key: str, value) -> None:
     db.execute("INSERT INTO meta VALUES (?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value",
                (key, encode(value)))

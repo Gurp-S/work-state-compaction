@@ -9,9 +9,10 @@ from uuid import uuid4
 from . import accounting, events, evidence, excerpts, understanding
 from .contracts import (AccessCheck, Event, Generated, GeneratorPort, Limits, Selection,
                         Snapshot, Understanding, Usage, digest, encode, require)
-from .store import Store, getmeta
+from .store import Store, getmeta, getmetas
 from .snapshots import semantic_writes_allowed, validate_snapshot
 from .projection import public_material, snapshot_binding
+from .material_v2 import MaterialView
 from .view_budget import admit_generation, mandatory_sources
 
 
@@ -68,18 +69,25 @@ class WSC:
                             tuple(prefix), tuple(understanding.all_records(db)))
 
     def material(self, snapshot: Snapshot) -> dict:
+        return self.material_view(snapshot).public()
+
+    def material_view(self, snapshot: Snapshot):
+        """Opt-in lazy projection: rows stay by reference until a page is asked for."""
         with self.store.transaction() as db:
             prefix = validate_snapshot(db, self.store, snapshot,indexed=self.indexed_queries)
             for row in prefix:
                 evidence.authorize(self.store, self.access, row["id"])
-            return {"session_id": snapshot.session_id, "source_boundary": snapshot.cut,
-                    **public_material(prefix, understanding.all_records(db))}
+            return MaterialView(prefix, understanding.all_records(db),
+                                session_id=snapshot.session_id, cut=snapshot.cut)
 
     def generate(self, snapshot: Snapshot, generator: GeneratorPort, *, producer: str,
                  limits: Limits = Limits(), include_selection_facts: bool = False) -> str:
-        material = self.material(snapshot)
-        require(len(encode(material).encode("utf-8")) <= limits.max_material_bytes,
+        view = self.material_view(snapshot)
+        require(view.text_bytes() <= limits.max_material_bytes,
                 "generation_material_byte_budget_exhausted")
+        require(view.byte_size() <= limits.max_material_bytes,
+                "generation_material_byte_budget_exhausted")
+        material = view.public()
         phase = "generation:" + digest({"source": snapshot.source_digest,
                                         "generation": snapshot.generation})
         attempt = uuid4().hex
@@ -199,8 +207,23 @@ class WSC:
 
     def status(self) -> dict:
         with self.store.connect() as db:
-            return {**{key: getmeta(db, key) for key in
-                       ("binding", "mode", "generation", "cursor", "head")},
+            return {**getmetas(db, ("binding", "mode", "generation", "cursor", "head")),
                     "source_count": db.execute("SELECT COUNT(*) FROM events").fetchone()[0],
                     "operations": [dict(r) for r in db.execute("SELECT id,kind,state FROM operations")],
                     "usage": accounting.summary(db)}
+
+    def metrics(self) -> dict:
+        """One call that reads every counter this store and process expose.
+
+        ``usage`` totals are durable; ``io_bytes_read`` is the live counter of
+        the configured :class:`ResourceIO`; ``operations`` counts persisted
+        operations. Keeping the assembly here means a new counter is added once
+        instead of being rediscovered by each caller.
+        """
+        with self.store.connect() as db:
+            usage = accounting.summary(db)["totals"]
+            operations = db.execute("SELECT COUNT(*) FROM operations").fetchone()[0]
+        io = self.resource_io
+        return {"usage": usage,
+                "io_bytes_read": int(getattr(io, "bytes_read", 0)) if io is not None else 0,
+                "operations": operations}

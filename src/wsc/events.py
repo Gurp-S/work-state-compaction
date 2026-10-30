@@ -8,6 +8,7 @@ import json
 from .contracts import Event, digest, encode, identifier, require
 from .control_sources import is_control_source
 from .store import getmeta, setmeta
+from . import integrity
 
 
 def rows(db, through: int | None = None) -> list[dict]:
@@ -63,6 +64,8 @@ def ingest(db, events: list[Event]) -> list[str]:
         if is_control_source(data):
             setmeta(db, "control_epoch", getmeta(db, "control_epoch") + 1)
         ids.append(event.id)
+    if integrity.installed(db):
+        integrity.advance(db)
     return ids
 
 
@@ -77,6 +80,8 @@ def presented(db, request_id: str, source_ids: tuple[str, ...], receiver: str) -
         require(old[0] == encode(data), "presentation_identity_conflict")
     else:
         db.execute("INSERT INTO presentations VALUES (?,?)", (request_id, encode(data)))
+    if integrity.receipts_installed(db):
+        integrity.advance_receipts(db)
 
 
 def safe_boundary(db, cut: int, *, indexed=False, all_rows=None) -> list[dict]:
@@ -87,13 +92,16 @@ def safe_boundary(db, cut: int, *, indexed=False, all_rows=None) -> list[dict]:
         return scoped_boundary(db, cut, read_prefix=lambda database, bound: all_rows[:bound])
     require(type(cut) is int and cut > 0 and cut >= getmeta(db, "cursor"), "invalid_fold_boundary")
     if all_rows is None:
-        all_rows = rows(db)
+        all_rows = rows(db, through=cut)
     require(cut <= len(all_rows), "source_boundary_missing")
     prefix = all_rows[:cut]
     pending = set()
     delivered = set()
-    for receipt in db.execute("SELECT data FROM presentations"):
-        delivered.update(json.loads(receipt[0])["source_ids"])
+    if integrity.receipts_installed(db):
+        delivered = integrity.delivered(db)
+    else:
+        for receipt in db.execute("SELECT data FROM presentations"):
+            delivered.update(json.loads(receipt[0])["source_ids"])
     for row in prefix:
         if row["kind"] == "call":
             pending.add(row["call_id"])

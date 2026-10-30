@@ -1,5 +1,6 @@
 """Explicit runtime port for externalized tool text; no implicit host interception."""
 from dataclasses import dataclass
+from hashlib import sha256
 import json
 import sqlite3
 
@@ -36,6 +37,7 @@ class ToolText:
     observed_at:str|None=None
     role:str='tool'
     recovery:bool=False
+    control:str|None=None
 
 
 class RuntimeResults:
@@ -44,35 +46,18 @@ class RuntimeResults:
     def recovery_descriptor(self,result_id):
         return dict(result_id=result_id,operations=['read','read_lines','find','json_pointer'])
 
-    def present(self,call_id,value:ToolText):
-        require(isinstance(value,ToolText) and type(value.text) is str,'tool_result_text_required')
-        require(value.kind in KINDS and value.status in {'unknown','success','error','cancelled'},'tool_result_metadata_invalid')
-        require(value.exit_code is None or type(value.exit_code) is int,'tool_result_metadata_invalid')
-        require(value.timed_out is None or type(value.timed_out) is bool,'tool_result_metadata_invalid')
-        require(value.source is None or type(value.source) is dict,'tool_result_metadata_invalid')
-        require(value.facts is None or type(value.facts) is dict,'tool_result_metadata_invalid')
-        execution=('timeout' if value.timed_out else 'nonzero_exit' if value.exit_code not in (None,0)
-                   else 'reported_error' if value.status=='error' else 'cancelled' if value.status=='cancelled'
-                   else 'exit_zero' if value.exit_code==0 else 'unknown')
-        meta=dict(kind=value.kind,status=value.status,exit_code=value.exit_code,timed_out=value.timed_out,
-                  source=value.source,facts=value.facts,observed_at=value.observed_at,execution_status=execution)
-        meta=json.loads(encode(meta))  # Freeze producer metadata; never retain mutable aliases.
-        original=dict(external=False,complete=True,text=value.text,**meta,recovery=value.recovery)
-        if not self.policy.enabled or value.recovery or value.role in {'system','developer','user'}:return original
-        size=sum(len(value.text[i:i+16384].encode('utf-8')) for i in range(0,len(value.text),16384))
-        if size<=self.policy.externalize_bytes:return original
-        try:rid,prior,created=self.store.capture(call_id,value.text,meta)
-        except (OSError,sqlite3.Error) as error:
-            return {**original,'externalization_error':type(error).__name__}
-        except WSCError as error:
-            if str(error)=='tool_result_call_identity_conflict':raise
-            return {**original,'externalization_error':str(error)}
+    def _scan(self,text):
+        h=sha256();size=0
+        for i in range(0,len(text),16384):
+            raw=text[i:i+16384].encode('utf-8');h.update(raw);size+=len(raw)
+        return h.hexdigest(),size
+
+    def _view(self,rid,text,kind,meta,prior,size):
         result=dict(result_id=rid,external=True,complete=False,original_bytes=size,**meta,
-                    text='',rules=[],notes=[],
-                    recovery=self.recovery_descriptor(rid))
+                    text='',rules=[],notes=[],recovery=self.recovery_descriptor(rid))
         budget=self.policy.summary_bytes-len(encode(result).encode('utf-8'))-256
-        if budget<64:return {**original,'externalization_note':'metadata_exceeds_summary_budget'}
-        view,rules,notes=project(value.text,value.kind,self.policy.rules,budget,
+        if budget<64:return None,'metadata_exceeds_summary_budget'
+        view,rules,notes=project(text,kind,self.policy.rules,budget,
                                 self.policy.max_json_bytes,prior,meta['source'],original_bytes=size,
                                 max_transform_bytes=self.policy.max_transform_bytes)
         result.update(text=view,rules=rules,notes=notes)
@@ -90,8 +75,56 @@ class RuntimeResults:
         # Metadata and references count too. Oversized facts are not silently
         # removed to make a nominal summary fit.
         if len(encode(result).encode('utf-8'))>self.policy.summary_bytes or len(encode(result).encode('utf-8'))>=size:
-            return {**original,'externalization_note':'no_bounded_smaller_view'}
-        return result
+            return None,'no_bounded_smaller_view'
+        return result,None
+
+    def plan(self,call_id,value:ToolText):
+        """Decide and project before any durable side effect.
+
+        No blob, no result row and no call_id claim when the projection would not
+        actually be smaller than the original text.
+        """
+        require(isinstance(value,ToolText) and type(value.text) is str,'tool_result_text_required')
+        require(value.kind in KINDS and value.status in {'unknown','success','error','cancelled'},'tool_result_metadata_invalid')
+        require(value.exit_code is None or type(value.exit_code) is int,'tool_result_metadata_invalid')
+        require(value.timed_out is None or type(value.timed_out) is bool,'tool_result_metadata_invalid')
+        require(value.source is None or type(value.source) is dict,'tool_result_metadata_invalid')
+        require(value.facts is None or type(value.facts) is dict,'tool_result_metadata_invalid')
+        execution=('timeout' if value.timed_out else 'nonzero_exit' if value.exit_code not in (None,0)
+                   else 'reported_error' if value.status=='error' else 'cancelled' if value.status=='cancelled'
+                   else 'exit_zero' if value.exit_code==0 else 'unknown')
+        meta=dict(kind=value.kind,status=value.status,exit_code=value.exit_code,timed_out=value.timed_out,
+                  source=value.source,facts=value.facts,observed_at=value.observed_at,execution_status=execution)
+        meta=json.loads(encode(meta))  # Freeze producer metadata; never retain mutable aliases.
+        original=dict(external=False,complete=True,text=value.text,**meta,recovery=value.recovery)
+        if not self.policy.enabled or value.recovery or value.control is not None or value.role in {'system','developer','user'}:return original,None
+        digest_hex,size=self._scan(value.text)
+        if size<=self.policy.externalize_bytes:return original,None
+        try:rid,prior=self.store.prior(call_id,digest_hex,meta)
+        except (OSError,sqlite3.Error) as error:return {**original,'externalization_error':type(error).__name__},None
+        view,note=self._view(rid,value.text,value.kind,meta,prior,size)
+        if view is None:return {**original,'externalization_note':note},None
+        return original,dict(call_id=call_id,text=value.text,kind=value.kind,meta=meta,
+                             digest=digest_hex,size=size,prior=prior,view=view)
+
+    def materialize(self,plan):
+        rid,prior,created=self.store.capture(plan['call_id'],plan['text'],plan['meta'])
+        view=plan['view']
+        if rid!=view['result_id']:
+            view,note=self._view(rid,plan['text'],plan['kind'],plan['meta'],prior,plan['size'])
+            if view is None:raise WSCError('tool_result_view_not_smaller')
+        return view,rid,created
+
+    def present(self,call_id,value:ToolText):
+        original,plan=self.plan(call_id,value)
+        if plan is None:return original
+        try:view,_,_=self.materialize(plan)
+        except (OSError,sqlite3.Error) as error:
+            return {**original,'externalization_error':type(error).__name__}
+        except WSCError as error:
+            if str(error)=='tool_result_call_identity_conflict':raise
+            return {**original,'externalization_error':str(error)}
+        return view
 
     def call(self,call_id,tool,*args,**kwargs):
         return self.present(call_id,tool(*args,**kwargs))

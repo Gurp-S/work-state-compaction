@@ -6,9 +6,11 @@ import sqlite3
 import sys
 
 from . import Limits, Store, WSC, WSCError
+from .redaction import redact
 from .adapters.codex import CodexCheckpointAdapter
 from .contracts import encode
-from .generation import JsonCommandGenerator, selection_from_json
+from .generation import selection_from_json
+from .generation_api import build_generator
 
 
 def load(path):
@@ -92,12 +94,12 @@ def main(argv=None):
                                     producer=args.producer, limits=limits)
             else:
                 if args.bounded_command:
-                    from .bounded_generation import BoundedJsonCommandGenerator
-                    generator=BoundedJsonCommandGenerator(load(args.command_json),max_output_bytes=args.max_output_bytes,max_stderr_bytes=args.max_stderr_bytes)
+                    generator=build_generator('bounded-json-command',load(args.command_json),
+                        max_output_bytes=args.max_output_bytes,max_stderr_bytes=args.max_stderr_bytes)
                 else:
                     require_default=args.max_output_bytes==1048576 and args.max_stderr_bytes==65536
                     if not require_default:raise WSCError('generation_live_limits_require_bounded_command')
-                    generator=JsonCommandGenerator(load(args.command_json))
+                    generator=build_generator('json-command',load(args.command_json))
                 view = core.generate(snapshot, generator,
                                      producer=args.producer, limits=limits)
             result = {"view_id": view, "installation": "not_started"}
@@ -120,7 +122,8 @@ def main(argv=None):
         return 0
     except (WSCError, OSError, ValueError, KeyError, TypeError, sqlite3.Error) as exc:
         # No subprocess stderr, source content or instructions in error text.
-        message = str(exc) if isinstance(exc, WSCError) else type(exc).__name__
+        message = redact(str(exc), roots=(getattr(args, "workspace", None),)) \
+            if isinstance(exc, WSCError) else type(exc).__name__
         print(encode({"error": message}), file=sys.stderr)
         return 2
 

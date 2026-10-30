@@ -23,7 +23,7 @@ class ScopedQueryTests(unittest.TestCase):
             a=self.old.capture(cut=2)
         with patch('wsc.events.sha256',wraps=events.sha256) as fast:
             b=self.fast.capture(cut=2)
-        self.assertEqual(a,b);self.assertEqual(52,old.call_count);self.assertEqual(2,fast.call_count)
+        self.assertEqual(a,b);self.assertEqual(2,old.call_count);self.assertEqual(2,fast.call_count)
     def test_projection_tracks_updates_deletes_and_duplicate_receipts(self):
         self.fast.capture(cut=2)
         self.old.presented('p2',('result',),receiver='fixture')

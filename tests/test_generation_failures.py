@@ -50,7 +50,7 @@ class GenerationFailureTests(unittest.TestCase):
         path = self.root / "argv.json"
         path.write_text(json.dumps(argv), encoding="utf-8")
         output, error = io.StringIO(), io.StringIO()
-        with patch("wsc.cli.JsonCommandGenerator", side_effect=lambda value:
+        with patch("wsc.generation.JsonCommandGenerator", side_effect=lambda value:
                    JsonCommandGenerator(value, timeout=0.05)), contextlib.redirect_stdout(output), \
                 contextlib.redirect_stderr(error):
             status = main(["--db", str(self.core.store.path), "--session", "s", "--workspace",

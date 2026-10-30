@@ -9,6 +9,7 @@ from pathlib import Path
 import os
 import stat
 import tempfile
+from time import monotonic
 from .contracts import WSCError,require
 
 
@@ -69,11 +70,13 @@ class ResourceIO:
                 if value!=payload[offset:offset+len(value)]:return False
                 offset+=len(value)
 
-    def digest(self,path,*,max_bytes=None):
+    def digest(self,path,*,max_bytes=None,deadline=None):
         require(max_bytes is None or type(max_bytes) is int and max_bytes>=0,'resource_read_budget_invalid')
+        require(deadline is None or type(deadline) in (int,float),'resource_read_deadline_invalid')
         hasher=sha256();total=0
         with self.opened(path) as fd:
             while True:
+                require(deadline is None or monotonic()<=deadline,'resource_read_deadline_exceeded')
                 value=os.read(fd,self.chunk_bytes if max_bytes is None else min(self.chunk_bytes,max_bytes-total+1))
                 self.bytes_read+=len(value);total+=len(value)
                 if not value:break
@@ -81,11 +84,13 @@ class ResourceIO:
                 hasher.update(value)
         return hasher.hexdigest()
 
-    def read_bounded(self,path,max_bytes):
+    def read_bounded(self,path,max_bytes,*,deadline=None):
         require(type(max_bytes) is int and max_bytes>=0,'resource_read_budget_invalid')
+        require(deadline is None or type(deadline) in (int,float),'resource_read_deadline_invalid')
         values=[];remaining=max_bytes
         with self.opened(path) as fd:
             while remaining:
+                require(deadline is None or monotonic()<=deadline,'resource_read_deadline_exceeded')
                 value=os.read(fd,min(self.chunk_bytes,remaining));self.bytes_read+=len(value)
                 if not value:break
                 values.append(value);remaining-=len(value)
