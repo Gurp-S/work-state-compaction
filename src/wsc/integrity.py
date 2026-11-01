@@ -177,13 +177,15 @@ _RECEIPT_AUX_SCHEMA = (
     )""",
     """CREATE TABLE IF NOT EXISTS wsc_receipt_aux_v1(
         version INTEGER PRIMARY KEY,
-        installed_at TEXT NOT NULL
+        installed_at TEXT NOT NULL,
+        indexed_through INTEGER NOT NULL DEFAULT -1
     )""",
 )
 
 # Bump when a derived table gains a column or changes its key: a database whose
 # marker carries an older version is migrated once instead of being trusted.
-AUX_VERSION = 1
+# 2: the marker records how far the source index reaches (``indexed_through``).
+AUX_VERSION = 2
 
 # Columns added after the first release of the verify cursor: migrate in place
 # instead of dropping the cursor (a drop would silently replay verification).
@@ -227,9 +229,33 @@ def install_receipts(db) -> None:
         db.execute(statement)
 
 
+_HEX_DIGITS = frozenset("0123456789abcdef")
+
+
+def _stored_int(value, *, code: str, minimum: int = 0) -> int:
+    """An INTEGER column's value, refusing anything SQLite had to coerce.
+
+    ``int()`` reads a REAL such as ``1.5`` as ``1`` and the TEXT ``"1"`` as ``1``,
+    which turns a corrupt persisted state into a legal checkpoint.  SQLite hands
+    back a Python ``int`` only for a stored INTEGER, so any other type is a state
+    this release never writes and is refused rather than normalised.
+    """
+    require(type(value) is int and value >= minimum, code)
+    return value
+
+
+def _stored_head(value, *, code: str) -> str:
+    """A chain head: 64 lowercase hex digits, nothing else."""
+    require(isinstance(value, str) and len(value) == 64 and set(value) <= _HEX_DIGITS, code)
+    return value
+
+
 def _receipt_state(db) -> tuple[int, str]:
     row = db.execute("SELECT chained_through, head FROM wsc_receipt_state_v1 WHERE name='receipts'").fetchone()
-    return (0, GENESIS) if row is None else (int(row[0]), row[1])
+    if row is None:
+        return (0, GENESIS)
+    return (_stored_int(row[0], code="receipt_state_invalid"),
+            _stored_head(row[1], code="receipt_state_invalid"))
 
 
 def receipt_state(db) -> tuple[int, str]:
@@ -250,7 +276,9 @@ def receipt_status(db) -> tuple[int, int, str] | None:
                      "WHERE name='receipts'").fetchone()
     if row is None:
         return None
-    return int(row[0]), int(row[1]), row[2]
+    return (_stored_int(row[0], code="receipt_count_invalid", minimum=_UNKNOWN_COUNT),
+            _stored_int(row[1], code="receipt_state_invalid"),
+            _stored_head(row[2], code="receipt_state_invalid"))
 
 
 def _save_receipts(db, chained: int, head: str, count: int) -> None:
@@ -265,6 +293,29 @@ def record_receipt_count(db, count: int) -> None:
     require(type(count) is int and count >= 0, "receipt_count_invalid")
     chained, head = _receipt_state(db)
     _save_receipts(db, chained, head, count)
+
+
+def _chain_cursor(db) -> int:
+    """How far the receipt chain is linked; 0 before the first receipt."""
+    status = receipt_status(db)
+    return 0 if status is None else status[1]
+
+
+def _index_coverage(db) -> int:
+    """The chain position the source index was last known to cover; -1 if none."""
+    row = db.execute("SELECT indexed_through FROM wsc_receipt_aux_v1 WHERE version=?",
+                     (AUX_VERSION,)).fetchone()
+    if row is None:
+        return -1
+    return _stored_int(row[0], code="receipt_state_invalid", minimum=-1)
+
+
+def _save_index_coverage(db, chained: int) -> None:
+    require(type(chained) is int and chained >= 0, "receipt_state_invalid")
+    db.execute("INSERT INTO wsc_receipt_aux_v1(version, installed_at, indexed_through) "
+               "VALUES (?,?,?) ON CONFLICT(version) DO UPDATE SET "
+               "installed_at=excluded.installed_at, indexed_through=excluded.indexed_through",
+               (AUX_VERSION, _now(), chained))
 
 
 def _aux_current(db) -> bool:
@@ -336,24 +387,76 @@ def _ensure_receipt_aux(db) -> None:
     if "receipt_count" not in state_columns:
         db.execute(f"ALTER TABLE wsc_receipt_state_v1 ADD COLUMN receipt_count INTEGER "
                    f"NOT NULL DEFAULT {_UNKNOWN_COUNT}")
+    aux_columns = {row[1] for row in db.execute("PRAGMA table_info(wsc_receipt_aux_v1)").fetchall()}
+    if "indexed_through" not in aux_columns:
+        db.execute("ALTER TABLE wsc_receipt_aux_v1 ADD COLUMN indexed_through INTEGER "
+                   "NOT NULL DEFAULT -1")
     if created or _index_key(db) != ["source_id", "receipt_id"]:
         _rebuild_index(db)
-    db.execute("INSERT OR IGNORE INTO wsc_receipt_aux_v1(version, installed_at) VALUES (?,?)",
-               (AUX_VERSION, _now()))
+        _save_index_coverage(db, _chain_cursor(db))
+    elif _index_coverage(db) < 0:
+        # A marker from the release before coverage was tracked: the index was
+        # built from every receipt present, so it covers the chain as linked.
+        _save_index_coverage(db, _chain_cursor(db))
+
+
+def _restore_receipt_state(db) -> tuple[int, str, int]:
+    """Rebuild the chain cursor after the state row was lost.
+
+    A missing state row is not an empty history: the chain may already carry
+    every receipt, so starting from GENESIS would walk that history again and
+    count it a second time.  The cursor is rebuilt only after the existing chain
+    has been verified end to end against the authoritative receipts - position,
+    receipt id, sources and link - and is refused outright when the chain cannot
+    prove the history it claims.
+    """
+    head, chained, count = GENESIS, 0, 0
+    for rowid, receipt_id, data in db.execute(
+            "SELECT rowid, id, data FROM presentations ORDER BY rowid").fetchall():
+        row = db.execute("SELECT receipt_id, source_ids, link FROM wsc_receipt_chain_v1 "
+                         "WHERE rowid_=?", (rowid,)).fetchone()
+        if row is None:
+            break  # receipts newer than the chain are linked by the caller
+        expected = link(head, rowid, receipt_id, sha256(data.encode("utf-8")).hexdigest())
+        require(tuple(row) == (receipt_id, " ".join(json.loads(data)["source_ids"]), expected),
+                "receipt_state_unrecoverable")
+        head, chained, count = expected, rowid, count + 1
+    # The chain must be a prefix of the receipts: a chain row past the last
+    # receipt is a link nothing can vouch for, and rewriting it is not an option.
+    require(db.execute("SELECT 1 FROM wsc_receipt_chain_v1 WHERE rowid_>? LIMIT 1",
+                       (chained,)).fetchone() is None, "receipt_state_unrecoverable")
+    _save_receipts(db, chained, head, count)
+    return chained, head, count
 
 
 def advance_receipts(db) -> dict:
-    """Link presentation receipts newer than the cursor. Idempotent; O(new receipts)."""
+    """Link presentation receipts newer than the cursor. Idempotent; O(new receipts).
+
+    ``scanned`` counts every receipt this pass walked; ``inserted`` counts the
+    ones that were not chained yet.  Only ``inserted`` grows the persisted count,
+    so re-walking a history - which happens whenever the state row is rebuilt -
+    cannot count it twice.
+    """
     if not receipts_installed(db):
         install_receipts(db)
     _ensure_receipt_aux(db)
-    chained, head = _receipt_state(db)
     status = receipt_status(db)
-    count = _UNKNOWN_COUNT if status is None else status[0]
-    if count < 0:
-        # One-time backfill for databases created before the column existed.
-        count = int(db.execute("SELECT COUNT(*) FROM wsc_receipt_chain_v1").fetchone()[0])
-    scanned = 0
+    backfilled = False
+    if status is None:
+        chained, head, count = _restore_receipt_state(db)
+        # Every row the rebuild walked was verified against its receipt, so it
+        # is reported as scanned - and counted as neither inserted nor new.
+        scanned = count
+    else:
+        count, chained, head = status
+        if count < 0:
+            # One-time backfill for databases created before the column existed.
+            count = _stored_int(db.execute("SELECT COUNT(*) FROM wsc_receipt_chain_v1").fetchone()[0],
+                                code="receipt_count_invalid")
+            backfilled = True
+        scanned = 0
+    start = chained
+    inserted = 0
     for rowid, receipt_id, data in db.execute(
             "SELECT rowid, id, data FROM presentations WHERE rowid>? ORDER BY rowid", (chained,)).fetchall():
         link_value = link(head, rowid, receipt_id, sha256(data.encode("utf-8")).hexdigest())
@@ -363,6 +466,7 @@ def advance_receipts(db) -> dict:
         if existing is None:
             db.execute("INSERT INTO wsc_receipt_chain_v1(rowid_, receipt_id, source_ids, link) "
                        "VALUES (?,?,?,?)", (rowid, receipt_id, source_ids, link_value))
+            inserted += 1
         elif tuple(existing) != (receipt_id, source_ids, link_value):
             # Same position, different content: the chain and the receipt
             # disagree.  Replacing the row would hide that, so refuse.
@@ -373,16 +477,20 @@ def advance_receipts(db) -> dict:
         head = link_value
         chained = rowid
         scanned += 1
-    if scanned:
-        count = count + scanned if count >= 0 else _UNKNOWN_COUNT
-        _save_receipts(db, chained, head, count)
-    return {"scanned": scanned, "through": chained, "head": head}
+    if scanned or backfilled or chained != start:
+        _save_receipts(db, chained, head, count + inserted)
+        _save_index_coverage(db, chained)
+    return {"scanned": scanned, "inserted": inserted, "through": chained, "head": head,
+            "count": count + inserted}
 
 
 def _receipt_verified(db) -> tuple[int, str]:
     row = db.execute("SELECT verified_rowid, verified_link FROM wsc_receipt_verified_v1 "
                      "WHERE name='receipts'").fetchone()
-    return (0, GENESIS) if row is None else (int(row[0]), row[1])
+    if row is None:
+        return (0, GENESIS)
+    return (_stored_int(row[0], code="receipt_state_invalid"),
+            _stored_head(row[1], code="receipt_state_invalid"))
 
 
 def _save_receipt_verified(db, rowid: int, head: str) -> None:
@@ -395,7 +503,11 @@ def _save_receipt_verified(db, rowid: int, head: str) -> None:
 def _receipt_audit(db) -> tuple[int, str | None]:
     row = db.execute("SELECT full_verified_through, last_full_audit_at FROM wsc_receipt_verified_v1 "
                      "WHERE name='receipts'").fetchone()
-    return (0, None) if row is None else (int(row[0]), row[1])
+    if row is None:
+        return (0, None)
+    at = row[1]
+    require(at is None or isinstance(at, str), "receipt_state_invalid")
+    return (_stored_int(row[0], code="receipt_state_invalid"), at)
 
 
 def _save_audit(db, through: int, at: str, root: str) -> None:
@@ -434,7 +546,8 @@ def _receipt_count(db) -> int:
     status = receipt_status(db)
     if status is not None and status[0] >= 0:
         return status[0]
-    return int(db.execute("SELECT COUNT(*) FROM wsc_receipt_chain_v1").fetchone()[0])
+    return _stored_int(db.execute("SELECT COUNT(*) FROM wsc_receipt_chain_v1").fetchone()[0],
+                       code="receipt_count_invalid")
 
 
 def verify_receipts(db, *, full: bool = False) -> dict:
@@ -516,14 +629,14 @@ def verify_receipts(db, *, full: bool = False) -> dict:
             at = _now()
             _save_audit(db, last, at, recorded)
             full_through, last_audit = last, at
-            if total != chain_count:
-                total = chain_count
+            total = chain_count
             status = receipt_status(db)
-            if status is None or status[0] < 0:
-                # A verified full pass is the only place allowed to state the
-                # history size, so a legacy row is repaired here rather than by
-                # every later reader.
-                _save_receipts(db, chained_state, recorded, total)
+            # A verified full pass is the only scope that can state the history
+            # size, so any disagreement with it - the legacy -1, a 0, or a wrong
+            # positive - is repaired here, in the transaction that proved the
+            # count, rather than by every later reader.
+            if status is None or status[0] != chain_count:
+                _save_receipts(db, chained_state, recorded, chain_count)
         verified_through = last if ok else verified
     else:
         if scanned:
@@ -560,6 +673,7 @@ def rebuild_receipt_index(db) -> dict:
     stored = {(row[0], row[1]) for row in
               db.execute("SELECT source_id, receipt_id FROM wsc_receipt_sources_v1")}
     require(stored == set(derived), "receipt_index_mismatch")
+    _save_index_coverage(db, _chain_cursor(db))
     return {"rebuilt": len(derived), "receipts": report["count"], "head": report["head"]}
 
 
@@ -579,15 +693,43 @@ def is_delivered(db, source_id: str, *, verified: bool = False) -> bool:
 
     The source index is a lookup accelerator only: a hit is confirmed against
     the receipt it points at, so a stale or tampered index can never by itself
-    turn an unpresented source into a delivered one.
+    turn an unpresented source into a delivered one.  One JOIN fetches the
+    candidate receipts lazily, so a hit costs the same regardless of how many
+    receipts mention the source.
+
+    A miss is only meaningful if the index covers the whole chain.  When it does
+    not - dropped table, an index left behind by an older release, a receipt
+    chained without its index rows - the derived table is rebuilt once from the
+    authoritative receipts, so an absent row is never reported as "never
+    presented" while the index is known to be incomplete.  A row deleted from a
+    current index is not detectable here; ``rebuild_receipt_index`` audits and
+    reconciles that case.
     """
     if not receipts_installed(db):
         return False
     if not verified:
         require(verify_receipts(db)["ok"], "presentation_receipt_integrity")
-    for (receipt_id,) in db.execute("SELECT receipt_id FROM wsc_receipt_sources_v1 "
-                                    "WHERE source_id=?", (source_id,)).fetchall():
-        data = db.execute("SELECT data FROM presentations WHERE id=?", (receipt_id,)).fetchone()
-        if data is not None and source_id in json.loads(data[0])["source_ids"]:
+    _ensure_receipt_aux(db)
+    if _confirmed(db, source_id):
+        return True
+    chained = _chain_cursor(db)
+    if _index_coverage(db) == chained:
+        return False
+    _rebuild_index(db)
+    _save_index_coverage(db, chained)
+    return _confirmed(db, source_id)
+
+
+def _confirmed(db, source_id: str) -> bool:
+    """Whether a receipt in the index really lists ``source_id``.
+
+    The rows are read lazily: a real hit is confirmed by the first receipt and
+    stops there, and only an index that contradicts every candidate (a forged
+    row) has to walk them all.
+    """
+    for (data,) in db.execute("SELECT p.data FROM wsc_receipt_sources_v1 s "
+                              "JOIN presentations p ON p.id=s.receipt_id WHERE s.source_id=?",
+                              (source_id,)):
+        if source_id in json.loads(data)["source_ids"]:
             return True
     return False

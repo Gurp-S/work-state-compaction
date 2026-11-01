@@ -123,9 +123,16 @@ def _chain_state(db) -> tuple[str, int, bool]:
     chain_last = db.execute("SELECT rowid_, link FROM wsc_receipt_chain_v1 "
                             "ORDER BY rowid_ DESC LIMIT 1").fetchone()
     rows_last = db.execute("SELECT COALESCE(MAX(rowid),0) FROM presentations").fetchone()[0]
-    last_rowid = 0 if chain_last is None else int(chain_last[0])
-    last_link = integrity.GENESIS if chain_last is None else chain_last[1]
-    confirmed = (count >= 0 and chained == last_rowid == int(rows_last) and head == last_link)
+    if chain_last is None:
+        last_rowid, last_link = 0, integrity.GENESIS
+    else:
+        last_rowid, last_link = chain_last[0], chain_last[1]
+    # The persisted state is already type-checked by ``receipt_status``; the two
+    # rowid lookups are checked here so a REAL or TEXT position cannot be read as
+    # a confirmed checkpoint through ``int()``.
+    confirmed = (type(last_rowid) is int and type(rows_last) is int
+                 and count >= 0 and chained == last_rowid == rows_last
+                 and isinstance(last_link, str) and head == last_link)
     return head, max(count, 0), confirmed
 
 
@@ -139,8 +146,14 @@ def _reusable(row, session_id: str, head: str, count: int, version: int) -> bool
     try:
         if row is None or row[5] != STATUS_OK:
             return False
-        stored_head, stored_count, stored_version = row[1], int(row[2]), int(row[3])
+        stored_head, stored_count, stored_version = row[1], row[2], row[3]
         at, status, root, seal = row[4], row[5], row[6], row[7]
+        # int() would accept the TEXT "1" and truncate the REAL 1.5; a checkpoint
+        # whose count or version is not stored as an INTEGER is not reusable.
+        if type(stored_count) is not int or type(stored_version) is not int:
+            return False
+        if stored_count < 0 or stored_version < 0:
+            return False
         if not all(isinstance(value, str) and value for value in (stored_head, at, root, seal)):
             return False
         if stored_version != version or stored_head != head or stored_count != count or root != head:
