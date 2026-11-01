@@ -256,5 +256,108 @@ class DeliveredLookup(_Base):
         self.assertEqual(one[1], many[1])
 
 
+class AuditAfterDamage(_Base):
+    """What a release does when the persisted state lies about the history."""
+
+    def audit(self, **kwargs):
+        with self.core.store.transaction() as db:
+            return audit_cache.audit_receipts_cached(db, session_id="s", **kwargs)
+
+    def checkpoint(self):
+        with self.core.store.transaction() as db:
+            return audit_cache.latest_checkpoint(db, "s")
+
+    def test_wrong_positive_count_is_repaired_and_the_checkpoint_is_written(self):
+        with self.core.store.transaction() as db:
+            db.execute("UPDATE wsc_receipt_state_v1 SET receipt_count=7 WHERE name='receipts'")
+        report = self.audit()
+        self.assertTrue(report["ok"], report)
+        self.assertEqual((report["count"], report["checkpoint_count"]), (3, 3))
+        self.assertEqual(self.checkpoint()["count"], 3)
+        with self.core.store.transaction() as db:
+            self.assertEqual(self.state(db)[2], 3)
+        self.assertTrue(self.audit()["reused"])
+
+    def test_tampered_history_is_still_refused(self):
+        self.tamper_receipt()
+        report = self.audit()
+        self.assertFalse(report["ok"])
+        self.assertEqual(report["reason"], "receipt_audit_failed")
+        self.assertIsNone(self.checkpoint())
+
+    def test_lost_state_is_rebuilt_by_the_audit(self):
+        with self.core.store.transaction() as db:
+            before = db.execute("SELECT chained_through, head FROM wsc_receipt_state_v1").fetchone()
+        self.lose_state()
+        report = self.audit()
+        self.assertTrue(report["ok"], report)
+        self.assertEqual((report["scope"], report["reused"], report["count"]), ("full", False, 3))
+        with self.core.store.transaction() as db:
+            after = self.state(db)
+        self.assertEqual((after[0], after[1], after[2]), (before[0], before[1], 3))
+        self.assertTrue(self.audit()["reused"])
+
+    def test_lost_state_is_rebuilt_before_the_anchor_is_compared(self):
+        with self.core.store.transaction() as db:
+            head = db.execute("SELECT head FROM wsc_receipt_state_v1").fetchone()[0]
+        self.lose_state()
+        self.assertTrue(self.audit(anchor=head)["ok"])
+        self.lose_state()
+        with self.assertRaisesRegex(WSCError, "integrity_anchor_mismatch"):
+            self.audit(anchor=integrity.GENESIS)
+
+    def test_unprovable_chain_is_not_repaired(self):
+        self.tamper_receipt()
+        self.lose_state()
+        with self.assertRaisesRegex(WSCError, "receipt_state_unrecoverable"):
+            self.audit()
+        with self.core.store.transaction() as db:
+            self.assertIsNone(self.state(db))
+        self.assertIsNone(self.checkpoint())
+
+    def test_a_confirmed_audit_ending_on_another_head_is_refused(self):
+        with self.core.store.transaction() as db:
+            report = integrity.verify_receipts(db, full=True)
+        moved = dict(report, head=integrity.GENESIS)
+        with mock.patch("wsc.integrity.verify_receipts", return_value=moved):
+            with self.assertRaisesRegex(WSCError, "receipt_audit_range_moved"):
+                self.audit()
+        self.assertIsNone(self.checkpoint())
+
+
+class IndexRecovery(_Base):
+    """A rebuilt cursor must not vouch for an index it did not rebuild."""
+
+    def drop_index_row(self, source_id="e2", receipt_id="r1"):
+        with self.core.store.transaction() as db:
+            db.execute("DELETE FROM wsc_receipt_sources_v1 WHERE source_id=? AND receipt_id=?",
+                       (source_id, receipt_id))
+
+    def test_recovered_cursor_rebuilds_the_index_before_a_miss(self):
+        self.drop_index_row()
+        self.lose_state()
+        with self.core.store.transaction() as db:
+            self.assertTrue(integrity.is_delivered(db, "e2", verified=True))
+            self.assertEqual(integrity._index_coverage(db), 3)
+
+    def test_recovery_rebuilds_a_dropped_index_table(self):
+        with self.core.store.transaction() as db:
+            db.execute("DROP TABLE wsc_receipt_sources_v1")
+        self.lose_state()
+        with self.core.store.transaction() as db:
+            integrity.advance_receipts(db)
+            self.assertTrue(integrity.is_delivered(db, "e2", verified=True))
+            self.assertEqual(integrity._index_coverage(db), 3)
+
+    def test_recovery_then_a_new_receipt_keeps_the_index_complete(self):
+        self.drop_index_row()
+        self.lose_state()
+        self.present("r4", ("e2",))
+        with self.core.store.transaction() as db:
+            self.assertEqual(self.state(db)[2], 4)
+            self.assertTrue(integrity.is_delivered(db, "e2", verified=True))
+            self.assertEqual(integrity._index_coverage(db), 4)
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -77,6 +77,39 @@ py -3.11 -m unittest discover -s tests -p 'test_receipt*.py'   # 54 passed
 恒 4），未命中路径为常数 108 µs，比旧版多约 70 µs，这是"未命中也要确认索引覆盖
 整条链"的代价（多 3 条语句）。全量审计与索引重建维持线性，差异在噪声内。
 
+## 后续修复：审计结论与派生结构的权威边界
+
+上一轮 23 项用例没有覆盖"证据充分却不被采纳"的两条路径，补测时暴露：
+
+1. **计数不一致被当成"区间变了"**。`audit_receipts_cached()` 在状态已确认
+   （计数、链尾、回执尾三者一致）时，要求全量审计的 `head` 与 `count` 同时等于
+   持久化值，否则 `receipt_audit_range_moved`。但 `head` 已经绑定位置、回执 id、
+   摘要与前驱，同头即同一段历史；计数只是这段历史的摘要，而全量审计刚刚把它
+   修对。结果是一次历史遗留的错误计数让每一次发布都失败，直到有人手动跑一次
+   审计。现在只在**头**不一致时拒绝（区间确实变了），计数以审计结果写进检查点。
+2. **恢复出来的游标替派生索引背书**。`_restore_receipt_state()` 只恢复状态行，
+   不同步 `indexed_through`；若索引此前滞后或丢过行，恢复后的游标会让
+   `is_delivered()` 认为索引"覆盖到链尾"，把缺失行读成"从未呈现"。现在恢复在
+   同一事务里先重建索引、再声明覆盖；`is_delivered()` 遇到状态行缺失时先恢复
+   再回答，而不是把 `chained_through` 读成 0 后拿它去比覆盖。
+3. **丢失的状态行会让审计拿错头**。`audit_cache._chain_state()` 原先在状态行缺失
+   时返回 `(GENESIS, 0, ...)`，于是全量审计走完整条链、却与 GENESIS 比较，
+   一个可恢复的库被判成 `receipt_audit_failed`。现在先 `ensure_receipt_state()`
+   重建（校验不过仍 `receipt_state_unrecoverable`），再拿真实头做判断。
+
+`verify_receipts(full=True)` 顺带把恢复后的游标一并写回（同一次全量审计已经
+证明它就是权威位置），不再只修计数。
+
+新增用例：`test_receipt_state_recovery.py` 9 项（错误计数被修且检查点可复用、
+篡改历史仍拒绝、丢失状态由审计重建、重建先于锚点比较、不可证明的链不修、
+确认态审计换头被拒、恢复后索引先重建再判未命中、索引表被删可恢复、恢复后新
+回执仍保持索引完整），`test_audit_cache.py` 2 项（发布在错误计数与丢失状态行
+下都能成功，且随后命中缓存）。
+
+```
+py -3.11 -m pytest tests/test_receipt_state_recovery.py tests/test_audit_cache.py -q  # 46 passed
+```
+
 ## 已知边界
 
 - `is_delivered` 的未命中判定依赖"索引覆盖到链尾"这一结构事实；单行索引被删（覆盖

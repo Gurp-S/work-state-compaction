@@ -426,7 +426,33 @@ def _restore_receipt_state(db) -> tuple[int, str, int]:
     require(db.execute("SELECT 1 FROM wsc_receipt_chain_v1 WHERE rowid_>? LIMIT 1",
                        (chained,)).fetchone() is None, "receipt_state_unrecoverable")
     _save_receipts(db, chained, head, count)
+    # The chain vouches for the receipts, not for the derived index.  Restoring
+    # the cursor would make an index with a missing row look complete, and a
+    # missing row reads as "this source was never presented", so the index is
+    # re-derived from the receipts this pass just verified.  Coverage is claimed
+    # only after that rebuild, never before it.
+    _ensure_receipt_aux(db)
+    _rebuild_index(db)
+    _save_index_coverage(db, chained)
     return chained, head, count
+
+
+def ensure_receipt_state(db) -> tuple[int, int, str]:
+    """(count, chained_through, head), rebuilding a lost state row first.
+
+    A missing state row is not an empty history: the chain may already carry
+    every receipt.  A reader that started from GENESIS would walk that history
+    again, and a full audit would compare its result against the wrong head and
+    fail a database that is recoverable.  ``_restore_receipt_state`` verifies the
+    chain against the authoritative receipts and refuses when it cannot, so the
+    repair never invents a cursor.  A database with no receipts at all gets the
+    same GENESIS row ``advance_receipts`` writes.
+    """
+    status = receipt_status(db)
+    if status is not None:
+        return status
+    chained, head, count = _restore_receipt_state(db)
+    return count, chained, head
 
 
 def advance_receipts(db) -> dict:
@@ -572,7 +598,7 @@ def verify_receipts(db, *, full: bool = False) -> dict:
                                full_verified_through=0, last_full_audit_at=None,
                                integrity_root=GENESIS, head=GENESIS)
     _ensure_receipt_aux(db)
-    chained_state, recorded = _receipt_state(db)
+    _, _, recorded = ensure_receipt_state(db)
     full_through, last_audit = _receipt_audit(db)
     verified, verified_link = _receipt_verified(db)
     total = _receipt_count(db)
@@ -630,13 +656,13 @@ def verify_receipts(db, *, full: bool = False) -> dict:
             _save_audit(db, last, at, recorded)
             full_through, last_audit = last, at
             total = chain_count
-            status = receipt_status(db)
-            # A verified full pass is the only scope that can state the history
-            # size, so any disagreement with it - the legacy -1, a 0, or a wrong
-            # positive - is repaired here, in the transaction that proved the
-            # count, rather than by every later reader.
-            if status is None or status[0] != chain_count:
-                _save_receipts(db, chained_state, recorded, chain_count)
+            # A verified full pass is the only scope that can state the history:
+            # it walked every receipt and ended on the recorded head, so the
+            # cursor it produced is the authoritative one.  Any disagreement
+            # with the persisted row - the legacy -1, a wrong positive count, a
+            # position the audit just proved wrong - is repaired here, in the
+            # transaction that proved it, rather than by every later reader.
+            _save_receipts(db, last, recorded, chain_count)
         verified_through = last if ok else verified
     else:
         if scanned:
@@ -699,11 +725,11 @@ def is_delivered(db, source_id: str, *, verified: bool = False) -> bool:
 
     A miss is only meaningful if the index covers the whole chain.  When it does
     not - dropped table, an index left behind by an older release, a receipt
-    chained without its index rows - the derived table is rebuilt once from the
-    authoritative receipts, so an absent row is never reported as "never
-    presented" while the index is known to be incomplete.  A row deleted from a
-    current index is not detectable here; ``rebuild_receipt_index`` audits and
-    reconciles that case.
+    chained without its index rows, a lost state row - the derived table is
+    rebuilt once from the authoritative receipts, so an absent row is never
+    reported as "never presented" while the index is known to be incomplete.  A
+    row deleted from a current index is not detectable here;
+    ``rebuild_receipt_index`` audits and reconciles that case.
     """
     if not receipts_installed(db):
         return False
@@ -712,7 +738,14 @@ def is_delivered(db, source_id: str, *, verified: bool = False) -> bool:
     _ensure_receipt_aux(db)
     if _confirmed(db, source_id):
         return True
-    chained = _chain_cursor(db)
+    status = receipt_status(db)
+    if status is None:
+        # A lost state row would read as "nothing chained" below and record the
+        # index as covering nothing.  The restore re-derives both from the
+        # receipts it verified, so its result is the answer for this source.
+        ensure_receipt_state(db)
+        return _confirmed(db, source_id)
+    chained = status[1]
     if _index_coverage(db) == chained:
         return False
     _rebuild_index(db)

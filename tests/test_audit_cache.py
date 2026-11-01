@@ -192,5 +192,59 @@ class AuditCacheChecks(unittest.TestCase):
         self.assertEqual(2, audit_of(third)["count"])
 
 
+    def publisher(self, name):
+        core = WSC(Store(self.root / name, session_id="s", workspace=str(self.root)),
+                   access=lambda *a: True)
+        adapter = CodexCheckpointAdapter()
+        ids = core.ingest(adapter.import_items([message("user", "request"),
+                                                message("assistant", "answer")],
+                                               thread_id="thread"))
+        with core.store.transaction() as db:
+            integrity.install_receipts(db)
+            events.presented(db, "r1", tuple(ids), "model")
+        return core, adapter
+
+    def release(self, core, adapter):
+        view = core.prepare(core.capture(), Selection(), producer="offline_test")
+        return core.stage(view, directory=self.root / "exports", adapter=adapter)
+
+    def audit_of(self, core, operation):
+        with core.store.transaction() as db:
+            return publication.operation(db, operation)["receipt_audit"]
+
+    def cached_release(self, core, adapter):
+        """Stage again while a full re-hash of the receipts would raise."""
+        view = core.prepare(core.capture(), Selection(), producer="offline_test")
+        with mock.patch("wsc.integrity.audit_receipts", side_effect=AssertionError("full rescan")):
+            return core.stage(view, directory=self.root / "exports", adapter=adapter)
+
+    def test_stage_repairs_a_wrong_count_instead_of_failing(self):
+        core, adapter = self.publisher("repair.db")
+        with core.store.transaction() as db:
+            db.execute("UPDATE wsc_receipt_state_v1 SET receipt_count=5 WHERE name='receipts'")
+        operation = self.release(core, adapter)
+        audit = self.audit_of(core, operation)
+        self.assertEqual(("full", False, 1), (audit["scope"], audit["reused"], audit["count"]))
+        with core.store.transaction() as db:
+            self.assertEqual(1, db.execute("SELECT receipt_count FROM wsc_receipt_state_v1").fetchone()[0])
+        core.discard(operation)
+        audit = self.audit_of(core, self.cached_release(core, adapter))
+        self.assertEqual(("cached", True), (audit["scope"], audit["reused"]))
+
+    def test_stage_recovers_a_lost_state_row(self):
+        core, adapter = self.publisher("lost.db")
+        with core.store.transaction() as db:
+            db.execute("DELETE FROM wsc_receipt_state_v1")
+        operation = self.release(core, adapter)
+        audit = self.audit_of(core, operation)
+        self.assertEqual(("full", False, 1), (audit["scope"], audit["reused"], audit["count"]))
+        with core.store.transaction() as db:
+            state = db.execute("SELECT chained_through, receipt_count FROM wsc_receipt_state_v1").fetchone()
+        self.assertEqual((1, 1), tuple(state))
+        core.discard(operation)
+        audit = self.audit_of(core, self.cached_release(core, adapter))
+        self.assertEqual(("cached", True), (audit["scope"], audit["reused"]))
+
+
 if __name__ == "__main__":
     unittest.main()
