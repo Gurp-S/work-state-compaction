@@ -25,6 +25,9 @@ import json
 from .contracts import require
 
 POLICY = "chain_v1"
+# Bump when the receipt link recipe or the receipt payload changes: a full-audit
+# checkpoint recorded under another version must never be reused.
+RECEIPT_INTEGRITY_VERSION = 1
 GENESIS = "0" * 64
 
 _SCHEMA = (
@@ -171,6 +174,17 @@ _AUDIT_COLUMNS = (
     ("integrity_root", "TEXT"),
 )
 
+# A committed receipt is history: the normal path may append, never rewrite or
+# remove.  Enforced in the database so no code path (or future one) can skip it.
+_RECEIPT_GUARDS = (
+    """CREATE TRIGGER IF NOT EXISTS wsc_receipts_append_only_update
+       BEFORE UPDATE ON presentations BEGIN
+         SELECT RAISE(ABORT, 'receipt_immutable'); END""",
+    """CREATE TRIGGER IF NOT EXISTS wsc_receipts_append_only_delete
+       BEFORE DELETE ON presentations BEGIN
+         SELECT RAISE(ABORT, 'receipt_immutable'); END""",
+)
+
 
 def receipts_installed(db) -> bool:
     return db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='wsc_receipt_chain_v1'"
@@ -187,6 +201,11 @@ def _receipt_state(db) -> tuple[int, str]:
     return (0, GENESIS) if row is None else (int(row[0]), row[1])
 
 
+def receipt_state(db) -> tuple[int, str]:
+    """(chained_through, head) for receipts; GENESIS when the chain is empty."""
+    return _receipt_state(db)
+
+
 def _save_receipts(db, chained: int, head: str) -> None:
     db.execute("INSERT INTO wsc_receipt_state_v1(name, chained_through, head) VALUES ('receipts',?,?) "
                "ON CONFLICT(name) DO UPDATE SET chained_through=excluded.chained_through, head=excluded.head",
@@ -198,6 +217,8 @@ def _ensure_receipt_aux(db) -> None:
     created = db.execute("SELECT 1 FROM sqlite_master WHERE type='table' "
                          "AND name='wsc_receipt_sources_v1'").fetchone() is None
     for statement in _RECEIPT_AUX_SCHEMA:
+        db.execute(statement)
+    for statement in _RECEIPT_GUARDS:
         db.execute(statement)
     columns = {row[1] for row in db.execute("PRAGMA table_info(wsc_receipt_verified_v1)").fetchall()}
     for name, declaration in _AUDIT_COLUMNS:
@@ -271,9 +292,9 @@ def _now() -> str:
 
 def _receipt_result(*, ok: bool, scope: str, count: int, scanned: int, verified_through: int,
                     full_verified_through: int, last_full_audit_at: str | None,
-                    integrity_root: str, head: str) -> dict:
+                    integrity_root: str, head: str, hashed: int = 0) -> dict:
     """One shape for every outcome, so a partial check is never read as a full one."""
-    return {"ok": ok, "scope": scope, "count": count, "scanned": scanned,
+    return {"ok": ok, "scope": scope, "count": count, "scanned": scanned, "hashed": hashed,
             "verified_through": verified_through,
             "full_verified_through": full_verified_through,
             "last_full_audit_at": last_full_audit_at,
@@ -317,7 +338,7 @@ def verify_receipts(db, *, full: bool = False) -> dict:
                 return _receipt_result(ok=False, scope=scope, count=0, scanned=0,
                                        verified_through=verified, full_verified_through=full_through,
                                        last_full_audit_at=last_audit, integrity_root=recorded, head=recorded)
-    head, last, scanned = prev, start, 0
+    head, last, scanned, hashed = prev, start, 0, 0
     for rowid, receipt_id, data in db.execute(
             "SELECT rowid, id, data FROM presentations WHERE rowid>? ORDER BY rowid", (start,)).fetchall():
         expected = link(head, rowid, receipt_id, sha256(data.encode("utf-8")).hexdigest())
@@ -325,9 +346,11 @@ def verify_receipts(db, *, full: bool = False) -> dict:
         if row is None or row[0] != expected:
             return _receipt_result(ok=False, scope=scope, count=0, scanned=scanned,
                                    verified_through=last, full_verified_through=full_through,
-                                   last_full_audit_at=last_audit, integrity_root=recorded, head=head)
+                                   last_full_audit_at=last_audit, integrity_root=recorded, head=head,
+                                   hashed=hashed)
         head, last = expected, rowid
         scanned += 1
+        hashed += len(data)
     ok = head == recorded
     if full:
         if ok:
@@ -341,7 +364,8 @@ def verify_receipts(db, *, full: bool = False) -> dict:
         verified_through = last if scanned else verified
     return _receipt_result(ok=ok, scope=scope, count=last if full else scanned, scanned=scanned,
                            verified_through=verified_through, full_verified_through=full_through,
-                           last_full_audit_at=last_audit, integrity_root=recorded, head=head)
+                           last_full_audit_at=last_audit, integrity_root=recorded, head=head,
+                           hashed=hashed)
 
 
 def audit_receipts(db) -> dict:
