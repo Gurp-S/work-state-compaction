@@ -359,5 +359,85 @@ class IndexRecovery(_Base):
             self.assertEqual(integrity._index_coverage(db), 4)
 
 
+class OrphanChainRecords(_Base):
+    """A chain row with no receipt is not history, wherever its rowid sits."""
+
+    def add_orphan(self, rowid, receipt_id="orphan"):
+        with self.core.store.transaction() as db:
+            db.execute("INSERT INTO wsc_receipt_chain_v1(rowid_, receipt_id, source_ids, link) "
+                       "VALUES (?,?,'',?)", (rowid, receipt_id, "0" * 64))
+
+    def audit(self):
+        with self.core.store.transaction() as db:
+            return audit_cache.audit_receipts_cached(db, session_id="s")
+
+    def checkpoint(self):
+        with self.core.store.transaction() as db:
+            return audit_cache.latest_checkpoint(db, "s")
+
+    def snapshot(self, core=None):
+        """State row, index coverage, chain rows, index rows."""
+        core = core or self.core
+        with core.store.transaction() as db:
+            return (self.state(db), integrity._index_coverage(db),
+                    db.execute("SELECT COUNT(*) FROM wsc_receipt_chain_v1").fetchone()[0],
+                    db.execute("SELECT COUNT(*) FROM wsc_receipt_sources_v1").fetchone()[0])
+
+    def test_orphan_below_the_cursor_refuses_recovery(self):
+        self.assertTrue(self.audit()["ok"])
+        checkpoint = self.checkpoint()
+        with self.core.store.transaction() as db:
+            db.execute("UPDATE wsc_receipt_aux_v1 SET indexed_through=1")
+        self.add_orphan(0)
+        self.lose_state()
+        with self.assertRaisesRegex(WSCError, "receipt_state_unrecoverable"):
+            with self.core.store.transaction() as db:
+                integrity.ensure_receipt_state(db)
+        self.assertEqual((None, 1, 4, 4), self.snapshot())
+        self.assertEqual(checkpoint, self.checkpoint())
+        with self.assertRaisesRegex(WSCError, "receipt_state_unrecoverable"):
+            self.audit()
+        self.assertEqual(checkpoint, self.checkpoint())
+
+    def test_orphan_above_the_cursor_refuses_recovery(self):
+        self.add_orphan(9)
+        self.lose_state()
+        with self.assertRaisesRegex(WSCError, "receipt_state_unrecoverable"):
+            with self.core.store.transaction() as db:
+                integrity.ensure_receipt_state(db)
+        self.assertIsNone(self.snapshot()[0])
+
+    def test_normal_recovery_is_unaffected(self):
+        with self.core.store.transaction() as db:
+            before = tuple(self.state(db))
+        self.lose_state()
+        with self.core.store.transaction() as db:
+            self.assertEqual((3, before[0], before[1]), integrity.ensure_receipt_state(db))
+            self.assertEqual(before, tuple(self.state(db)))
+            self.assertEqual(3, integrity._index_coverage(db))
+            self.assertTrue(integrity.is_delivered(db, "e2", verified=True))
+            self.assertEqual((3, before[0], before[1]), integrity.ensure_receipt_state(db))
+        self.present("r4", ("e2",))
+        with self.core.store.transaction() as db:
+            self.assertTrue(integrity.verify_receipts(db)["ok"])
+            self.assertEqual(4, self.state(db)[2])
+
+    def test_failed_recovery_leaves_nothing_behind_after_reopen(self):
+        self.audit()
+        checkpoint = self.checkpoint()
+        with self.core.store.transaction() as db:
+            db.execute("UPDATE wsc_receipt_aux_v1 SET indexed_through=1")
+        self.add_orphan(0)
+        self.lose_state()
+        with self.assertRaisesRegex(WSCError, "receipt_state_unrecoverable"):
+            with self.core.store.transaction() as db:
+                integrity.ensure_receipt_state(db)
+        reopened = WSC(Store(self.root / "state.db", session_id="s", workspace=str(self.root)),
+                       access=lambda *a: True)
+        self.assertEqual((None, 1, 4, 4), self.snapshot(reopened))
+        with reopened.store.transaction() as db:
+            self.assertEqual(checkpoint, audit_cache.latest_checkpoint(db, "s"))
+
+
 if __name__ == "__main__":
     unittest.main()

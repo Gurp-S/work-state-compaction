@@ -409,6 +409,13 @@ def _restore_receipt_state(db) -> tuple[int, str, int]:
     has been verified end to end against the authoritative receipts - position,
     receipt id, sources and link - and is refused outright when the chain cannot
     prove the history it claims.
+
+    Both directions are proved before anything is written.  Walking the receipts
+    shows every receipt has its chain row; it does not show that every chain row
+    has a receipt, and a row nothing vouches for can sit anywhere - below the
+    last verified rowid as easily as above it.  Such a row is not history, so the
+    repair refuses instead of restoring a cursor over a chain that disagrees with
+    the receipts.
     """
     head, chained, count = GENESIS, 0, 0
     for rowid, receipt_id, data in db.execute(
@@ -421,8 +428,16 @@ def _restore_receipt_state(db) -> tuple[int, str, int]:
         require(tuple(row) == (receipt_id, " ".join(json.loads(data)["source_ids"]), expected),
                 "receipt_state_unrecoverable")
         head, chained, count = expected, rowid, count + 1
-    # The chain must be a prefix of the receipts: a chain row past the last
-    # receipt is a link nothing can vouch for, and rewriting it is not an option.
+    # The other direction: every chain row must name a receipt that exists.  A
+    # membership test, not a count or a rowid comparison - an orphan can carry a
+    # rowid below the cursor and still leave the totals looking right.
+    require(db.execute(
+        "SELECT 1 FROM wsc_receipt_chain_v1 AS c WHERE NOT EXISTS "
+        "(SELECT 1 FROM presentations AS p WHERE p.rowid = c.rowid_) LIMIT 1"
+    ).fetchone() is None, "receipt_state_unrecoverable")
+    # And the chain must be a prefix of the receipts: a chain row past the last
+    # receipt - or past a hole in the chain - is a link nothing can vouch for,
+    # and rewriting it is not an option.
     require(db.execute("SELECT 1 FROM wsc_receipt_chain_v1 WHERE rowid_>? LIMIT 1",
                        (chained,)).fetchone() is None, "receipt_state_unrecoverable")
     _save_receipts(db, chained, head, count)
@@ -444,9 +459,9 @@ def ensure_receipt_state(db) -> tuple[int, int, str]:
     every receipt.  A reader that started from GENESIS would walk that history
     again, and a full audit would compare its result against the wrong head and
     fail a database that is recoverable.  ``_restore_receipt_state`` verifies the
-    chain against the authoritative receipts and refuses when it cannot, so the
-    repair never invents a cursor.  A database with no receipts at all gets the
-    same GENESIS row ``advance_receipts`` writes.
+    chain against the authoritative receipts in both directions and refuses when
+    it cannot, so the repair never invents a cursor.  A database with no receipts
+    at all gets the same GENESIS row ``advance_receipts`` writes.
     """
     status = receipt_status(db)
     if status is not None:

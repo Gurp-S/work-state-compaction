@@ -110,10 +110,77 @@ py -3.11 -m unittest discover -s tests -p 'test_receipt*.py'   # 54 passed
 py -3.11 -m pytest tests/test_receipt_state_recovery.py tests/test_audit_cache.py -q  # 46 passed
 ```
 
+## 后续修复：孤立链记录——恢复必须双向证明
+
+上一轮的恢复只证明了一个方向：按 `presentations.rowid` 升序遍历，逐条比对
+`receipt_id` / `source_ids` / `link`，再用 `rowid_ > chained` 排除尾部的多余记录。
+"每条回执都有链记录"并不等于"每条链记录都有回执"，而落单的行可以出现在游标
+**以下**，两条检查都碰不到它：
+
+```sql
+INSERT INTO wsc_receipt_chain_v1(rowid_, receipt_id, source_ids, link)
+VALUES (0, 'orphan', '', '<任意 64 位摘要>');
+DELETE FROM wsc_receipt_state_v1;
+```
+
+三条回执照旧全部通过校验，`rowid_ > 3` 也查不到东西，恢复于是成功：状态行写下，
+索引覆盖声明到链尾。而 `MAX(rowid_)` 仍是 3，`audit_cache` 据此判定链尾、回执尾、
+计数三者一致，**原有检查点重新获得复用资格**——一条没有任何回执背书的链记录就
+这样被当成历史，而且此后不再有任何路径会发现它（增量审计从游标之后开始，全量审计
+才会撞上它，缓存复用恰好避免了全量审计）。
+
+修复：在逐条校验之后、写任何状态之前，加一条反向成员检查。
+
+```sql
+SELECT 1 FROM wsc_receipt_chain_v1 AS c
+WHERE NOT EXISTS (SELECT 1 FROM presentations AS p WHERE p.rowid = c.rowid_) LIMIT 1
+```
+
+命中即 `require(False, "receipt_state_unrecoverable")`。判定依据是 rowid 成员关系，
+不看大小、不比 COUNT，所以游标以下、以及链中间空洞里的孤立行同样被拒；链行里的
+`receipt_id` / `source_ids` / `link` 依旧不被信任，逐条比对逻辑原样保留。
+
+`rowid_ > chained` 的前缀检查保留，两者互补：成员检查管"链记录找不到回执"，前缀
+检查管"链记录和回执都在、但链中间少了环"（此时尾部链行能找到回执，成员检查通过）。
+
+恢复顺序：读权威回执 → 逐条校验 → 反向成员校验 → 前缀校验 → `_save_receipts` →
+`_ensure_receipt_aux` → `_rebuild_index` → 写覆盖游标。所有 `require` 都在第一次
+写入之前，失败由调用方事务回滚：状态行、覆盖游标、审计检查点、链记录都不留痕，
+`audit_receipts_cached()` 也拿不到可复用的检查点，直接抛 `receipt_state_unrecoverable`。
+
+新增用例 4 项（`OrphanChainRecords`）：
+
+1. `test_orphan_below_the_cursor_refuses_recovery`——游标以下插入 `rowid_=0` 的孤立行，
+   删除状态行后恢复被拒；断言状态行仍缺、覆盖游标停在失败前的值、检查点完全不变、
+   随后审计仍然报错而不是命中缓存、链行数未减少（孤立行没有被"顺手修掉"）。
+2. `test_orphan_above_the_cursor_refuses_recovery`——游标以上的孤立行（`rowid_=9`）仍被拒。
+3. `test_normal_recovery_is_unaffected`——无孤立行时恢复出的头/计数/游标与丢失前一致、
+   索引覆盖到链尾且可查、二次调用幂等、之后新增回执仍能追加并通过校验。
+4. `test_failed_recovery_leaves_nothing_behind_after_reopen`——失败后重新打开数据库，
+   确认状态行、覆盖游标、链行数、检查点都没有半恢复的残留。
+
+实测（本机，`py -3.11`）：
+
+```
+py -3.11 -m pytest tests/test_receipt_state_recovery.py -q                    # 36 passed
+py -3.11 -m pytest tests/test_audit_cache.py tests/test_receipt_state_recovery.py \
+  tests/test_integrity_chain.py tests/test_integrity_wiring.py \
+  tests/test_receipt_identity.py tests/test_receipt_index_identity.py \
+  tests/test_receipt_truth_closure.py -q                                      # 125 passed, 16 subtests
+py -3.11 -m pytest tests -q          # 1084 passed, 17 skipped, 189 subtests, 9 failed
+```
+
+9 项失败全部是 `test_matrix_t2_t5_acceptors.py` / `test_matrix_t4_acceptor.py`，
+原因是环境缺 `gui/node_modules`（`t4_browser_checks.cjs` 找不到 playwright，
+`MODULE_NOT_FOUND`），与本次改动无关，未改动其依赖或跳过策略。
+
 ## 已知边界
 
 - `is_delivered` 的未命中判定依赖"索引覆盖到链尾"这一结构事实；单行索引被删（覆盖
   标记仍为最新）不会在读路径被发现，需 `rebuild_receipt_index()`。
 - 状态行丢失但链与回执不一致时选择报错而非修复：此时没有可信依据决定"哪一方是对的"。
+- 链与回执的双向对应只在恢复和全量审计时验证。正常写路径（`advance_receipts`）在同一
+  事务里写回执与链行，插不出孤立记录；绕过 append-only 触发器直接改库产生的孤立行，
+  增量路径发现不了，要靠一次全量审计。
 - 全量测试里 9 项 `test_matrix_*` 失败是环境缺 `gui/node_modules`（playwright）导致，
   `test_command_containment` 的 1 项为偶发（单独重跑 3 次通过），均与本次改动无关。
