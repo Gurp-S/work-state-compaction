@@ -89,13 +89,33 @@ class WSC:
             prefix = validate_snapshot(db, self.store, snapshot, indexed=self.indexed_queries)
             return prefix, understanding.all_records(db)
 
-    def check_snapshot(self, snapshot: Snapshot) -> None:
-        """Public re-validation that a snapshot still matches stored content."""
+    def check_snapshot(self, snapshot: Snapshot, *, rows=None) -> None:
+        """Public re-validation that a snapshot still matches stored content.
+
+        ``rows`` lets a caller that already validated this exact content reuse
+        it; the digest and pairing checks still run on those rows.
+        """
         with self.store.connect() as db:
-            validate_snapshot(db, self.store, snapshot, indexed=self.indexed_queries)
+            validate_snapshot(db, self.store, snapshot, indexed=self.indexed_queries,
+                              all_rows=rows)
+
+    def snapshot_token(self, snapshot: Snapshot) -> tuple:
+        """Cheap fingerprint of the binding and the event extent.
+
+        Two equal tokens mean no event was appended or removed and no epoch or
+        generation moved; they do not prove that a stored row was not rewritten
+        in place.  Callers use it to skip a redundant re-read of content they
+        already validated, and fall back to a full read when it differs.
+        """
+        with self.store.connect() as db:
+            return (snapshot.session_id, snapshot.workspace, getmeta(db, "mode"),
+                    getmeta(db, "generation"), getmeta(db, "control_epoch"),
+                    getmeta(db, "understanding_epoch"), snapshot.cut,
+                    *db.execute("SELECT COALESCE(MAX(rowid),0), COUNT(*) FROM events").fetchone())
 
     def snapshot_current(self, snapshot: Snapshot) -> bool:
-        """Cheap staleness check: O(1), with no content or permission claim.
+        """Cheap staleness check: metadata reads plus one COUNT over the event
+        index; it does not read content and makes no permission claim.
 
         Answers only whether the binding (session, workspace, mode, generation,
         epochs, cut range) would still be accepted.  It does not re-read history

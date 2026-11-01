@@ -96,37 +96,58 @@ def latest_checkpoint(db, session_id: str) -> dict | None:
     row = _latest(db, session_id)
     if row is None:
         return None
-    return {"audit_id": row[0], "head": row[1], "count": int(row[2]),
-            "integrity_version": int(row[3]), "full_audited_at": row[4],
-            "status": row[5], "root": row[6]}
+    try:
+        return {"audit_id": int(row[0]), "head": row[1], "count": int(row[2]),
+                "integrity_version": int(row[3]), "full_audited_at": row[4],
+                "status": row[5], "root": row[6]}
+    except (TypeError, ValueError):
+        return {"audit_id": None, "head": None, "count": None, "integrity_version": None,
+                "full_audited_at": None, "status": None, "root": None}
 
 
 def _chain_state(db) -> tuple[str, int, bool]:
-    """(head, receipt count, consistent) recomputed from the receipt tables.
+    """(head, receipt count, confirmed) from the persisted receipt state.
 
-    ``consistent`` is false when the chain, the receipt rows and the recorded
-    head disagree about how far the history goes.  Such a state is never a cache
-    hit: it goes to a full audit, which is allowed to reject it.
+    The count is read from ``wsc_receipt_state_v1``, never from ``COUNT(*)``, so
+    a cache hit costs O(1) in history size.  ``confirmed`` requires the state
+    row, the chain's last row and the receipts' last row to agree on the same
+    position and head; an unbackfilled count (``-1``) or any disagreement is not
+    confirmed and forces one full audit, which repairs the state on success.
     """
-    chain_count, chain_max = db.execute(
-        "SELECT COUNT(*), COALESCE(MAX(rowid_),0) FROM wsc_receipt_chain_v1").fetchone()
-    rows_count, rows_max = db.execute(
-        "SELECT COUNT(*), COALESCE(MAX(rowid),0) FROM presentations").fetchone()
-    chained, head = integrity.receipt_state(db)
-    last = db.execute("SELECT link FROM wsc_receipt_chain_v1 ORDER BY rowid_ DESC LIMIT 1").fetchone()
-    last_link = integrity.GENESIS if last is None else last[0]
-    consistent = (int(chain_count) == int(rows_count) and int(chain_max) == int(rows_max)
-                  and chained == int(chain_max) and head == last_link)
-    return head, int(chain_count), consistent
+    status = integrity.receipt_status(db)
+    if status is None:
+        empty_chain = db.execute("SELECT 1 FROM wsc_receipt_chain_v1 LIMIT 1").fetchone() is None
+        empty_rows = db.execute("SELECT 1 FROM presentations LIMIT 1").fetchone() is None
+        return integrity.GENESIS, 0, empty_chain and empty_rows
+    count, chained, head = status
+    chain_last = db.execute("SELECT rowid_, link FROM wsc_receipt_chain_v1 "
+                            "ORDER BY rowid_ DESC LIMIT 1").fetchone()
+    rows_last = db.execute("SELECT COALESCE(MAX(rowid),0) FROM presentations").fetchone()[0]
+    last_rowid = 0 if chain_last is None else int(chain_last[0])
+    last_link = integrity.GENESIS if chain_last is None else chain_last[1]
+    confirmed = (count >= 0 and chained == last_rowid == int(rows_last) and head == last_link)
+    return head, max(count, 0), confirmed
 
 
 def _reusable(row, session_id: str, head: str, count: int, version: int) -> bool:
-    """Every binding field must match and the checkpoint must still seal."""
-    if row is None or row[5] != STATUS_OK:
+    """Every binding field must match and the checkpoint must still seal.
+
+    Any unparseable field (wrong SQLite storage class, missing text, truncated
+    seal) makes the checkpoint unusable rather than raising: the caller then
+    runs a full audit.
+    """
+    try:
+        if row is None or row[5] != STATUS_OK:
+            return False
+        stored_head, stored_count, stored_version = row[1], int(row[2]), int(row[3])
+        at, status, root, seal = row[4], row[5], row[6], row[7]
+        if not all(isinstance(value, str) and value for value in (stored_head, at, root, seal)):
+            return False
+        if stored_version != version or stored_head != head or stored_count != count or root != head:
+            return False
+        return _seal(session_id, head, count, version, at, status, root) == seal
+    except (TypeError, ValueError):
         return False
-    if int(row[3]) != version or row[1] != head or int(row[2]) != count or row[6] != head:
-        return False
-    return _seal(session_id, head, count, version, row[4], row[5], row[6]) == row[7]
 
 
 def _result(*, ok: bool, reused: bool, scope: str, count: int, scanned: int, hashed: int,
@@ -155,28 +176,31 @@ def audit_receipts_cached(db, *, session_id: str, anchor: str | None = None) -> 
         return _result(ok=True, reused=False, scope="none", count=0, scanned=0, hashed=0,
                        head=integrity.GENESIS, version=version, full_audited_at=None,
                        checkpoint_count=None, reason="no_receipts")
-    head, count, consistent = _chain_state(db)
+    head, count, confirmed = _chain_state(db)
     if pinned is not None:
         require(pinned == head, "integrity_anchor_mismatch")
-    if not consistent:
-        return _result(ok=False, reused=False, scope="none", count=count, scanned=0, hashed=0,
-                       head=head, version=version, full_audited_at=None,
-                       checkpoint_count=None, reason="receipt_state_inconsistent")
     _ensure_schema(db)
     row = _latest(db, session_id)
-    if _reusable(row, session_id, head, count, version):
+    if confirmed and _reusable(row, session_id, head, count, version):
         return _result(ok=True, reused=True, scope="cached", count=count, scanned=0, hashed=0,
                        head=head, version=version, full_audited_at=row[4],
                        checkpoint_count=int(row[2]), reason=None)
+    # An unconfirmed state (unknown count, chain/presentation disagreement) is
+    # not reused and not assumed fatal: the full audit below is the only thing
+    # allowed to decide whether the history is intact.
     report = integrity.verify_receipts(db, full=True)
     if not report["ok"]:
         return _result(ok=False, reused=False, scope="full", count=count,
                        scanned=report["scanned"], hashed=report["hashed"], head=head,
                        version=version, full_audited_at=report["last_full_audit_at"],
-                       checkpoint_count=None, reason="receipt_audit_failed")
-    require(report["head"] == head and report["count"] == count, "receipt_audit_range_moved")
+                       checkpoint_count=None,
+                       reason="receipt_state_inconsistent" if not confirmed else "receipt_audit_failed")
+    if confirmed:
+        require(report["head"] == head and report["count"] == count, "receipt_audit_range_moved")
+    else:
+        head, count = report["head"], report["count"]
+        integrity.record_receipt_count(db, count)
     at = report["last_full_audit_at"] or ""
-    _ensure_schema(db)
     db.execute(
         "INSERT INTO wsc_integrity_audits_v1(session_id, scope, audited_chain_head, "
         "audited_receipt_count, integrity_version, full_audited_at, audit_status, "

@@ -21,7 +21,8 @@ def message(role, text):
 
 def unguard(db):
     """Simulate an offline writer: committed receipts are append-only by trigger."""
-    for trigger in ("wsc_receipts_append_only_update", "wsc_receipts_append_only_delete"):
+    for trigger in ("wsc_receipts_append_only_update", "wsc_receipts_append_only_delete",
+                    "wsc_receipt_chain_append_only_update", "wsc_receipt_chain_append_only_delete"):
         db.execute(f"DROP TRIGGER IF EXISTS {trigger}")
 
 
@@ -142,6 +143,7 @@ class AuditCacheChecks(unittest.TestCase):
 
     def test_inconsistent_chain_falls_back_to_a_full_audit(self):
         with self.core.store.transaction() as db:
+            unguard(db)
             db.execute("DELETE FROM wsc_receipt_chain_v1")
         report = self.audit()
         self.assertFalse(report["ok"])
