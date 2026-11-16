@@ -308,6 +308,9 @@ def make_local_host_pair(cfg: dict) -> Path | None:
     text = src.read_text(encoding="utf-8")
     text = re.sub(r"^NODE\s*=.*$", f"NODE = Path({node!r})", text, count=1, flags=re.M)
     text = re.sub(r"^CLI\s*=.*$", f"CLI = Path({cli!r})", text, count=1, flags=re.M)
+    # 修正 ROOT：源脚本用 HERE.parents[2]，打包/单独解压时层级会变，
+    # 这里显式指向评测根目录 (ROOT)，使 J=ROOT/dsh-wsc、SOURCE=J/experiments 成立。
+    text = re.sub(r"^ROOT\s*=.*$", f"ROOT = Path({str(ROOT)!r})", text, count=1, flags=re.M)
     dst = src.parent / "_host_pair.local.py"
     dst.write_text(text, encoding="utf-8")
     return dst

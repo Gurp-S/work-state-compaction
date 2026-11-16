@@ -19,6 +19,11 @@ evals/benchmarks/results/
 *.log
 *_host_pair.local.py
 
-# dsh-wsc 运行时产物（排除，源码保留）
+# dsh-wsc 运行时产物（排除，评测资源 fixture/hidden/score/PROMPT 保留）
 dsh-wsc/node_modules/
-dsh-wsc/experiments/
+dsh-wsc/experiments/.ab*/
+dsh-wsc/experiments/.smoke*/
+dsh-wsc/experiments/.dump-*.yml
+dsh-wsc/experiments/bench/
+dsh-wsc/experiments/compressagent/
+dsh-wsc/experiments/_b3.jsonl
