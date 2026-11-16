@@ -1,0 +1,26 @@
+{
+  "_说明": "复制本文件为 config.json 后填写。所有字段都是可选的；留空则用默认值。key 不要提交到公开仓库——config.json 已在 .gitignore 中排除。",
+  "api": {
+    "base_url": "http://127.0.0.1:8788/v1",
+    "model": "deepseek-v4.1-flash",
+    "api_key": ""
+  },
+  "node": {
+    "node_bin": "E:/nodejs/node.exe",
+    "dsh_cli": "E:/nodejs/node_modules/@deepseek-ai/dsh/lib/bin.js"
+  },
+  "python": {
+    "venv_python": "D:/lea/XenYon code/python/.venv/Scripts/python.exe"
+  },
+  "run": {
+    "_说明": "选择运行哪些评测；true 的那套才会执行。suites: locomo / bench22 / pair",
+    "locomo": true,
+    "bench22": true,
+    "pair": true,
+    "locomo_mode": "qa",
+    "locomo_conversation": 0,
+    "locomo_samples": 20,
+    "bench22_stages": ["prepare", "gateway", "exam", "judge"],
+    "pair_stage": "prepare_and_run"
+  }
+}

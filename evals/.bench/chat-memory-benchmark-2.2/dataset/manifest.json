@@ -1,0 +1,32 @@
+{
+ "benchmark": "中文陪伴记忆 Benchmark 2.2（公开部分：开发集 + 历史 + 封存集承诺）",
+ "version": "2.2-public",
+ "personas": {
+  "M01": {
+   "history_file": "histories/M01.jsonl",
+   "sha256": "b120cfceeb440386467cc67a98e8184a159cafb39208dee3bbbec16e33bfe149",
+   "turns": 7043,
+   "sessions": 571
+  },
+  "M02": {
+   "history_file": "histories/M02.jsonl",
+   "sha256": "eacbd8e23d33e580ca4e7de67618207890be2c1c3a277939cea5ade691e0cb37",
+   "turns": 5413,
+   "sessions": 471
+  }
+ },
+ "note": "本目录的 exam-inputs.jsonl 只含开发集。封存集见 sealed-commitment.json。",
+ "exam_inputs_sha256": "44b068b9996025cae25072bf7757745842a141ca71e526a44059f2b807eba3ce",
+ "files": {
+  "exam-inputs.jsonl": "44b068b9996025cae25072bf7757745842a141ca71e526a44059f2b807eba3ce",
+  "histories/M01.jsonl": "b120cfceeb440386467cc67a98e8184a159cafb39208dee3bbbec16e33bfe149",
+  "histories/M01.meta.json": "9783881888f8ebe5b990dae626573c6975d57d78c4af6a6ff10b243d5dc17aac",
+  "histories/M02.jsonl": "eacbd8e23d33e580ca4e7de67618207890be2c1c3a277939cea5ade691e0cb37",
+  "histories/M02.meta.json": "b1c0eab7817fd42409586dff52e11c0fdfbc8e67a17d0db85fcab930322c7006",
+  "natural/natural-key-dev.jsonl": "e56eaa5980620e2b814b1ffd12fa58105e1bcee1651dd57cd8c82ee1c615cbab",
+  "natural/natural-probes-dev.jsonl": "07b0cf69fd255e84a5cb86b04a7ada7f16f95399630a55c3a8211237028d3be4",
+  "read_exam_v22.py": "a403e24ceecfc8021c124ae0acb27644de0bec0d7df34aa5703488b4fd98c96d",
+  "review-only/answer-key.jsonl": "aa7142c2cbbc8d07479f270965728db7fc9567f1592cba212c836614467e45f3",
+  "sealed-commitment.json": "3e05574b5c7d4a2417f008255702b3f35ae6d77365bd07be1a4f00a9627cd5b0"
+ }
+}

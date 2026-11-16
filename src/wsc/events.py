@@ -11,12 +11,17 @@ from .store import getmeta, setmeta
 from . import integrity
 
 
-def rows(db, through: int | None = None) -> list[dict]:
+def rows(db, through: int | None = None, *, after: int | None = None) -> list[dict]:
     query = "SELECT * FROM events"
-    args = ()
+    bounds, args = [], []
     if through is not None:
-        query += " WHERE seq<=?"
-        args = (through,)
+        bounds.append('seq<=?')
+        args.append(through)
+    if after is not None:
+        bounds.append('seq>?')
+        args.append(after)
+    if bounds:
+        query += ' WHERE ' + ' AND '.join(bounds)
     result = []
     for row in db.execute(query + " ORDER BY seq", args):
         # The stored text is exactly encode(payload) written at ingest, so the

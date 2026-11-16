@@ -1,0 +1,1 @@
+{"cost_coef": 3.0, "cost_floor_ratio": 0.25, "reference_system": "qwen-base", "board_weights": {"short": 0.25, "long": 0.25, "natural": 0.5}, "floor_restraint_pct": 70.0, "floor_fabrication_pct": 5.0, "run_cost_ceiling_cny": 50.0, "deposit_cny": 50.0, "bootstrap_draws": 2000, "daily_max_age_days": 1}

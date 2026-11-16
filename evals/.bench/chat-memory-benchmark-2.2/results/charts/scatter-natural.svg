@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 460" font-family="sans-serif" font-size="12">
+<rect width="760" height="460" fill="white"/>
+<text x="70" y="26" font-size="15" font-weight="bold">自然用记忆榜（sealed）</text>
+<line x1="70" x2="730" y1="400.0" y2="400.0" stroke="#e5e7eb"/><text x="62" y="404.0" text-anchor="end">16</text>
+<line x1="70" x2="730" y1="312.5" y2="312.5" stroke="#e5e7eb"/><text x="62" y="316.5" text-anchor="end">27</text>
+<line x1="70" x2="730" y1="225.0" y2="225.0" stroke="#e5e7eb"/><text x="62" y="229.0" text-anchor="end">37</text>
+<line x1="70" x2="730" y1="137.5" y2="137.5" stroke="#e5e7eb"/><text x="62" y="141.5" text-anchor="end">47</text>
+<line x1="70" x2="730" y1="50.0" y2="50.0" stroke="#e5e7eb"/><text x="62" y="54.0" text-anchor="end">58</text>
+<line x1="150.0" x2="150.0" y1="50" y2="400" stroke="#f3f4f6"/><text x="150.0" y="416" text-anchor="middle">¥4</text>
+<line x1="252.8" x2="252.8" y1="50" y2="400" stroke="#f3f4f6"/><text x="252.8" y="416" text-anchor="middle">¥8</text>
+<line x1="355.6" x2="355.6" y1="50" y2="400" stroke="#f3f4f6"/><text x="355.6" y="416" text-anchor="middle">¥16</text>
+<line x1="458.4" x2="458.4" y1="50" y2="400" stroke="#f3f4f6"/><text x="458.4" y="416" text-anchor="middle">¥32</text>
+<line x1="561.2" x2="561.2" y1="50" y2="400" stroke="#f3f4f6"/><text x="561.2" y="416" text-anchor="middle">¥64</text>
+<line x1="663.9" x2="663.9" y1="50" y2="400" stroke="#f3f4f6"/><text x="663.9" y="416" text-anchor="middle">¥128</text>
+<text x="400" y="446" text-anchor="middle">成本 C（人民币，对数刻度，每格翻一倍）→</text>
+<text x="16" y="225" transform="rotate(-90 16 225)" text-anchor="middle">成绩 A（日常分与长期分的平均，%）</text>
+<polyline fill="none" stroke="#111827" stroke-width="1.5" stroke-dasharray="5 4" points="100.8,299.9 139.1,169.5 141.0,163.6 306.4,92.4"/>
+<circle cx="306.4" cy="92.4" r="6" fill="#2f6fdb" stroke="#111827" stroke-width="2"/>
+<text x="315.4" y="96.4">qwen-base</text>
+<circle cx="139.1" cy="169.5" r="6" fill="#e0663a" stroke="#111827" stroke-width="2"/>
+<text x="148.1" y="173.5">bm25-recent6</text>
+<circle cx="100.8" cy="299.9" r="6" fill="#2e9d6a" stroke="#111827" stroke-width="2"/>
+<text x="109.8" y="303.9">none</text>
+<circle cx="699.2" cy="104.3" r="6" fill="#8a5ad6"/>
+<text x="708.2" y="108.3">full-context</text>
+<circle cx="100.8" cy="357.6" r="6" fill="#c9a227"/>
+<text x="109.8" y="361.6">never-recall</text>
+<circle cx="141.0" cy="163.6" r="6" fill="#6b7280" stroke="#111827" stroke-width="2"/>
+<text x="150.0" y="167.6">always-recall</text>
+<text x="730" y="42" text-anchor="end" fill="#374151">虚线 = 帕累托前沿（黑圈）</text></svg>

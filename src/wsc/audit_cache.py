@@ -113,29 +113,19 @@ def _chain_state(db) -> tuple[str, int, bool]:
     row, the chain's last row and the receipts' last row to agree on the same
     position and head; an unbackfilled count (``-1``) or any disagreement is not
     confirmed and forces one full audit, which repairs the state on success.
-
-    A lost state row is rebuilt from the chain before anything is read from it.
-    Reading it as GENESIS instead would describe a non-empty history as empty,
-    which is exactly what made the audit below compare a full walk against the
-    wrong head and fail a database that the chain can prove.
     """
     status = integrity.receipt_status(db)
     if status is None:
-        status = integrity.ensure_receipt_state(db)
+        empty_chain = db.execute("SELECT 1 FROM wsc_receipt_chain_v1 LIMIT 1").fetchone() is None
+        empty_rows = db.execute("SELECT 1 FROM presentations LIMIT 1").fetchone() is None
+        return integrity.GENESIS, 0, empty_chain and empty_rows
     count, chained, head = status
     chain_last = db.execute("SELECT rowid_, link FROM wsc_receipt_chain_v1 "
                             "ORDER BY rowid_ DESC LIMIT 1").fetchone()
     rows_last = db.execute("SELECT COALESCE(MAX(rowid),0) FROM presentations").fetchone()[0]
-    if chain_last is None:
-        last_rowid, last_link = 0, integrity.GENESIS
-    else:
-        last_rowid, last_link = chain_last[0], chain_last[1]
-    # The persisted state is already type-checked by ``receipt_status``; the two
-    # rowid lookups are checked here so a REAL or TEXT position cannot be read as
-    # a confirmed checkpoint through ``int()``.
-    confirmed = (type(last_rowid) is int and type(rows_last) is int
-                 and count >= 0 and chained == last_rowid == rows_last
-                 and isinstance(last_link, str) and head == last_link)
+    last_rowid = 0 if chain_last is None else int(chain_last[0])
+    last_link = integrity.GENESIS if chain_last is None else chain_last[1]
+    confirmed = (count >= 0 and chained == last_rowid == int(rows_last) and head == last_link)
     return head, max(count, 0), confirmed
 
 
@@ -149,14 +139,8 @@ def _reusable(row, session_id: str, head: str, count: int, version: int) -> bool
     try:
         if row is None or row[5] != STATUS_OK:
             return False
-        stored_head, stored_count, stored_version = row[1], row[2], row[3]
+        stored_head, stored_count, stored_version = row[1], int(row[2]), int(row[3])
         at, status, root, seal = row[4], row[5], row[6], row[7]
-        # int() would accept the TEXT "1" and truncate the REAL 1.5; a checkpoint
-        # whose count or version is not stored as an INTEGER is not reusable.
-        if type(stored_count) is not int or type(stored_version) is not int:
-            return False
-        if stored_count < 0 or stored_version < 0:
-            return False
         if not all(isinstance(value, str) and value for value in (stored_head, at, root, seal)):
             return False
         if stored_version != version or stored_head != head or stored_count != count or root != head:
@@ -211,19 +195,10 @@ def audit_receipts_cached(db, *, session_id: str, anchor: str | None = None) -> 
                        version=version, full_audited_at=report["last_full_audit_at"],
                        checkpoint_count=None,
                        reason="receipt_state_inconsistent" if not confirmed else "receipt_audit_failed")
-    if confirmed and report["head"] != head:
-        # The range a release would cover is not the range that was audited.
-        # Refused rather than adopted.
-        require(False, "receipt_audit_range_moved")
-    # A count that disagrees is not a moved range.  The head binds position,
-    # receipt id, digest and predecessor, so an audit that ends on the same head
-    # walked exactly the same receipts; the count is only a summary of that
-    # history, and the full audit is the authority on it - it has just repaired
-    # the persisted row.  Writing the checkpoint with the stale count instead
-    # made every release fail until an explicit audit ran, so the repaired count
-    # is what the checkpoint records.
-    head, count = report["head"], report["count"]
-    if not confirmed:
+    if confirmed:
+        require(report["head"] == head and report["count"] == count, "receipt_audit_range_moved")
+    else:
+        head, count = report["head"], report["count"]
         integrity.record_receipt_count(db, count)
     at = report["last_full_audit_at"] or ""
     db.execute(

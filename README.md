@@ -128,6 +128,24 @@ wsc --db state.db --session sample --workspace . status
 
 `wsc.context_runtime.ContextRuntime` 将原来源与外置结果绑定到统一 `WSCContext` 查询，并复用现有呈现回执、连续检查点发布及对账。原文、视图和模型理解分开，默认不自动触发模型摘要。[统一生命周期与原生宿主旁路](reviews/context-lifecycle-v1.md)。
 
+## 仓库内容
+
+本仓库包含两套实现与一键评测：
+
+- **`dsh-wsc/`** — DSH 宿主侧的最新 WSC 插件（Node/JS，`@xeyo/dsh-wsc`）。核心为 `engine.js`、`index.js`、`lib/`。这是当前活跃开发的实现，包含 stateDigest / continuityReceipts / dedupeCarriedState 等最新能力。
+- **`src/wsc/`** — Python 组件（进程内库，旁路接入），其中 `src/wsc/csm/` 是 CSM（持续状态记忆）引擎，含检索、状态编译、explicit-write 等 64 个模块。
+- **`evals/`** — 一键评测包，见下。
+
+## 一键评测
+
+`evals/` 是自包含评测包，双击 `evals/run_evals.bat` 即可运行，实时打印逐题 PASS/FAIL、分数与汇总。覆盖三套：
+
+1. **LoCoMo-Plus**（长对话记忆）：`benchmarks/csm_locomo_plus.py`
+2. **陪伴型记忆 Benchmark 2.2**：`benchmarks/run_csm_bench22.py` + harness
+3. **WSC vs DSH 原生压缩对比**：`.local/goal-wsc-paid-20261111/host_pair.py`
+
+首次使用：复制 `evals/config.example.json` 为 `evals/config.json`，填入 API key（config.json 已在 `.gitignore` 中，不会进仓库）。详细运行方式见 [`evals/README.md`](evals/README.md)。
+
 ## License
 
 MIT

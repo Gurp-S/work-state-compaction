@@ -31,6 +31,16 @@ def check_binding(db, core, data):
     require(binding["generation"] == getmeta(db, "generation"), "stale_generation")
     require(binding["control_epoch"] == getmeta(db, "control_epoch"), "control_changed")
     require(binding["understanding_epoch"] == getmeta(db, "understanding_epoch"), "understanding_changed")
+    package = data.get('package') or {}
+    scopes = package.get('adapter', {}).get('verification_scopes')
+    if scopes:
+        from .verification_state import verification_observation
+        tail_seal = package.get('verification_tail_sha256')
+        if tail_seal is not None:
+            require(digest(events.rows(db, through=package['through'], after=binding['cut'])) == tail_seal,
+                    'verification_tail_changed')
+        require(not any(verification_observation(row) and row['payload']['verification_scope'] in scopes
+                        for row in events.rows(db, after=package['through'])), 'verification_state_changed')
     if not data["detach"]:
         validate_snapshot(db, core.store, Snapshot(**binding, events=(), understandings=()),indexed=core.indexed_queries)
     else:
@@ -119,17 +129,31 @@ def stage(core, view_id, *, directory, adapter, detach, archive_directory=None):
                 (body or {}).get("excerpts", []), root / "excerpts",write_object=writer)
             if excerpt_locators:
                 body = {**body, "excerpt_locators": excerpt_locators}
+            adapter_caps = adapter.capabilities()
+            verification_scopes = adapter_caps.get('verification_scopes')
+            verification_sources = []
+            if verification_scopes:
+                from .verification_state import verification_observation
+                verification_sources = [row['id'] for row in source if verification_observation(row)
+                                        and row['payload']['verification_scope'] in verification_scopes]
+                for source_id in verification_sources:
+                    evidence.authorize(core.store, core.access, source_id)
             items = adapter.render(body, source, binding["cut"], locators,
                                    source_index=str(index), understanding_index=str(memories))
             through=len(source)
+            verification_tail = (digest(source[binding['cut']:]) if verification_scopes
+                                 else None)
             if core.bounded_catalog:source=None
             package = {"format": "wsc.checkpoint/1", "operation_id": key, "action": "detach" if detach else "publish",
                        "binding": binding, "through": through,
                        "next_generation": binding["generation"] + (0 if detach else 1),
-                       "adapter": adapter.capabilities(), "items": items,
+                       "adapter": adapter_caps, "items": items,
                        "source_index": str(index), "source_index_sha256": source_checksum,
                        "understanding_index": str(memories), "understanding_index_sha256": understanding_checksum,
                        "evidence": locators, "semantic_status": "unverified"}
+            if verification_tail is not None:
+                package['verification_tail_sha256'] = verification_tail
+                package['verification_read_sources'] = verification_sources
             if excerpt_locators:
                 package["excerpt_evidence"] = excerpt_locators
                 package["current_reference_bindings"] = [e["current_reference"] for e in body["excerpts"]
@@ -138,8 +162,8 @@ def stage(core, view_id, *, directory, adapter, detach, archive_directory=None):
             writer(root / "checkpoint.json", encode(package).encode("utf-8"))
         with core.store.transaction() as db:
             require(operation(db, key)["state"] == "preparing", "publication_cancelled")
-            check_binding(db, core, data)
             data["package"] = package
+            check_binding(db, core, data)
             db.execute("UPDATE operations SET state='ready',data=? WHERE id=?", (encode(data), key))
         return key
     except BaseException:
@@ -149,6 +173,8 @@ def stage(core, view_id, *, directory, adapter, detach, archive_directory=None):
 
 
 def check_evidence(core, package):
+    for source_id in package.get('verification_read_sources', ()):
+        evidence.authorize(core.store, core.access, source_id)
     io=core.resource_io
     def digest_file(path):
         if io is not None:

@@ -1,0 +1,8 @@
+{
+ "persona": "M02",
+ "file": "M02.jsonl",
+ "sha256": "eacbd8e23d33e580ca4e7de67618207890be2c1c3a277939cea5ade691e0cb37",
+ "turns": 5413,
+ "sessions": 471,
+ "note": "2.2: the 2.1 turns are kept word for word; new sessions were inserted into the same 180 days and everything was renumbered. New dialogue was written by deepseek-v4.1-flash (user and assistant); typos/pinyin/emoji by script."
+}

@@ -1,0 +1,52 @@
+{
+  "version": "prices-2.2.0",
+  "currency": "CNY",
+  "usd_cny": 7.2,
+  "note": "Fixed price list used by the evaluator gateway. Cost = tokens x price below, regardless of what the provider actually bills, regardless of cache hits, and local models are priced as deepseek-v4.1-flash. Prices are per million tokens.",
+  "models": {
+    "deepseek-v4.1-flash": {
+      "provider": "DeepSeek (served through OpenCode Go)",
+      "in_per_mtok": 1.296,
+      "out_per_mtok": 5.184,
+      "source": "Fitted from our own billing (300 answer calls, 2026-11-09): USD 0.18 / 0.72 per million tokens x 7.2. NOT an official list price; the owner does not know the official price. Replace when one is known."
+    },
+    "qwen3.7-text-embedding": {
+      "provider": "Alibaba Bailian (DashScope)",
+      "in_per_mtok": 0.5,
+      "out_per_mtok": 0,
+      "source": "Owner-confirmed 2026-11-09: Bailian Qwen3.7 embedding is CNY 0.5 per million tokens."
+    },
+    "qwen3.7-text-rerank": {
+      "provider": "Alibaba Bailian (DashScope)",
+      "in_per_mtok": 0.5,
+      "out_per_mtok": 0,
+      "source": "Owner-confirmed 2026-11-09: Bailian Qwen3.7 rerank is CNY 0.5 per million tokens."
+    },
+    "qwen3.7-plus": {
+      "provider": "Alibaba Bailian (DashScope)",
+      "in_per_mtok": 0.8,
+      "out_per_mtok": 4.8,
+      "source": "Bailian list price, used only for question writing and review (not part of any system's cost). Owner to confirm."
+    },
+    "qwen3.7-max": {
+      "provider": "Alibaba Bailian (DashScope)",
+      "in_per_mtok": 2.5,
+      "out_per_mtok": 10,
+      "source": "Bailian list price, used only for question review. Owner to confirm."
+    },
+    "qwen-plus": {
+      "provider": "Alibaba Bailian (DashScope)",
+      "in_per_mtok": 0.8,
+      "out_per_mtok": 2.0,
+      "source": "Bailian list price. Owner to confirm."
+    },
+    "qwen-max": {
+      "provider": "Alibaba Bailian (DashScope)",
+      "in_per_mtok": 2.4,
+      "out_per_mtok": 9.6,
+      "source": "Bailian list price. Owner to confirm."
+    }
+  },
+  "memory_in_prompt_model": "deepseek-v4.1-flash",
+  "memory_in_prompt_rule": "Memory text placed into the answer prompt is charged at the flash input price. Its token count is prompt_tokens x (characters of memory text / characters of the whole prompt) from the answer call."
+}

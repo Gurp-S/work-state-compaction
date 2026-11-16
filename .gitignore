@@ -4,4 +4,21 @@ __pycache__/
 build/
 dist/
 .venv/
-.local/
+
+# --- 凭据与本机配置：绝不提交到公开仓库 ---
+config.json
+*.local.json
+.credentials.yaml
+*.key
+
+# --- 运行产物（评测脚本与数据本身仍会被提交）---
+evals/run_results/
+evals/.local/goal-wsc-paid-20261111/host-pair-auto/
+evals/benchmarks/results/
+*.db
+*.log
+*_host_pair.local.py
+
+# dsh-wsc 运行时产物（排除，源码保留）
+dsh-wsc/node_modules/
+dsh-wsc/experiments/
