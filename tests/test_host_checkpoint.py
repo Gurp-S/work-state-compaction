@@ -74,11 +74,11 @@ class HostCheckpointTests(unittest.TestCase):
         before = self.build('baseline')
         with patch.object(WSC, 'generate', side_effect=AssertionError('generation forbidden')):
             after = self.build('candidate', self.adapter())
-        self.assertEqual([*self.prefix, *self.tail], before['items'][:-1])
-        self.assertEqual(self.tail, after['items'][:-1])
+        self.assertEqual([*self.prefix, *self.tail], before['items'][1:])
+        self.assertEqual(self.tail, after['items'][1:])
         self.assertEqual(digest({k:v for k,v in after.items() if k != 'package_digest'}), after['package_digest'])
-        facts = json.loads(after['items'][-1]['content'][0]['text'])
-        oldfacts = json.loads(before['items'][-1]['content'][0]['text'])
+        facts = json.loads(after['items'][0]['content'][0]['text'])
+        oldfacts = json.loads(before['items'][0]['content'][0]['text'])
         self.assertEqual(oldfacts['model_records'], facts['model_records'])
         self.assertEqual(oldfacts['clues'], facts['clues'])
         # Independent builds emit their phase observation at different times.
@@ -191,7 +191,7 @@ class HostCheckpointTests(unittest.TestCase):
             else:
                 items = pending.import_into(None, opened, area, message('developer', 'current fact'))
                 self.assertEqual(items, calls[1])
-                self.assertEqual(self.tail, items[:-2])
+                self.assertEqual(self.tail, items[1:-1])
                 self.assertIsNone(read(area / 'host-publication.json')['installation_receipt'])
         return calls
 

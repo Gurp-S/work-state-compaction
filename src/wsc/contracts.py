@@ -51,6 +51,10 @@ class Understanding:
     # Identity is optional on first write; revisions require an expected revision.
     id: str | None = None
     expected_revision: int | None = None
+    status: str = "active"
+    observed_at: str | None = None
+    valid_until: str | None = None
+    invalid_when: dict | None = None
 
 
 @dataclass(frozen=True)

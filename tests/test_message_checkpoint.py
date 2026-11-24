@@ -45,7 +45,7 @@ class MessageCheckpointTests(unittest.TestCase):
     def test_messages_exact_order_tool_cold_observations_exact_no_generation(self):
         with patch.object(WSC, 'generate', side_effect=AssertionError('unexpected generation')):
             package = self.build()
-        self.assertEqual(self.messages, package['items'][:3])
+        self.assertEqual(self.messages, package['items'][1:4])
         core = WSC(Store(self.root / 'checkpoint/state.db', session_id='checkpoint', workspace=str(self.root)),
                    access=lambda *args: True)
         snap = core.capture()
@@ -57,7 +57,7 @@ class MessageCheckpointTests(unittest.TestCase):
         self.assertEqual(0, result['cursor'])
         self.assertEqual(7, result['source_count'])
         self.assertEqual(5, result['selected_sources'])
-        state = json.loads(package['items'][3]['content'][0]['text'])
+        state = json.loads(package['items'][0]['content'][0]['text'])
         observations = [json.loads(row['text']) for row in state['historical_excerpts']]
         self.assertEqual(['prior_scope'], observations[0]['names'])
         self.assertFalse(observations[1]['host_phase_completed'])

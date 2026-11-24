@@ -6,7 +6,7 @@ import json
 from time import monotonic
 from uuid import uuid4
 
-from . import accounting, events, evidence, excerpts, understanding
+from . import accounting, events, evidence, excerpts, state_delta, state_view, understanding
 from .audit_cache import validate_anchor
 from .contracts import (AccessCheck, Event, Generated, GeneratorPort, Limits, Selection,
                         Snapshot, Understanding, Usage, digest, encode, require)
@@ -17,15 +17,20 @@ from .material_v2 import MaterialView
 from .view_budget import admit_generation, mandatory_sources
 
 
+def _in_revision_chain(ref, head, journal):
+    cursor = head.get("previous")
+    while cursor:
+        if cursor == ref:
+            return True
+        cursor = (journal.get(cursor) or {}).get("previous")
+    return False
+
+
 class WSC:
-    def __init__(self, store: Store, *, access: AccessCheck, resource_io=None,query_policy=None,publication_policy=None,
+    def __init__(self, store: Store, *, access: AccessCheck, resource_io=None,
                  evidence_sync: bool = True, integrity_anchor: str | None = None):
         self.store, self.access = store, access
         self.resource_io = resource_io
-        require(query_policy in (None,'prefix_index_v1'),'query_policy_unsupported')
-        self.indexed_queries=query_policy=='prefix_index_v1'
-        require(publication_policy in (None,'bounded_catalog_v1'),'publication_policy_unsupported')
-        self.bounded_catalog=publication_policy=='bounded_catalog_v1'
         require(type(evidence_sync) is bool,'evidence_sync_policy_invalid')
         self.evidence_sync=evidence_sync
         # Optional out-of-band pin on the receipt chain head a release expects.
@@ -54,18 +59,14 @@ class WSC:
     def remember(self, record: Understanding, *, producer: str) -> dict:
         with self.store.transaction() as db:
             semantic_writes_allowed(db)
-            known=None
-            if self.indexed_queries:
-                from .scoped_queries import existing_sources
-                known=existing_sources(db,record.sources)
-            return understanding.write(db, record, producer=producer,allowed_sources=known)
+            return understanding.write(db, record, producer=producer)
 
     def capture(self, *, cut: int | None = None) -> Snapshot:
         with self.store.transaction() as db:
             semantic_writes_allowed(db)
             if cut is None:
                 cut = db.execute("SELECT COUNT(*) FROM events").fetchone()[0]
-            prefix = events.safe_boundary(db, cut,indexed=self.indexed_queries)
+            prefix = events.safe_boundary(db, cut)
             return Snapshot(self.store.session_id, self.store.workspace,
                             getmeta(db, "generation"), getmeta(db, "control_epoch"),
                             getmeta(db, "understanding_epoch"), cut, digest(prefix),
@@ -77,7 +78,7 @@ class WSC:
     def material_view(self, snapshot: Snapshot):
         """Opt-in lazy projection: rows stay by reference until a page is asked for."""
         with self.store.transaction() as db:
-            prefix = validate_snapshot(db, self.store, snapshot,indexed=self.indexed_queries)
+            prefix = validate_snapshot(db, self.store, snapshot)
             for row in prefix:
                 evidence.authorize(self.store, self.access, row["id"])
             return MaterialView(prefix, understanding.all_records(db),
@@ -86,7 +87,7 @@ class WSC:
     def snapshot_content(self, snapshot: Snapshot) -> tuple[list, list]:
         """Public read: validated rows and understanding records for a snapshot."""
         with self.store.connect() as db:
-            prefix = validate_snapshot(db, self.store, snapshot, indexed=self.indexed_queries)
+            prefix = validate_snapshot(db, self.store, snapshot)
             return prefix, understanding.all_records(db)
 
     def check_snapshot(self, snapshot: Snapshot, *, rows=None) -> None:
@@ -96,8 +97,7 @@ class WSC:
         it; the digest and pairing checks still run on those rows.
         """
         with self.store.connect() as db:
-            validate_snapshot(db, self.store, snapshot, indexed=self.indexed_queries,
-                              all_rows=rows)
+            validate_snapshot(db, self.store, snapshot, all_rows=rows)
 
     def snapshot_token(self, snapshot: Snapshot) -> tuple:
         """Cheap fingerprint of the binding and the event extent.
@@ -141,7 +141,7 @@ class WSC:
             return view_record(db, view_id)
 
     def generate(self, snapshot: Snapshot, generator: GeneratorPort, *, producer: str,
-                 limits: Limits = Limits(), include_selection_facts: bool = False) -> str:
+                 limits: Limits = Limits()) -> str:
         view = self.material_view(snapshot)
         require(view.text_bytes() <= limits.max_material_bytes,
                 "generation_material_byte_budget_exhausted")
@@ -153,13 +153,9 @@ class WSC:
         attempt = uuid4().hex
         with self.store.transaction() as db:
             semantic_writes_allowed(db)
-            prefix = validate_snapshot(db, self.store, snapshot,indexed=self.indexed_queries)
-            admit_generation(prefix, limits.max_view_bytes)
-            if include_selection_facts:
-                from .selection_facts import describe
-                material = {**material, "selection_facts": describe(prefix, limits.max_view_bytes)}
-                require(len(encode(material).encode("utf-8")) <= limits.max_material_bytes,
-                        "generation_material_byte_budget_exhausted")
+            prefix = validate_snapshot(db, self.store, snapshot)
+            records = understanding.all_records(db)
+            admit_generation(prefix, limits.max_view_bytes, records)
             count = db.execute("SELECT COUNT(*) FROM usage WHERE phase=?", (phase,)).fetchone()[0]
             require(count < limits.max_generation_calls, "generation_budget_exhausted")
             accounting.begin(db, attempt, phase)
@@ -182,21 +178,54 @@ class WSC:
         return self.prepare(snapshot, result.selection, producer=producer, limits=limits)
 
     def prepare(self, snapshot: Snapshot, selection: Selection, *, producer: str,
-                limits: Limits = Limits(), source_projection: str | None = None) -> str:
-        """No implicit generation. Supplied semantic content has explicit provenance."""
+                limits: Limits = Limits(), source_projection: str | None = None,
+                audit_state_delta: bool = False) -> str:
+        """No implicit generation. Supplied semantic content has explicit provenance.
+
+        H1: the view presents the ledger's current entries by default; selection
+        chooses among current entries and inlines evidence bytes, never the
+        reverse. Expired or superseded entries cannot be presented as current.
+        """
         with self.store.transaction() as db:
             semantic_writes_allowed(db)
-            prefix = validate_snapshot(db, self.store, snapshot,indexed=self.indexed_queries)
+            prefix = validate_snapshot(db, self.store, snapshot)
             known = {r["id"]: r for r in prefix}
             selected = set(selection.source_ids)
             require(selected <= known.keys(), "selected_source_missing")
             selected.update(r["id"] for r in mandatory_sources(prefix))
-            refs = list(dict.fromkeys(selection.understanding_refs))
             for value in selection.new_understandings:
-                record = understanding.write(db, value, producer=producer, allowed_sources=known)
-                refs.append(record["ref"])
-            records = [understanding.resolve(db, ref) for ref in dict.fromkeys(refs)]
-            require(all(set(r["sources"]) <= known.keys() for r in records), "understanding_outside_snapshot")
+                understanding.write(db, value, producer=producer, allowed_sources=known)
+            records = understanding.all_records(db)
+            current = state_view.current_entries(records, prefix)
+            current_by_ref = {r["ref"]: r for r in current}
+            refs = list(dict.fromkeys(selection.understanding_refs))
+            if refs:
+                journal = {r["ref"]: r for r in records}
+                heads_by_id = {r["id"]: r for r in current}
+                entries = []
+                for ref in refs:
+                    if ref in current_by_ref:
+                        record = current_by_ref[ref]
+                    else:
+                        # A revision written in this same selection supersedes the
+                        # selected ref; the identity's new head is what is current.
+                        old = journal.get(ref)
+                        head = heads_by_id.get(old["id"]) if old else None
+                        require(head is not None and _in_revision_chain(ref, head, journal),
+                                "state_entry_not_current")
+                        record = head
+                    if record["ref"] not in {r["ref"] for r in entries}:
+                        entries.append(record)
+            else:
+                entries = [r for r in current if set(r["sources"]) <= known.keys()]
+            require(all(set(r["sources"]) <= known.keys() for r in entries), "understanding_outside_snapshot")
+            changes = None
+            if audit_state_delta:
+                # Internal audit only: never enters the model-visible body.
+                head = getmeta(db, "head")
+                if head is not None:
+                    previous = view_record(db, head)["body"].get("understandings", [])
+                    changes = state_delta.delta([r["ref"] for r in previous], records, prefix)
             clues = []
             for clue in selection.clues:
                 require(isinstance(clue, dict) and set(clue) == {"text", "sources"}, "clue_shape_invalid")
@@ -205,12 +234,14 @@ class WSC:
                         and set(clue["sources"]) <= known.keys(), "clue_source_missing")
                 clues.append(json.loads(encode(clue)))
             require(all(known[key]["kind"] != "opaque" for key in selected), "opaque_hot_selection_unavailable")
-            for key in selected | {key for r in records for key in r["sources"]} | {
+            for key in selected | {key for r in entries for key in r["sources"]} | {
                     key for c in clues for key in c["sources"]} | {
                     item.source_id for item in selection.excerpts if isinstance(item, excerpts.Excerpt)}:
                 evidence.authorize(self.store, self.access, key)
             body = {"sources": [r for r in prefix if r["id"] in selected],
-                    "understandings": records, "clues": clues}
+                    "understandings": entries, "clues": clues}
+            if changes is not None:
+                body["state_delta_audit"] = changes
             if selection.excerpts:
                 body["excerpts"] = excerpts.resolve(selection.excerpts, known,resource_io=self.resource_io)
             if source_projection is not None:
@@ -228,10 +259,9 @@ class WSC:
     def read(self, source_id: str, *, offset=0, limit=None) -> dict:
         return evidence.read(self.store, self.access, source_id, offset=offset, limit=limit)
 
-    def stage(self, view_id: str, *, directory, adapter, archive_directory=None) -> str:
+    def stage(self, view_id: str, *, directory, adapter) -> str:
         from .publication import stage
-        return stage(self, view_id, directory=directory, adapter=adapter, detach=False,
-                     archive_directory=archive_directory)
+        return stage(self, view_id, directory=directory, adapter=adapter, detach=False)
 
     def stage_detach(self, *, directory, adapter) -> str:
         from .publication import stage
@@ -242,10 +272,6 @@ class WSC:
     def install(self, operation_id: str, host) -> dict:
         from .publication import install
         return install(self, operation_id, host)
-
-    def reconcile(self, operation_id: str, host) -> dict:
-        from .publication import reconcile
-        return reconcile(self, operation_id, host)
 
     def discard(self, operation_id: str) -> None:
         from .publication import discard

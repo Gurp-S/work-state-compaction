@@ -31,14 +31,14 @@ class NativeCarrierTests(unittest.TestCase):
 
     def test_one_unchanged_carrier_with_original_control_and_exact_tail(self):
         result = self.render()
-        self.assertEqual(self.prefix[0], result[0])
-        self.assertEqual(self.carrier, result[1])
+        self.assertEqual(self.prefix[0], result[1])
+        self.assertEqual(self.carrier, result[2])
         self.assertEqual(self.sources[-1]["payload"], result[-1])
         self.assertEqual(1, sum(r["type"] == "compaction" for r in result))
-        self.assertEqual("assistant", result[2]["role"])
-        self.assertIn("Exact historical observation", result[2]["content"][0]["text"])
-        self.assertIn("historical-time", result[2]["content"][0]["text"])
-        self.assertNotIn("opaque-test-value", result[2]["content"][0]["text"])
+        self.assertEqual("assistant", result[0]["role"])
+        self.assertIn("Exact historical observation", result[0]["content"][0]["text"])
+        self.assertIn("historical-time", result[0]["content"][0]["text"])
+        self.assertNotIn("opaque-test-value", result[0]["content"][0]["text"])
 
     def test_source_prefix_cannot_drift_under_a_retained_checkpoint(self):
         changed = copy.deepcopy(self.sources)
@@ -56,7 +56,7 @@ class NativeCarrierTests(unittest.TestCase):
 
     def test_original_carrier_mutation_does_not_change_registered_value(self):
         self.carrier["encrypted_content"] = "caller-mutated"
-        self.assertEqual("opaque-test-value", self.render()[1]["encrypted_content"])
+        self.assertEqual("opaque-test-value", self.render()[2]["encrypted_content"])
 
     def test_selected_historical_assistant_messages_cannot_duplicate_the_native_state(self):
         self.body["sources"].append(self.sources[1])

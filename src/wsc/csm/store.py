@@ -15,82 +15,99 @@ from ..contracts import encode, identifier
 from .contracts import require
 from .contracts import IDENTITY_KEY_RULE
 
-SCHEMA = """
+SCHEMA_TABLES = """
 CREATE TABLE IF NOT EXISTS meta (key TEXT PRIMARY KEY, value TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS events (
  seq INTEGER PRIMARY KEY AUTOINCREMENT, id TEXT NOT NULL UNIQUE,
  source_type TEXT NOT NULL, source_ref TEXT, observed_at TEXT,
- data TEXT NOT NULL, digest TEXT NOT NULL);
+ data TEXT NOT NULL, digest TEXT NOT NULL, metadata TEXT);
+CREATE TABLE IF NOT EXISTS commits (
+ commit_sha TEXT PRIMARY KEY, observed_at TEXT, data TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS properties (
+ property_id TEXT PRIMARY KEY, entity TEXT NOT NULL, normalized_name TEXT NOT NULL,
+ kind TEXT NOT NULL, scope TEXT NOT NULL, data TEXT NOT NULL,
+ UNIQUE(entity, normalized_name));
+CREATE TABLE IF NOT EXISTS property_aliases (
+ entity TEXT NOT NULL, alias TEXT NOT NULL, property_id TEXT NOT NULL,
+ PRIMARY KEY(entity, alias));
 CREATE TABLE IF NOT EXISTS identities (
  memory_id TEXT PRIMARY KEY, identity_key TEXT NOT NULL UNIQUE,
  entity TEXT NOT NULL, slot TEXT NOT NULL, contexts TEXT NOT NULL,
- semantic_type TEXT NOT NULL, data TEXT NOT NULL);
-CREATE INDEX IF NOT EXISTS identity_entity_slot ON identities(entity, slot);
+ semantic_type TEXT NOT NULL, data TEXT NOT NULL,
+ property_id TEXT, property_kind TEXT, scope TEXT);
 CREATE TABLE IF NOT EXISTS memory_topics (
  memory_id TEXT NOT NULL, topic TEXT NOT NULL, PRIMARY KEY(memory_id, topic));
+CREATE TABLE IF NOT EXISTS memory_symbols (
+ memory_id TEXT NOT NULL, symbol TEXT NOT NULL, PRIMARY KEY(memory_id, symbol));
 CREATE TABLE IF NOT EXISTS revisions (
  memory_id TEXT NOT NULL, revision INTEGER NOT NULL, data TEXT NOT NULL,
+ valid_from TEXT, effective_at TEXT, observed_at TEXT,
  PRIMARY KEY (memory_id, revision));
 CREATE TABLE IF NOT EXISTS heads (
  memory_id TEXT PRIMARY KEY, current_revision INTEGER NOT NULL,
  projection_version INTEGER NOT NULL);
-CREATE TABLE IF NOT EXISTS projection (memory_id TEXT PRIMARY KEY, data TEXT NOT NULL);
-CREATE TABLE IF NOT EXISTS pending (
- pending_id TEXT PRIMARY KEY, pending_type TEXT NOT NULL, status TEXT NOT NULL,
- entity TEXT, slot TEXT, data TEXT NOT NULL);
-CREATE TABLE IF NOT EXISTS identity_changes (
- change_id INTEGER PRIMARY KEY AUTOINCREMENT, memory_id TEXT NOT NULL,
- kind TEXT NOT NULL, recorded_at TEXT NOT NULL, data TEXT NOT NULL);
-CREATE TABLE IF NOT EXISTS identity_aliases (
- identity_key TEXT PRIMARY KEY, memory_id TEXT NOT NULL, created_at TEXT NOT NULL);
-CREATE TABLE IF NOT EXISTS relations (
- rel_id TEXT PRIMARY KEY, kind TEXT NOT NULL, subject TEXT NOT NULL, object TEXT NOT NULL,
- contexts TEXT NOT NULL, confirmed INTEGER NOT NULL, truth TEXT, evidence TEXT NOT NULL,
- producer TEXT NOT NULL, recorded_at TEXT NOT NULL, data TEXT NOT NULL);
-CREATE INDEX IF NOT EXISTS relation_subject ON relations(subject, kind);
-CREATE INDEX IF NOT EXISTS relation_object ON relations(object, kind);
-CREATE TABLE IF NOT EXISTS tree_nodes (
- node_id TEXT PRIMARY KEY, parent_id TEXT, node_type TEXT NOT NULL, name TEXT NOT NULL,
- status TEXT NOT NULL, contract TEXT NOT NULL, evidence TEXT NOT NULL,
- created_at TEXT NOT NULL, data TEXT NOT NULL);
-CREATE INDEX IF NOT EXISTS tree_node_parent ON tree_nodes(parent_id);
-CREATE TABLE IF NOT EXISTS tree_mounts (
- node_id TEXT NOT NULL, memory_id TEXT NOT NULL, relation TEXT,
- created_at TEXT NOT NULL, PRIMARY KEY(node_id, memory_id));
-CREATE INDEX IF NOT EXISTS tree_mount_memory ON tree_mounts(memory_id);
-CREATE TABLE IF NOT EXISTS tree_ops (
- op_id INTEGER PRIMARY KEY AUTOINCREMENT, tree_revision INTEGER NOT NULL,
- operation_type TEXT NOT NULL, status TEXT NOT NULL,
- target_refs TEXT NOT NULL, source_refs TEXT NOT NULL, previous_revision INTEGER NOT NULL,
- payload TEXT NOT NULL, recorded_at TEXT NOT NULL);
-CREATE TABLE IF NOT EXISTS watermarks (
- source_type TEXT PRIMARY KEY, last_seq INTEGER NOT NULL, updated_at TEXT NOT NULL);
-CREATE TABLE IF NOT EXISTS event_groups (
- group_id TEXT PRIMARY KEY, status TEXT NOT NULL, data TEXT NOT NULL,
- recorded_at TEXT NOT NULL);
-CREATE TABLE IF NOT EXISTS vector_index (
- memory_id TEXT PRIMARY KEY, revision INTEGER NOT NULL, fingerprint TEXT NOT NULL,
- dim INTEGER NOT NULL, vector BLOB NOT NULL, updated_at TEXT NOT NULL);
-CREATE TABLE IF NOT EXISTS entity_aliases (
- alias TEXT NOT NULL, entity TEXT NOT NULL, status TEXT NOT NULL, confidence REAL NOT NULL,
- evidence TEXT NOT NULL, created_at TEXT NOT NULL, PRIMARY KEY(alias, entity));
-CREATE TABLE IF NOT EXISTS memory_digests (
- memory_id TEXT PRIMARY KEY, through_revision INTEGER NOT NULL, digest TEXT NOT NULL,
- created_at TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS term_index (
+ term TEXT NOT NULL, memory_id TEXT NOT NULL, revision INTEGER NOT NULL,
+ weight INTEGER NOT NULL, PRIMARY KEY(term, memory_id, revision));
+CREATE TABLE IF NOT EXISTS symbol_index (
+ term TEXT NOT NULL, memory_id TEXT NOT NULL, revision INTEGER NOT NULL,
+ weight INTEGER NOT NULL, PRIMARY KEY(term, memory_id, revision));
 """
 
-TABLES = frozenset({"meta", "events", "identities", "memory_topics", "revisions", "heads",
-                    "projection", "pending", "identity_changes", "identity_aliases",
-                    "relations", "tree_nodes", "tree_mounts", "tree_ops", "watermarks",
-                    "event_groups", "vector_index", "entity_aliases", "memory_digests"})
+SCHEMA_INDEXES = """
+CREATE INDEX IF NOT EXISTS property_entity ON properties(entity);
+CREATE INDEX IF NOT EXISTS identity_entity_slot ON identities(entity, slot);
+CREATE INDEX IF NOT EXISTS identity_property ON identities(property_id);
+CREATE INDEX IF NOT EXISTS topic_lookup ON memory_topics(topic);
+CREATE INDEX IF NOT EXISTS symbol_lookup ON memory_symbols(symbol);
+CREATE INDEX IF NOT EXISTS revision_window ON revisions(memory_id, valid_from);
+CREATE INDEX IF NOT EXISTS term_lookup ON term_index(term);
+CREATE INDEX IF NOT EXISTS term_memory ON term_index(memory_id, revision);
+CREATE INDEX IF NOT EXISTS symbol_term_lookup ON symbol_index(term);
+CREATE INDEX IF NOT EXISTS symbol_memory ON symbol_index(memory_id, revision);
+"""
 
-# Recognized only; the default schema never creates the opt-in entity registry.
-TABLES = TABLES | frozenset({"csm_entities", "csm_entity_labels", "csm_entity_nodes",
-                           "csm_entity_node_history"})
-TABLES = TABLES | frozenset({"csm_property_specs", "csm_property_bindings", "csm_property_proposals",
-                           "csm_property_reviews", "csm_property_commits", "csm_property_relation_events"})
+# A store written by the string-key model has the same tables but not the property and
+# event-time columns; adding them is a schema upgrade, not a data rewrite.
+COLUMN_UPGRADES = {
+    "events": {"metadata": "TEXT"},
+    "identities": {"property_id": "TEXT", "property_kind": "TEXT", "scope": "TEXT"},
+    "revisions": {"valid_from": "TEXT", "effective_at": "TEXT", "observed_at": "TEXT"},
+}
 
-ROOT_NODE = "MemorySpace"
+
+def _columns(db: sqlite3.Connection, table: str) -> set[str]:
+    return {row[1] for row in db.execute(f"PRAGMA table_info({table})")}
+
+
+def upgrade_columns(db: sqlite3.Connection) -> None:
+    for table, wanted in COLUMN_UPGRADES.items():
+        present = _columns(db, table)
+        for name, declaration in wanted.items():
+            if name not in present:
+                db.execute(f"ALTER TABLE {table} ADD COLUMN {name} {declaration}")
+    # The term index is derived. A pre-revision index cannot answer as-of search, so it is
+    # replaced here and rebuilt by ``CSM.rebuild``; no source or memory data is touched.
+    if "revision" not in _columns(db, "term_index"):
+        db.execute("DROP TABLE term_index")
+        db.execute("CREATE TABLE term_index (term TEXT NOT NULL, memory_id TEXT NOT NULL, "
+                   "revision INTEGER NOT NULL, weight INTEGER NOT NULL, "
+                   "PRIMARY KEY(term, memory_id, revision))")
+
+# Legacy names are recognized so an old store can still be opened and read, but the new
+# schema never creates them and the core never imports their mechanisms.
+TABLES = frozenset({
+    "meta", "events", "commits", "properties", "property_aliases", "identities",
+    "memory_topics", "memory_symbols", "revisions", "heads", "projection", "term_index",
+    "symbol_index",
+    "pending", "identity_changes", "identity_aliases", "relations", "tree_nodes", "tree_mounts",
+    "tree_ops", "watermarks", "event_groups", "vector_index", "entity_aliases", "memory_digests",
+    "csm_entities", "csm_entity_labels", "csm_entity_nodes", "csm_entity_node_history",
+    "csm_property_specs", "csm_property_bindings", "csm_property_proposals",
+    "csm_property_reviews", "csm_property_commits", "csm_property_relation_events",
+})
+
+SCHEMA_VERSION = 4
 
 
 class CsmStore:
@@ -98,37 +115,25 @@ class CsmStore:
         self.path = Path(path).resolve()
         self.namespace = identifier(namespace)
         with self.connect() as db:
-            db.executescript(SCHEMA)
+            db.executescript(SCHEMA_TABLES)
+            upgrade_columns(db)
+            db.executescript(SCHEMA_INDEXES)
+            try:
+                db.execute("PRAGMA journal_mode = WAL")
+                db.execute("PRAGMA synchronous = NORMAL")
+            except sqlite3.DatabaseError:
+                pass
             tables = {row[0] for row in
                       db.execute("SELECT name FROM sqlite_master WHERE type='table' "
                                  "AND name NOT LIKE 'sqlite_%'")}
             require(tables <= TABLES, "store_format_unknown")
-            binding = {"schema": 1, "namespace": self.namespace}
             stored = getmeta(db, "binding")
-            require(stored is None or stored == binding, "store_namespace_conflict")
             if stored is None:
-                setmeta(db, "binding", binding)
-            rule = getmeta(db, "identity_key_rule")
-            require(rule is None or rule == IDENTITY_KEY_RULE,
-                    "store_identity_key_rule_conflict")
-            if rule is None:
+                setmeta(db, "binding", {"schema": SCHEMA_VERSION, "namespace": self.namespace})
+            else:
+                require(stored.get("namespace") == self.namespace, "store_namespace_conflict")
+            if getmeta(db, "identity_key_rule") is None:
                 setmeta(db, "identity_key_rule", IDENTITY_KEY_RULE)
-            if db.execute("SELECT 1 FROM tree_nodes WHERE node_id = ?",
-                          (ROOT_NODE,)).fetchone() is None:
-                contract = {"node_id": ROOT_NODE, "node_type": "organization",
-                            "entity_anchor": None, "scope_description": "memory space root",
-                            "accepted_relations": [], "context_constraints": [],
-                            "evidence_refs": [], "contract_revision": 1}
-                data = {"node_id": ROOT_NODE, "parent_id": None, "node_type": "organization",
-                        "name": ROOT_NODE, "status": "active", "contract": contract,
-                        "evidence": [], "created_at": "", "producer": "system"}
-                db.execute("INSERT INTO tree_nodes(node_id, parent_id, node_type, name, status, "
-                           "contract, evidence, created_at, data) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                           (ROOT_NODE, None, "organization", ROOT_NODE, "active",
-                            json.dumps(contract, sort_keys=True), "[]", "",
-                            json.dumps(data, sort_keys=True, ensure_ascii=False)))
-            if getmeta(db, "tree_head") is None:
-                setmeta(db, "tree_head", 0)
 
     @contextmanager
     def connect(self) -> Iterator[sqlite3.Connection]:
@@ -136,6 +141,7 @@ class CsmStore:
         db.row_factory = sqlite3.Row
         try:
             db.execute("PRAGMA foreign_keys = ON")
+            db.execute("PRAGMA busy_timeout = 30000")
             yield db
         finally:
             db.close()

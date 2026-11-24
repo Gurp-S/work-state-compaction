@@ -1,0 +1,27 @@
+{
+ "facts": [
+  [
+   "0.07"
+  ],
+  [
+   "REPORT_LIMIT"
+  ],
+  [
+   "count",
+   "totalCents"
+  ],
+  [
+   "negative",
+   "CSV"
+  ],
+  [
+   "amountCents",
+   "desc"
+  ],
+  {
+   "must": ["amountWithTaxCents", "dry-run"],
+   "forbid": ["pre-tax"],
+   "source": "CHANGELOG.md"
+  }
+ ]
+}

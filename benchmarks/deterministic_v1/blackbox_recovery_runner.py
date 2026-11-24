@@ -80,7 +80,7 @@ class RecoveryCell(Cell):
             native=self.new('native',parent);sibling=self.new('prefix-check',parent)
             compare_histories([effective(s,Path(s.opened['thread']['path']).read_bytes()) for s in (native,sibling)],str(self.work))
             core=WSC(Store(self.out/'state.db',session_id=self.out.name,workspace=str(self.work)),access=lambda *a:True,
-                resource_io=ResourceIO(),query_policy='prefix_index_v1',publication_policy='bounded_catalog_v1');self.core=core
+                resource_io=ResourceIO());self.core=core
             from wsc.adapters.codex import CodexCheckpointAdapter
             adapter=CodexCheckpointAdapter();ids=core.ingest(adapter.import_items(prefix,thread_id=parent.opened['thread']['id'],start_ordinal=len(bootstrap)))
             target_id=ids[5]

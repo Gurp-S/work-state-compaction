@@ -10,6 +10,13 @@
  * @param {number} seq event sequence number.
  * @returns {object|undefined} the event, or `undefined` when the log has no such seq.
  */
+export function sessionEvents(session) {
+  if (Array.isArray(session?.events)) return session.events
+  if (Array.isArray(session?.eventsSnapshot)) return session.eventsSnapshot
+  if (Array.isArray(session?.log)) return session.log
+  return []
+}
+
 export function eventAt(session, seq) {
   if (typeof session?.eventAt === 'function') return session.eventAt(seq)
   const events = Array.isArray(session?.eventsSnapshot) ? session.eventsSnapshot : session?.events

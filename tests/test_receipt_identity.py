@@ -116,7 +116,7 @@ class ReceiptIdentityTests(unittest.TestCase):
                     items = pending.import_into(None, {'thread': {'id': identity, 'path': str(target)}},
                                                 area, host_fixture.message('developer', 'current fact'))
                 self.assertEqual(2, len(calls))
-                state = json.loads(items[-2]['content'][0]['text'])
+                state = json.loads(items[0]['content'][0]['text'])
                 receipt = next(json.loads(e['text']) for e in state['historical_excerpts']
                                if json.loads(e['text']).get('kind') == 'independent_named_check_observation')
                 self.assertEqual(file_hash(f.root / 'receipt.json'), receipt['receipt_file_sha256'])

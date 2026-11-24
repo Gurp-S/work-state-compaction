@@ -10,11 +10,8 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'src'))
 from wsc import WSC,Store,Selection,WSCError
 from wsc.resource_io import ResourceIO
 from wsc.adapters.codex import CodexCheckpointAdapter
-from wsc.adapters.callback import CallbackHost
-from wsc.content_archive import publish_object
 from wsc.publication import check_evidence
 from wsc.evidence import write_once
-from wsc.excerpts import Excerpt
 from test_contracts import DurableTestHost,message
 
 
@@ -65,69 +62,6 @@ class ResourceIOTests(unittest.TestCase):
                 write_once(path,payload)
                 with self.assertRaisesRegex(WSCError,'evidence_object_conflict'):write_once(path,b'y'*200000)
 
-    def test_stale_symlink_precheck_cannot_bypass_descriptor_policy(self):
-        with tempfile.TemporaryDirectory() as directory:
-            root=Path(directory);target=root/'target';outside=root/'outside';outside.write_bytes(b'original')
-            try:target.symlink_to(outside)
-            except OSError:self.skipTest('local symlink creation unavailable')
-            # Some sandboxes accept symlink_to and create nothing; the case is
-            # only meaningful when the link actually exists.
-            if not os.path.lexists(target):self.skipTest('local symlink creation ignored')
-            # Inject the stale precheck result possible during a replacement race.
-            with patch.object(Path,'is_symlink',return_value=False):
-                publish_object(target,b'original') # Baseline accepts a substituted link.
-                with self.assertRaises((WSCError,OSError)):ResourceIO().write_once(target,b'original')
-            self.assertEqual(b'original',outside.read_bytes())
-
-    @unittest.skipUnless(os.name=='nt','Windows mandatory sharing lease')
-    def test_host_commit_window_before_after(self):
-        observations=[]
-        for hardened,target_kind in ((False,'object'),(True,'object'),(False,'reference'),(True,'reference')):
-            with tempfile.TemporaryDirectory() as directory:
-                root=Path(directory);io=ResourceIO() if hardened else None
-                core=WSC(Store(root/'state.db',session_id='s',workspace=str(root)),access=lambda *a:True,resource_io=io)
-                adapter=CodexCheckpointAdapter();items=[message('user','task'),message('assistant','observation')]
-                ids=core.ingest(adapter.import_items(items,thread_id='original'))
-                live=root/'live.txt';live.write_bytes(b'observation')
-                selected=Selection(excerpts=(Excerpt('live',ids[1],(),0,11,sha256(b'observation').hexdigest(),
-                    basis='public_text',current_resource=str(live),current_resource_sha256=sha256(b'observation').hexdigest()),)) if target_kind=='reference' else Selection()
-                view=core.prepare(core.capture(),selected,producer='fixture')
-                op=core.stage(view,directory=root/'exports',adapter=adapter)
-                package=core.package(op);path=live if target_kind=='reference' else Path(package['evidence'][ids[1]]['file_path'])
-                host=DurableTestHost(root/'host.db',core,items)
-                blocked=[]
-                def commit(value):
-                    try:
-                        if target_kind=='reference':
-                            replacement=root/'replacement.tmp';replacement.write_bytes(b'changed-after-validation');os.replace(replacement,path)
-                        else:path.write_bytes(b'changed-after-validation')
-                        blocked.append(False)
-                    except OSError:blocked.append(True)
-                    return host.install(value)
-                core.install(op,CallbackHost(commit=commit,lookup=host.lookup))
-                observations.append(blocked[0])
-                if hardened:check_evidence(core,package)
-                else:
-                    with self.assertRaisesRegex(WSCError,'reference_resource_changed' if target_kind=='reference' else 'exported_source_changed'):check_evidence(core,package)
-                self.assertEqual('confirmed',core.status()['operations'][0]['state'])
-        self.assertEqual([False,True,False,True],observations)
-
-    def test_archive_disappears_at_open_before_after(self):
-        with tempfile.TemporaryDirectory() as directory:
-            path=Path(directory)/'object';path.write_bytes(b'content')
-            original=Path.read_bytes
-            def vanished(target):
-                if target==path:target.unlink()
-                return original(target)
-            with patch.object(Path,'read_bytes',vanished):
-                with self.assertRaises(FileNotFoundError):publish_object(path,b'content')
-            path.write_bytes(b'content');io=ResourceIO();open_fd=io._fd;first=True
-            def delete_once(target,**kwargs):
-                nonlocal first
-                if Path(target)==path and first:path.unlink();first=False
-                return open_fd(target,**kwargs)
-            with patch.object(io,'_fd',delete_once):io.write_once(path,b'content')
-            self.assertEqual(b'content',path.read_bytes())
 
     def test_existing_object_read_error_does_not_permanently_block_stage(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -135,15 +69,15 @@ class ResourceIOTests(unittest.TestCase):
             core=WSC(Store(root/'state.db',session_id='s',workspace=str(root)),access=lambda *a:True,resource_io=io)
             adapter=CodexCheckpointAdapter();core.ingest(adapter.import_items([message('user','task')],thread_id='s'))
             view=core.prepare(core.capture(),Selection(),producer='fixture')
-            first=core.stage(view,directory=root/'exports',archive_directory=root/'shared',adapter=adapter);core.discard(first)
+            first=core.stage(view,directory=root/'exports',adapter=adapter);core.discard(first)
             with patch.object(io,'equal',side_effect=PermissionError('transient read failure')):
                 with self.assertRaisesRegex(WSCError,'evidence_object_unavailable'):
-                    core.stage(view,directory=root/'exports',archive_directory=root/'shared',adapter=adapter)
+                    core.stage(view,directory=root/'exports',adapter=adapter)
             self.assertIn('failed',[op['state'] for op in core.status()['operations']])
-            recovered=core.stage(view,directory=root/'exports',archive_directory=root/'shared',adapter=adapter)
+            recovered=core.stage(view,directory=root/'exports',adapter=adapter)
             check_evidence(core,core.package(recovered))
 
-    def test_post_commit_confirmation_failure_reconciles_without_second_install(self):
+    def test_post_commit_confirmation_failure_stops_without_second_install(self):
         with tempfile.TemporaryDirectory() as directory:
             root=Path(directory)
             core=WSC(Store(root/'state.db',session_id='s',workspace=str(root)),access=lambda *a:True)
@@ -154,9 +88,9 @@ class ResourceIOTests(unittest.TestCase):
             with patch('wsc.publication.confirm',side_effect=RuntimeError('injected local settlement failure')):
                 with self.assertRaises(RuntimeError):core.install(op,host)
             self.assertEqual('recovery_required',core.status()['operations'][0]['state'])
-            core.reconcile(op,host)
-            self.assertEqual('confirmed',core.status()['operations'][0]['state'])
+            with self.assertRaisesRegex(WSCError,'installation_outcome_unknown'):core.install(op,host)
             self.assertEqual(1,host.state()['effects'])
+            self.assertEqual(0,core.status()['cursor'])
 
 
 if __name__=='__main__':unittest.main()

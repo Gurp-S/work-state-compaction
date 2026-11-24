@@ -97,7 +97,7 @@ class HostContextAdapter(RecordedCodexCheckpointAdapter):
     def render(self, body, sources, cut, locators, *, source_index, understanding_index):
         items = super().render(body, sources, cut, locators,
                                source_index=source_index, understanding_index=understanding_index)
-        require(items[:len(self.prefix)] == self.prefix, 'host_checkpoint_prefix_changed')
+        require(items[1:1 + len(self.prefix)] == self.prefix, 'host_checkpoint_prefix_changed')
         by_id = {row['id']: row for row in sources}
         for key, original in zip(self.keys, self.prefix):
             require(key in by_id and by_id[key]['payload'] == original, 'host_source_identity_changed')
@@ -106,15 +106,14 @@ class HostContextAdapter(RecordedCodexCheckpointAdapter):
                     'host_cold_evidence_changed')
         # The structural position is supplied by the renderer contract, not a
         # search for JSON text that a task message may itself happen to contain.
-        state_index = sum(row['kind'] == 'message' for row in body['sources'])
-        state = json.loads(items[state_index]['content'][0]['text'])
+        state = json.loads(items[0]['content'][0]['text'])
         require(state.get('kind') == 'working_state' and 'historical_host_context' not in state,
                 'host_state_shape_invalid')
         state['historical_host_context'] = {'kind': 'archived_native_startup_observation', 'sources': [
             {'source_id': key, 'path': locators[key]['file_path'], 'sha256': locators[key]['sha256'],
              'observed_at': locators[key]['observed_at']} for key in self.keys]}
-        items[state_index]['content'][0]['text'] = encode(state)
-        return items[len(self.prefix):]
+        items[0]['content'][0]['text'] = encode(state)
+        return [items[0]] + items[1 + len(self.prefix):]
 
 
 class PendingHostCheckpoint:

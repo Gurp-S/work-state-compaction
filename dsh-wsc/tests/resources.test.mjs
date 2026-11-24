@@ -74,28 +74,6 @@ test('resources: a replacement during an open is detected', () => {
   )
 })
 
-test('resources: a lease records identities and fails closed when one drifts', () => {
-  const io = new ResourceIO()
-  const dir = temp()
-  const exported = join(dir, 'objects', 'x.json')
-  const source = join(dir, 'source.json')
-  writeFileSync(source, '{"source":true}')
-  io.writeOnce(exported, Buffer.from('{"payload":1}'))
-  const pkg = {
-    evidence: { 1: { file_path: exported, sha256: sha('{"payload":1}') } },
-    source_index: source,
-  }
-  const lease = io.lease(pkg)
-  assert.equal(lease.paths.length, 2)
-  assert.ok(lease.directories.length >= 2, 'every parent directory is leased too')
-  lease.verify()
-
-  writeFileSync(exported, '{"payload":2}')
-  assert.throws(() => lease.verify(), /evidence_resource_changed/)
-  assert.throws(() => io.lease({ evidence: { 1: { file_path: join(dir, 'absent.json') } } }), /installation_resource_unavailable/)
-  assert.throws(() => new ResourceIO({ maxOpenHandles: 2 }).lease(pkg), /installation_resource_budget_exhausted/)
-})
-
 test('resources: checkEvidence refuses a changed or missing export', () => {
   const io = new ResourceIO()
   const dir = temp()

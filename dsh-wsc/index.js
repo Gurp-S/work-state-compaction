@@ -28,23 +28,38 @@ export const Config = z.object({
   mode: live(z.string(), 'active'),
   capacityMode: live(z.string(), 'ratio'),
   // Share of the usable window the region may grow to before a compaction is
-  // due. Measured on the real fixture: a 48k budget (≈75% of the window) used
-  // 199k input tokens against 1.06M at 16k, for the same score — the budget
-  // was the compaction-frequency knob, and a small one buys nothing.
-  // 70 keeps the checkpoint region at ~85% of the window, so a real task
-  // compacts a few dozen times instead of a few hundred. On the echo fixture
-  // that is 3x less input and wall clock for the same score (48k arm 0.905 over
-  // three valid runs vs native 0.963 over three; see
-  // experiments/report/DIRECTION-1-2-FINDINGS.md).
-  capacityPercent: live(z.number().min(1).max(100), 70),
+  // due. 100 is the measured long-session default: on 40-round sessions it
+  // compacted 16 times against 35 for the native summarizer, at about half the
+  // cost. A smaller budget only spends more requests for the same result.
+  capacityPercent: live(z.number().min(1).max(100), 100),
+  // Working window cap in tokens. The pressure thresholds are shares of
+  // min(model usable window, this cap); 0 keeps the model window unchanged.
+  effectiveWindowTokens: live(z.number().step(1).min(0), 256000),
   capacityTokens: live(z.number().step(1).min(1024), 100000),
   warnRatio: live(z.number().min(0.5).max(0.95), 0.8),
-  forceRatio: live(z.number().min(0.5).max(0.99), 0.85),
-  retainRatio: live(z.number().min(0).max(0.5), 0.16),
+  forceRatio: live(z.number().min(0.5).max(0.99), 0.8),
+  retainRatio: live(z.number().min(0).max(0.5), 0),
   // Share of the budget a compaction must reclaim before it is worth a full
-  // selection round trip. 0 keeps every request (the shipped behaviour).
-  minReclaimRatio: live(z.number().min(0).max(1), 0),
+  // selection round trip. 0.15 skips compactions that would reclaim almost
+  // nothing; it was the measured default on 40-round sessions.
+  minReclaimRatio: live(z.number().min(0).max(1), 0.15),
   selection: live(z.string(), 'selective'),
+  // nosig keeps the benchmark's extraction semantics (numbered segment, cited
+  // ledger, engine-rendered state) while the trigger stays pressure-driven.
+  strategy: live(z.string(), 'nosig'),
+  nosigVerification: live(z.string(), 'literal'),
+  nosigSegmentBytes: live(z.number().step(1).min(4096), 24000),
+  nosigEntryCap: live(z.number().step(1).min(1).max(50), 5),
+  nosigRevisionCap: live(z.number().step(1).min(1).max(20), 3),
+  nosigLedgerBytes: live(z.number().step(1).min(400), 8000),
+  // Quotes mode has no status projection, so the ranked ledger is the only
+  // unbounded block. 8000 keeps the newest, highest-priority relations and
+  // discloses the cut; it was the measured default on 40-round sessions.
+  ledgerCapBytes: live(z.number().step(1).min(0), 8000),
+  // Render the ledger as current state: fold older versions of the same
+  // subject and repeated test results before the byte cap. Journal untouched.
+  ledgerDenoise: live(z.boolean(), true),
+  nosigMaxTokens: live(z.number().step(1).min(1024), 8192),
   selectionMinTokens: live(z.number().step(1).min(0), 0),
   continuityReceipts: live(z.boolean(), false),
   dedupeCarriedState: live(z.boolean(), false),
@@ -53,6 +68,31 @@ export const Config = z.object({
   // Byte cap per control item. 0 removes the per-item cap and leaves the
   // decision to the section budget. The 800 default is the shipped behaviour.
   controlItemCap: live(z.number().step(1).min(0), 800),
+  // Total byte cap on the passage's quoted control list. 0 keeps every request
+  // the way the reference does; a long session should bound it.
+  controlMaxBytes: live(z.number().step(1).min(0), 0),
+  // 'quotes' keeps every user request verbatim (shipped). 'command-state' keeps
+  // the first real command and reduces later ones to deterministic status lines.
+  controlMode: live(z.string(), 'quotes'),
+  originMaxChars: live(z.number().step(1).min(160), 1200),
+  activeCommandMaxChars: live(z.number().step(1).min(120), 400),
+  commandHeadChars: live(z.number().step(1).min(24), 96),
+  commandSectionBytes: live(z.number().step(1).min(400), 1800),
+  commandDoneLines: live(z.number().step(1).min(0).max(24), 3),
+  // Legacy alias of `payloadWorkingset`; either flag turns the passage working
+  // set on. The single switch is `payloadWorkingset` now.
+  passageWorkingset: live(z.boolean(), false),
+  // Project requirements over the accumulated controls, not only the current
+  // region. Off reproduces the pre-2026-11-21 region-only projection.
+  stateFromControls: live(z.boolean(), true),
+  // A compact newest-edit block and a latest-request banner. Both are small;
+  // off reproduces the ranked-ledger-only checkpoint.
+  passageRecent: live(z.boolean(), true),
+  passageLatest: live(z.boolean(), true),
+  // Reasoning effort for the nosig extraction call. Empty inherits the
+  // session's model effort; 'off' keeps the JSON answer without the reasoning
+  // tokens that dominate extraction output.
+  nosigReasoningEffort: live(z.string(), ''),
   // Output budget of one selection request. A reasoning model spends part of it
   // on reasoning, so this is not a JSON-size cap.
   selectionMaxTokens: live(z.number().step(1).min(1024), 4096),
@@ -96,8 +136,20 @@ export const Config = z.object({
   payloadBackfill: live(z.boolean(), false),
   payloadBackfillItems: live(z.number().step(1).min(0).max(24), 10),
   payloadBackfillItemCap: live(z.number().step(1).min(200), 900),
-  denoise: live(z.boolean(), false),
+  denoise: live(z.boolean(), true),
   evidenceTool: live(z.boolean(), true),
+  // How many discovery rows to publish. Zero lets the ledger and quotes own
+  // the checkpoint; the fetch tools stay registered either way.
+  evidenceIndexRows: live(z.number().step(1).min(0).max(20), 20),
+  // Extraction returns only relations the current ledger does not already
+  // hold; unchanged restatements are the largest measured output waste.
+  extractDelta: live(z.boolean(), false),
+  // Receipts cite the session seq instead of a region position, so a later
+  // model can fetch `#N` and a resumed checkpoint keeps a real address.
+  receiptSeq: live(z.boolean(), true),
+  // One compact line of evidence that earlier requests were addressed. It
+  // needs the durable receipt seqs, so it stays off unless `receiptSeq` is on.
+  requirementBoard: live(z.boolean(), false),
 })
 
 /**
@@ -110,79 +162,154 @@ export default class WscConfigService extends Service {
 
   constructor(ctx, config = {}) {
     super(ctx, 'wscConfig')
+    // Volatile fields resolve to live cells ({ get }) under the desktop
+    // schemastery; the CLI build hands plain values. Unwrap once so both
+    // shapes reach the same constructor logic.
+    const unwrap = (value) => {
+      if (value !== null && typeof value === 'object' && typeof value.get === 'function') {
+        try { return value.get() } catch { return undefined }
+      }
+      return value
+    }
+    const options = {}
+    for (const [key, value] of Object.entries(config)) options[key] = unwrap(value)
+    if (process.env.WSC_DEBUG === '1') {
+      process.stderr.write(`wscConfig resolved: ${JSON.stringify(options)}\n`)
+    }
 
-    const warnRatio = clamp(config.warnRatio, 0.5, 0.95, 0.8)
-    const forceRatio = clamp(config.forceRatio, 0.5, 0.99, 0.85)
+    const warnRatio = clamp(options.warnRatio, 0.5, 0.95, 0.8)
+    const forceRatio = clamp(options.forceRatio, 0.5, 0.99, 0.8)
 
     this.value = Object.freeze({
-      mode: config.mode === 'shadow' || config.mode === 'off' ? config.mode : 'active',
-      capacityMode: config.capacityMode === 'tokens' ? 'tokens' : 'ratio',
-      capacityPercent: clamp(config.capacityPercent, 1, 100, 70),
+      mode: options.mode === 'shadow' || options.mode === 'off' ? options.mode : 'active',
+      capacityMode: options.capacityMode === 'tokens' ? 'tokens' : 'ratio',
+      capacityPercent: clamp(options.capacityPercent, 1, 100, 100),
+      effectiveWindowTokens:
+        Number.isInteger(options.effectiveWindowTokens) && options.effectiveWindowTokens >= 0
+          ? options.effectiveWindowTokens
+          : 256000,
       capacityTokens:
-        Number.isInteger(config.capacityTokens) && config.capacityTokens >= 1024
-          ? config.capacityTokens
+        Number.isInteger(options.capacityTokens) && options.capacityTokens >= 1024
+          ? options.capacityTokens
           : 100000,
       warnRatio,
       forceRatio: Math.max(warnRatio, forceRatio),
-      retainRatio: clamp(config.retainRatio, 0, 0.5, 0.16),
-      minReclaimRatio: clamp(config.minReclaimRatio, 0, 1, 0),
-      selection: config.selection === 'basic' || config.selection === 'deterministic' ? config.selection : 'selective',
-      selectionMinTokens: Number.isSafeInteger(config.selectionMinTokens) && config.selectionMinTokens >= 0
-        ? config.selectionMinTokens : 0,
-      continuityReceipts: config.continuityReceipts === true,
-      dedupeCarriedState: config.dedupeCarriedState === true,
-      stateSelectionContext: config.stateSelectionContext === true,
-      pruneBeforeCheckpoint: config.pruneBeforeCheckpoint === true,
+      retainRatio: clamp(options.retainRatio, 0, 0.5, 0),
+      minReclaimRatio: clamp(options.minReclaimRatio, 0, 1, 0.15),
+      selection: options.selection === 'basic' || options.selection === 'deterministic' ? options.selection : 'selective',
+      strategy: options.strategy === 'selection' ? 'selection' : 'nosig',
+      nosigVerification: ['cite', 'quote'].includes(options.nosigVerification)
+        ? options.nosigVerification : 'literal',
+      nosigSegmentBytes:
+        Number.isInteger(options.nosigSegmentBytes) && options.nosigSegmentBytes >= 4096
+          ? options.nosigSegmentBytes : 24000,
+      nosigEntryCap:
+        Number.isInteger(options.nosigEntryCap) && options.nosigEntryCap >= 1
+          ? Math.min(50, options.nosigEntryCap) : 5,
+      nosigRevisionCap:
+        Number.isInteger(options.nosigRevisionCap) && options.nosigRevisionCap >= 1
+          ? Math.min(20, options.nosigRevisionCap) : 3,
+      nosigLedgerBytes:
+        Number.isInteger(options.nosigLedgerBytes) && options.nosigLedgerBytes >= 400
+          ? options.nosigLedgerBytes : 8000,
+      ledgerCapBytes:
+        Number.isInteger(options.ledgerCapBytes) && options.ledgerCapBytes >= 0
+          ? options.ledgerCapBytes : 8000,
+      ledgerDenoise: options.ledgerDenoise !== false,
+      nosigMaxTokens:
+        Number.isInteger(options.nosigMaxTokens) && options.nosigMaxTokens >= 1024
+          ? options.nosigMaxTokens : 8192,
+      selectionMinTokens: Number.isSafeInteger(options.selectionMinTokens) && options.selectionMinTokens >= 0
+        ? options.selectionMinTokens : 0,
+      continuityReceipts: options.continuityReceipts === true,
+      dedupeCarriedState: options.dedupeCarriedState === true,
+      stateSelectionContext: options.stateSelectionContext === true,
+      pruneBeforeCheckpoint: options.pruneBeforeCheckpoint === true,
       // How the selection request addresses the region: 'quotes' copies the
       // text back (shipped), 'lines' names line ranges and the engine copies.
-      selectionAddress: config.selectionAddress === 'lines' ? 'lines' : 'quotes',
+      selectionAddress: options.selectionAddress === 'lines' ? 'lines' : 'quotes',
       controlItemCap:
-        Number.isInteger(config.controlItemCap) && config.controlItemCap >= 0
-          ? config.controlItemCap
+        Number.isInteger(options.controlItemCap) && options.controlItemCap >= 0
+          ? options.controlItemCap
           : 800,
+      controlMaxBytes:
+        Number.isInteger(options.controlMaxBytes) && options.controlMaxBytes >= 0
+          ? options.controlMaxBytes
+          : 0,
+      controlMode: options.controlMode === 'command-state' ? 'command-state' : 'quotes',
+      originMaxChars:
+        Number.isInteger(options.originMaxChars) && options.originMaxChars >= 160
+          ? options.originMaxChars : 1200,
+      activeCommandMaxChars:
+        Number.isInteger(options.activeCommandMaxChars) && options.activeCommandMaxChars >= 120
+          ? options.activeCommandMaxChars : 400,
+      commandHeadChars:
+        Number.isInteger(options.commandHeadChars) && options.commandHeadChars >= 24
+          ? options.commandHeadChars : 96,
+      commandSectionBytes:
+        Number.isInteger(options.commandSectionBytes) && options.commandSectionBytes >= 400
+          ? options.commandSectionBytes : 1800,
+      commandDoneLines:
+        Number.isInteger(options.commandDoneLines) && options.commandDoneLines >= 0
+          ? Math.min(24, options.commandDoneLines) : 3,
+      passageWorkingset: options.payloadWorkingset === true || options.passageWorkingset === true,
+      stateFromControls: options.stateFromControls !== false,
+      passageRecent: options.passageRecent !== false,
+      passageLatest: options.passageLatest !== false,
+      nosigReasoningEffort: typeof options.nosigReasoningEffort === 'string'
+        ? options.nosigReasoningEffort.trim()
+        : '',
       selectionMaxTokens:
-        Number.isInteger(config.selectionMaxTokens) && config.selectionMaxTokens >= 1024
-          ? config.selectionMaxTokens
+        Number.isInteger(options.selectionMaxTokens) && options.selectionMaxTokens >= 1024
+          ? options.selectionMaxTokens
           : 4096,
-      payload: resolvePayloadPolicy(config),
+      payload: resolvePayloadPolicy(options),
       workingset:
-        config.payloadWorkingset === true
+        options.payloadWorkingset === true || options.passageWorkingset === true
           ? {
-              maxFiles: Number.isInteger(config.payloadWorkingsetFiles)
-                ? Math.max(0, config.payloadWorkingsetFiles)
+              maxFiles: Number.isInteger(options.payloadWorkingsetFiles)
+                ? Math.max(0, options.payloadWorkingsetFiles)
                 : 8,
-              capChars: Number.isInteger(config.payloadWorkingsetItemCap)
-                ? Math.max(200, config.payloadWorkingsetItemCap)
+              capChars: Number.isInteger(options.payloadWorkingsetItemCap)
+                ? Math.max(200, options.payloadWorkingsetItemCap)
                 : 1200,
-              version: Number.isInteger(config.payloadWorkingsetVersion)
-                ? config.payloadWorkingsetVersion
+              version: Number.isInteger(options.payloadWorkingsetVersion)
+                ? options.payloadWorkingsetVersion
                 : 1,
-              sectionCap: Number.isInteger(config.payloadWorkingsetSectionCap)
-                ? Math.max(400, config.payloadWorkingsetSectionCap)
+              sectionCap: Number.isInteger(options.payloadWorkingsetSectionCap)
+                ? Math.max(400, options.payloadWorkingsetSectionCap)
                 : 1500,
             }
           : undefined,
       state:
-        config.payloadStateNarrative === true
+        options.payloadStateNarrative === true
           ? {
-              cap: Number.isInteger(config.payloadStateCap)
-                ? Math.max(400, config.payloadStateCap)
+              cap: Number.isInteger(options.payloadStateCap)
+                ? Math.max(400, options.payloadStateCap)
                 : 900,
             }
           : undefined,
       outputs:
-        config.payloadBackfill === true
+        options.payloadBackfill === true
           ? {
-              items: Number.isInteger(config.payloadBackfillItems)
-                ? Math.max(0, config.payloadBackfillItems)
+              items: Number.isInteger(options.payloadBackfillItems)
+                ? Math.max(0, options.payloadBackfillItems)
                 : 10,
-              cap: Number.isInteger(config.payloadBackfillItemCap)
-                ? Math.max(200, config.payloadBackfillItemCap)
+              cap: Number.isInteger(options.payloadBackfillItemCap)
+                ? Math.max(200, options.payloadBackfillItemCap)
                 : 900,
             }
           : undefined,
-      denoise: config.denoise === true,
-      evidenceTool: config.evidenceTool !== false,
+      denoise: options.denoise !== false,
+      evidenceTool: options.evidenceTool !== false,
+      evidenceIndexRows:
+        Number.isInteger(options.evidenceIndexRows) && options.evidenceIndexRows >= 0
+          ? Math.min(20, options.evidenceIndexRows) : 20,
+      extractDelta: options.extractDelta === true,
+      receiptSeq: options.receiptSeq !== false,
+      // The board compares a request's seq with an edit's seq; without durable
+      // seqs the comparison would mix positions with session numbers.
+      requirementBoard: options.requirementBoard === true && options.receiptSeq !== false,
     })
 
     // The bundle ships its own Settings page; keep the schema-derived page off

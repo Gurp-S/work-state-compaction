@@ -44,7 +44,7 @@ class RevisionContractTests(IdentityFixture):
         self.assertEqual(self.first["ref"], updated["previous"])
         with self.assertRaisesRegex(WSCError, "understanding_revision_conflict"):
             self.core.remember(Understanding("stale", "hypothesis", id="record", expected_revision=1), producer="model")
-        self.assertEqual(2, len(self.records()))
+        self.assertEqual(2, len(self.core.snapshot_content(self.core.capture())[1]))
         explicit = self.core.remember(Understanding("new", "hypothesis", id="explicit-none", expected_revision=None), producer="model")
         self.assertEqual(1, explicit["revision"])
         selected = selection_from_json({"new_understandings": [{"text": "new", "kind": "hypothesis",

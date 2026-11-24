@@ -6,6 +6,7 @@ import { indexToolReceipts, toolReceiptLinks } from './continuity-links.js'
 import { readCheckpointState } from './checkpoint-state.js'
 import { controlledReads } from './state-selection-context.js'
 import { originalReceiptEvents } from './receipt-history.js'
+import { sessionEvents } from './session.js'
 
 const FILE_LIMIT = 8
 const COMMAND_LIMIT = 12
@@ -83,7 +84,7 @@ function priorState(input, isCheckpointSource) {
 }
 
 export function prepareContinuity(input, session, isCheckpointSource, options = {}) {
-  const events = [...session.events]
+  const events = [...sessionEvents(session)]
   const derive = event => session.deriveEventMessage(event)
   const original = originalReceiptEvents(events, derive)
   const controls = controlTexts(input, events, derive, isCheckpointSource)

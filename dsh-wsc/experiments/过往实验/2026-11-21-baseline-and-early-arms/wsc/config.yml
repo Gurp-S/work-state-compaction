@@ -1,0 +1,27 @@
+- id: wsc-config
+  name: "@xeyo/dsh-wsc"
+  config:
+    mode: active
+    capacityMode: ratio
+    capacityPercent: 100
+    warnRatio: 0.6
+    forceRatio: 0.8
+    retainRatio: 0
+    minReclaimRatio: 0.15
+    selection: selective
+    strategy: nosig
+    nosigVerification: literal
+    nosigSegmentBytes: 24000
+    nosigEntryCap: 5
+    nosigRevisionCap: 3
+    nosigLedgerBytes: 8000
+    nosigMaxTokens: 8192
+    payloadWorkingset: true
+    payloadWorkingsetVersion: 2
+    payloadWorkingsetFiles: 6
+    payloadWorkingsetItemCap: 700
+    payloadWorkingsetSectionCap: 2500
+    denoise: true
+    ledgerCapBytes: 0
+    ledgerDenoise: False
+    receiptSeq: False

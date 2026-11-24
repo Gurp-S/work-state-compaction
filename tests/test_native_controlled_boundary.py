@@ -153,7 +153,7 @@ class CommittedReceiverChecks(unittest.TestCase):
             b = p['binding']
             return HostReceipt(p['operation_id'], p['package_digest'], b['session_id'], b['workspace'],
                 p['next_generation'], b['control_epoch'], p['through'], 'receiver', True)
-        return CallbackHost(commit=commit, lookup=lambda key: None)
+        return CallbackHost(commit=commit)
 
     def reserve(self):
         from native_controlled_boundary import reserve_committed_receiver

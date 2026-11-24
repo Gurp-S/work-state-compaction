@@ -49,7 +49,7 @@ def main():
         receiver=NativeForkSession(fork_registration(reg,boot),args.out/'receiver-session');sessions['receiver']=receiver;receiver.open()
         import_receiver(receiver,package['items'],bootstrap,args.out/'receiver-session')
         verify_paths(receiver,cold_entries(package),args.out/'cold-access.json')
-        core=WSC(Store(args.prepared/'state.db',session_id=package['binding']['session_id'],workspace=package['binding']['workspace']),access=lambda *a:True,resource_io=ResourceIO(),query_policy='prefix_index_v1',publication_policy='bounded_catalog_v1')
+        core=WSC(Store(args.prepared/'state.db',session_id=package['binding']['session_id'],workspace=package['binding']['workspace']),access=lambda *a:True,resource_io=ResourceIO())
         check_evidence(core,package);core.discard(prepared['operation'])
         checksum=file_hash(receiver.opened['thread']['path'])
         probe=NativeForkSession(fork_registration(reg,receiver),args.out/'probe-session');sessions['probe']=probe;probe.open()

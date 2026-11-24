@@ -1,5 +1,9 @@
+__pycache__/
+*.pyc
 node_modules/
+.tmp/
+.archify/
 .ab*/
 .smoke*/
-*.log
 experiments/bench/
+experiments/prod-matrix/runs/

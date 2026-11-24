@@ -1,0 +1,25 @@
+{
+ "facts": [
+  [
+   "0.07"
+  ],
+  [
+   "REPORT_LIMIT"
+  ],
+  [
+   "count",
+   "totalCents"
+  ],
+  [
+   "negative",
+   "CSV"
+  ],
+  {
+   "must": [
+    "JSON",
+    "CSV"
+   ],
+   "source": "CHANGELOG.md"
+  }
+ ]
+}

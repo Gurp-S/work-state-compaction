@@ -137,7 +137,7 @@ class Cell:
             compare_histories([effective(selector,Path(selector.opened['thread']['path']).read_bytes()),bootstrap],str(self.work))
             compare_histories([effective(receiver,Path(receiver.opened['thread']['path']).read_bytes()),bootstrap],str(self.work))
             core=WSC(Store(self.out/'state.db',session_id=self.out.name,workspace=str(self.work)),access=lambda *a:True,
-                resource_io=ResourceIO(),query_policy='prefix_index_v1',publication_policy='bounded_catalog_v1')
+                resource_io=ResourceIO())
             self.core=core
             from wsc.adapters.codex import CodexCheckpointAdapter
             core.ingest(CodexCheckpointAdapter().import_items(items,thread_id=parent.opened['thread']['id'],start_ordinal=len(bootstrap)))

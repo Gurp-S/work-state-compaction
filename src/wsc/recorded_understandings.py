@@ -3,6 +3,9 @@ from copy import deepcopy
 import json
 
 from .contracts import require
+from .understanding import STATE_FIELDS
+
+_BINDING_KEYS = ("text", "kind", "scope", "status", "observed_at", "valid_until", "invalid_when")
 
 
 def recorded_items(items, records, *, working_state_index):
@@ -26,13 +29,18 @@ def recorded_items(items, records, *, working_state_index):
             and isinstance(facts.get("understandings"), list), "recorded_understanding_view_shape_invalid")
     model_records = []
     for value in facts["understandings"]:
+        value = {**STATE_FIELDS, **value}
         source = by_ref.get(value["ref"])
-        require(source is not None and all(value[k] == source[k] for k in ("text", "kind", "scope"))
+        require(source is not None, "recorded_understanding_binding_changed")
+        source = {**STATE_FIELDS, **source}
+        require(all(value[k] == source[k] for k in _BINDING_KEYS)
                 and [loc["source_id"] for loc in value["sources"]] == source["sources"],
                 "recorded_understanding_binding_changed")
         model_records.append({"ref": value["ref"], "producer": source["producer"],
             "previous": source["previous"], "kind": value["kind"], "text": value["text"],
-            "scope": value["scope"], "sources": value["sources"]})
+            "scope": value["scope"], "status": value["status"],
+            "observed_at": value["observed_at"], "valid_until": value["valid_until"],
+            "invalid_when": value["invalid_when"], "sources": value["sources"]})
     # Stable explicit order: recorded interpretation followed by its available
     # observations. JSON key sorting would move understandings to the tail.
     projected = {"kind": "working_state", "model_records": model_records,

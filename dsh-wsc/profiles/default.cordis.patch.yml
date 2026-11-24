@@ -1,0 +1,13 @@
+# Minimal profile: enable WSC with the shipped v3r defaults.
+# The engine replaces the native backend inside the `cordis` agent preset.
+- id: wsc-config
+  name: "@xeyo/dsh-wsc"
+  config:
+    mode: active
+
+- id: compaction-basic
+  disabled: true
+
+- insert:
+    - id: wsc-engine
+      name: "@xeyo/dsh-wsc/engine"

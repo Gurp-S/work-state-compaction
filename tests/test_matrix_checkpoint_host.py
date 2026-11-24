@@ -21,7 +21,7 @@ class CheckpointHostChecks(unittest.TestCase):
                       access=lambda *a:True,resource_io=ResourceIO())
         self.core.ingest([Event('control','message',dict(type='message',role='user',content=[dict(type='input_text',text='original task')]),role='user',text='original task')])
         view=self.core.prepare(self.core.capture(),Selection(),producer='host-unit',source_projection=MODE)
-        self.operation=self.core.stage(view,directory=self.root/'exports',archive_directory=self.root/'archive',adapter=IndexedCheckpointAdapter())
+        self.operation=self.core.stage(view,directory=self.root/'exports',adapter=IndexedCheckpointAdapter())
         self.port=SimpleNamespace(session=object(),owner='native-owner',_require_live=lambda:None,
             handler=SimpleNamespace(reader=SnapshotSourceAccess(self.core.store,self.core.capture(),access=self.core.access)))
         self.host=NativeCheckpointHost(self.port,[],self.root/'receiver')

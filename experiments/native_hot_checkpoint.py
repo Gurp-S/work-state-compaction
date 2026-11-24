@@ -111,7 +111,7 @@ class HotCheckpointAdapter(IndexedCheckpointAdapter):
         return value
     def render(self,body,source,cut,locators,*,source_index,understanding_index):
         items=super().render(body,source,cut,locators,source_index=source_index,understanding_index=understanding_index)
-        self.hot_index=sum(row['kind']=='message' for row in body['sources'])
+        self.hot_index=0
         reference=self.projection
         metadata=load_projection(reference)
         block=items[self.hot_index]['content'][0]

@@ -1,0 +1,149 @@
+{
+  "arm_id": "cmb1-core-20261118",
+  "status": "partial",
+  "run": {
+    "answer_calls": 2298,
+    "prompt_tokens": 1157344,
+    "completion_tokens": 725160,
+    "answer_seconds": 6623.3,
+    "p14_reanswer_calls": 178,
+    "p14_reanswer_prompt_tokens": 123317,
+    "p14_reanswer_completion_tokens": 39439,
+    "p14_reanswer_seconds": 234.2,
+    "judge_calls": 1853,
+    "judge_seconds": 4098.7,
+    "total_seconds": 10956.2,
+    "note": "the 82 final P14 full-restoration answers are NOT included in the judged metrics"
+  },
+  "metrics": {
+    "answered": 714,
+    "judged": 714,
+    "gateway_failed_answers": 20,
+    "passed_all": 564,
+    "pass_rate_all": 0.7899,
+    "valid_vs_common": {
+      "valid_answered": 694,
+      "passed_valid": 561,
+      "common_subset_ids": 664,
+      "passed_common": 549,
+      "pass_rate_common": 0.8268
+    },
+    "retrieve_median_s": 0.268,
+    "retrieve_p95_s": 2.777,
+    "candidates_median": 3.0,
+    "personas": {
+      "P01": {
+        "passed": 78,
+        "total": 88
+      },
+      "P12": {
+        "passed": 68,
+        "total": 79
+      },
+      "P14": {
+        "passed": 62,
+        "total": 82
+      },
+      "P16": {
+        "passed": 91,
+        "total": 123
+      },
+      "P17": {
+        "passed": 130,
+        "total": 172
+      },
+      "P20": {
+        "passed": 135,
+        "total": 170
+      }
+    },
+    "storage": {
+      "state": "judged run, before the P14 full-restoration rebuild",
+      "events": 2346,
+      "identities": 8532,
+      "identities_per_event": 3.637,
+      "revisions": 9610,
+      "multi_revision_identities": 543,
+      "db_size_mb": 92.5,
+      "term_index_rows": 348405,
+      "current_after_p14_restore": {
+        "identities": 12445,
+        "revisions": 13931,
+        "multi_revision_identities": 705,
+        "db_size_mb": 139.4
+      },
+      "index_storage_example": {
+        "db": "P20",
+        "total_mb": 26.8,
+        "term_index_mb": 19.2,
+        "without_index_mb": 7.6
+      }
+    }
+  },
+  "samples": [
+    {
+      "id": "P01-ADD-001/d00",
+      "persona": "P01",
+      "question": "我妈生日是哪天？",
+      "answer": "三月八号。",
+      "pass": true,
+      "reason": "回答“三月八号”与事实 F1 一致，直接回答了母亲生日，未违反禁止项。",
+      "candidates": 1,
+      "retrieve_seconds": 0.299
+    },
+    {
+      "id": "P12-ADD-001/d00",
+      "persona": "P12",
+      "question": "我上回说下雨才考虑挪货架，当时已经挪了吗？",
+      "answer": "没有挪。当时货架暂时放在原处，只有下雨后门还漏才考虑往前挪。",
+      "pass": true,
+      "reason": "回答明确说明当时没有挪、货架仍在原处，并复述了“下雨后门还漏才考虑往前挪”的条件设想，与F1一致。",
+      "candidates": 3,
+      "retrieve_seconds": 0.347
+    },
+    {
+      "id": "P14-CASE-added-address/d15",
+      "persona": "P14",
+      "question": "卷好的图纸要寄了，收件地址帮我填一下。",
+      "answer": "我不记得收件地址——记忆里只提到赵启明截至2026-05-22还没把地址发给你，所以目前没有地址可填。",
+      "pass": false,
+      "reason": "回答说明不记得收件地址，也仅按证据表述截至2026-05-22未收到地址，未编造地址或断言更晚情况；但没有按要求请用户或赵启明确认地址。",
+      "candidates": 2,
+      "retrieve_seconds": 1.855
+    },
+    {
+      "id": "P16-CASE-added-conflicting_reports/d03",
+      "persona": "P16",
+      "question": "桥哥和师傅说的那次，营业情况能对上吗？",
+      "answer": "我不记得。",
+      "pass": false,
+      "reason": "回答仅说“我不记得”，没有说明桥哥称整天关门换玻璃、师傅称照常营业，以及两说冲突且记录不足以确定哪种属实，未满足必答事实。",
+      "candidates": 3,
+      "retrieve_seconds": 0.053
+    },
+    {
+      "id": "P01-CASE-001/d03",
+      "persona": "P01",
+      "question": "上次说的夜班见闻，我还欠你几件？已经讲过哪件？",
+      "answer": "我不记得",
+      "pass": false,
+      "reason": "回答只说“我不记得”，未答出已知事实：三件夜班见闻已讲一件、还剩两件，且已讲的是王琳吃关东煮加两包辣油。",
+      "candidates": null,
+      "retrieve_seconds": null,
+      "error": "RuntimeError: gateway kept failing: empty content"
+    }
+  ],
+  "logs": {
+    "answer": "benchmarks/results/cmb1-core-20261118/answers.jsonl",
+    "judgments": "benchmarks/results/cmb1-core-20261118/judgments.jsonl",
+    "summary": "benchmarks/results/cmb1-core-20261118/summary.json",
+    "run_log": "benchmarks/results/cmb1-core-20261118.log",
+    "judge_log": "benchmarks/results/cmb1-core-20261118/judge.log"
+  },
+  "state_notes": [
+    "Primary judged score is 564/714 with P14 from a partial restoration (62/82); before that it was 562/714.",
+    "The 82 final P14 answers generated after full restoration (252/273 empty turns recovered at 2500 max_tokens) are unjudged; grading that subset is the only remaining step.",
+    "The judged build used extract_max_tokens=900. At 900/1200 tokens the reasoning model truncated JSON, the parse failed, and empty arrays were cached; 301/399 P14 turns were empty.",
+    "After full P14 restoration, the on-disk P14 DB changed; current aggregate DB numbers are reported separately from the judged-run numbers."
+  ]
+}

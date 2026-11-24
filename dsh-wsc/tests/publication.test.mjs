@@ -10,7 +10,6 @@ import {
   discard,
   install,
   loadOperations,
-  reconcile,
   recordOperation,
 } from '../lib/publication.js'
 
@@ -63,7 +62,7 @@ test('publication: confirming twice is idempotent only for the same reply', () =
 })
 
 test('publication: an install is refused unless the package is ready', () => {
-  assert.throws(() => install({ ...ready(), state: 'preparing' }, { install: () => receipt() }), /installation_outcome_requires_reconciliation/)
+  assert.throws(() => install({ ...ready(), state: 'preparing' }, { install: () => receipt() }), /installation_outcome_unknown/)
   const { operation } = install(ready(), { install: () => receipt() })
   assert.equal(operation.state, 'confirmed')
 })
@@ -74,12 +73,12 @@ test('publication: a failed host call leaves an unknown outcome, not a silent su
   assert.equal(error.message, 'socket closed')
 })
 
-test('publication: reconcile resolves an unknown outcome from the host log', () => {
+test('publication: an unknown outcome stops explicitly; only a bound receipt confirms it', () => {
   const unknown = { ...ready(), state: 'unknown' }
-  assert.throws(() => reconcile(unknown, { lookup: () => undefined }), /host_outcome_unknown/)
-  const done = reconcile(unknown, { lookup: () => receipt() })
-  assert.equal(done.state, 'confirmed')
-  assert.throws(() => reconcile({ ...ready(), state: 'preparing' }, { lookup: () => receipt() }), /installation_not_started/)
+  assert.throws(() => install(unknown, { install: () => receipt() }), /installation_outcome_unknown/)
+  assert.throws(() => discard(unknown), /publication_outcome_unknown/)
+  assert.equal(confirm(unknown, receipt()).state, 'confirmed')
+  assert.throws(() => confirm({ ...ready(), state: 'preparing' }, receipt()), /installation_not_started/)
 })
 
 test('publication: only an unsubmitted operation can be discarded', () => {

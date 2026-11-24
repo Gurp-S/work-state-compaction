@@ -1,0 +1,4 @@
+arm_id,mechanism_summary,judged_pass,judged_total,pass_rate,common_pass,common_total,valid_pass,valid_total,retrieve_median_s,retrieve_p95_s,candidates_median,identities,revisions,multi_revision_identities,storage_mb,run_time_s,status
+cmb1-base-20261118,字符串身份+待定池；自由槽位；全量 as-of 扫描+RRF；结果不含原文,571,704,0.8111,545,664,571,704,0.851,8.863,4.0,5152,8888,1215,17.6,18052.7,complete
+cmb1-opt-20261118,字符串身份；v2 槽位归并+泛称拆分；RETRIEVE_V2/COVER；结果不含原文,583,714,0.8165,568,664,577,675,0.86,11.358,4,7721,9464,770,20.5,8527.1,complete
+cmb1-core-20261118,引擎 property_id；state 覆盖/event 独立；按修订倒排索引；结果带原文证据,564,714,0.7899,549,664,561,694,0.268,2.777,3.0,8532,9610,543,92.5,10956.2,partial

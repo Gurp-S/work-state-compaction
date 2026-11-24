@@ -228,7 +228,6 @@ class ApplicationStudyWorker:
                         if selector.source_manifest() != selector_reg['initial_manifest']:
                             raise RuntimeError('selector_changed_business_source')
                         operation = core.stage(view['view'], directory=output / f'S{index}-exports',
-                            archive_directory=output / 'cold-objects',
                             adapter=IndexedCheckpointAdapter() if indexed else RecordedCodexCheckpointAdapter())
                         package = admit_rendered(core.package(operation))
                         check_evidence(core, package)

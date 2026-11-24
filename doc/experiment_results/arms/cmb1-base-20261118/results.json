@@ -1,0 +1,122 @@
+{
+  "arm_id": "cmb1-base-20261118",
+  "status": "complete",
+  "run": {
+    "answer_calls": 5123,
+    "prompt_tokens": 4416348,
+    "completion_tokens": 2502746,
+    "answer_seconds": 12005.2,
+    "judge_calls": 1659,
+    "judge_seconds": 6047.5,
+    "total_seconds": 18052.7,
+    "note": "first full pass answered all 714; 10 gateway failures were later dropped, leaving 704 scored answers"
+  },
+  "metrics": {
+    "answered": 704,
+    "judged": 704,
+    "gateway_failed_answers": 0,
+    "passed_all": 571,
+    "pass_rate_all": 0.8111,
+    "valid_vs_common": {
+      "valid_answered": 704,
+      "passed_valid": 571,
+      "common_subset_ids": 664,
+      "passed_common": 545,
+      "pass_rate_common": 0.8208
+    },
+    "retrieve_median_s": 0.851,
+    "retrieve_p95_s": 8.863,
+    "candidates_median": 4.0,
+    "personas": {
+      "P01": {
+        "passed": 70,
+        "total": 88
+      },
+      "P12": {
+        "passed": 69,
+        "total": 79
+      },
+      "P14": {
+        "passed": 67,
+        "total": 82
+      },
+      "P16": {
+        "passed": 99,
+        "total": 121
+      },
+      "P17": {
+        "passed": 125,
+        "total": 169
+      },
+      "P20": {
+        "passed": 141,
+        "total": 165
+      }
+    },
+    "storage": {
+      "events": 2346,
+      "identities": 5152,
+      "identities_per_event": 2.196,
+      "revisions": 8888,
+      "multi_revision_identities": 1215,
+      "db_size_mb": 17.6,
+      "relations": 0,
+      "tree_mounts": 0,
+      "pending": 727
+    }
+  },
+  "samples": [
+    {
+      "id": "P01-ADD-001/d00",
+      "persona": "P01",
+      "question": "我妈生日是哪天？",
+      "answer": "三月八号。",
+      "pass": true,
+      "reason": "回答“三月八号”与事实F1“三月八号”一致，满足必需项“三月八日”，未违反禁止项。",
+      "candidates": 2,
+      "retrieve_seconds": 0.514
+    },
+    {
+      "id": "P12-ADD-001/d00",
+      "persona": "P12",
+      "question": "我上回说下雨才考虑挪货架，当时已经挪了吗？",
+      "answer": "没有挪，当时货架暂时放在原处。",
+      "pass": true,
+      "reason": "回答称没有挪、当时货架暂时放在原处，符合F1中“这会儿先放原处”及仅作条件设想的含义。",
+      "candidates": 3,
+      "retrieve_seconds": 0.86
+    },
+    {
+      "id": "P14-CASE-added-address/d03",
+      "persona": "P14",
+      "question": "我要给赵启明寄图，地址你记得吗？",
+      "answer": "我不记得具体地址。赵启明截至2026年5月22日尚未把收件地址发给你，之前只说地址晚点发。",
+      "pass": false,
+      "reason": "回答正确说明不记得地址，且只陈述截至2026年5月22日赵启明尚未发地址，没有编造地址或断言后来实际未发送；但未按评分要求请用户或赵启明确认地址。",
+      "candidates": 7,
+      "retrieve_seconds": 0.808
+    },
+    {
+      "id": "P16-CASE-added-assistant_colors/d00",
+      "persona": "P16",
+      "question": "你之前提议的三种颜色分别标什么？",
+      "answer": "我不记得。",
+      "pass": false,
+      "reason": "回答“我不记得。”没有给出已知事实：助手此前建议红色标临期、蓝色标待补、黄色标待确认（F1，第295、297轮）。已知且必须回答的事实不能用笼统的“不记得”或追问代替，因此未满足 rubric.required。未发现错认、错否、越界、编造日期、不当披露或违反禁止项。",
+      "candidates": 2,
+      "retrieve_seconds": 1.032
+    }
+  ],
+  "logs": {
+    "answer": "benchmarks/results/cmb1-base-20261118/answers.jsonl",
+    "judgments": "benchmarks/results/cmb1-base-20261118/judgments.jsonl",
+    "summary": "benchmarks/results/cmb1-base-20261118/summary.json",
+    "run_log": "benchmarks/results/cmb1-base-20261118.log",
+    "judge_log": "benchmarks/results/cmb1-base-20261118/judge.log"
+  },
+  "state_notes": [
+    "10 gateway failures are absent from answers.jsonl rather than counted as wrong.",
+    "The first pass also contained the extraction calls; later resumes reused the cache.",
+    "This arm's cache uses unprefixed keys; the two later arms use the v2: prefix."
+  ]
+}

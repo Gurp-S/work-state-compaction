@@ -7,7 +7,7 @@ import sys
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path[:0]=[str(ROOT/'src'),str(ROOT/'tests')]
-from wsc import WSC,Store,Selection,Understanding,Limits
+from wsc import WSC,Store,Selection,Understanding,Limits,Generated,Usage
 from wsc.contracts import encode,digest
 from wsc.adapters.codex import CodexCheckpointAdapter
 from wsc.adapters.context import ContextCheckpointAdapter
@@ -106,7 +106,7 @@ class ContextRuntimeChecks(TestCase):
         self.assertEqual(snapshot.events[0],body['sources'][0])
         self.assertNotIn('text',body['sources'][-1])
         package=self.core.package(op)
-        self.assertEqual(self.items[0],package['items'][0])
+        self.assertIn('"Current goal and constraints"',package['items'][0]['content'][0]['text'])
         self.assertNotIn('x'*1000,encode(package['items']))
         self.assertEqual(self.items[-1],json.loads(Path(package['evidence'][event.id]['file_path']).read_text(encoding='utf-8')))
         self.assertEqual(raw,Path(package['evidence'][event.id]['readable_path']).read_text(encoding='utf-8'))
@@ -120,15 +120,13 @@ class ContextRuntimeChecks(TestCase):
         self.assertEqual('c2',items[-1]['call_id']);self.assertEqual(second,json.loads(items[-1]['output']))
         self.assertNotIn(raw,encode(items))
 
-    def test_lost_install_reply_reconciles_once_and_does_not_re_admit_old_commit(self):
+    def test_lost_install_reply_stops_explicitly_and_preserves_sources(self):
         event,view,_=self.result();_,_,op=self.stage(event)
         self.host.lose_reply=True
         with self.assertRaises(TimeoutError):self.ctx.install(op,self.host)
         self.assertEqual(0,self.core.status()['cursor']);self.assertEqual(1,self.host.state()['effects'])
-        self.result_denied.add(view['result_id'])
-        self.ctx.reconcile(op,self.host)
-        self.assertEqual(3,self.core.status()['cursor'])
-        self.ctx.install(op,self.host)
+        with self.assertRaisesRegex(ValueError,'installation_outcome_unknown'):self.ctx.install(op,self.host)
+        self.assertEqual('unknown',self.core.status()['operations'][0]['state'])
         self.assertEqual(1,self.host.state()['effects'])
 
     def test_control_change_invalidates_candidate_and_never_ages_out_instructions(self):
@@ -195,4 +193,3 @@ class ContextRuntimeChecks(TestCase):
         self.assertEqual(visible,self.ctx.record_tool_result(event,ToolText(raw,kind='json')))
 
 
-if __name__=='__main__':main()

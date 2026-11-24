@@ -118,12 +118,11 @@ class ContextRuntime:
     def prepare(self,snapshot,selection,*,producer,limits=Limits()):
         return self.core.prepare(snapshot,selection,producer=producer,limits=limits,source_projection=MODE)
 
-    def stage(self,view_id,*,directory,adapter,archive_directory=None):
+    def stage(self,view_id,*,directory,adapter):
         # The adapter is the caller's: a core module that imported one would
         # invert the dependency direction the contract test enforces.
         require(adapter is not None,'context_stage_adapter_required')
-        return self.core.stage(view_id,directory=directory,archive_directory=archive_directory,
-                               adapter=adapter)
+        return self.core.stage(view_id,directory=directory,adapter=adapter)
 
     def validate_package(self,package):
         require(package.get('adapter',{}).get('context_store_binding')==self.references.store_binding,'context_package_binding_mismatch')
@@ -144,5 +143,3 @@ class ContextRuntime:
                 with self.core.store.connect() as db:terminal=operation(db,operation_id)['state'] in {'confirmed','rejected'}
                 if not terminal:raise
         return self.core.install(operation_id,host)
-
-    def reconcile(self,operation_id,host):return self.core.reconcile(operation_id,host)

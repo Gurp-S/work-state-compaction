@@ -14,10 +14,8 @@ def presentation_evidence(core, view_id, package, resolved):
     legacy = CodexCheckpointAdapter().render(body, sources, view["binding"]["cut"], package["evidence"],
         source_index=package["source_index"], understanding_index=package["understanding_index"])
     actual = package["items"]
-    index = sum(row["kind"] == "message" for row in body["sources"])
-    require(legacy[:index] == actual[:index] and legacy[index+1:] == actual[index+1:],
-            "presentation_changed_controls_or_tail")
-    before, after = legacy[index]["content"][0]["text"], actual[index]["content"][0]["text"]
+    require(legacy[1:] == actual[1:], "presentation_changed_controls_or_tail")
+    before, after = legacy[0]["content"][0]["text"], actual[0]["content"][0]["text"]
     require(all(e["text"] in after for e in resolved), "presentation_observation_missing")
     require(all(r["text"] in after for r in body["understandings"]), "presentation_understanding_missing")
     require(all(locator["file_path"] in after for locator in package.get("excerpt_evidence", {}).values()),

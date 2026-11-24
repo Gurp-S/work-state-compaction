@@ -62,21 +62,16 @@ class HostChecks(TestCase):
         self.port.session.closed=True
         self.assertEqual(host.lookup(self.op).installed_through,3)
 
-    def test_lost_reply_reconstructs_commit_without_replay_preserving_tail(self):
+    def test_lost_reply_stops_without_replay_preserving_tail(self):
         def lost():raise TimeoutError('fixture after native persistence')
         with self.assertRaises(TimeoutError):self.ctx.install(self.op,self.host(after_import=lost))
         self.assertEqual(self.core.status()['cursor'],0)
         tail=dict(type='message',role='user',content=[dict(type='input_text',text='later native tail')])
         with self.path.open('a',encoding='utf-8') as f:f.write(json.dumps(dict(type='response_item',payload=tail))+'\n')
-        self.denied.add(self.result.id)
         restarted=Server(self.path);self.port=self.port_for(restarted)
-        host=MappedCheckpointHost(self.port,self.root/'journal')
-        self.ctx.reconcile(self.op,host)
-        self.assertEqual(self.core.status()['cursor'],3)
+        self.assertEqual(self.core.status()['operations'][0]['state'],'unknown')
         self.assertEqual(restarted.calls,0);self.assertEqual(self.server.calls,1)
         self.assertEqual(state(parse_rollout(self.path.read_bytes()).rows)[-1],tail)
-        reply=self.ctx.query_tool(self.ctx.capture()).call(dict(operation='json_pointer',reference='result:'+self.view['result_id'],pointer='/value',units='json_pointer'))
-        self.assertEqual(reply.status,'error')
 
     def test_unknown_before_effect_is_not_permission_to_replay(self):
         self.server.fail=True;host=self.host()

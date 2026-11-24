@@ -27,6 +27,7 @@ const HEADINGS = {
   prior: '## Prior checkpoint (historical; re-check current evidence)',
   users: '## User requests (verbatim, control)',
   control: '## User requests and instructions (verbatim, control)',
+  ledger: '## Working state (ledger; current entries, unverified)',
   selected: '## Selected excerpts (verbatim; role prefix shows the speaker)',
   judgments: '## Recorded judgments (model, sourced; [sN] cites a selected excerpt)',
   developers: '## Developer instructions (verbatim, control)',
@@ -38,6 +39,7 @@ const HEADINGS = {
   state: '## Current state (model account; unverified)',
   workingset: '## Working set (file state the model last saw)',
   verification: '## Verification state (runtime facts; #n is the message position in this region)',
+  values: '## Observed values (fetch by key)',
 }
 
 const MAX_SECTION_ITEMS = {
@@ -52,6 +54,7 @@ const MAX_SECTION_ITEMS = {
   state: 1,
   workingset: 8,
   verification: 8,
+  values: 16,
   judgments: 12,
 }
 
@@ -69,6 +72,7 @@ const SECTION_WEIGHT = {
   // so this section outranks every narration section.
   workingset: 0.45,
   verification: 0.25,
+  values: 0.22,
   judgments: 0.2,
 }
 
@@ -83,6 +87,7 @@ const SECTION_WEIGHT = {
  */
 const RENDER_ORDER = [
   'control',
+  'ledger',
   'users',
   'state',
   'evidence',
@@ -91,6 +96,7 @@ const RENDER_ORDER = [
   'prior',
   'judgments',
   'verification',
+  'values',
   'errors',
   'outputs',
   'decisions',
@@ -118,8 +124,7 @@ const CONTROL_ITEM_CAP = 800
  * @param {object} options builder options.
  * @returns {number} byte cap, possibly Infinity.
  */
-const controlItemCapOf = (options) => {
-  const configured = options?.controlItemCap
+const controlItemCapOf = (options) => {  const configured = options?.controlItemCap
   if (!Number.isInteger(configured) || configured < 0) return CONTROL_ITEM_CAP
   return configured === 0 ? Number.POSITIVE_INFINITY : configured
 }
@@ -441,6 +446,7 @@ export function buildCheckpoint(input, options = {}) {
     state: [],
     workingset: workingsetSectionOf(working, options, priorText),
     verification: buildVerificationState(working),
+    values: Array.isArray(options.values) ? options.values : [],
   }
   const seenFiles = new Set()
 
@@ -532,6 +538,7 @@ export function buildCheckpoint(input, options = {}) {
     state: sections.state.slice(0, MAX_SECTION_ITEMS.state),
     workingset: sections.workingset.slice(-MAX_SECTION_ITEMS.workingset),
     verification: continuity ? [] : sections.verification.slice(-MAX_SECTION_ITEMS.verification),
+    values: sections.values.slice(0, MAX_SECTION_ITEMS.values),
   }
 
   const controlItemCap = controlItemCapOf(options)
@@ -635,6 +642,36 @@ export function buildCheckpoint(input, options = {}) {
  * @param {{ quotes?: readonly string[], spans?: readonly object[], fragments?: readonly object[], ranges?: readonly object[], facts?: readonly object[], toolText?: boolean, isCheckpointSource?: (source: unknown) => boolean, maxChars?: number }} options
  * @returns {{ text: string, sourceBytes: number, budget: number, selectedCount: number } | null}
  */
+/**
+ * Render the ledger's current entries as the checkpoint's working state.
+ *
+ * The ledger is the subject: entries carry their identity, kind, own words and
+ * source pointers. Changes since the last installed presentation are stated
+ * mechanically so the next model can re-use state instead of re-deriving it.
+ *
+ * @param {{ entries: object[], changes: object }|undefined} ledger
+ * @returns {string[]} zero or one rendered block.
+ */
+const ledgerSection = (ledger) => {
+  if (ledger === undefined || ledger === null) return []
+  const entries = Array.isArray(ledger.entries) ? ledger.entries : []
+  const lines = entries.map(entry => {
+    const text = String(entry.text ?? '').replace(/\r?\n/g, ' ')
+    const sources = Array.isArray(entry.sources) && entry.sources.length > 0
+      ? ` (sources: ${entry.sources.join(', ')})` : ''
+    return `- [${entry.ref}] ${entry.kind}: ${text}${sources}`
+  })
+  const changes = ledger.changes
+  if (changes && (changes.added.length > 0 || changes.revised.length > 0 || changes.expired.length > 0)) {
+    const parts = []
+    if (changes.added.length > 0) parts.push(`added ${changes.added.join(', ')}`)
+    if (changes.revised.length > 0) parts.push(`revised ${changes.revised.map(item => `${item.ref} (was ${item.previous})`).join(', ')}`)
+    if (changes.expired.length > 0) parts.push(`expired ${changes.expired.join(', ')}`)
+    lines.push(`- Changed since last presentation: ${parts.join('; ')}`)
+  }
+  return lines.length > 0 ? [lines.join('\n')] : []
+}
+
 export function buildSelectiveCheckpoint(input, options = {}) {
   const messages = input.messages.filter((message) => message.role !== 'system')
   if (messages.length === 0) return null
@@ -832,6 +869,7 @@ export function buildSelectiveCheckpoint(input, options = {}) {
       .map((item) => collapsePriorEcho(continuity?.control ? withoutRebuiltSections(item) : item, policy.priorEchoDepth))
       .filter(Boolean),
     control: continuity ? [] : pickEnds(control, MAX_SECTION_ITEMS.users),
+    ledger: ledgerSection(options.ledger),
     selected: selected.map((item) => `[${item.ref}] [${item.role}] ${item.text}`),
     judgments: judgments.slice(0, MAX_SECTION_ITEMS.judgments),
     // The narrative is the handoff unit, not a duplicate of the receipts.
@@ -855,6 +893,7 @@ export function buildSelectiveCheckpoint(input, options = {}) {
   const weights = {
     prior: 0.25,
     control: 0.35,
+    ledger: 0.6,
     selected: 0.4,
     judgments: 0.2,
     state: 0.5,
@@ -897,7 +936,7 @@ export function buildSelectiveCheckpoint(input, options = {}) {
   // State and working set are the sections a later model can act on without a
   // tool call. They are allocated before selected evidence; otherwise a large
   // quote set silently starves the very state the checkpoint exists to carry.
-  const fillOrder = ['control', 'state', 'workingset', 'selected', 'prior', 'judgments', 'verification', 'outputs']
+  const fillOrder = ['control', 'ledger', 'state', 'workingset', 'selected', 'prior', 'judgments', 'verification', 'outputs']
   const bodies = {}
   const controlBytes = continuity?.control ? byteLength(continuity.control) + 2 : 0
   let remaining = budget - (structured ? controlBytes : (continuity?.bytes ?? 0))
@@ -920,6 +959,15 @@ export function buildSelectiveCheckpoint(input, options = {}) {
       }
     }
     if (!present.includes(key)) continue
+    if (key === 'ledger') {
+      // The ledger's current entries are the subject: one block, never split.
+      const block = sections.ledger[0]
+      if (byteLength(block) + 2 > remaining) continue
+      bodies.ledger = `${HEADINGS.ledger}\n${block}`
+      sectionBytes.ledger = byteLength(block)
+      remaining -= byteLength(bodies.ledger) + 2
+      continue
+    }
     if (key === 'state' && structured) {
       const block = sections.state[0]
       if (byteLength(block) + 2 > remaining) return null

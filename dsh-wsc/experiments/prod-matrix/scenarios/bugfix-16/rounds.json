@@ -1,0 +1,18 @@
+[
+ "headless Run npm test and report the exact failures. Do not modify any file.",
+ "headless Diagnose the formatCents sign failure; fix src/format.js and run npm test.",
+ "headless Add a regression test for negative cents if it is missing. Run npm test.",
+ "headless Run npm test and report the exact pass/fail count. Do not modify files.",
+ "headless Investigate why --limit can drop the largest rows; fix src/report.js and add a test. Run npm test.",
+ "headless Run node src/cli.js --limit 2 data/sample.json and paste its exact output.",
+ "headless Fix toCsv so a negative amount throws the documented error; add a test. Run npm test.",
+ "headless Verify toCsv still accepts zero and positive amounts; add tests. Run npm test.",
+ "headless Run npm test and report the exact pass/fail count.",
+ "headless Add a README troubleshooting note about working around the sandbox spawn EPERM in tests. Do not change source files.",
+ "headless Add a CHANGELOG entry describing the three bug fixes. Do not change source files.",
+ "headless Refactor the negative-sign logic into a small helper inside src/format.js; keep the output identical. Run npm test.",
+ "headless Run node src/cli.js --json and paste the exact output.",
+ "headless Run node src/cli.js --csv and paste the exact output.",
+ "headless Run npm test and report the exact pass/fail count.",
+ "Without reading files and without running commands: (1) what is TAX_RATE, (2) which environment variable sets the default row limit, (3) which fields does summary(rows) return, (4) what does toCsv do with a negative amount, (5) which rows does --limit 2 keep after the fix, (6) list the two most recent Unreleased CHANGELOG bullets in your own words."
+]

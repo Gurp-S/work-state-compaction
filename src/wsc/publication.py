@@ -31,24 +31,13 @@ def check_binding(db, core, data):
     require(binding["generation"] == getmeta(db, "generation"), "stale_generation")
     require(binding["control_epoch"] == getmeta(db, "control_epoch"), "control_changed")
     require(binding["understanding_epoch"] == getmeta(db, "understanding_epoch"), "understanding_changed")
-    package = data.get('package') or {}
-    scopes = package.get('adapter', {}).get('verification_scopes')
-    if scopes:
-        from .verification_state import verification_observation
-        tail_seal = package.get('verification_tail_sha256')
-        if tail_seal is not None:
-            require(digest(events.rows(db, through=package['through'], after=binding['cut'])) == tail_seal,
-                    'verification_tail_changed')
-        require(not any(verification_observation(row) and row['payload']['verification_scope'] in scopes
-                        for row in events.rows(db, after=package['through'])), 'verification_state_changed')
     if not data["detach"]:
-        validate_snapshot(db, core.store, Snapshot(**binding, events=(), understandings=()),indexed=core.indexed_queries)
+        validate_snapshot(db, core.store, Snapshot(**binding, events=(), understandings=()))
     else:
         require(digest(events.rows(db, binding["cut"])) == binding["source_digest"], "source_binding_changed")
 
 
-def stage(core, view_id, *, directory, adapter, detach, archive_directory=None):
-    require(not detach or archive_directory is None, "detach_requires_self_contained_archive")
+def stage(core, view_id, *, directory, adapter, detach):
     key = uuid4().hex
     with core.store.transaction() as db:
         require(getmeta(db, "mode") == "active", "component_not_active")
@@ -71,7 +60,7 @@ def stage(core, view_id, *, directory, adapter, detach, archive_directory=None):
             require(view is not None, "view_unavailable")
             binding = view["binding"]
             validate_snapshot(db, core.store, Snapshot(**binding, events=(), understandings=()),
-                              indexed=core.indexed_queries, all_rows=source)
+                              all_rows=source)
         else:
             # Switching is only possible after all observed calls have results.
             pending = {r["call_id"] for r in source if r["kind"] == "call"} - {
@@ -101,24 +90,13 @@ def stage(core, view_id, *, directory, adapter, detach, archive_directory=None):
                           else partial(evidence.write_once, sync=False))
         with io.publication_writer() if io is not None else nullcontext(default_writer) as writer:
             root = Path(directory).resolve() / key
-            if archive_directory is None:
-                locators = evidence.export_sources(core.store, core.access, [r["id"] for r in source], root / "sources",write_object=writer)
-            else:
-                from .content_archive import export_sources
-                locators = export_sources(core.store, core.access, [r["id"] for r in source], archive_directory,write_object=writer if io is not None else None)
+            locators = evidence.export_sources(core.store, core.access, [r["id"] for r in source], root / "sources",write_object=writer)
             index = root / "sources.json"
             root.mkdir(parents=True, exist_ok=True)
             memories = root / "understandings.json"
-            if core.bounded_catalog:
-                from .publication_memory import write_catalog
-                source_checksum=write_catalog(writer,index,locators)
-                understanding_checksum=write_catalog(writer,memories,records)
-                # Complete cold history is persisted; release its decoded duplicate.
-                records=None
-            else:
-                writer(index, encode(locators).encode("utf-8"))
-                writer(memories, encode(records).encode("utf-8"))
-                source_checksum=digest(locators);understanding_checksum=digest(records)
+            writer(index, encode(locators).encode("utf-8"))
+            writer(memories, encode(records).encode("utf-8"))
+            source_checksum=digest(locators);understanding_checksum=digest(records)
             body = view["body"] if view else None
             if body and body.get('source_projection'):
                 require(adapter.capabilities().get('source_projection')==body['source_projection'],
@@ -130,20 +108,9 @@ def stage(core, view_id, *, directory, adapter, detach, archive_directory=None):
             if excerpt_locators:
                 body = {**body, "excerpt_locators": excerpt_locators}
             adapter_caps = adapter.capabilities()
-            verification_scopes = adapter_caps.get('verification_scopes')
-            verification_sources = []
-            if verification_scopes:
-                from .verification_state import verification_observation
-                verification_sources = [row['id'] for row in source if verification_observation(row)
-                                        and row['payload']['verification_scope'] in verification_scopes]
-                for source_id in verification_sources:
-                    evidence.authorize(core.store, core.access, source_id)
             items = adapter.render(body, source, binding["cut"], locators,
                                    source_index=str(index), understanding_index=str(memories))
             through=len(source)
-            verification_tail = (digest(source[binding['cut']:]) if verification_scopes
-                                 else None)
-            if core.bounded_catalog:source=None
             package = {"format": "wsc.checkpoint/1", "operation_id": key, "action": "detach" if detach else "publish",
                        "binding": binding, "through": through,
                        "next_generation": binding["generation"] + (0 if detach else 1),
@@ -151,9 +118,6 @@ def stage(core, view_id, *, directory, adapter, detach, archive_directory=None):
                        "source_index": str(index), "source_index_sha256": source_checksum,
                        "understanding_index": str(memories), "understanding_index_sha256": understanding_checksum,
                        "evidence": locators, "semantic_status": "unverified"}
-            if verification_tail is not None:
-                package['verification_tail_sha256'] = verification_tail
-                package['verification_read_sources'] = verification_sources
             if excerpt_locators:
                 package["excerpt_evidence"] = excerpt_locators
                 package["current_reference_bindings"] = [e["current_reference"] for e in body["excerpts"]
@@ -173,8 +137,6 @@ def stage(core, view_id, *, directory, adapter, detach, archive_directory=None):
 
 
 def check_evidence(core, package):
-    for source_id in package.get('verification_read_sources', ()):
-        evidence.authorize(core.store, core.access, source_id)
     io=core.resource_io
     def digest_file(path):
         if io is not None:
@@ -227,7 +189,7 @@ def confirm(core, key, receipt):
                 and isinstance(receipt.receiver, str) and bool(receipt.receiver.strip())
                 and receipt.evidence_accessible is True,
                 "host_receipt_binding_mismatch")
-        check_committed_binding(db, core.store, data,indexed=core.indexed_queries)
+        check_committed_binding(db, core.store, data)
         if data["detach"]:
             setmeta(db, "mode", "detached")
         else:
@@ -241,22 +203,16 @@ def confirm(core, key, receipt):
 
 
 def install(core, key, host):
-    if core.resource_io is None:
-        return _install(core,key,host)
-    with core.store.connect() as db:
-        data=operation(db,key)
-    if data['state'] in {'confirmed','rejected'}:return data['receipt']
-    require(data['state']=='ready','installation_outcome_requires_reconciliation')
-    with core.resource_io.lease(data['package']):
-        return _install(core,key,host)
+    """Atomic install plus receipt confirmation; a lost reply stops explicitly.
 
-
-def _install(core, key, host):
+    The exported sources and the operation record stay intact: 'unknown' and
+    'recovery_required' are terminal stops, never silently re-admitted.
+    """
     with core.store.transaction() as db:
         data = operation(db, key)
         if data["state"] in {"confirmed", "rejected"}:
             return data["receipt"]
-        require(data["state"] == "ready", "installation_outcome_requires_reconciliation")
+        require(data["state"] == "ready", "installation_outcome_unknown")
         check_binding(db, core, data)
         check_evidence(core, data["package"])
         db.execute("UPDATE operations SET state='installing' WHERE id=?", (key,))
@@ -272,17 +228,6 @@ def _install(core, key, host):
         with core.store.transaction() as db:
             record_unsettled_receipt(db, key, receipt)
         raise
-
-
-def reconcile(core, key, host):
-    with core.store.connect() as db:
-        data = operation(db, key)
-    if data["state"] in {"confirmed", "rejected"}:
-        return data["receipt"]
-    require(data["state"] in {"installing", "unknown", "recovery_required"}, "installation_not_started")
-    receipt = host.lookup(key)
-    require(receipt is not None, "host_outcome_unknown")
-    return confirm(core, key, receipt)
 
 
 def discard(core, key):

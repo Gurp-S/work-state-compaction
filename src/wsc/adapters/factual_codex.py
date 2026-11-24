@@ -17,11 +17,13 @@ class FactualCodexCheckpointAdapter(CodexCheckpointAdapter):
     def render(self, body, sources, cut, locators, *, source_index, understanding_index):
         items = super().render(body, sources, cut, locators,
                                source_index=source_index, understanding_index=understanding_index)
-        index = sum(row["kind"] == "message" for row in (body or {}).get("sources", []))
-        facts = json.loads(items[index]["content"][0]["text"])
+        facts = json.loads(items[0]["content"][0]["text"])
         parts = ["Working state"]
         if self.execution_facts:
             parts.extend(["Current execution facts", encode(self.execution_facts)])
+        changes = facts.get("state_changes")
+        if changes and (changes["added"] or changes["revised"] or changes["expired"]):
+            parts.append("State changes since last presentation: " + encode(changes))
 
         def source_lines(locations):
             return [f"Source observed {loc.get('observed_at')}: {loc['path']}" for loc in locations]
@@ -53,5 +55,5 @@ class FactualCodexCheckpointAdapter(CodexCheckpointAdapter):
                 parts.append("Observed current reference: " + encode(current))
         parts.extend(["Full source index: " + facts["archive"]["sources"],
                       "Full understanding index: " + facts["archive"]["understandings"]])
-        items[index]["content"][0]["text"] = "\n\n".join(parts)
+        items[0]["content"][0]["text"] = "\n\n".join(parts)
         return items

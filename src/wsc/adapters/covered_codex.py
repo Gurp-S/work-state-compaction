@@ -14,7 +14,6 @@ class CoveredCodexCheckpointAdapter(CodexCheckpointAdapter):
     def render(self, body, sources, cut, locators, *, source_index, understanding_index):
         items = super().render(body, sources, cut, locators,
                                source_index=source_index, understanding_index=understanding_index)
-        index = sum(row["kind"] == "message" for row in (body or {}).get("sources", []))
-        facts = json.loads(items[index]["content"][0]["text"])
-        items[index]["content"][0]["text"] = encode(covered_facts(body, items, facts))
+        facts = json.loads(items[0]["content"][0]["text"])
+        items[0]["content"][0]["text"] = encode(covered_facts(body, items, facts))
         return items

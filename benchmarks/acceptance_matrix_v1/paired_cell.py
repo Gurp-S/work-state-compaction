@@ -135,7 +135,7 @@ class Cell:
                 port=None
             else:
                 core=WSC(Store(self.folder/'state.db',session_id=self.out.name,workspace=str(self.work)),access=lambda *a:True,
-                    resource_io=ResourceIO(),query_policy='prefix_index_v1',publication_policy='bounded_catalog_v1')
+                    resource_io=ResourceIO())
                 source=self.plan['source_presentation']
                 batch=CodexCheckpointAdapter().import_items(self.inputs['prefix'],thread_id=source['thread_id'],
                                                             start_ordinal=source['bootstrap_items'])

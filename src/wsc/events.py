@@ -89,12 +89,7 @@ def presented(db, request_id: str, source_ids: tuple[str, ...], receiver: str) -
         integrity.advance_receipts(db)
 
 
-def safe_boundary(db, cut: int, *, indexed=False, all_rows=None) -> list[dict]:
-    if indexed:
-        from .scoped_queries import safe_boundary as scoped_boundary
-        if all_rows is None:
-            return scoped_boundary(db, cut, read_prefix=rows)
-        return scoped_boundary(db, cut, read_prefix=lambda database, bound: all_rows[:bound])
+def safe_boundary(db, cut: int, *, all_rows=None) -> list[dict]:
     require(type(cut) is int and cut > 0 and cut >= getmeta(db, "cursor"), "invalid_fold_boundary")
     if all_rows is None:
         all_rows = rows(db, through=cut)

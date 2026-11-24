@@ -11,6 +11,6 @@
     }
   },
   "dependencies": {
-    "@xeyo/dsh-wsc": "link:D:/lea/XenYon code/dsh-wsc"
+    "@xeyo/dsh-wsc": "link:.."
   }
 }

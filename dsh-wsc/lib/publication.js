@@ -7,9 +7,9 @@
  * this side issued, so a reply for another session, another package or another
  * compaction id is refused instead of applied.
  *
- * DSH commits a summary as one atomic event append, so there is no window in
- * which a reply is lost; `reconcile` exists for the case where the journal says
- * an operation started and the log is the only witness of how it ended.
+ * A lost reply stops explicitly: `unknown` and `recovery_required` are terminal
+ * stops that preserve the package, never silently re-admitted. Receipt
+ * confirmation (`confirm`) remains the only settlement path.
  */
 import { appendFileSync, mkdirSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
@@ -18,8 +18,8 @@ const JOURNAL_FILE = 'operations.jsonl'
 
 export const TERMINAL = new Set(['confirmed', 'rejected'])
 
-/** States from which a reconcile may still resolve an outcome. */
-const RECONCILABLE = new Set(['installing', 'unknown', 'recovery_required'])
+/** States from which a bound receipt may still confirm the outcome. */
+const CONFIRMABLE = new Set(['installing', 'unknown', 'recovery_required'])
 
 /** States of an operation that was definitely never submitted to the host. */
 const DISCARDABLE = new Set(['preparing', 'ready', 'failed', 'cancelled', 'rejected'])
@@ -66,7 +66,7 @@ export function confirm(operation, receipt) {
     if (JSON.stringify(operation.receipt) !== JSON.stringify(receipt)) fail('host_receipt_conflict')
     return operation
   }
-  if (!RECONCILABLE.has(operation.state) && operation.state !== 'ready') {
+  if (!CONFIRMABLE.has(operation.state) && operation.state !== 'ready') {
     fail('installation_not_started')
   }
   checkBinding(operation, receipt)
@@ -75,7 +75,7 @@ export function confirm(operation, receipt) {
 
 /**
  * Publish a package. The host call is the only step that can leave the
- * operation in `installing`, and only that state is reconciled later.
+ * operation in `installing`; a lost reply stops explicitly in `unknown`.
  *
  * @param {{ id: string, state: string, package: object, receipt?: object }} operation
  * @param {{ install: (pkg: object) => object }} host
@@ -83,7 +83,7 @@ export function confirm(operation, receipt) {
  */
 export function install(operation, host) {
   if (TERMINAL.has(operation.state)) return { operation, receipt: operation.receipt }
-  if (operation.state !== 'ready') fail('installation_outcome_requires_reconciliation')
+  if (operation.state !== 'ready') fail('installation_outcome_unknown')
   const installing = { ...operation, state: 'installing' }
   let receipt
   try {
@@ -96,21 +96,6 @@ export function install(operation, host) {
   } catch (error) {
     return { operation: { ...installing, state: 'recovery_required', receipt }, error }
   }
-}
-
-/**
- * Ask the host what became of an operation whose reply never arrived.
- *
- * @param {{ id: string, state: string, package: object, receipt?: object }} operation
- * @param {{ lookup: (id: string) => object|undefined|null }} host
- * @returns {{ id: string, state: string, package: object, receipt: object }}
- */
-export function reconcile(operation, host) {
-  if (TERMINAL.has(operation.state)) return operation
-  if (!RECONCILABLE.has(operation.state)) fail('installation_not_started')
-  const receipt = host.lookup(operation.id)
-  if (receipt === undefined || receipt === null) fail('host_outcome_unknown')
-  return confirm(operation, receipt)
 }
 
 /**

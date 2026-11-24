@@ -43,8 +43,6 @@ def make_items(count):
 
 
 def host():
-    receipts = {}
-
     def commit(package):
         receipt = HostReceipt(operation_id=package["operation_id"],
                               package_digest=package["package_digest"],
@@ -54,13 +52,9 @@ def host():
                               control_epoch=package["binding"]["control_epoch"],
                               installed_through=package["through"],
                               receiver="benchmark-host", evidence_accessible=True)
-        receipts[package["operation_id"]] = receipt
         return receipt
 
-    def lookup(operation_id):
-        return receipts.get(operation_id)
-
-    return CallbackHost(commit=commit, lookup=lookup)
+    return CallbackHost(commit=commit)
 
 
 class phase:
@@ -77,7 +71,7 @@ class phase:
         return False
 
 
-def run(count, *, archive=False, batch_present=False, sync=True):
+def run(count, *, batch_present=False, sync=True):
     adapter = CodexCheckpointAdapter()
     items = make_items(count)
     events = adapter.import_items(items, thread_id="benchmark")
@@ -114,8 +108,7 @@ def run(count, *, archive=False, batch_present=False, sync=True):
             view = core.prepare(snapshot, Selection(source_ids=selectable), producer="benchmark",
                                 limits=Limits(max_view_bytes=8_000_000, max_material_bytes=32_000_000))
         with phase(timings, "stage"):
-            operation = core.stage(view, directory=root / "out", adapter=adapter,
-                                   archive_directory=root / "cold" if archive else None)
+            operation = core.stage(view, directory=root / "out", adapter=adapter)
         with phase(timings, "install"):
             core.install(operation, host())
 
@@ -138,7 +131,6 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--events", type=int, default=1200)
     parser.add_argument("--rounds", type=int, default=3)
-    parser.add_argument("--archive", action="store_true")
     parser.add_argument("--profile", action="store_true")
     parser.add_argument("--batch-present", action="store_true")
     parser.add_argument("--no-sync", action="store_true")
@@ -152,10 +144,10 @@ def main():
         pstats.Stats(profiler).sort_stats("tottime").print_stats(20)
         return 0
 
-    samples = [run(args.events, archive=args.archive, batch_present=args.batch_present,
+    samples = [run(args.events, batch_present=args.batch_present,
                    sync=not args.no_sync) for _ in range(args.rounds)]
     result = {"format": "wsc.pipeline_timing/2", "events": args.events, "rounds": args.rounds,
-              "archive": args.archive, "batch_present": args.batch_present,
+              "batch_present": args.batch_present,
               "sync": not args.no_sync, **summarise(samples)}
     print(json.dumps(result, ensure_ascii=False, indent=2))
     return 0

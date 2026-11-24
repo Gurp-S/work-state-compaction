@@ -46,7 +46,7 @@ class NativeCarrierWorkspaceTests(unittest.TestCase):
         core, view = self.core()
         key = core.stage(view, directory=self.root / "exports", adapter=self.adapter(core.store.workspace))
         package = core.package(key)
-        self.assertEqual(self.carrier, package["items"][1])
+        self.assertEqual(self.carrier, package["items"][2])
         self.assertEqual(core.store.workspace, package["binding"]["workspace"])
 
     def test_missing_or_relative_workspace_is_not_a_bound_checkpoint(self):

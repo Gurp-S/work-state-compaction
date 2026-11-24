@@ -47,7 +47,8 @@ def covered_facts(body, items, facts):
     """Return a copy; unchanged text is the fallback whenever proof is absent."""
     result = deepcopy(facts)
     sources, message_indices = {}, {}
-    count = 0
+    # The working_state message occupies item 0; selected messages follow it.
+    count = 1
     for source in (body or {}).get("sources", []):
         sources[source["id"]] = source
         if source["kind"] == "message":

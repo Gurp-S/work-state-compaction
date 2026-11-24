@@ -1,7 +1,9 @@
 """Explicit native checkpoint conversion, not an in-process Codex compaction hook."""
 from copy import deepcopy
+import json
 
 from ..contracts import Event, digest, encode, identifier, require
+from ..passage import render as render_passage
 
 
 def public_text(item: dict) -> str | None:
@@ -69,34 +71,67 @@ class CodexCheckpointAdapter:
             elif row["kind"] == "result":
                 pending.discard(row["call_id"])
         require(not pending, "checkpoint_requires_idle_tools")
-        items, excerpts = [], []
         body = body or {"sources": [], "understandings": [], "clues": []}
-        for row in body["sources"]:
-            if row["kind"] == "message":
-                items.append(deepcopy(row["payload"]))
-            else:
-                # Historical calls are facts, never newly issued native tool calls.
-                excerpts.append({"source_id": row["id"], "kind": row["kind"],
-                                 "text": row["text"], "observed_at": row["observed_at"],
-                                 "source": locators[row["id"]]})
-        def locations(keys):
-            return [{"source_id": key, "path": locators[key].get("readable_path", locators[key]["file_path"]),
-                     "sha256": locators[key].get("readable_sha256", locators[key]["sha256"]),
-                     "observed_at": locators[key]["observed_at"]}
-                    for key in keys]
-        facts = {"kind": "working_state", "understandings": [
-            {"ref": r["ref"], "kind": r["kind"], "text": r["text"], "scope": r["scope"],
-             "sources": locations(r["sources"])} for r in body["understandings"]],
-            "clues": [{"text": c["text"], "sources": locations(c["sources"])} for c in body["clues"]],
-            "historical_excerpts": excerpts,
-            "archive": {"sources": source_index, "understandings": understanding_index}}
-        if body.get("excerpts"):
-            facts["observations"] = [{"key": e["key"], "text": e["text"],
-                "historical_locator": e["historical_locator"],
-                "source": body["excerpt_locators"][e["key"]],
-                **({"current_reference": e["current_reference"]} if "current_reference" in e else {})}
-                for e in body["excerpts"]]
-        items.append({"type": "message", "role": "assistant", "phase": "commentary",
-                      "content": [{"type": "output_text", "text": encode(facts)}]})
+        control = [row["text"] for row in body["sources"]
+                   if row["kind"] == "message" and row.get("control") and row.get("text")]
+        ledger = [{"kind": r["kind"], "text": r["text"]} for r in body["understandings"]]
+        index = [{"key": row["key"], "source_id": row["source_id"], "message": row["message"],
+                  "label": row["gist"], "terms": row.get("terms", []), "text": row["text"]}
+                 for row in _evidence_index(body["sources"], body.get("excerpts"), locators)]
+        passage = render_passage(control=control, ledger=ledger, index=index)
+        if not passage:
+            return []
+        # One model-visible view: control + ledger + discovery index. Package
+        # locators, archive paths and hashes stay host-side.
+        items = [{"type": "message", "role": "assistant", "phase": "commentary",
+                  "content": [{"type": "output_text", "text": passage}]}]
         items.extend(deepcopy(row["payload"]) for row in sources if row["seq"] > cut)
         return items
+
+
+def _label(row: dict) -> tuple:
+    """Kind and one-line gist for discovery; bytes are fetched from the cold store."""
+    text = (row.get("text") or "").strip()
+    first = next((line.strip() for line in text.split("\n") if line.strip()), "")[:72]
+    payload = row.get("payload") or {}
+    name = payload.get("name")
+    if row.get("kind") == "call" and name in ("edit", "write"):
+        args = payload.get("arguments")
+        try:
+            args = args if isinstance(args, dict) else json.loads(args or "{}")
+        except ValueError:
+            args = {}
+        path = next((args.get(key) for key in ("path", "file_path", "target_file")
+                     if isinstance(args.get(key), str)), "")
+        return "edit", f"edit {path}".strip()
+    if row.get("kind") == "result":
+        lowered = text.lower()
+        if any(word in lowered for word in ("error", "exception", "failed", "traceback")):
+            return "error", f"error {first}"
+        return "result", f"result {first}"
+    if row.get("kind") == "message" and row.get("control"):
+        return "control", "control message"
+    return "note", f"note {first}"
+
+
+def _evidence_index(rows: list, excerpts, locators: dict) -> list:
+    index = []
+    for row in rows:
+        if row["kind"] == "message":
+            continue
+        kind, gist = _label(row)
+        if row["id"] in locators:
+            index.append({"key": f"E{len(index) + 1}", "kind": kind, "gist": gist,
+                      "source_id": row["id"], "message": row.get("seq", 0),
+                      "text": row.get("text") or "", "terms": []})
+        if len(index) >= 16:
+            break
+    for item in excerpts or []:
+        if len(index) >= 16:
+            break
+        text = (item.get("text") or "").strip()
+        gist = next((line.strip() for line in text.split("\n") if line.strip()), "")[:72]
+        index.append({"key": f"E{len(index) + 1}", "kind": "excerpt", "gist": gist,
+                      "source_id": item.get("source_id"), "message": 0,
+                      "text": text, "terms": []})
+    return index

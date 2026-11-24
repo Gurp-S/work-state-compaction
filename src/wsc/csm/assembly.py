@@ -1,63 +1,76 @@
-"""Context assembly (§13.6): ordered, budgeted, provenance-preserving.
+"""Context assembly: utility-ordered blocks under a character budget.
 
-CSM supplies evidence-backed memories; the caller decides the prose. Assembly therefore
-trims, orders and reports what it omitted, but never rewrites a value, upgrades an
-uncertainty and never drops the evidence that a claim rests on.
+The budget is spent by usefulness, not by row order. Current confirmed memories come first;
+historical and unknown rows are kept only when budget remains. Evidence is attached in the
+same block, and when an item does not fit, its evidence is excerpted rather than the item
+being dropped whole, so a fact never arrives without the source it rests on.
 """
 from __future__ import annotations
 
 import json
 
-from .contracts import require
-from .result_scope import loss_scope
+from .contracts import CURRENT_CONFIRMED, HISTORICAL, UNKNOWN, require
+
+_CLASS_ORDER = {CURRENT_CONFIRMED: 0, HISTORICAL: 1, UNKNOWN: 2}
 
 
-def _item(result: dict) -> dict:
-    """One assembly block: only fields a reader needs to judge the claim."""
-    item = {"memory_id": result.get("memory_id"), "value": result.get("value"),
-            "contexts": result.get("contexts", []),
-            "evidence": result.get("source_refs", []),
-            "classification": result.get("classification"),
-            "reason": result.get("reason")}
-    if result.get("status") is not None:
-        item["status"] = result["status"]
-    if result.get("dependencies"):
-        item["dependencies"] = result["dependencies"]
-    if result.get("uncertainty"):
-        item["uncertainty"] = result["uncertainty"]
-    if result.get("revision") is not None:
-        item["revision"] = result["revision"]
-    for key in ("entity", "slot", "record_type", "source_scope", "effective_at", "pending_id",
-                "semantic_type", "lifecycle", "valid_from", "valid_to", "confirmed", "retrieval_via",
-                "identity_classification"):
-        if result.get(key) is not None:
-            item[key] = result[key]
-    return item
+def _core(item: dict) -> dict:
+    row = {"memory_id": item.get("memory_id"), "entity": item.get("entity"),
+           "slot": item.get("slot"), "value": item.get("value"),
+           "classification": item.get("classification")}
+    for key in ("status", "property_kind", "scope", "revision", "valid_from", "effective_at"):
+        if item.get(key) is not None:
+            row[key] = item[key]
+    return row
+
+
+def _size(item: dict) -> int:
+    return len(json.dumps(item, ensure_ascii=False, sort_keys=True))
+
+
+def _evidence_block(item: dict, budget: int) -> list[dict]:
+    """Keep as much source text as fits; a truncated excerpt still names its event."""
+    if budget <= 0:
+        return []
+    out = []
+    for entry in item.get("evidence") or []:
+        room = budget - _size({"evidence": out})
+        if room <= 2:
+            break
+        text = str(entry.get("text") or "")
+        take = text[:max(0, room - 80)]
+        if not take:
+            break
+        out.append({"source_id": entry.get("source_id"),
+                    "observed_at": entry.get("observed_at"), "text": take})
+    return out
 
 
 def assemble(result: dict, *, max_chars: int = 4000, max_items: int = 20) -> dict:
-    """Build the bounded context block for one query result.
-
-    ``max_chars`` is measured on the serialized block, so the budget holds whatever the
-    value's own shape is. Items that do not fit are counted, not silently reshaped.
-    """
+    """Build one bounded context block; omitted items are counted, never silently reshaped."""
     require(isinstance(max_chars, int) and max_chars > 0, "assembly_budget_invalid")
     require(isinstance(max_items, int) and max_items > 0, "assembly_budget_invalid")
+    candidates = sorted(result.get("results", []), key=lambda item: (
+        _CLASS_ORDER.get(item.get("classification"), 3), -(item.get("score") or 0.0)))
     items, used, omitted = [], 0, 0
-    for candidate in result.get("results", []):
+    for candidate in candidates:
         if len(items) >= max_items:
             omitted += 1
             continue
-        item = _item(candidate)
-        size = len(json.dumps(item, ensure_ascii=False, sort_keys=True))
-        if used + size > max_chars:
+        core = _core(candidate)
+        cost = _size(core)
+        if used + cost > max_chars:
             omitted += 1
             continue
-        used += size
-        items.append(item)
-    return {"items": items, "used_chars": used, "max_chars": max_chars,
-            "max_items": max_items, **loss_scope(result, omitted),
-            "counts": result.get("counts", {})}
+        used += cost
+        block = dict(core)
+        source = _evidence_block(candidate, max_chars - used)
+        if source:
+            block["evidence"] = source
+            used += _size({"evidence": source})
+        items.append(block)
+    return {"items": items, "used_chars": used, "max_chars": max_chars, "max_items": max_items,
+            "omitted": omitted, "counts": result.get("counts", {})}
 
 
 __all__ = ["assemble"]

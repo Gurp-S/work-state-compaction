@@ -1,7 +1,7 @@
 /**
  * End-to-end: one selective compaction from checkpoint bytes to a durable,
  * verified install — package digest, operation lifecycle, evidence index,
- * understanding record, exported-object lease and re-check.
+ * understanding record and re-check.
  */
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
@@ -88,13 +88,15 @@ test('integration: a selective checkpoint becomes a confirmed, evidenced install
   assert.equal(JSON.parse(read(store, access, 3).content).content[0].text, quote)
 
   // 5. The judgment survives outside the checkpoint text, with its provenance.
+  //    Its durable source pointer is the shadowed region (H2), never a
+  //    checkpoint-local quote label.
   const understanding = new UnderstandingStore({ file: join(home, 'wsc', 'understanding', 'sess.jsonl') })
   for (const fact of operation.package.judgments) {
     understanding.write(
       {
         text: fact.text,
         kind: 'judgment',
-        sources: fact.sources,
+        sources: [3].map((seq) => `seq:${seq}`),
         scope: { session: 'sess', shadowedSeqs: [3] },
       },
       { producer: 'selection' },
@@ -102,23 +104,21 @@ test('integration: a selective checkpoint becomes a confirmed, evidenced install
   }
   const reloaded = new UnderstandingStore({ file: understanding.file })
   assert.equal(reloaded.all().length, 1)
-  assert.deepEqual(reloaded.all()[0].sources, ['s1'])
+  assert.deepEqual(reloaded.all()[0].sources, ['seq:3'])
   assert.deepEqual(reloaded.all()[0].scope.shadowedSeqs, [3])
+  assert.equal(reloaded.all()[0].status, 'active')
   assert.equal(reloaded.resolve(reloaded.all()[0].ref).text, 'retry errors surface after the first commit')
 
-  // 6. The exported object is leased and re-checked before installation.
+  // 6. The exported object is re-checked before installation.
   const io = new ResourceIO()
   const exported = join(home, 'wsc', 'evidence', 'sess', '3.json')
   io.writeOnce(exported, Buffer.from(canonicalJson(message)))
   const package_ = {
     evidence: { 3: { file_path: exported, sha256: sha256Hex(canonicalJson(message)) } },
   }
-  const lease = io.lease(package_)
-  lease.verify()
   checkEvidence(io, package_)
   writeFileSync(exported, '{"tampered":true}')
   assert.throws(() => checkEvidence(io, package_), /exported_source_changed/)
-  assert.throws(() => lease.verify(), /evidence_resource_changed/)
 })
 
 test('integration: the payload carries the second working set for a read and an edit', () => {

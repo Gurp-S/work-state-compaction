@@ -14,7 +14,8 @@ def row(seq, kind="message", text="t"):
 class MaterialViewChecks(unittest.TestCase):
     def setUp(self):
         self.rows = [row(1), row(2), row(3, kind="opaque"), row(4)]
-        self.records = [{"id": "u1", "sources": ["e1"], "text": "u"}]
+        self.records = [{"id": "u1", "revision": 1, "ref": "u1@1", "kind": "note",
+                         "sources": ["e1"], "text": "u"}]
         self.view = material_v2.MaterialView(self.rows, self.records, session_id="s", cut=4)
 
     def test_public_matches_the_reference_projection(self):

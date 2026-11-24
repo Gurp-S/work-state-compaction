@@ -1,0 +1,20 @@
+[
+ "headless Read src/report.js, src/store.js, src/format.js, src/cli.js and the tests. Reply with a one-paragraph summary of the module boundaries. Do not modify any file.",
+ "headless Extract taxed row construction into src/rows.js exporting taxedRows(order, options); report.js must import it. Run npm test.",
+ "headless Make formatAmount internal to src/format.js (not exported) if nothing else imports it; keep every output identical. Run npm test.",
+ "headless Rename the summary export to summarizeRows across src and tests. Do not leave a compatibility alias. Run npm test.",
+ "headless Split renderReport into a pure buildTextReport and a thin renderReport wrapper. Run npm test.",
+ "headless Create src/options.js exporting reportLimit and parseArgs; move them out of report.js and cli.js; update imports. Run npm test.",
+ "headless Consolidate the duplicate total computation between buildReport and summary; add tests. Run npm test.",
+ "headless Rename reportRows (or the current row selector) to selectRows everywhere. No alias. Run npm test.",
+ "headless Move toCsv into src/csv.js; update src/cli.js and the tests. Run npm test.",
+ "headless Remove dead code in src/store.js found by reading it; keep behaviour. Run npm test.",
+ "headless Ensure no src file calls console.log; add a test that greps the source tree. Run npm test.",
+ "headless Move row-related tests into tests/rows.test.mjs; keep the full suite green. Run npm test.",
+ "headless Rename the CSV export to exportCsv and update every importer. No alias. Run npm test.",
+ "headless Make parseArgs return {file, limit, json, csv}; update src/cli.js and add tests. Run npm test.",
+ "headless Extract formatRow(sku, cents) shared by the text and CSV paths. Add tests. Run npm test.",
+ "headless Remove the duplicated DEFAULT_REPORT_LIMIT if it exists more than once; add a test pinning the default. Run npm test.",
+ "headless Update the README layout section to match the refactored modules. Do not change source files.",
+ "Without reading files and without running commands: (1) what is TAX_RATE, (2) which environment variable sets the default row limit, (3) which module builds the taxed rows after the refactor, (4) what does the CSV export do with negative amounts, (5) name two modules that exist only after the refactor."
+]

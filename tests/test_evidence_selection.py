@@ -58,8 +58,8 @@ class EvidenceSelectionTests(unittest.TestCase):
         item = p["excerpt_evidence"]["memory"]
         self.assertEqual(self.text, Path(item["file_path"]).read_text(encoding="utf-8"))
         self.assertEqual("2026-01-01T01:00:00Z", item["observed_at"])
-        self.assertEqual(self.items[0], p["items"][0])
-        view = json.loads(p["items"][-1]["content"][0]["text"])
+        self.assertEqual(self.items[0], p["items"][1])
+        view = json.loads(p["items"][0]["content"][0]["text"])
         self.assertEqual(self.text, view["observations"][0]["text"])
         self.assertIn("H2 applicability unknown", view["understandings"][0]["text"])
         self.assertNotIn("unrelated new task", encode(p["items"]))
@@ -135,7 +135,7 @@ class EvidenceSelectionTests(unittest.TestCase):
         view = self.core.prepare(self.core.capture(), self.selection(item), producer="model")
         op = self.core.stage(view, directory=self.root / "exports", adapter=self.adapter)
         package = self.core.package(op)
-        hot = json.loads(package["items"][-1]["content"][0]["text"])["observations"][0]
+        hot = json.loads(package["items"][0]["content"][0]["text"])["observations"][0]
         self.assertEqual(2, hot["current_reference"]["start_line"])
         self.assertEqual("2026-01-01T01:00:00Z", hot["source"]["observed_at"])
         self.assertEqual("MEMORY.md:100-100", hot["historical_locator"])

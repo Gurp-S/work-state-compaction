@@ -21,7 +21,7 @@
     "icon.svg"
   ],
   "scripts": {
-    "test": "node --test tests/lib.test.mjs tests/workingset-v2.test.mjs tests/projection.test.mjs tests/excerpts.test.mjs tests/selection.test.mjs tests/evidence.test.mjs tests/publication.test.mjs tests/resources.test.mjs tests/understanding.test.mjs tests/integration.test.mjs tests/session.test.mjs tests/payload.test.mjs tests/admission.test.mjs tests/outputs.test.mjs tests/workingset.test.mjs tests/offline-contracts.test.mjs tests/handoff-publication.test.mjs tests/state-publication.test.mjs"
+    "test": "node --test tests/lib.test.mjs tests/workingset-v2.test.mjs tests/projection.test.mjs tests/excerpts.test.mjs tests/selection.test.mjs tests/evidence.test.mjs tests/publication.test.mjs tests/resources.test.mjs tests/understanding.test.mjs tests/state-loop.test.mjs tests/integration.test.mjs tests/session.test.mjs tests/payload.test.mjs tests/admission.test.mjs tests/outputs.test.mjs tests/workingset.test.mjs tests/offline-contracts.test.mjs tests/handoff-publication.test.mjs tests/state-publication.test.mjs tests/nosig.test.mjs tests/values.test.mjs tests/state.test.mjs tests/passage.test.mjs tests/command-state.test.mjs tests/ledger-denoise.test.mjs tests/denoise-visibility.test.mjs tests/error-pin.test.mjs tests/evidence-index.test.mjs tests/requirement-board.test.mjs tests/window.test.mjs tests/runtime-denoise.test.mjs"
   },
   "dsh": {
     "bundle": {

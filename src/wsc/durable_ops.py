@@ -122,31 +122,14 @@ class DurableResults:
         """Settle open intents left by a crash.
 
         ``scanned/committed/aborted/blocked`` count intents; ``details`` names
-        each one.  ``blobs`` is the collector summary (``orphans``/``removed``
-        for unreferenced objects, ``temp_orphans``/``temp_removed`` for killed
-        writers' temp files), so a caller can distinguish "nothing to do" from
-        "reclaimed surplus".
+        each one.
         """
         report=dict(scanned=0,committed=0,aborted=0,blocked=0,details=[])
         for row in self.pending(limit=limit):
             report['scanned']+=1
             outcome=self._recover_one(row);report[outcome]+=1
             report['details'].append(dict(op_id=row['op_id'],prior_state=row['state'],outcome=outcome))
-        report['blobs']=self._collect_orphan_blobs()
         return report
-
-    def _collect_orphan_blobs(self):
-        """Recovery is the only moment the open-intent set is authoritative."""
-        from . import blob_gc
-        rows=self.pending(limit=1000000)
-        keep=blob_gc.live_hashes(self.results.store,
-                                 call_ids=[row['call_id'] for row in rows],
-                                 result_ids=[row['result_id'] for row in rows])
-        try:
-            return blob_gc.collect(self.results.store,keep_hashes=keep,dry_run=False)
-        except (WSCError,OSError) as error:
-            # Reclaiming surplus is never allowed to block recovery itself.
-            return dict(orphans=[],removed=[],error=str(error))
 
     def _record(self,row):
         rid=row['result_id'] or self.results.store.find(row['call_id'])

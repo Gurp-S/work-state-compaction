@@ -22,8 +22,7 @@ class IndexedCheckpointAdapter(RecordedCodexCheckpointAdapter):
 
     def render(self,body,source,cut,locators,*,source_index,understanding_index):
         items=super().render(body,source,cut,locators,source_index=source_index,understanding_index=understanding_index)
-        index=sum(row['kind']=='message' for row in body['sources'])
-        facts=json.loads(items[index]['content'][0]['text'])
+        facts=json.loads(items[0]['content'][0]['text'])
         sections=[]
         template=deepcopy(facts)
         aliases={}
@@ -79,7 +78,7 @@ class IndexedCheckpointAdapter(RecordedCodexCheckpointAdapter):
         lines=[encode(compact)]
         for value in sections:
             lines.extend([f"[WSC section {value['id']} kind={value['kind']} source={value['source'] or '-'} bytes={value['bytes']}]",value['text']])
-        items[index]['content'][0]['text']='\n'.join(lines)
+        items[0]['content'][0]['text']='\n'.join(lines)
         return items
 
 

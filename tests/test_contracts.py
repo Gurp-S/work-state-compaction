@@ -69,11 +69,6 @@ class DurableTestHost:
             raise TimeoutError("reply_lost_after_commit")
         return replace(receipt, generation=999) if self.bad_reply else receipt
 
-    def lookup(self, operation_id):
-        with closing(sqlite3.connect(self.path)) as db, db:
-            row = db.execute("SELECT data FROM receipts WHERE id=?", (operation_id,)).fetchone()
-            return HostReceipt(**json.loads(row[0])) if row else None
-
 
 class Contracts(unittest.TestCase):
     def setUp(self):
@@ -150,7 +145,9 @@ class Contracts(unittest.TestCase):
         view = self.core.prepare(snap, Selection(source_ids=(self.ids[2],)), producer="test")
         op = self.core.stage(view, directory=self.root / "exports", adapter=self.adapter)
         p = self.core.package(op)
-        self.assertEqual(self.items[0], p["items"][0])
+        view_text = p["items"][0]["content"][0]["text"]
+        self.assertIn("User requirements, quoted verbatim", view_text)
+        self.assertIn("late response", encode([tail]))
         self.assertEqual(tail, p["items"][-1])
         self.assertFalse(any(x["type"] == "function_call_output" for x in p["items"]))
         self.assertEqual(self.items[3], json.loads(Path(p["evidence"][self.ids[3]]["file_path"]).read_text()))
@@ -167,7 +164,7 @@ class Contracts(unittest.TestCase):
         self.assertEqual(0, self.core.status()["cursor"])
         self.assertEqual(6, self.core.status()["source_count"])
 
-    def test_export_is_not_install_and_failed_reply_reconciles_once(self):
+    def test_export_is_not_install_and_lost_reply_stops_explicitly(self):
         op = self.staged()
         self.assertEqual(0, self.core.status()["cursor"])
         self.host.lose_reply = True
@@ -175,15 +172,16 @@ class Contracts(unittest.TestCase):
             self.core.install(op, self.host)
         self.assertEqual(0, self.core.status()["cursor"])
         self.assertEqual(1, self.host.state()["effects"])
-        with self.assertRaisesRegex(WSCError, "reconciliation"):
+        with self.assertRaisesRegex(WSCError, "installation_outcome_unknown"):
             self.core.install(op, self.host)
         with self.assertRaisesRegex(WSCError, "publication_outcome_unknown"):
             self.core.discard(op)
         core = self.reopen()
-        core.reconcile(op, self.host)
-        core.install(op, self.host)
-        self.assertEqual(5, core.status()["cursor"])
-        self.assertEqual(1, self.host.state()["effects"])
+        self.assertEqual("unknown", core.status()["operations"][0]["state"])
+        self.assertEqual(5, core.status()["source_count"])
+        self.assertTrue(Path(core.package(op)["evidence"][self.ids[2]]["file_path"]).is_file())
+        with self.assertRaisesRegex(WSCError, "publication_pending"):
+            core.stage(self.view(), directory=self.root / "exports", adapter=self.adapter)
 
     def test_invalid_receipt_never_folds(self):
         op = self.staged()
@@ -191,16 +189,15 @@ class Contracts(unittest.TestCase):
         with self.assertRaisesRegex(WSCError, "host_receipt_binding_mismatch"):
             self.core.install(op, self.host)
         self.assertEqual(0, self.core.status()["cursor"])
-        self.core.reconcile(op, self.host)
-        self.assertEqual(1, self.core.status()["generation"])
+        self.assertEqual("recovery_required", self.core.status()["operations"][0]["state"])
+        self.assertEqual(0, self.core.status()["generation"])
 
-    def test_unknown_lookup_never_means_unexecuted(self):
+    def test_lost_reply_never_means_unexecuted(self):
         op = self.staged()
-        host = CallbackHost(commit=lambda p: (_ for _ in ()).throw(TimeoutError()), lookup=lambda key: None)
+        host = CallbackHost(commit=lambda p: (_ for _ in ()).throw(TimeoutError()))
         with self.assertRaises(TimeoutError):
             self.core.install(op, host)
-        with self.assertRaisesRegex(WSCError, "host_outcome_unknown"):
-            self.reopen().reconcile(op, host)
+        self.assertEqual("unknown", self.core.status()["operations"][0]["state"])
         self.assertEqual(0, self.core.status()["cursor"])
 
     def test_terminal_host_rejection_allows_new_candidate(self):
@@ -208,7 +205,7 @@ class Contracts(unittest.TestCase):
         package = self.core.package(op)
         rejection = HostRejection(op, package["package_digest"], "session", str(self.root.resolve()),
                                   "host_capacity_unavailable", "offline_host")
-        host = CallbackHost(commit=lambda p: rejection, lookup=lambda key: rejection)
+        host = CallbackHost(commit=lambda p: rejection)
         self.assertEqual("host_capacity_unavailable", self.core.install(op, host)["reason"])
         self.assertEqual("rejected", self.core.status()["operations"][-1]["state"])
         self.assertEqual(0, self.core.status()["cursor"])
@@ -277,7 +274,8 @@ class Contracts(unittest.TestCase):
             self.core.remember(Understanding("stale edit", "diagnosis", id=first["id"], expected_revision=1), producer="model")
         with self.assertRaisesRegex(WSCError, "understanding_changed"):
             self.core.prepare(snap, Selection(understanding_refs=(first["ref"],)), producer="model")
-        self.assertEqual(2, len(self.core.material(self.core.capture())["understandings"]))
+        self.assertEqual(2, len(self.core.snapshot_content(self.core.capture())[1]))
+        self.assertEqual([second["ref"]], [r["ref"] for r in self.core.material(self.core.capture())["understandings"]])
 
     def test_disabled_plugin_is_identity_without_initialization(self):
         def factory():
@@ -444,7 +442,7 @@ class Contracts(unittest.TestCase):
                 db.execute("UPDATE state SET data=? WHERE id=1", (encode(state),))
             return receipt
 
-        self.core.install(op, CallbackHost(commit=commit, lookup=self.host.lookup))
+        self.core.install(op, CallbackHost(commit=commit))
         self.assertEqual(1, self.host.state()["effects"])
         self.assertEqual(tail, self.host.state()["items"][-1])
         self.assertEqual("confirmed", self.core.status()["operations"][-1]["state"])

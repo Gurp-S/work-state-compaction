@@ -6,6 +6,7 @@ reference and only builds the public dict when a caller asks for it.
 page never serializes the whole history.  ``byte_size`` stays exact because the
 byte budget is a contract, not an estimate.
 """
+from . import state_view
 from .contracts import encode, require
 from .projection import public_material
 
@@ -53,7 +54,9 @@ class MaterialView:
         visible = [row for row in self.prefix if row["kind"] != "opaque"]
         rows = visible[offset:offset + limit]
         source_ids = {row["id"] for row in rows}
+        # Expiry is judged against the full prefix, never the paged window.
+        current = state_view.current_entries(self.records, self.prefix)
         return {"session_id": self.session_id, "source_boundary": self.cut,
-                "events": [{key: row[key] for key in _KEYS} for row in rows],
-                "understandings": [record for record in self.records
-                                   if set(record["sources"]) <= source_ids]}
+                "understandings": [record for record in current
+                                   if set(record["sources"]) <= source_ids],
+                "events": [{key: row[key] for key in _KEYS} for row in rows]}

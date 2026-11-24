@@ -1,12 +1,8 @@
 /**
- * Bounded object I/O and installation-time path leases, ported from XENYON
+ * Bounded object I/O with atomic no-replace publication, ported from XENYON
  * `wsc/resource_io.py`.
  *
- * A lease is an identity lease, not a lock: JavaScript cannot set a Windows
- * share mode, so the lease records the identity (volume/file index, size and
- * mtime) of every named object and of every parent directory, holds the file
- * handles open, and fails closed if any of them changed before installation.
- * `checkEvidence` is the re-check that runs against those recorded digests.
+ * `checkEvidence` is the re-check that runs against the recorded digests.
  */
 import { createHash, randomBytes } from 'node:crypto'
 import {
@@ -21,7 +17,7 @@ import {
   unlinkSync,
   writeSync,
 } from 'node:fs'
-import { dirname, join, parse, resolve } from 'node:path'
+import { dirname, join, resolve } from 'node:path'
 
 /** @param {string} code @returns {never} */
 const fail = (code) => {
@@ -29,18 +25,6 @@ const fail = (code) => {
 }
 
 const isLink = (info) => info.isSymbolicLink()
-
-/** @param {string} path @returns {string[]} every ancestor of a path, nearest last. */
-const ancestors = (path) => {
-  const result = []
-  let current = dirname(resolve(path))
-  const root = parse(current).root
-  while (current !== root) {
-    result.push(current)
-    current = dirname(current)
-  }
-  return result
-}
 
 /** @param {string} path @returns {string} the identity key of an object. */
 const identity = (info) => `${info.dev}:${info.ino}`
@@ -183,9 +167,7 @@ export class ResourceIO {
       directory_fsync_platform_path: process.platform !== 'win32',
       directory_fsync_verified: false,
       windows_directory_durability_verified: false,
-      installation_path_leases: process.platform === 'win32' ? 'identity' : false,
       power_loss_recovery_proven: false,
-      max_lease_handles: this.maxOpenHandles,
     }
   }
 
@@ -253,53 +235,6 @@ export class ResourceIO {
         handles.length = 0
       },
     }
-  }
-
-  /**
-   * Take an identity lease over every object a package names.
-   *
-   * @param {object} package publication package.
-   * @returns {{ paths: string[], directories: string[], verify: () => void, release: () => void }}
-   */
-  lease(package_) {
-    if (process.platform !== 'win32') fail('installation_resource_lease_unavailable')
-    const paths = collectPaths(package_)
-    const directories = new Set()
-    for (const path of paths) for (const parent of ancestors(path)) directories.add(parent)
-    if (paths.size + directories.size > this.maxOpenHandles) fail('installation_resource_budget_exhausted')
-
-    const entries = []
-    const record = (path, directory) => {
-      let info
-      try {
-        info = identityOf(path)
-      } catch {
-        fail('installation_resource_unavailable')
-      }
-      if (isLink(info)) fail('evidence_path_symlink')
-      if (directory ? !info.isDirectory() : !info.isFile()) fail('evidence_resource_not_regular')
-      entries.push({ path, directory, info })
-    }
-    for (const directory of [...directories].sort((a, b) => a.split(/[\\/]/).length - b.split(/[\\/]/).length || (a < b ? -1 : 1))) {
-      record(directory, true)
-    }
-    for (const path of [...paths].sort()) record(path, false)
-
-    const verify = () => {
-      for (const entry of entries) {
-        let info
-        try {
-          info = identityOf(entry.path)
-        } catch {
-          fail('installation_resource_unavailable')
-        }
-        if (identity(entry.info) !== identity(info)) fail('evidence_resource_changed')
-        if (!entry.directory && (info.size !== entry.info.size || info.mtimeNs !== entry.info.mtimeNs)) {
-          fail('evidence_resource_changed')
-        }
-      }
-    }
-    return { paths: [...paths], directories: [...directories], verify, release: () => {} }
   }
 }
 

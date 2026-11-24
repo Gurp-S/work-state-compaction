@@ -28,67 +28,128 @@ Historical location: python/scripts/_wsc_jsonl_source.py, pre-repair observation
 
 Observed: 2026-10-21T05:41:35.453Z
 
-python/scripts/_wsc_jsonl_source.py
-   1: """Strict, read-only JSONL ingestion with identity for the bytes actually parsed."""
-   2: 
-   3: from __future__ import annotations
-   4: 
-   5: import hashlib
-   6: import json
-   7: import re
-   8: from decimal import Decimal, DecimalException
-   9: from pathlib import Path
-  10: from typing import Any
-  11: 
-  12: 
-  13: def _reject_json_constant(value: str) -> None:
-  14:     raise ValueError(f"non-standard JSON constant: {value}")
-  15: 
-  16: 
-  17: def read_jsonl(path: Path) -> tuple[list[dict[str, Any]], dict[str, Any]]:
-  18:     """Read object rows; a file identity makes no cross-file atomicity claim."""
-  19:     rows: list[dict[str, Any]] = []
-  20:     source: dict[str, Any] = {
-  21:         "state": "missing",
-  22:         "invalid_lines": 0,
-  23:         "blank_lines": 0,
-  24:         "sha256": None,
-  25:         "bytes": None,
-  26:     }
-  27:     try:
-  28:         raw = path.read_bytes()
-  29:     except FileNotFoundError:
-  30:         return rows, source
-  31: 
-  32:     # Identity and records use the same read, including every malformed byte.
-  33:     source.update(state="ok", sha256=hashlib.sha256(raw).hexdigest(), bytes=len(raw))
-  34:     # Match the prior text reader's LF/CRLF/CR boundaries, not Unicode separators.
-  35:     lines = re.split(rb"\r\n?|\n", raw)
-  36:     if lines[-1] == b"":
-  37:         lines.pop()  # A final terminator (or empty file) adds no extra line.
-  38:     for raw_line in lines:
-  39:         try:
-  40:             line = raw_line.decode("utf-8", errors="replace")
-  41:         except UnicodeDecodeError:
-  42:             source["invalid_lines"] += 1
-  43:             continue
-  44:         if not line.strip():
-  45:             source["blank_lines"] += 1
-  46:             continue
-  47:         try:
-  48:             value = json.loads(
-  49:                 line,
-  50:                 parse_float=Decimal,
-  51:                 parse_constant=_reject_json_constant,
-  52:             )
-  53:         except (json.JSONDecodeError, ValueError, DecimalException, RecursionError):
-  54:             source["invalid_lines"] += 1
-  55:             continue
-  56:         if not isinstance(value, dict):
-  57:             source["invalid_lines"] += 1
-  58:             continue
-  59:         rows.append(value)
-  60:     return rows, source
+python/scripts/_wsc_jsonl_source.py
+
+   1: """Strict, read-only JSONL ingestion with identity for the bytes actually parsed."""
+
+   2: 
+
+   3: from __future__ import annotations
+
+   4: 
+
+   5: import hashlib
+
+   6: import json
+
+   7: import re
+
+   8: from decimal import Decimal, DecimalException
+
+   9: from pathlib import Path
+
+  10: from typing import Any
+
+  11: 
+
+  12: 
+
+  13: def _reject_json_constant(value: str) -> None:
+
+  14:     raise ValueError(f"non-standard JSON constant: {value}")
+
+  15: 
+
+  16: 
+
+  17: def read_jsonl(path: Path) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+
+  18:     """Read object rows; a file identity makes no cross-file atomicity claim."""
+
+  19:     rows: list[dict[str, Any]] = []
+
+  20:     source: dict[str, Any] = {
+
+  21:         "state": "missing",
+
+  22:         "invalid_lines": 0,
+
+  23:         "blank_lines": 0,
+
+  24:         "sha256": None,
+
+  25:         "bytes": None,
+
+  26:     }
+
+  27:     try:
+
+  28:         raw = path.read_bytes()
+
+  29:     except FileNotFoundError:
+
+  30:         return rows, source
+
+  31: 
+
+  32:     # Identity and records use the same read, including every malformed byte.
+
+  33:     source.update(state="ok", sha256=hashlib.sha256(raw).hexdigest(), bytes=len(raw))
+
+  34:     # Match the prior text reader's LF/CRLF/CR boundaries, not Unicode separators.
+
+  35:     lines = re.split(rb"\r\n?|\n", raw)
+
+  36:     if lines[-1] == b"":
+
+  37:         lines.pop()  # A final terminator (or empty file) adds no extra line.
+
+  38:     for raw_line in lines:
+
+  39:         try:
+
+  40:             line = raw_line.decode("utf-8", errors="replace")
+
+  41:         except UnicodeDecodeError:
+
+  42:             source["invalid_lines"] += 1
+
+  43:             continue
+
+  44:         if not line.strip():
+
+  45:             source["blank_lines"] += 1
+
+  46:             continue
+
+  47:         try:
+
+  48:             value = json.loads(
+
+  49:                 line,
+
+  50:                 parse_float=Decimal,
+
+  51:                 parse_constant=_reject_json_constant,
+
+  52:             )
+
+  53:         except (json.JSONDecodeError, ValueError, DecimalException, RecursionError):
+
+  54:             source["invalid_lines"] += 1
+
+  55:             continue
+
+  56:         if not isinstance(value, dict):
+
+  57:             source["invalid_lines"] += 1
+
+  58:             continue
+
+  59:         rows.append(value)
+
+  60:     return rows, source
+
 
 
 Exact archived excerpt: C:\Users\48522\AppData\Local\Temp\wsc-factual-view-check-3_8o3f1v\exports\ab0c7d36e8d34368881c81015623fc09\excerpts\6db0b9286f1b7d5efa99516a2540b85be3f59f3d4b4bae6b6d4429ec91fb0aac.txt
@@ -139,17 +200,28 @@ Historical location: MEMORY.md:138-145 (historical citation; archived content id
 
 Observed: 2026-10-21T05:41:35.453Z
 
-## User preferences
-
-- when accounting semantics are involved, the user required “金额未知不等于已知零”, preserve every request and existing public calls -> model unknown as `cost_cny=None`/`billed=None`, not a fabricated zero or deleted record. [Task 1]
-- when a pre-existing receipt may be reused, the user said “已有真实RunChecks回执如果仍适用于当前源码，可以引用” -> compare the current source manifest/hash first; rerun checks if it drifted. [Task 1]
-- when delivering, the user required “如实交代实际验证” -> explicitly separate named RunChecks from full-project, semantic, real-ledger, and atomic-snapshot claims. [Task 1]
-
-## Reusable knowledge
-
-- Amount identity: missing, `None`, booleans, nonnumeric/nonfinite values, and `cost_source="unpriced"` mean unknown; known zero remains `0.0`; finite negative values remain recorded with `billed=False`. If any request is unknown, total `cost_cny` is null while a known-amount subtotal is retained. [Task 1]
-- `fold_shot_extra_miss` must group by `(request.session_id, request.anchor_ts)` and compare only windows containing both `fold_shot` and `post_fold`; retry/pre-fold/isolated-shot windows do not contribute, and negative differences remain valid. [Task 1]
-- `python/scripts/wsc_pairing_report.py --usage-dir DIR --json [--include-requests]` is read-only: parse `events.jsonl`/`fold_events.jsonl` from raw bytes, report SHA-256/bytes plus missing/empty/bad/invalid-UTF-8 conditions, keep valid attempts, and emit strict JSON with no NaN/Infinity. `atomic_ledger_snapshot="not_established"` means two independently hashed files are not a common-time snapshot. [Task 1]
+## User preferences
+
+
+
+- when accounting semantics are involved, the user required “金额未知不等于已知零”, preserve every request and existing public calls -> model unknown as `cost_cny=None`/`billed=None`, not a fabricated zero or deleted record. [Task 1]
+
+- when a pre-existing receipt may be reused, the user said “已有真实RunChecks回执如果仍适用于当前源码，可以引用” -> compare the current source manifest/hash first; rerun checks if it drifted. [Task 1]
+
+- when delivering, the user required “如实交代实际验证” -> explicitly separate named RunChecks from full-project, semantic, real-ledger, and atomic-snapshot claims. [Task 1]
+
+
+
+## Reusable knowledge
+
+
+
+- Amount identity: missing, `None`, booleans, nonnumeric/nonfinite values, and `cost_source="unpriced"` mean unknown; known zero remains `0.0`; finite negative values remain recorded with `billed=False`. If any request is unknown, total `cost_cny` is null while a known-amount subtotal is retained. [Task 1]
+
+- `fold_shot_extra_miss` must group by `(request.session_id, request.anchor_ts)` and compare only windows containing both `fold_shot` and `post_fold`; retry/pre-fold/isolated-shot windows do not contribute, and negative differences remain valid. [Task 1]
+
+- `python/scripts/wsc_pairing_report.py --usage-dir DIR --json [--include-requests]` is read-only: parse `events.jsonl`/`fold_events.jsonl` from raw bytes, report SHA-256/bytes plus missing/empty/bad/invalid-UTF-8 conditions, keep valid attempts, and emit strict JSON with no NaN/Infinity. `atomic_ledger_snapshot="not_established"` means two independently hashed files are not a common-time snapshot. [Task 1]
+
 
 
 Exact archived excerpt: C:\Users\48522\AppData\Local\Temp\wsc-factual-view-check-3_8o3f1v\exports\ab0c7d36e8d34368881c81015623fc09\excerpts\eafb0083ea6fcc020d82332f17ce09679ba10bd3711b5687a4dd84dd76981b56.txt
@@ -172,7 +244,8 @@ Historical location: historical git status result
 
 Observed: 2026-10-21T05:41:19.632Z
 
-
+
+
 fatal: not a git repository (or any of the parent directories): .git
 
 

@@ -28,7 +28,7 @@ class EquivalentReplayChecks(unittest.TestCase):
         r = self.core.remember(Understanding('prior', 'state', ('user',)), producer='model')
         self.core.remember(Understanding('revision', 'state', ('user',), id=r['id'], expected_revision=1), producer='model')
         snap = self.core.capture()
-        self.refs = [v['ref'] for v in snap.understandings]
+        self.refs = [snap.understandings[-1]['ref']]
         view = self.core.prepare(snap, Selection(('user',), tuple(self.refs)), producer='model')
         self.previous = dict(session_id='old', workspace=str(old.resolve()), cut=snap.cut,
             source_digest=snap.source_digest, view_id=view, understanding_refs=self.refs, excerpts=[])

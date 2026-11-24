@@ -29,7 +29,7 @@ def presentation_items(package, presentation):
         return package["items"]
     require(package["through"] == package["binding"]["cut"], "report_projection_tail_unsupported")
     return recorded_items(package["items"], read(package["understanding_index"]),
-                          working_state_index=len(package["items"]) - 1)
+                          working_state_index=0)
 
 
 def preflight(reg):

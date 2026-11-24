@@ -1,8 +1,4 @@
-"""Opt-in bounded object I/O and Windows installation-time path leases.
-
-Leases protect named regular files and their directory entries through a host
-callback. They do not replace the host's atomic commit/receipt contract.
-"""
+"""Opt-in bounded object I/O with atomic no-replace publication."""
 from contextlib import contextmanager,ExitStack
 from hashlib import sha256
 from pathlib import Path
@@ -101,8 +97,7 @@ class ResourceIO:
             directory_fsync_requested=self.sync_directory,
             directory_fsync_platform_path=os.name!='nt',directory_fsync_verified=False,
             windows_directory_durability_verified=False,
-            installation_path_leases=os.name=='nt',
-            power_loss_recovery_proven=False,max_lease_handles=self.max_open_handles)
+            power_loss_recovery_proven=False)
 
     def _sync(self,directory):
         if not self.sync_directory:return
@@ -150,29 +145,3 @@ class ResourceIO:
                 require((length,hasher.digest())==signature,'evidence_object_conflict')
                 cache[path]=signature
             yield write
-
-    @contextmanager
-    def lease(self,package):
-        require(os.name=='nt','installation_resource_lease_unavailable')
-        paths=set()
-        def collect(value):
-            if isinstance(value,dict):
-                for key in ('file_path','readable_path'):
-                    if key in value:paths.add(Path(value[key]))
-                for nested in value.values():collect(nested)
-            elif isinstance(value,list):
-                for nested in value:collect(nested)
-        collect(package.get('evidence',{}));collect(package.get('excerpt_evidence',{}));collect(package.get('adapter',{}).get('projection_evidence',{}))
-        paths.update(Path(package[k]) for k in ('source_index','understanding_index'))
-        paths.update(Path(b['resource']) for b in package.get('current_reference_bindings',[]) if b.get('status')=='unique_content_match')
-        directories={p for path in paths for p in path.parents}
-        require(len(paths)+len(directories)<=self.max_open_handles,'installation_resource_budget_exhausted')
-        stack=ExitStack()
-        try:
-            for path in sorted(directories,key=lambda p:(len(p.parts),str(p))):stack.enter_context(self.opened(path,directory=True))
-            for path in sorted(paths,key=str):stack.enter_context(self.opened(path))
-        except OSError:
-            stack.close();raise WSCError('installation_resource_unavailable') from None
-        except BaseException:
-            stack.close();raise
-        with stack:yield

@@ -47,7 +47,7 @@ class SuccessorCheckpointTests(unittest.TestCase):
 
     def test_successor_preserves_prior_state_and_later_task_controls(self):
         result = self.build('successor')
-        self.assertEqual(self.tail, result['items'][:-1])
+        self.assertEqual(self.tail, result['items'][1:])
         self.assertEqual([{'path':str(self.parent_path.resolve()),
                           'package_digest':self.parent['package_digest']}], result['adapter']['ancestor_packages'])
         self.assertNotIn('source_registration_sha256', result['adapter']['host_context_binding'])

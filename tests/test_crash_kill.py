@@ -101,19 +101,6 @@ class RealKillChecks(TestCase):
             self.assertEqual(0, ctx.recover()['scanned'])
             self.assert_settled(1)
 
-    def test_kill_during_blob_write_leaves_reclaimable_temp_file(self):
-        self.kill('during_blob')
-        temps = list((self.root / 'results' / 'objects').glob('.*.tmp'))
-        self.assertEqual(1, len(temps))
-        ctx = self.runtime()
-        self.assert_settled(0)
-        # A fresh temp file may belong to a concurrent writer; only aged ones go.
-        self.assertEqual([], ctx.recover()['blobs'].get('temp_removed', []))
-        old = time.time() - 3600
-        os.utime(temps[0], (old, old))
-        self.assertEqual([temps[0].name], ctx.recover()['blobs']['temp_removed'])
-        self.assertFalse(temps[0].exists())
-
     def test_kill_during_recovery_is_repeatable(self):
         self.kill('after_blob')
         self.kill('during_recovery')

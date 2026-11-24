@@ -16,21 +16,36 @@ window.__ModuleLoader__.load({
         modeActive: 'Active',
         modeShadow: 'Shadow (measure only)',
         modeOff: 'Off',
-        capacityMode: 'Capacity basis',
-        modeRatio: 'Share of context window',
-        modeTokens: 'Fixed token count',
+        secTrigger: 'Compaction trigger',
+        secCheckpoint: 'Checkpoint content',
+        secExtraction: 'Extraction',
+        secTools: 'Tools',
         capacityPercent: 'Window share (%)',
-        capacityTokens: 'Token cap',
+        effectiveWindow: 'Working window (tokens, 0 = model window)',
         warn: 'Warning threshold',
         force: 'Forced compaction',
-        retain: 'Retained tail',
-        selection: 'Checkpoint source',
-        selectionDeterministic: 'Deterministic extraction',
-        selectionBasic: 'Model summary (shipped)',
-        selectionSelective: 'Model selection (verbatim quotes)',
+        minReclaim: 'Minimum reclaim (%)',
+        ledgerCap: 'Ledger byte cap (0 = unlimited)',
+        ledgerDenoise: 'Fold superseded ledger entries',
+        evidenceRows: 'Evidence index rows (0 = off)',
+        latest: 'Pin the latest request',
+        recent: 'Recent changes and checks',
+        verify: 'Entry verification',
+        verifyLiteral: 'Literal anchors (default)',
+        verifyCite: 'Citation only',
+        verifyQuote: 'Verbatim quote',
+        segment: 'Extraction segment (bytes)',
+        entries: 'Entries per segment',
+        effort: 'Extraction reasoning effort',
+        effortInherit: 'Inherit session',
+        effortOff: 'Off',
+        effortLow: 'Low',
+        effortMedium: 'Medium',
+        effortHigh: 'High',
+        verifyHint: 'Literal anchors: numbers, paths and identifiers in an entry must appear in the cited message, otherwise the entry is rejected. This blocks fabricated values but cannot prove a prose rationale. Citation only checks that the cited message exists. Verbatim quote requires exact supporting text; it is the strongest check and costs more output tokens.',
         denoise: 'Denoise tool output',
-        evidence: 'History retrieval tool',
-        hint: 'Capacity basis is exclusive. Warning and forced compaction are fractions of the chosen capacity.',
+        evidence: 'Register the history retrieval tool',
+        hint: 'Thresholds are shares of the capacity. A warning-triggered compaction is skipped when it would reclaim less than the minimum.',
         unavailable: 'This profile does not serve the WSC configuration.',
         saved: 'Saved',
         failed: 'Not saved',
@@ -43,21 +58,36 @@ window.__ModuleLoader__.load({
         modeActive: '启用',
         modeShadow: '影子（只测量）',
         modeOff: '关闭',
-        capacityMode: '容量口径',
-        modeRatio: '按窗口占比',
-        modeTokens: '按固定 token 数',
+        secTrigger: '压缩触发',
+        secCheckpoint: '检查点内容',
+        secExtraction: '抽取',
+        secTools: '工具',
         capacityPercent: '窗口占比（%）',
-        capacityTokens: 'Token 上限',
+        effectiveWindow: '有效窗口（token，0 = 模型窗口）',
         warn: '警告阈值',
         force: '强制压缩阈值',
-        retain: '保留尾部比例',
-        selection: '检查点来源',
-        selectionDeterministic: '确定性抽取',
-        selectionBasic: '模型摘要（官方）',
-        selectionSelective: '模型选材（逐字引用）',
+        minReclaim: '最小回收比例（%）',
+        ledgerCap: '账本字节上限（0 = 不限）',
+        ledgerDenoise: '折叠账本旧版本',
+        evidenceRows: '证据索引行数（0 = 关闭）',
+        latest: '置顶最新请求',
+        recent: '最近改动与检查',
+        verify: '条目校验',
+        verifyLiteral: '字面锚点（默认）',
+        verifyCite: '仅校验引用',
+        verifyQuote: '逐字引文',
+        segment: '抽取分段（字节）',
+        entries: '每段条目上限',
+        effort: '抽取推理强度',
+        effortInherit: '继承会话',
+        effortOff: '关闭',
+        effortLow: '低',
+        effortMedium: '中',
+        effortHigh: '高',
+        verifyHint: '字面锚点：条目里的数字、路径、标识符必须出现在被引用的消息里，否则丢弃；能挡住编造值，但不能证明散文式理由。仅校验引用：只要求引用存在，最便宜。逐字引文：模型必须给出原文，引擎逐字核对，最强但输出更多。',
         denoise: '工具输出去噪',
-        evidence: '历史回读工具',
-        hint: '容量口径二选一；警告和强制压缩按所选上限的比例计算。',
+        evidence: '注册历史回读工具',
+        hint: '阈值按窗口容量的比例计算；提示触发的压缩若回收量低于最小比例，会被跳过。',
         unavailable: '当前 profile 没有提供 WSC 配置。',
         saved: '已保存',
         failed: '未保存',
@@ -87,6 +117,12 @@ window.__ModuleLoader__.load({
         borderBottom: '1px solid var(--dsw-alias-border-l1, rgba(128,128,128,0.18))',
       },
       label: { color: 'var(--dsw-alias-label-primary)', fontSize: 14 },
+      section: {
+        color: 'var(--dsw-alias-label-primary)',
+        fontSize: 13,
+        fontWeight: 600,
+        margin: '18px 0 2px',
+      },
       hint: { color: 'var(--dsw-alias-label-secondary)', fontSize: 12, lineHeight: '18px', marginTop: 12 },
       control: {
         color: 'var(--dsw-alias-label-primary)',
@@ -145,16 +181,16 @@ window.__ModuleLoader__.load({
         h('option', { value: 'off' }, t('modeOff')),
       )
 
-      const selection = h(
+      const verification = h(
         'select',
         {
           style: styles.control,
-          value: value.selection ?? 'selective',
-          onChange: (event) => write('selection', event.target.value),
+          value: value.nosigVerification ?? 'literal',
+          onChange: (event) => write('nosigVerification', event.target.value),
         },
-        h('option', { value: 'deterministic' }, t('selectionDeterministic')),
-        h('option', { value: 'basic' }, t('selectionBasic')),
-        h('option', { value: 'selective' }, t('selectionSelective')),
+        h('option', { value: 'literal' }, t('verifyLiteral')),
+        h('option', { value: 'cite' }, t('verifyCite')),
+        h('option', { value: 'quote' }, t('verifyQuote')),
       )
 
       const number = (key, min, max, step = 0.01, disabled = false) =>
@@ -172,30 +208,39 @@ window.__ModuleLoader__.load({
           },
         })
 
-      const tokenMode = value.capacityMode === 'tokens'
-      const capacityMode = h(
-        'div',
-        { style: { display: 'flex', gap: 12, alignItems: 'center' } },
-        h(
-          'label',
-          { style: styles.label },
-          h('input', {
-            type: 'radio',
-            checked: !tokenMode,
-            onChange: () => write('capacityMode', 'ratio'),
-          }),
-          ` ${t('modeRatio')}`,
-        ),
-        h(
-          'label',
-          { style: styles.label },
-          h('input', {
-            type: 'radio',
-            checked: tokenMode,
-            onChange: () => write('capacityMode', 'tokens'),
-          }),
-          ` ${t('modeTokens')}`,
-        ),
+      const percent = (key, fallback) =>
+        h('input', {
+          style: styles.number,
+          type: 'number',
+          min: 0,
+          max: 100,
+          step: 1,
+          defaultValue: Math.round((value[key] ?? fallback) * 100),
+          onBlur: (event) => {
+            const parsed = Number(event.target.value)
+            if (Number.isFinite(parsed)) write(key, clamp(parsed, 0, 100) / 100)
+          },
+        })
+
+      const check = (key) =>
+        h('input', {
+          type: 'checkbox',
+          checked: value[key] !== false,
+          onChange: (event) => write(key, event.target.checked),
+        })
+
+      const effort = h(
+        'select',
+        {
+          style: styles.control,
+          value: value.nosigReasoningEffort ?? '',
+          onChange: (event) => write('nosigReasoningEffort', event.target.value),
+        },
+        h('option', { value: '' }, t('effortInherit')),
+        h('option', { value: 'off' }, t('effortOff')),
+        h('option', { value: 'low' }, t('effortLow')),
+        h('option', { value: 'medium' }, t('effortMedium')),
+        h('option', { value: 'high' }, t('effortHigh')),
       )
 
       return h(
@@ -204,31 +249,32 @@ window.__ModuleLoader__.load({
         h('h2', { style: styles.title }, t('title')),
         h('p', { style: styles.intro }, t('intro')),
         h(Row, { label: t('mode') }, mode),
-        h(Row, { label: t('capacityMode') }, capacityMode),
-        h(Row, { label: t('capacityPercent') }, number('capacityPercent', 1, 100, 1, tokenMode)),
-        h(Row, { label: t('capacityTokens') }, number('capacityTokens', 1024, 10000000, 1, !tokenMode)),
+
+        h('h3', { style: styles.section }, t('secTrigger')),
+        h(Row, { label: t('effectiveWindow') }, number('effectiveWindowTokens', 0, 1000000, 1000)),
+        h(Row, { label: t('capacityPercent') }, number('capacityPercent', 1, 100, 1)),
         h(Row, { label: t('warn') }, number('warnRatio', 0.5, 0.95)),
         h(Row, { label: t('force') }, number('forceRatio', 0.5, 0.99)),
-        h(Row, { label: t('retain') }, number('retainRatio', 0, 0.5)),
-        h(Row, { label: t('selection') }, selection),
-        h(
-          Row,
-          { label: t('denoise') },
-          h('input', {
-            type: 'checkbox',
-            checked: value.denoise === true,
-            onChange: (event) => write('denoise', event.target.checked),
-          }),
-        ),
-        h(
-          Row,
-          { label: t('evidence') },
-          h('input', {
-            type: 'checkbox',
-            checked: value.evidenceTool !== false,
-            onChange: (event) => write('evidenceTool', event.target.checked),
-          }),
-        ),
+        h(Row, { label: t('minReclaim') }, percent('minReclaimRatio', 0.15)),
+
+        h('h3', { style: styles.section }, t('secCheckpoint')),
+        h(Row, { label: t('ledgerCap') }, number('ledgerCapBytes', 0, 65536, 1)),
+        h(Row, { label: t('ledgerDenoise') }, check('ledgerDenoise')),
+        h(Row, { label: t('evidenceRows') }, number('evidenceIndexRows', 0, 20, 1)),
+        h(Row, { label: t('latest') }, check('passageLatest')),
+        h(Row, { label: t('recent') }, check('passageRecent')),
+
+        h('h3', { style: styles.section }, t('secExtraction')),
+        h(Row, { label: t('verify') }, verification),
+        h(Row, { label: t('segment') }, number('nosigSegmentBytes', 4096, 200000, 1)),
+        h(Row, { label: t('entries') }, number('nosigEntryCap', 1, 50, 1)),
+        h(Row, { label: t('effort') }, effort),
+
+        h('h3', { style: styles.section }, t('secTools')),
+        h(Row, { label: t('denoise') }, check('denoise')),
+        h(Row, { label: t('evidence') }, check('evidenceTool')),
+
+        h('p', { style: styles.hint }, t('verifyHint')),
         h('p', { style: styles.hint }, t('hint')),
         status === '' ? null : h('p', { style: styles.hint }, t(status)),
       )

@@ -77,12 +77,21 @@
   config:
     mode: active
     capacityMode: ratio
-    capacityPercent: 43
-    warnRatio: 0.8
-    forceRatio: 0.85
-    retainRatio: 0.136
-    minReclaimRatio: 0
+    # 60/80 按可用窗口计：budget = 可用窗口，warning 0.6，forced 0.8。
+    capacityPercent: 100
+    warnRatio: 0.6
+    forceRatio: 0.8
+    # nosig 不保留原文尾部，避免与账本重复。
+    retainRatio: 0
+    minReclaimRatio: 0.15
     selection: selective
+    strategy: nosig
+    nosigVerification: literal
+    nosigSegmentBytes: 24000
+    nosigEntryCap: 5
+    nosigRevisionCap: 3
+    nosigLedgerBytes: 8000
+    nosigMaxTokens: 8192
     controlItemCap: 4000
     selectionMaxTokens: 16384
     payloadWorkingset: true

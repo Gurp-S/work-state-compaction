@@ -65,7 +65,7 @@ class LateCell(RecoveryCell):
         try:
             parent=self.new('parent');append_history(parent,prefix,self.out/'prefix-import.json')
             bootstrap=effective(parent,Path(parent.opened['thread']['path']).read_bytes())[:-len(prefix)]
-            core=WSC(Store(self.out/'state.db',session_id=self.out.name,workspace=str(self.work)),access=lambda *a:True,resource_io=ResourceIO(),query_policy='prefix_index_v1',publication_policy='bounded_catalog_v1')
+            core=WSC(Store(self.out/'state.db',session_id=self.out.name,workspace=str(self.work)),access=lambda *a:True,resource_io=ResourceIO())
             self.core=core;adapter=CodexCheckpointAdapter()
             core.ingest(adapter.import_items(prefix,thread_id=parent.opened['thread']['id'],start_ordinal=len(bootstrap)))
             first_selector=self.new('selector-1');first_receiver=self.new('receiver-1');snapshot=core.capture()

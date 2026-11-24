@@ -38,13 +38,13 @@ class FactualViewTests(unittest.TestCase):
     def test_controls_and_unfolded_tail_are_exact_protocol_values(self):
         original = self.render(CodexCheckpointAdapter())
         candidate = self.render(FactualCodexCheckpointAdapter())
-        self.assertEqual(original[:1], candidate[:1])
+        self.assertEqual(original[1:2], candidate[1:2])
         self.assertEqual(original[2:], candidate[2:])
-        self.assertEqual("assistant", candidate[1]["role"])
-        self.assertEqual("commentary", candidate[1]["phase"])
+        self.assertEqual("assistant", candidate[0]["role"])
+        self.assertEqual("commentary", candidate[0]["phase"])
 
     def test_interpretation_scope_excerpt_and_all_direct_sources_remain(self):
-        text = self.render(FactualCodexCheckpointAdapter())[1]["content"][0]["text"]
+        text = self.render(FactualCodexCheckpointAdapter())[0]["content"][0]["text"]
         for value in ("Existing interpretation", "historical", "Historical result", "A saved clue",
                       "Exact observation \ufffd\u2028 text", "/archive/call.txt", "/archive/selected.txt",
                       "/archive/sources.json", "/archive/understandings.json", "yesterday",
@@ -57,7 +57,7 @@ class FactualViewTests(unittest.TestCase):
         adapter = FactualCodexCheckpointAdapter(execution_facts=facts)
         facts["current_workspace"] = "/changed-after-construction"
         before = copy.deepcopy((self.body, self.source, self.locators))
-        text = self.render(adapter)[1]["content"][0]["text"]
+        text = self.render(adapter)[0]["content"][0]["text"]
         self.assertIn('"current_workspace":"/actual"', text)
         self.assertNotIn("changed-after-construction", text)
         self.assertEqual(before, (self.body, self.source, self.locators))

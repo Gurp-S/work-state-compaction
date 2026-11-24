@@ -14,6 +14,9 @@ import { dirname } from 'node:path'
 
 const IDENTIFIER = /^[A-Za-z0-9][A-Za-z0-9_.:@-]*$/
 
+export const STATUSES = ['active', 'superseded', 'invalidated']
+export const STATE_FIELDS = { status: 'active', observedAt: null, validUntil: null, invalidWhen: null }
+
 /** @param {string} code @returns {never} */
 const fail = (code) => {
   throw new Error(code)
@@ -49,7 +52,7 @@ export class UnderstandingStore {
     }
     for (const line of text.split('\n')) {
       if (line.trim() === '') continue
-      const record = JSON.parse(line)
+      const record = { ...STATE_FIELDS, ...JSON.parse(line) }
       const list = rows.get(record.id) ?? []
       list.push(record)
       rows.set(record.id, list)
@@ -93,7 +96,7 @@ export class UnderstandingStore {
   /**
    * Append one revision.
    *
-   * @param {{ text: string, kind: string, sources?: string[], scope?: object|null, id?: string|null, expectedRevision?: number|null }} value
+   * @param {{ text: string, kind: string, sources?: string[], scope?: object|null, id?: string|null, expectedRevision?: number|null, status?: string, observedAt?: string|null, validUntil?: string|null, invalidWhen?: object|null }} value
    * @param {{ producer: string, allowedSources?: Iterable<string>|null }} options
    * @returns {object} the stored record.
    */
@@ -104,6 +107,15 @@ export class UnderstandingStore {
     identifier(value.kind, 'understanding_kind_invalid')
     if (value.scope !== undefined && value.scope !== null && !isPlainObject(value.scope)) {
       fail('invalid_understanding_scope')
+    }
+    const status = value.status ?? 'active'
+    if (!STATUSES.includes(status)) fail('understanding_status_invalid')
+    const invalidWhen = value.invalidWhen ?? null
+    if (invalidWhen !== null && !isPlainObject(invalidWhen)) fail('invalid_understanding_invalid_when')
+    for (const field of [value.observedAt, value.validUntil]) {
+      if (field !== undefined && field !== null && (typeof field !== 'string' || field.trim() === '')) {
+        fail('understanding_time_invalid')
+      }
     }
     const sources = value.sources ?? []
     if (!Array.isArray(sources) || sources.some((source) => typeof source !== 'string')) {
@@ -129,6 +141,10 @@ export class UnderstandingStore {
       kind: value.kind,
       sources: [...sources],
       scope: value.scope ?? null,
+      status,
+      observedAt: value.observedAt ?? null,
+      validUntil: value.validUntil ?? null,
+      invalidWhen: invalidWhen === null ? null : { ...invalidWhen },
       id,
       revision,
       ref: `${id}@${revision}`,

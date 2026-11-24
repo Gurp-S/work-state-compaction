@@ -40,11 +40,10 @@ restored=hydrate(body,source_rows)
 restored['excerpt_locators']=package['excerpt_evidence']
 expected=RecordedCodexCheckpointAdapter().render(restored,source_rows,package['binding']['cut'],package['evidence'],
     source_index=package['source_index'],understanding_index=package['understanding_index'])
-index=sum(row['kind']=='message' for row in body['sources'])
 table=read(package['adapter']['projection_evidence']['file_path'])
-expanded=expand_working_state(package['items'][index]['content'][0]['text'],table)
-assert expanded==json.loads(expected[index]['content'][0]['text'])
-assert package['items'][:index]==expected[:index] and package['items'][index+1:]==expected[index+1:]
+expanded=expand_working_state(package['items'][0]['content'][0]['text'],table)
+assert expanded==json.loads(expected[0]['content'][0]['text'])
+assert package['items'][1:]==expected[1:]
 rendered=len(encode(package['items']).encode())
 save(OUT/'package.json',package)
 result=dict(same_model_draft_sha256=file_hash(original/'S2-generation/model-draft.json'),

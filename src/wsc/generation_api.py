@@ -8,19 +8,13 @@ the part a type annotation alone cannot enforce at runtime.
 """
 from .contracts import Generated, require
 
-KINDS = ('json-command', 'bounded-json-command', 'frontier')
+KINDS = ('json-command',)
 
 
 def build_generator(kind, *args, **options):
     if kind == 'json-command':
         from .generation import JsonCommandGenerator
         return JsonCommandGenerator(*args, **options)
-    if kind == 'bounded-json-command':
-        from .bounded_generation import BoundedJsonCommandGenerator
-        return BoundedJsonCommandGenerator(*args, **options)
-    if kind == 'frontier':
-        from .generation_frontier import FrontierSpanSelectionGenerator
-        return FrontierSpanSelectionGenerator(*args, **options)
     raise ValueError('generation_kind_unknown')
 
 

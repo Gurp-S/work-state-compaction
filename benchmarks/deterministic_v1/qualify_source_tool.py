@@ -93,7 +93,7 @@ def run_candidate(args,*,ledger=None,arm='wsc',cohort=None,timing=None):
     if getattr(args,'bound_windows_io',False):
         from wsc.bound_windows_io import BoundWindowsIO
         io_type=BoundWindowsIO
-    core=WSC(Store(path,session_id=binding['session_id'],workspace=binding['workspace']),access=lambda *a:True,resource_io=io_type(),query_policy='prefix_index_v1',publication_policy='bounded_catalog_v1')
+    core=WSC(Store(path,session_id=binding['session_id'],workspace=binding['workspace']),access=lambda *a:True,resource_io=io_type())
     snapshot=measure('wsc.capture',core.capture);previous=read(args.source/'C1-continuation.json')
     material,offered=measure('wsc.frontier',frontier,core,snapshot,previous,args.out/'cold-public')
     handler_type=SourceToolHandler

@@ -43,5 +43,5 @@ class NativeCarrierCheckpointAdapter(FactualCodexCheckpointAdapter):
                     for r in (body or {}).get("sources", [])), "native_carrier_control_prefix_required")
         items = super().render(body, sources, cut, locators,
                                source_index=source_index, understanding_index=understanding_index)
-        items.insert(len((body or {}).get("sources", [])), deepcopy(self.carrier))
+        items.insert(1 + len((body or {}).get("sources", [])), deepcopy(self.carrier))
         return items

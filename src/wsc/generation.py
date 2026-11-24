@@ -28,12 +28,6 @@ class JsonCommandGenerator:
         self.max_stderr_bytes=max_stderr_bytes;self.cleanup=None
 
     def __call__(self, material):
-        if not self.legacy:
-            from .bounded_generation import BoundedJsonCommandGenerator
-            bounded=BoundedJsonCommandGenerator(self.argv,cwd=self.cwd,timeout=self.timeout,
-                max_output_bytes=self.max_output_bytes,max_stderr_bytes=self.max_stderr_bytes)
-            try:return bounded(material)
-            finally:self.cleanup=bounded.cleanup
         with tempfile.TemporaryDirectory(prefix="wsc-generation-") as temp:
             root = Path(temp)
             source, output, error = root / "input.json", root / "output.json", root / "error.txt"

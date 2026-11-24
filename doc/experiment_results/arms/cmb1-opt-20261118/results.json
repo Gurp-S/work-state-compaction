@@ -1,0 +1,130 @@
+{
+  "arm_id": "cmb1-opt-20261118",
+  "status": "complete",
+  "run": {
+    "answer_calls": 1515,
+    "prompt_tokens": 1555560,
+    "completion_tokens": 588712,
+    "answer_seconds": 4168.3,
+    "judge_calls": 1665,
+    "judge_seconds": 4358.8,
+    "total_seconds": 8527.1,
+    "note": "39 answers are gateway-failure fallbacks; valid answered set is 675"
+  },
+  "metrics": {
+    "answered": 714,
+    "judged": 714,
+    "gateway_failed_answers": 39,
+    "passed_all": 583,
+    "pass_rate_all": 0.8165,
+    "valid_vs_common": {
+      "valid_answered": 675,
+      "passed_valid": 577,
+      "common_subset_ids": 664,
+      "passed_common": 568,
+      "pass_rate_common": 0.8554
+    },
+    "retrieve_median_s": 0.86,
+    "retrieve_p95_s": 11.358,
+    "candidates_median": 4,
+    "personas": {
+      "P01": {
+        "passed": 77,
+        "total": 88
+      },
+      "P12": {
+        "passed": 71,
+        "total": 79
+      },
+      "P14": {
+        "passed": 72,
+        "total": 82
+      },
+      "P16": {
+        "passed": 94,
+        "total": 123
+      },
+      "P17": {
+        "passed": 129,
+        "total": 172
+      },
+      "P20": {
+        "passed": 140,
+        "total": 170
+      }
+    },
+    "storage": {
+      "events": 2346,
+      "identities": 7721,
+      "identities_per_event": 3.291,
+      "revisions": 9464,
+      "multi_revision_identities": 770,
+      "db_size_mb": 20.5,
+      "pending": 143
+    }
+  },
+  "samples": [
+    {
+      "id": "P01-ADD-001/d00",
+      "persona": "P01",
+      "question": "我妈生日是哪天？",
+      "answer": "三月八号。",
+      "pass": true,
+      "reason": "回答“三月八号”与已知事实“三月八号”一致，直接回答了生日问题，未出现禁止内容。",
+      "candidates": 2,
+      "retrieve_seconds": 0.94
+    },
+    {
+      "id": "P12-ADD-001/d00",
+      "persona": "P12",
+      "question": "我上回说下雨才考虑挪货架，当时已经挪了吗？",
+      "answer": "没有挪。当时说先放在原处，等下雨那天后门还是漏，才考虑把货架往前挪。",
+      "pass": true,
+      "reason": "回答明确说明当时未挪，并准确表述为“下雨那天后门还是漏才考虑把货架往前挪”的条件设想，符合F1。",
+      "candidates": 3,
+      "retrieve_seconds": 0.59
+    },
+    {
+      "id": "P14-CASE-added-address/d45",
+      "persona": "P14",
+      "question": "赵启明寄图的地址是什么？",
+      "answer": "我不记得。记忆里只有“赵启明尚未把收件地址发给用户、地址晚点发”，没有具体地址。",
+      "pass": false,
+      "reason": "回答正确说明没有具体地址、未编造地址，也未断言历史后实际未发送；但没有按 rubric 明确请用户或赵启明确认地址，因此未完全满足 required。",
+      "candidates": 6,
+      "retrieve_seconds": 5.007
+    },
+    {
+      "id": "P16-CASE-added-assistant_colors/d00",
+      "persona": "P16",
+      "question": "你之前提议的三种颜色分别标什么？",
+      "answer": "我不记得。",
+      "pass": false,
+      "reason": "材料清楚显示助手曾建议红色标临期、蓝色标待补、黄色标待确认（F1，第295、297轮）；回答只说“我不记得”，没有给出这三种颜色的对应标注，未满足必答事实。",
+      "candidates": 2,
+      "retrieve_seconds": 0.62
+    },
+    {
+      "id": "P16-CASE-batch-home_story/d00",
+      "persona": "P16",
+      "question": "我姐现在已经考到区外，我每周都去看她了吗？",
+      "answer": "我不记得",
+      "pass": false,
+      "reason": "回答只说“我不记得”，没有说明姐姐考到区外后周日下午去看她只是当时设想，历史未记录已成为实际安排，未满足必答事实。",
+      "candidates": null,
+      "retrieve_seconds": null,
+      "error": "RuntimeError: gateway kept failing: empty content"
+    }
+  ],
+  "logs": {
+    "answer": "benchmarks/results/cmb1-opt-20261118/answers.jsonl",
+    "judgments": "benchmarks/results/cmb1-opt-20261118/judgments.jsonl",
+    "summary": "benchmarks/results/cmb1-opt-20261118/summary.json",
+    "run_log": "benchmarks/results/cmb1-opt-20261118.log",
+    "judge_log": "benchmarks/results/cmb1-opt-20261118/judge.log"
+  },
+  "state_notes": [
+    "39 answers carry a gateway error and a fallback answer; they are excluded from valid/common metrics.",
+    "The v2: extraction cache was later partially degraded by interrupted resumes, so the DB on disk is not identical to the answer-time DB."
+  ]
+}

@@ -31,7 +31,7 @@ perform its normal fresh checks even if these observations are favorable.
         db.execute('PRAGMA query_only=ON')
         db.execute('BEGIN')
         try:
-            prefix = validate_snapshot(db, core.store, snapshot, indexed=False)
+            prefix = validate_snapshot(db, core.store, snapshot)
             view = view_record(db, previous_view_id)
             previous = view['binding']
             require(previous['session_id'] == snapshot.session_id

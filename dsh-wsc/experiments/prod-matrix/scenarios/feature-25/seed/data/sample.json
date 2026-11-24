@@ -1,0 +1,9 @@
+{
+  "customer": "acme",
+  "lines": [
+    { "sku": "A-100", "unitPrice": 12.5, "quantity": 2 },
+    { "sku": "B-200", "unitPrice": 3.25, "quantity": 4 },
+    { "sku": "C-300", "unitPrice": 99.99, "quantity": 1 },
+    { "sku": "D-400", "unitPrice": 0.5, "quantity": 10 }
+  ]
+}

@@ -11,5 +11,4 @@ class RecordedCodexCheckpointAdapter(CoveredCodexCheckpointAdapter):
     def render(self, body, sources, cut, locators, *, source_index, understanding_index):
         items = super().render(body, sources, cut, locators,
                                source_index=source_index, understanding_index=understanding_index)
-        index = sum(row["kind"] == "message" for row in (body or {}).get("sources", []))
-        return recorded_items(items, (body or {}).get("understandings", []), working_state_index=index)
+        return recorded_items(items, (body or {}).get("understandings", []), working_state_index=0)
