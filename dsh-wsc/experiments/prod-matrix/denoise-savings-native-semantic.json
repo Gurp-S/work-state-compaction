@@ -1,0 +1,127 @@
+{
+  "scope": "native runs; logged tool results replayed through old and new runtime denoise; chars/4 token estimate; weighted by run resend factor",
+  "summary": {
+    "refactor-18": {
+      "runs": 3,
+      "resultsMedian": 192,
+      "bigMedian": 11,
+      "rawTokensMedian": 52554,
+      "oldSavedTokensMedian": 18663,
+      "newSavedTokensMedian": 18512,
+      "incrementalTokensMedian": 2308,
+      "weightedNewSavedMedian": 335533,
+      "weightedIncrementalMedian": 38786,
+      "commandHitsMedian": 27,
+      "rescueHitsMedian": 0,
+      "factorMedian": 17.20129738147653,
+      "ruleSavedTokensMedian": {
+        "command_family": 13324,
+        "dedupe_reads": 3270,
+        "truncate_head_tail": 2801,
+        "strip_noise_lines": 478,
+        "diff_digest": 0
+      }
+    },
+    "long-40": {
+      "runs": 8,
+      "resultsMedian": 375,
+      "bigMedian": 16,
+      "rawTokensMedian": 114607,
+      "oldSavedTokensMedian": 31714,
+      "newSavedTokensMedian": 35630,
+      "incrementalTokensMedian": 3387,
+      "weightedNewSavedMedian": 601808,
+      "weightedIncrementalMedian": 59987,
+      "commandHitsMedian": 47,
+      "rescueHitsMedian": 0,
+      "factorMedian": 18,
+      "ruleSavedTokensMedian": {
+        "command_family": 18701,
+        "dedupe_reads": 9676,
+        "truncate_head_tail": 1578,
+        "strip_noise_lines": 858
+      }
+    },
+    "feature-25": {
+      "runs": 2,
+      "resultsMedian": 158,
+      "bigMedian": 2,
+      "rawTokensMedian": 30943,
+      "oldSavedTokensMedian": 6781,
+      "newSavedTokensMedian": 7634,
+      "incrementalTokensMedian": 852,
+      "weightedNewSavedMedian": 196093,
+      "weightedIncrementalMedian": 22715,
+      "commandHitsMedian": 23,
+      "rescueHitsMedian": 0,
+      "factorMedian": 26,
+      "ruleSavedTokensMedian": {
+        "command_family": 7224,
+        "truncate_head_tail": 243,
+        "dedupe_reads": 167
+      }
+    },
+    "constraint-25": {
+      "runs": 4,
+      "resultsMedian": 148,
+      "bigMedian": 2,
+      "rawTokensMedian": 30664,
+      "oldSavedTokensMedian": 6987,
+      "newSavedTokensMedian": 8312,
+      "incrementalTokensMedian": 1326,
+      "weightedNewSavedMedian": 197257,
+      "weightedIncrementalMedian": 34421,
+      "commandHitsMedian": 24,
+      "rescueHitsMedian": 0,
+      "factorMedian": 26,
+      "ruleSavedTokensMedian": {
+        "truncate_head_tail": 72,
+        "command_family": 7722,
+        "strip_noise_lines": 4,
+        "diff_digest": 0,
+        "dedupe_reads": 0
+      }
+    },
+    "bugfix-16": {
+      "runs": 3,
+      "resultsMedian": 54,
+      "bigMedian": 2,
+      "rawTokensMedian": 17464,
+      "oldSavedTokensMedian": 7176,
+      "newSavedTokensMedian": 7112,
+      "incrementalTokensMedian": 595,
+      "weightedNewSavedMedian": 171159,
+      "weightedIncrementalMedian": 14316,
+      "commandHitsMedian": 15,
+      "rescueHitsMedian": 0,
+      "factorMedian": 24.060229428864865,
+      "ruleSavedTokensMedian": {
+        "command_family": 5579,
+        "dedupe_reads": 504,
+        "strip_noise_lines": 303
+      }
+    }
+  },
+  "overall": {
+    "runs": 20,
+    "results": 4677,
+    "rawChars": 5107946,
+    "oldSavedChars": 1428924,
+    "newSavedChars": 1584982,
+    "incrementalChars": 156058,
+    "rawTokens": 1276987,
+    "oldSavedTokens": 357231,
+    "newSavedTokens": 396246,
+    "incrementalTokens": 39015,
+    "oldSavedPct": 27.97,
+    "newSavedPct": 31.03,
+    "incrementalPct": 3.06,
+    "ruleSavedTokens": {
+      "command_family": 235173,
+      "dedupe_reads": 105845,
+      "truncate_head_tail": 24942,
+      "strip_noise_lines": 27191,
+      "diff_digest": 3100
+    }
+  }
+}

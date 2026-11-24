@@ -1,0 +1,125 @@
+{
+  "scope": "native runs; logged tool results replayed through old and new runtime denoise; chars/4 token estimate; weighted by run resend factor",
+  "summary": {
+    "refactor-18": {
+      "runs": 3,
+      "resultsMedian": 192,
+      "bigMedian": 11,
+      "rawTokensMedian": 52554,
+      "oldSavedTokensMedian": 18663,
+      "newSavedTokensMedian": 11653,
+      "incrementalTokensMedian": -7010,
+      "weightedNewSavedMedian": 211213,
+      "weightedIncrementalMedian": -127058,
+      "commandHitsMedian": 3,
+      "rescueHitsMedian": 0,
+      "factorMedian": 17.20129738147653,
+      "ruleSavedTokensMedian": {
+        "strip_noise_lines": 478,
+        "dedupe_reads": 3270,
+        "truncate_head_tail": 2801,
+        "diff_digest": 0,
+        "command_family": 2690
+      }
+    },
+    "long-40": {
+      "runs": 8,
+      "resultsMedian": 375,
+      "bigMedian": 16,
+      "rawTokensMedian": 114607,
+      "oldSavedTokensMedian": 31714,
+      "newSavedTokensMedian": 14416,
+      "incrementalTokensMedian": -14845,
+      "weightedNewSavedMedian": 280980,
+      "weightedIncrementalMedian": -269853,
+      "commandHitsMedian": 0,
+      "rescueHitsMedian": 0,
+      "factorMedian": 18,
+      "ruleSavedTokensMedian": {
+        "dedupe_reads": 9676,
+        "truncate_head_tail": 1578,
+        "strip_noise_lines": 858,
+        "command_family": 0
+      }
+    },
+    "feature-25": {
+      "runs": 2,
+      "resultsMedian": 158,
+      "bigMedian": 2,
+      "rawTokensMedian": 30943,
+      "oldSavedTokensMedian": 6781,
+      "newSavedTokensMedian": 410,
+      "incrementalTokensMedian": -6371,
+      "weightedNewSavedMedian": 9890,
+      "weightedIncrementalMedian": -163476,
+      "commandHitsMedian": 0,
+      "rescueHitsMedian": 0,
+      "factorMedian": 26,
+      "ruleSavedTokensMedian": {
+        "truncate_head_tail": 243,
+        "dedupe_reads": 167
+      }
+    },
+    "constraint-25": {
+      "runs": 4,
+      "resultsMedian": 148,
+      "bigMedian": 2,
+      "rawTokensMedian": 30664,
+      "oldSavedTokensMedian": 6987,
+      "newSavedTokensMedian": 322,
+      "incrementalTokensMedian": -6130,
+      "weightedNewSavedMedian": 8957,
+      "weightedIncrementalMedian": -142661,
+      "commandHitsMedian": 0,
+      "rescueHitsMedian": 0,
+      "factorMedian": 26,
+      "ruleSavedTokensMedian": {
+        "truncate_head_tail": 72,
+        "strip_noise_lines": 4,
+        "diff_digest": 0,
+        "dedupe_reads": 0
+      }
+    },
+    "bugfix-16": {
+      "runs": 3,
+      "resultsMedian": 54,
+      "bigMedian": 2,
+      "rawTokensMedian": 17464,
+      "oldSavedTokensMedian": 7176,
+      "newSavedTokensMedian": 2358,
+      "incrementalTokensMedian": -4901,
+      "weightedNewSavedMedian": 50849,
+      "weightedIncrementalMedian": -105688,
+      "commandHitsMedian": 0,
+      "rescueHitsMedian": 0,
+      "factorMedian": 24.060229428864865,
+      "ruleSavedTokensMedian": {
+        "dedupe_reads": 504,
+        "strip_noise_lines": 303,
+        "command_family": 0
+      }
+    }
+  },
+  "overall": {
+    "runs": 20,
+    "results": 4677,
+    "rawChars": 5107946,
+    "oldSavedChars": 1428924,
+    "newSavedChars": 709608,
+    "incrementalChars": -719316,
+    "rawTokens": 1276987,
+    "oldSavedTokens": 357231,
+    "newSavedTokens": 177402,
+    "incrementalTokens": -179829,
+    "oldSavedPct": 27.97,
+    "newSavedPct": 13.89,
+    "incrementalPct": -14.08,
+    "ruleSavedTokens": {
+      "strip_noise_lines": 28941,
+      "dedupe_reads": 105845,
+      "truncate_head_tail": 24942,
+      "diff_digest": 3100,
+      "command_family": 14578
+    }
+  }
+}
